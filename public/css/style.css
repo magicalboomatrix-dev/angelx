@@ -2812,3 +2812,8 @@ section.section-4 .dflex-out .rw span.black {
     color: #000;
 }
 
+.page-wrappers.deposit-amount-page.add-bank-page  section.table-section .pricerefBx {
+    margin-top: 0;
+    padding: 10px 15px;
+}
+
