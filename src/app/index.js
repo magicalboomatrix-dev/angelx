@@ -14,7 +14,7 @@ export default function Index() {
     return () => clearTimeout(timer);
   }, []);
 
-
+ 
   return (
     <div>
       <div className="page-wrappers">
@@ -668,5 +668,6 @@ export default function Index() {
     </div>
   );
 }
+
 
 
