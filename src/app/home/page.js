@@ -68,7 +68,7 @@ export default function HomePage() {
     <div>
       <main>
         <div className="page-wrappers page-wrapper-ex home-wrappers">
-          <header className="header">
+          <header className="header" style={{position: "relative"}}>
             <div className="left"></div>
             <div className="right">
               { /* <img src="images/customer-care.png" /> */ }
@@ -242,3 +242,4 @@ export default function HomePage() {
     </div>
   );
 }
+
