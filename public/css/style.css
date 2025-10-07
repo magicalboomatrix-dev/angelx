@@ -1266,6 +1266,8 @@ footer.footer.footer-op1 button.button-style {
 
 .page-wrappers.deposit-amount-page.add-bank-page .section-1 {
 	background: #fff;
+	display: inline-block;
+    width: 100%;
 }
 
 .page-wrappers.add-bank-page .section-1 .dflex {
@@ -2579,6 +2581,8 @@ footer.footer.footer-op1 {border: 0;}
 
 .page-wrappers.deposit-amount-page.add-bank-page .section-1 {
 	background: #fff;
+	display: inline-block;
+    width: 100%;
 }
 
 .page-wrappers.add-bank-page .section-1 .dflex {
@@ -2811,4 +2815,5 @@ header.header.setting-header {
 section.section-4 .dflex-out .rw span.black {
     color: #000;
 }
+
 
