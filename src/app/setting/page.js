@@ -6,6 +6,11 @@ import Image from "next/image";
 
 export default function SettingPage() {
 
+    const handleLogout = () => {
+    localStorage.removeItem("token");
+    router.push("/login");
+  };
+
 
 
   return (
@@ -90,9 +95,10 @@ export default function SettingPage() {
                 </div>
               </div>
 
-              <button className="button-style logout">
+              <button className="button-style logout" onClick={handleLogout}>
                 Logout
               </button>
+  
             </section>
           </div>
         </div>
@@ -100,3 +106,4 @@ export default function SettingPage() {
     </div>
   );
 }
+
