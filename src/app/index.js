@@ -126,7 +126,7 @@ export default function Index() {
                 </div>
                 <div className="right">
                 <div className="info">
-                    <h3>Acess expert knowledgeeee</h3>
+                    <h3>Acess expert knowledge</h3>
                     <p>Ensure that every user can earn profits on the platform regardless of how much money they have</p>
                 </div>
                 </div>
@@ -668,4 +668,5 @@ export default function Index() {
     </div>
   );
 }
+
 
