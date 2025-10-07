@@ -178,6 +178,7 @@ export default function AddBank() {
 
           {/* CONTENT */}
           <div className="page-wrapper page-wrapper-ex">
+             <div class="bnr"><img src="images/top-bnr.png" style="width: 100%; float: left;"/></div>
             {/* BANK SELECTION */}
             <section className="section-1 text-center">
               <div className="dflex border-btm">
@@ -340,3 +341,4 @@ export default function AddBank() {
     </div>
   );
 }
+
