@@ -323,6 +323,50 @@ export default function AddBank() {
               </div>
             </section>
 
+            <section className="table-section">
+                <div className="pricerefBx">
+  <table width="100%">
+    <thead>
+      <tr>
+        <th>Exchanges($)</th>
+        <th>Prices(₹)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>&gt;=980.4 and &lt;1960.79</td>
+        <td>
+          102+ <span className="red">0.25</span>
+        </td>
+      </tr>
+      <tr>
+        <td>&gt;=1960.79 and &lt;2941.18</td>
+        <td>
+          102+ <span className="red">0.5</span>
+        </td>
+      </tr>
+      <tr>
+        <td>&gt;=2941.18 and &lt;4901.97</td>
+        <td>
+          102+ <span className="red">1</span>
+        </td>
+      </tr>
+      <tr>
+        <td>&gt;=4901.97</td>
+        <td>
+          102+ <span className="red">1.5</span>
+        </td>
+      </tr>
+      <tr>
+        <td colSpan={2}>
+          <a href="#">What is tiered price policy?</a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+</section>
+
             {/* FOOTER */}
             <div className="warning inner-space">
               <div className="login-bx" style={{ backgroundColor: "black", borderRadius: "100px" }}>
@@ -341,5 +385,6 @@ export default function AddBank() {
     </div>
   );
 }
+
 
 
