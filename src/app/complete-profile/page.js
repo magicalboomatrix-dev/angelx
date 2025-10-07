@@ -59,7 +59,7 @@ export default function CompleteProfile() {
               <h3 className="title">
                 <b>Welcome to AngleX</b>
               </h3>
-             <h4 style={{fontWeight: 'normal',fontSize: '16px',paddingBottom: '10px',color: '#696969'}}>
+             <h4 style={{fontWeight: 'normal',fontSize: '20px',paddingBottom: '10px',color: '#696969'}}>
                 Hope your're doing doing well! 
               </h4>
 
@@ -106,6 +106,7 @@ export default function CompleteProfile() {
     </div>
   );
 }
+
 
 
 
