@@ -59,10 +59,9 @@ export default function CompleteProfile() {
               <h3 className="title">
                 <b>Welcome to AngleX</b>
               </h3>
-              <p>
-                AngelX is the most trustable and exchange partner, the more you
-                exchange, the more you earn!
-              </p>
+              <h4 style={{font-weight: 'normal',fontSize: '16px',paddingBottom: '10px';color: '#696969'}};>
+                Hope your're doing doing well! 
+              </h4>
               <div className="form-bx">
                 {error && <p style={{ color: 'red', marginBottom: '10px' }}>{error}</p>}
 
@@ -106,3 +105,4 @@ export default function CompleteProfile() {
     </div>
   );
 }
+
