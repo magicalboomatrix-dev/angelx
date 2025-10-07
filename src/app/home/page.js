@@ -43,11 +43,6 @@ export default function HomePage() {
     fetchUser();
   }, [router]);
 
-  const handleLogout = () => {
-    localStorage.removeItem("token");
-    router.push("/login");
-  };
-
   if (loading) {
     return (
       <div className="page-wrappers">
@@ -231,10 +226,6 @@ export default function HomePage() {
                   </Link>
                 </div>
               </div>
-
-              <button className="button-style logout" onClick={handleLogout}>
-                Logout
-              </button>
             </section>
           </div>
         </div>
@@ -242,4 +233,5 @@ export default function HomePage() {
     </div>
   );
 }
+
 
