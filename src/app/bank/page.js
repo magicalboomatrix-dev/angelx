@@ -178,7 +178,7 @@ export default function BankPage() {
               ) : message ? (
                 <p style={{ color: "red", marginTop: "10px" }}>{message}</p>
               ) : banks.length === 0 ? (
-                <p>No bank accounts added yet.</p>
+                <p style={{padding: "10px 0 0 0 "}}>No bank accounts added yet.</p>
               ) : (
                 <div style={styles.bankList}>
                   {banks.map((bank) => (
@@ -229,3 +229,4 @@ export default function BankPage() {
     </div>
   );
 }
+
