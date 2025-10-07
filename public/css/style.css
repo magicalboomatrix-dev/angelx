@@ -925,7 +925,7 @@ footer.footer {
     max-width: 17px;
     position: absolute;
     right: -21px;
-    top: -4px;
+    top: 0px;
 }
 
 .page-wrappers.home-wrappers section.section-3 .inside button.btn {
@@ -2220,7 +2220,7 @@ footer.footer {
     max-width: 17px;
     position: absolute;
     right: -21px;
-    top: -4px;
+    top: 0px;
 }
 
 .page-wrappers.home-wrappers section.section-3 .inside button.btn {
@@ -2811,3 +2811,4 @@ header.header.setting-header {
 section.section-4 .dflex-out .rw span.black {
     color: #000;
 }
+
