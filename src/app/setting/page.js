@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import Image from "next/image";
 
 export default function SettingPage() {
+      const router = useRouter();
 
     const handleLogout = () => {
     localStorage.removeItem("token");
@@ -106,4 +107,5 @@ export default function SettingPage() {
     </div>
   );
 }
+
 
