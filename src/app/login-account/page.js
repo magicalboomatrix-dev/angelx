@@ -150,9 +150,10 @@ export default function LoginAccount() {
               <h3 className="title">
                 <b>Welcome to AngleX</b>
               </h3>
-              <h4 style={{font-weight: 'normal',fontSize: '16px',paddingBottom: '10px';color: '#696969'}};>
-                Hope your're doing doing well! 
-              </h4>
+            <h4 style={{ fontWeight: 'normal', fontSize: '16px', paddingBottom: '10px', color: '#696969' }}>
+  Hope you're doing well!
+</h4>
+
 
               <div className="form-bx">
                 <div className="form-rw">
@@ -212,5 +213,6 @@ export default function LoginAccount() {
     </div>
   );
 }
+
 
 
