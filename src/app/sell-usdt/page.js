@@ -370,9 +370,10 @@ export default function AddBank() {
             {/* FOOTER */}
             <div className="warning inner-space">
               <div className="login-bx" style={{ backgroundColor: "black", borderRadius: "100px" }}>
-                <button style={{margin-bottom: '0';}} className="login-btn" onClick={handleConfirm}>
-                  Confirm
-                </button>
+               <button style={{ marginBottom: '0' }} className="login-btn" onClick={handleConfirm}>
+  Confirm
+</button>
+
               </div>
               <div className="inside">
                 In order to get your funds back better, faster and more conveniently,
@@ -385,6 +386,7 @@ export default function AddBank() {
     </div>
   );
 }
+
 
 
 
