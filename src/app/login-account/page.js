@@ -150,10 +150,9 @@ export default function LoginAccount() {
               <h3 className="title">
                 <b>Welcome to AngleX</b>
               </h3>
-              <p>
-                AngelX is the most trustable and exchange partner, the more you
-                exchange, the more you earn!
-              </p>
+              <h4>
+                Hope your're doing doing well! 
+              </h4>
 
               <div className="form-bx">
                 <div className="form-rw">
@@ -213,3 +212,4 @@ export default function LoginAccount() {
     </div>
   );
 }
+
