@@ -370,7 +370,7 @@ export default function AddBank() {
             {/* FOOTER */}
             <div className="warning inner-space">
               <div className="login-bx" style={{ backgroundColor: "black", borderRadius: "100px" }}>
-                <button className="login-btn" onClick={handleConfirm}>
+                <button style={{margin-bottom: '0';}} className="login-btn" onClick={handleConfirm}>
                   Confirm
                 </button>
               </div>
@@ -385,6 +385,7 @@ export default function AddBank() {
     </div>
   );
 }
+
 
 
 
