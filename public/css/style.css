@@ -505,7 +505,7 @@ section.section-4 .dflex-out .text span.b {
     color: #000;
     font-size: 28px;
     font-weight: bold;
-    font-family: "Roboto", sans-serif;
+    font-family: 'Geist Mono';
 }
 
 section.section-4 .dflex-out .text span.rs {
@@ -2803,4 +2803,5 @@ header.header.setting-header {
     color: #ff0036;
     font-size: 15px;
     margin-top: 40px;
+
 }
