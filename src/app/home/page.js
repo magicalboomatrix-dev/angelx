@@ -67,14 +67,14 @@ export default function HomePage() {
             <div className="left"></div>
             <div className="right">
               { /* <img src="images/customer-care.png" /> */ }
-              <Link className='' href="/">
+              <a href="https://wa.me/16723270327?text=Hello%2C%20AngleX Team!">
                 <Image                
                 src="/images/customer-care.png"
                 alt="customer"
                 width={19}
                 height={20}
                 priority
-                /></Link>
+                /></a>
 
               <Link className='setting' href="/setting">
                 <Image                
@@ -233,5 +233,6 @@ export default function HomePage() {
     </div>
   );
 }
+
 
 
