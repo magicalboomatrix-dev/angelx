@@ -46,7 +46,7 @@ export default function Index() {
                 
             </div>
             <div className="right">
-                <a href="https://wa.me/+12366055665?text=Hello%2C%20ANGELX">
+            <a href="https://wa.me/16723270327?text=Hello%2C%20AngleX Team!">
                 <Image                
                 src="/images/customer-care.png"
                 alt="customer"
@@ -668,6 +668,7 @@ export default function Index() {
     </div>
   );
 }
+
 
 
 
