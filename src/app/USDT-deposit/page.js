@@ -1,12 +1,21 @@
 'use client'
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import { useRouter } from "next/navigation";
 
 export default function USDTDeposit() {
   const [activeTab, setActiveTab] = useState('TRC20');
   const [amount, setAmount] = useState('');
   const [walletBalance, setWalletBalance] = useState(0);
-  const [error, setError] = useState(''); // <-- add error state
+  const [error, setError] = useState(''); 
+  const router = useRouter();
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      router.replace("/login");
+    }
+  }, [router]);
 
   useEffect(() => {
     const fetchWallet = async () => {
@@ -199,3 +208,4 @@ export default function USDTDeposit() {
     </div>
   );
 }
+
