@@ -101,8 +101,8 @@ export default function AddBank() {
       setSuccessMessage(""); // clear success
       return;
     }
-    if (500 > amt) {
-      setMessage("❌ Minimum 500 USDT, please add funds to complete the transaction.");
+    if (250 > amt) {
+      setMessage("❌ Minimum 250 USDT, please add funds to complete the transaction.");
       setSuccessMessage("");
       return;
     }
@@ -386,6 +386,7 @@ export default function AddBank() {
     </div>
   );
 }
+
 
 
 
