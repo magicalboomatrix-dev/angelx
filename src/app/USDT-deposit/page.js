@@ -46,8 +46,8 @@ export default function USDTDeposit() {
     const value = e.target.value;
     setAmount(value);
 
-    if (value && parseFloat(value) < 100) {
-      setError('Minimum deposit amount is 100 USDT');
+    if (value && parseFloat(value) < 38) {
+      setError('Minimum deposit amount is 38 USDT');
     } else {
       setError('');
     }
@@ -208,6 +208,7 @@ export default function USDTDeposit() {
     </div>
   );
 }
+
 
 
 
