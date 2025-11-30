@@ -54,7 +54,7 @@ export default function USDTDeposit() {
   };
 
   // Disable deposit if amount < 50
-  const isDepositDisabled = !amount || parseFloat(amount) < 38;
+  const isDepositDisabled = !amount || parseFloat(amount) < 10;
 
   return (
     <div>
@@ -208,6 +208,7 @@ export default function USDTDeposit() {
     </div>
   );
 }
+
 
 
 
