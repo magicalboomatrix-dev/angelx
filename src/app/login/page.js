@@ -50,7 +50,7 @@ export default function LoginPage() {
             </section>
             <section className="section-3">
               <p className="title" style={{ textAlign: "center" }}>
-                <b>Welcome to AngleX</b>
+                <b>Welcome to AngelX</b>
               </p>
               <p style={{ textAlign: "center" }}>
                 AngelX is the most trustable and exchange partner, the more you
@@ -71,3 +71,4 @@ export default function LoginPage() {
     </div>
   );
 }
+
