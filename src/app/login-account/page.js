@@ -120,7 +120,7 @@ export default function LoginAccount() {
 
       if (res.ok) {
         if (data.token) localStorage.setItem('token', data.token);
-        setMessage('🎉 OTP verified! Redirecting...');
+        setMessage('OTP verified! Loging In...');
         setTimeout(() => {
           window.location.href = data.redirectTo || '/home';
         }, 1500);
@@ -213,6 +213,7 @@ export default function LoginAccount() {
     </div>
   );
 }
+
 
 
 
