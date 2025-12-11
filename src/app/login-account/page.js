@@ -148,7 +148,7 @@ export default function LoginAccount() {
             </div>
             <section className="section-1">
               <h3 className="title">
-                <b>Welcome to AngleX</b>
+                <b>Welcome to Angelx</b>
               </h3>
             <h4 style={{fontWeight: 'normal',fontSize: '20px',paddingBottom: '10px',color: '#696969'}}>
                 Hope your're doing doing well! 
@@ -213,6 +213,7 @@ export default function LoginAccount() {
     </div>
   );
 }
+
 
 
 
