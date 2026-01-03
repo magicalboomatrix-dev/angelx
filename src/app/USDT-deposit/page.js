@@ -199,7 +199,7 @@ export default function USDTDeposit() {
               <div className="inside">
                 <img src="images/warn.png" className="icon" />
                 For the safety of your funds, please note that the recharge address for each order is different. 
-                Please double-check carefully to avoid the risk of irretrievable funds.
+                Please double-check carefully to avoid the risk of irretrievable fundsddd.
               </div>
             </div>
           </div>
@@ -208,6 +208,7 @@ export default function USDTDeposit() {
     </div>
   );
 }
+
 
 
 
