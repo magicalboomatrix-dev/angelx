@@ -2822,7 +2822,9 @@ section.section-4 .dflex-out .rw span.black {
     font-size: 18px;
     font-weight: 600;
 }
-
+section.section-3 .screenshot-wrapper img.screenshot-img {
+    max-width: 100%;
+}
 
 .screenshot-wrapper .price-calc {
     margin-top: 10px;
@@ -2869,6 +2871,7 @@ section.section-4 .dflex-out .rw span.black {
     font-weight: bold;
     padding: 10px 0;
 }
+
 
 
 
