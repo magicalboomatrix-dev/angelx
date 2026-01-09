@@ -77,7 +77,7 @@ export default function Index() {
         </header>
 
         <div className="page-wrapper">
-            <section className="section-1">
+            <section className="section-1 hm-section-1">
             <div className="image">
                 <Image                
                 src="/images/welcome-banner.png"
@@ -707,6 +707,7 @@ export default function Index() {
     </div>
   );
 }
+
 
 
 
