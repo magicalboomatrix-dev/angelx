@@ -141,36 +141,42 @@ export default function Index() {
 
             <>
   <section className="section-3">
- <div className="screenshot-wrapper">                      
-    <div className="image">
-        <Image                
-        src="/images/hm-mob-img.jpg" 
-        alt=""
-        width={358}
-        height={412}
-        className={screenshot-img}
-        priority          
-        />      
+<div classname="screenshot-wrapper">
+  <div classname="image">
+    <img
+      src="/images/hm-mob-img.jpg"
+      alt=""
+      width="{358}"
+      height="{412}"
+      classname="{screenshot-img}"
+      priority=""
+    />
+  </div>
+  <div classname="overlay-box">
+    <div classname="overlay-header">
+      <h2>Platform price</h2>
     </div>
-    <div className="overlay-box">
-   <div className="overlay-header"><h2>Platform price</h2></div>
-   <div className="price-calc">
-                <div className="priceref">
-                  <p>
-                    Automatic refresh after{" "}
-                    <span className="ref">{timeLeft}s</span>
-                  </p>
-                </div>
-                <div className="reff-price">
-                  <div className="base-price">
-                    <h4>
-                      102 <span>Base</span>
-                    </h4>
-                  </div>
-                  <p className="onepriceex">1 USDT = &#8377;102</p>
-          </div>
+    <div classname="price-calc">
+      <div classname="priceref">
+        <p>
+          Automatic refresh after{"{"}" "{"}"}
+          <span classname="ref">
+            {"{"}timeLeft{"}"}s
+          </span>
+        </p>
+      </div>
+      <div classname="reff-price">
+        <div classname="base-price">
+          <h4>
+            102 <span>Base</span>
+          </h4>
+        </div>
+        <p classname="onepriceex">1 USDT = ₹102</p>
+      </div>
+    </div>
+  </div>
 </div>
-</div>      
+    
     <p className="title">
       <b>AngelX official screenshot</b>
     </p>
@@ -694,6 +700,7 @@ export default function Index() {
     </div>
   );
 }
+
 
 
 
