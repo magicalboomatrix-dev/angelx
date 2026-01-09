@@ -71,8 +71,8 @@ export default function HomePage() {
                 <Image                
                 src="/images/customer-care-icon1.png"
                 alt="customer"
-                width={19}
-                height={20}
+                width={24}
+                height={24}
                 priority
                 /></a>
 
@@ -80,8 +80,8 @@ export default function HomePage() {
                 <Image                
                 src="/images/settings.webp"
                 alt="setting"
-                width={19}
-                height={19}
+                width={24}
+                height={24}
                 priority
                 /></Link>
             </div>
@@ -233,6 +233,7 @@ export default function HomePage() {
     </div>
   );
 }
+
 
 
 
