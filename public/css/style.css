@@ -2880,10 +2880,13 @@ section.section-3 .screenshot-wrapper img.screenshot-img {
     padding: 16px 22px;
 	left: 0;
     position: absolute;
-    top: 50%;
+    top: 48%;
     width: 100%;
 }
 
+.screenshot-wrapper .overlay-box h2 {
+    font-size: 20px;
+}
 
 
 
