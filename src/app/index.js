@@ -160,10 +160,10 @@ export default function Index() {
     <Image
       src="/images/hm-mob-img.jpg"
       alt=""
-      width="{358}"
-      height="{412}"
-      classname="{screenshot-img}"
-      priority=""
+      width={358}
+      height={412}
+      classname={screenshotimg}
+      priority
     />
   </div>
   <div classname="overlay-box">
@@ -714,6 +714,7 @@ export default function Index() {
     </div>
   );
 }
+
 
 
 
