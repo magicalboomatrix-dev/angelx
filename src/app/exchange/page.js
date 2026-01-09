@@ -68,7 +68,11 @@ export default function Exchange() {
         <div className="page-wrappers">
           <header className="header">
             <div className="left">
-              <img src="images/w-logo.jpg" />
+  {/*<img src="images/w-logo.jpg" />*/}
+              <div className="header-left">
+                  <img alt="Logo" className="logo" src="/images/logo-icon.png" />
+                  <h1 className="title-left">Welcome to AngelX</h1>
+                </div>
             </div>
             <div className="right">
               <a href="https://wa.me/16723270327?text=Hello%2C%20AngleX Team!">
@@ -339,4 +343,5 @@ export default function Exchange() {
     </div>
   );
 }
+
 
