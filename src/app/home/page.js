@@ -78,7 +78,7 @@ export default function HomePage() {
 
               <Link className='setting' href="/setting">
                 <Image                
-                src="/images/setting.png"
+                src="/images/settings.png"
                 alt="setting"
                 width={19}
                 height={19}
@@ -233,6 +233,7 @@ export default function HomePage() {
     </div>
   );
 }
+
 
 
 
