@@ -36,7 +36,7 @@ export default function Index() {
         
         <header className="header">
             <div className="left">
-            {"{"}/*
+            {/*
             <img
               src="/images/logo.jpg"
               alt="logo"
@@ -44,7 +44,7 @@ export default function Index() {
               height="{33}"
               priority=""
             />
-            */{"}"}
+            */}
                 <div classname="header-left">
                   <img alt="Logo" classname="logo" src="/images/logo-icon.png" />
                   <h1 classname="title-left">AngelX</h1>
@@ -673,6 +673,7 @@ export default function Index() {
     </div>
   );
 }
+
 
 
 
