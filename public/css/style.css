@@ -1390,7 +1390,7 @@ h1, h2, h3, h4, p {
 }
 
 .page-wrapper.page-wrapper-ex {
-    margin-top: 60px;
+    margin-top: 50px;
 	background: #f6f7fa;
 }
 .page-wrapper:hover {
@@ -2881,6 +2881,7 @@ section.hm-section-1 .image img {
 section.hm-section-2  .rw .bx {
 	padding: 15px 10px 15px 0px;
 }
+
 
 
 
