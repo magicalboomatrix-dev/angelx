@@ -83,8 +83,8 @@ export default function Index() {
                      <Image                
                 src="/images/get-started.png"
                 alt=""
-                width={77}
-                height={77}
+                width={96}
+                height={96}
                 priority
                 />
                 </div>
@@ -103,8 +103,8 @@ export default function Index() {
                 <Image                
                 src="/images/boost.png"
                 alt=""
-                width={77}
-                height={77}
+                width={96}
+                height={96}
                 priority
                 />
                 </div>
@@ -123,8 +123,8 @@ export default function Index() {
                     <Image                
                     src="/images/access.png"
                     alt=""
-                    width={77}
-                    height={77}
+                    width={96}
+                    height={96}
                     priority
                     />
                 </div>
@@ -673,6 +673,7 @@ export default function Index() {
     </div>
   );
 }
+
 
 
 
