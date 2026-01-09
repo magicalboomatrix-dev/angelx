@@ -173,7 +173,7 @@ export default function Index() {
     <div classname="price-calc">
       <div classname="priceref">
         <p>
-          Automatic refresh after{" "}}
+          Automatic refresh after{" "}
           <span classname="ref">
             {timeLeft}s
           </span>
@@ -714,6 +714,7 @@ export default function Index() {
     </div>
   );
 }
+
 
 
 
