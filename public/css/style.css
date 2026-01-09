@@ -139,7 +139,7 @@ section.section-2 .rw .bx .image img {
 }
 
 section.section-2 .rw .bx .image {
-    padding: 0 10px 0 5px;
+    padding: 0 10px 0 0px;
     box-sizing: border-box;
 }
 
@@ -2876,6 +2876,7 @@ section.section-3 .screenshot-wrapper img.screenshot-img {
 section.hm-section-1 .image img {
     width: 100%;
 }
+
 
 
 
