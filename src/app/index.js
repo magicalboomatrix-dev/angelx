@@ -157,7 +157,7 @@ export default function Index() {
   <section className="section-3">
 <div classname="screenshot-wrapper">
   <div classname="image">
-    <img
+    <Image
       src="/images/hm-mob-img.jpg"
       alt=""
       width="{358}"
@@ -714,6 +714,7 @@ export default function Index() {
     </div>
   );
 }
+
 
 
 
