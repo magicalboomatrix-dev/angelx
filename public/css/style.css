@@ -1389,16 +1389,6 @@ h1, h2, h3, h4, p {
 	overflow: hidden;
 }
 
-.page-wrapper {
-    height: 90%;
-    padding: 14px 10px 14px 16px;
-    box-sizing: border-box;
-    overflow: auto;
-    margin: 45px 0;
-    scrollbar-width: thin;
-	scrollbar-color: transparent transparent;
-	transition: scrollbar-color 0.3s;
-}
 .page-wrapper.page-wrapper-ex {
     margin-top: 60px;
 	background: #f6f7fa;
@@ -2815,6 +2805,7 @@ header.header.setting-header {
 section.section-4 .dflex-out .rw span.black {
     color: #000;
 }
+
 
 
 
