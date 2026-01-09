@@ -1403,7 +1403,7 @@ header.header .brdc {
 }
 
 header.header .right img {
-    max-width: 19.5px;
+    max-width: 24px;
     position: relative;
     top: 1px;
 	right: 1px;
@@ -2881,6 +2881,7 @@ section.hm-section-1 .image img {
 section.hm-section-2  .rw .bx {
 	padding: 15px 10px 15px 0px;
 }
+
 
 
 
