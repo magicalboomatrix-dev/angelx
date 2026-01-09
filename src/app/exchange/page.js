@@ -245,15 +245,15 @@ export default function Exchange() {
                     </Link>
                   </div>
                   <div className="text">
-                    Avg <span className="b">88.1</span>{" "}
+                    Avg <span className="b">91.64</span>{" "}
                     <span className="rs">RS</span>
                   </div>
-                  <div className="small">1USDT = ₹88.1</div>
+                  <div className="small">1USDT = ₹91.64</div>
                   <div className="rw">
-                    Min <span className="black">88RS</span>
+                    Min <span className="black">90.12RS</span>
                   </div>
                   <div className="rw">
-                    Max <span className="black">88.35RS</span>
+                    Max <span className="black">92.79RS</span>
                   </div>
                 </div>
                 <div className="bx">
@@ -264,15 +264,15 @@ export default function Exchange() {
                     </Link>
                   </div>
                   <div className="text">
-                    Avg <span className="b">94.34</span>{" "}
+                    Avg <span className="b">96.98</span>{" "}
                     <span className="rs">RS</span>
                   </div>
-                  <div className="small">1USDT = ₹94.34</div>
+                  <div className="small">1USDT = ₹96.89</div>
                   <div className="rw">
-                    Min <span className="black">93.74RS</span>
+                    Min <span className="black">95.74RS</span>
                   </div>
                   <div className="rw">
-                    Max <span className="black">94.48RS</span>
+                    Max <span className="black">97.12RS</span>
                   </div>
                 </div>
               </div>
