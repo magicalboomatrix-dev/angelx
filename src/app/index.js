@@ -43,7 +43,7 @@ export default function Index() {
                 height={33}
                 priority
                 />*/}
-                <div class="header-left"><img alt="Logo" class="logo" src="/images/logo-icon.png"><h1 class="title-left">AngelX</h1></div>
+                <div className="header-left"><img alt="Logo" className="logo" src="/images/logo-icon.png"><h1 className="title-left">AngelX</h1></div>
             </div>
             <div className="right">
             <a href="https://wa.me/16723270327?text=Hello%2C%20AngleX Team!">
@@ -668,6 +668,7 @@ export default function Index() {
     </div>
   );
 }
+
 
 
 
