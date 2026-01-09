@@ -2826,6 +2826,9 @@ section.section-3 .screenshot-wrapper img.screenshot-img {
     max-width: 100%;
 }
 
+.screenshot-wrapper {
+    position: relative;
+}
 .screenshot-wrapper .price-calc {
     margin-top: 10px;
     padding: 15px;
@@ -2871,14 +2874,16 @@ section.section-3 .screenshot-wrapper img.screenshot-img {
     font-weight: bold;
     padding: 10px 0;
 }
+
 .screenshot-wrapper .overlay-box {
     margin-bottom: 16px;
     padding: 16px 22px;
 	left: 0;
     position: absolute;
-    top: 53%;
+    top: 50%;
     width: 100%;
 }
+
 
 
 
