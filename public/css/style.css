@@ -2824,4 +2824,52 @@ section.section-4 .dflex-out .rw span.black {
 }
 
 
+.screenshot-wrapper .price-calc {
+    margin-top: 10px;
+    padding: 15px;
+    border-radius: 10px;
+    background-image: url(../images/ex-bg1.png);
+    background-position: left top;
+    background-size: 100%;
+    margin-bottom: 10px;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-color: #fff;
+}
+.screenshot-wrapper .price-calc .priceref {
+    text-align: center;
+}
+.screenshot-wrapper .price-calc .base-price {
+    text-align: center;
+}
+.screenshot-wrapper .price-calc .base-price h4 {
+    font-size: 45px;
+}
+.screenshot-wrapper .price-calc .base-price h4 {
+    font-size: 45px;
+}
+.screenshot-wrapper .price-calc .base-price h4 span {
+    background: url(../images/base.png);
+    font-size: 13px;
+    color: #fff;
+    padding: 4px 7px 5px 10px;
+    background-size: 100%;
+    background-repeat: no-repeat;
+    text-align: center;
+    display: inline-block;
+    font-style: italic;
+    font-family: 'Roboto';
+    font-weight: 400;
+    background-position: center;
+    position: relative;
+    bottom: 5px;
+}
+.screenshot-wrapper p.onepriceex {
+    text-align: center;
+    font-weight: bold;
+    padding: 10px 0;
+}
+
+
+
 
