@@ -2871,6 +2871,14 @@ section.section-3 .screenshot-wrapper img.screenshot-img {
     font-weight: bold;
     padding: 10px 0;
 }
+.screenshot-wrapper .overlay-box {
+    margin-bottom: 16px;
+    padding: 16px 22px;
+	left: 0;
+    position: absolute;
+    top: 53%;
+    width: 100%;
+}
 
 
 
