@@ -89,7 +89,7 @@ export default function Index() {
                 </div>
             </section>
 
-            <section className="section-2">
+            <section className="section-2 hm-section-2">
                 <div className="rw">
                 <div className="bx">
                 <div className="left">
@@ -707,6 +707,7 @@ export default function Index() {
     </div>
   );
 }
+
 
 
 
