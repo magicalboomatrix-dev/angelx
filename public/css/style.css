@@ -1483,7 +1483,7 @@ section.section-3 .image img {
 
 section.section-3 p.title {
     text-align: center;
-    padding-top: 20px;
+    padding-top: 10px;
     font-size: 16px;
 }
 
@@ -2887,6 +2887,7 @@ section.section-3 .screenshot-wrapper img.screenshot-img {
 .screenshot-wrapper .overlay-box h2 {
     font-size: 20px;
 }
+
 
 
 
