@@ -14,6 +14,20 @@ export default function Index() {
     return () => clearTimeout(timer);
   }, []);
 
+  const [timeLeft, setTimeLeft] = useState(52);
+  
+  useEffect(() => {
+    if (timeLeft <= 0) {
+      window.location.reload();
+      return;
+    }
+
+    const timer = setInterval(() => {
+      setTimeLeft((prev) => prev - 1);
+    }, 1000);
+
+    return () => clearInterval(timer); 
+  }, [timeLeft]);
  
   return (
     <div>
@@ -159,9 +173,9 @@ export default function Index() {
     <div classname="price-calc">
       <div classname="priceref">
         <p>
-          Automatic refresh after{"{"}" "{"}"}
+          Automatic refresh after{" "}}
           <span classname="ref">
-            {"{"}timeLeft{"}"}s
+            {timeLeft}s
           </span>
         </p>
       </div>
@@ -700,6 +714,7 @@ export default function Index() {
     </div>
   );
 }
+
 
 
 
