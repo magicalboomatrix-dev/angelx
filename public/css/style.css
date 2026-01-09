@@ -2854,6 +2854,7 @@ section.section-3 .screenshot-wrapper img.screenshot-img {
     position: relative;
     bottom: 5px;
 }
+
 .screenshot-wrapper p.onepriceex {
     text-align: center;
     font-weight: bold;
@@ -2877,6 +2878,9 @@ section.hm-section-1 .image img {
     width: 100%;
 }
 
+section.hm-section-2  .rw .bx {
+	padding: 15px 10px 15px 0px;
+}
 
 
 
