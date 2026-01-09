@@ -36,14 +36,19 @@ export default function Index() {
         
         <header className="header">
             <div className="left">
-        {/*<Image                
-                src="/images/logo.jpg"
-                alt="logo"
-                width={96}
-                height={33}
-                priority
-                />*/}
-                <div className="header-left"><img alt="Logo" className="logo" src="/images/logo-icon.png"><h1 className="title-left">AngelX</h1></div>
+            {"{"}/*
+            <img
+              src="/images/logo.jpg"
+              alt="logo"
+              width="{96}"
+              height="{33}"
+              priority=""
+            />
+            */{"}"}
+                <div classname="header-left">
+                  <img alt="Logo" classname="logo" src="/images/logo-icon.png" />
+                  <h1 classname="title-left">AngelX</h1>
+                </div>
             </div>
             <div className="right">
             <a href="https://wa.me/16723270327?text=Hello%2C%20AngleX Team!">
@@ -668,6 +673,7 @@ export default function Index() {
     </div>
   );
 }
+
 
 
 
