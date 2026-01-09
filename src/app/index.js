@@ -45,9 +45,9 @@ export default function Index() {
               priority=""
             />
             */}
-                <div classname="header-left">
-                  <img alt="Logo" classname="logo" src="/images/logo-icon.png" />
-                  <h1 classname="title-left">AngelX</h1>
+                <div className="header-left">
+                  <img alt="Logo" className="logo" src="/images/logo-icon.png" />
+                  <h1 className="title-left">AngelX</h1>
                 </div>
             </div>
             <div className="right">
@@ -673,6 +673,7 @@ export default function Index() {
     </div>
   );
 }
+
 
 
 
