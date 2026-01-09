@@ -141,15 +141,36 @@ export default function Index() {
 
             <>
   <section className="section-3">
+ <div className="screenshot-wrapper">                      
     <div className="image">
         <Image                
-        src="/images/anglex-img.jpg" 
+        src="/images/hm-mob-img.jpg" 
         alt=""
-        width={329}
-        height={380}
-        priority
+        width={358}
+        height={412}
+        className={screenshot-img}
+        priority          
         />      
     </div>
+    <div className="overlay-box">
+   <div className="overlay-header"><h2>Platform price</h2></div>
+   <div className="price-calc">
+                <div className="priceref">
+                  <p>
+                    Automatic refresh after{" "}
+                    <span className="ref">{timeLeft}s</span>
+                  </p>
+                </div>
+                <div className="reff-price">
+                  <div className="base-price">
+                    <h4>
+                      102 <span>Base</span>
+                    </h4>
+                  </div>
+                  <p className="onepriceex">1 USDT = &#8377;102</p>
+          </div>
+</div>
+</div>      
     <p className="title">
       <b>AngelX official screenshot</b>
     </p>
@@ -673,6 +694,7 @@ export default function Index() {
     </div>
   );
 }
+
 
 
 
