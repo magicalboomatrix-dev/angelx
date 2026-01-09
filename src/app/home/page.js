@@ -123,7 +123,7 @@ export default function HomePage() {
                         <b>0 PAYX</b>
                       </p>
                       <p>
-                        <span>1PAYX = 0.010750USDT</span>
+                        <span>1PAYX = 0.010750 USDT</span>
                         <img src="images/ques.png" className="inq" />
                       </p>
                     </div>
@@ -233,6 +233,7 @@ export default function HomePage() {
     </div>
   );
 }
+
 
 
 
