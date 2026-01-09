@@ -155,37 +155,30 @@ export default function Index() {
 
             <>
   <section className="section-3">
-<div classname="screenshot-wrapper">
-  <div classname="image">
-    <Image
-      src="/images/hm-mob-img.jpg"
-      alt=""
-      width={358}
-      height={412}
-      classname={screenshotimg}
-      priority
-    />
+<div className="screenshot-wrapper">
+  <div className="image">
+    <img alt="Logo" className="screenshot-img" src="/images/hm-mob-img.jpg" />                  
   </div>
-  <div classname="overlay-box">
-    <div classname="overlay-header">
+  <div className="overlay-box">
+    <div className="overlay-header">
       <h2>Platform price</h2>
     </div>
-    <div classname="price-calc">
-      <div classname="priceref">
+    <div className="price-calc">
+      <div className="priceref">
         <p>
           Automatic refresh after{" "}
-          <span classname="ref">
+          <span className="ref">
             {timeLeft}s
           </span>
         </p>
       </div>
-      <div classname="reff-price">
-        <div classname="base-price">
+      <div className="reff-price">
+        <div className="base-price">
           <h4>
             102 <span>Base</span>
           </h4>
         </div>
-        <p classname="onepriceex">1 USDT = ₹102</p>
+        <p className="onepriceex">1 USDT = ₹102</p>
       </div>
     </div>
   </div>
@@ -714,6 +707,7 @@ export default function Index() {
     </div>
   );
 }
+
 
 
 
