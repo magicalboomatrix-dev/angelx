@@ -67,10 +67,10 @@ export default function Index() {
             <div className="right">
             <a href="https://wa.me/16723270327?text=Hello%2C%20AngleX Team!">
                 <Image                
-                src="/images/customer-care.png"
+                src="/images/customer-care-icon.png"
                 alt="customer"
-                width={20}
-                height={20}
+                width={24}
+                height={24}
                 priority
                 /></a>
             </div>
@@ -707,6 +707,7 @@ export default function Index() {
     </div>
   );
 }
+
 
 
 
