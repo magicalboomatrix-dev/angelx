@@ -72,7 +72,7 @@ h1, h2, h3, h4, p {
     padding: 14px 10px 14px 16px;
     box-sizing: border-box;
     overflow: auto;
-    margin: 45px 0;
+    margin: 26px 0 45px;
     scrollbar-width: thin;
 	scrollbar-color: transparent transparent;
 	transition: scrollbar-color 0.3s;
@@ -2815,5 +2815,6 @@ header.header.setting-header {
 section.section-4 .dflex-out .rw span.black {
     color: #000;
 }
+
 
 
