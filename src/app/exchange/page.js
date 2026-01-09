@@ -240,9 +240,9 @@ export default function Exchange() {
                 <div className="bx">
                   <div className="dflex">
                     <img src="images/wazirx.png" />{" "}
-                    <Link href="/exchange">
+                    <a href="https://wazirx.com/" target="_blank">
                       <img src="images/grn-right-arw.png" />
-                    </Link>
+                    </a>
                   </div>
                   <div className="text">
                     Avg <span className="b">91.64</span>{" "}
@@ -259,7 +259,7 @@ export default function Exchange() {
                 <div className="bx">
                   <div className="dflex">
                     <img src="images/binance.png" />{" "}
-                    <Link href="/exchange">
+                    <a href="https://p2p.binance.com/en/trade/BUY/USDT?fiat=INR&payment=ALL" target="_blank">
                       <img src="images/grn-right-arw.png" />
                     </Link>
                   </div>
