@@ -76,7 +76,7 @@ export default function Exchange() {
             </div>
             <div className="right">
               <a href="https://wa.me/16723270327?text=Hello%2C%20AngleX Team!">
-              <img src="images/customer-care.png" />
+              <img src="images/customer-care-icon1.png" />
               </a>
             </div>
           </header>
@@ -343,5 +343,6 @@ export default function Exchange() {
     </div>
   );
 }
+
 
 
