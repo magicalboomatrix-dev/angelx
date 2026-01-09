@@ -261,7 +261,7 @@ export default function Exchange() {
                     <img src="images/binance.png" />{" "}
                     <a href="https://p2p.binance.com/en/trade/BUY/USDT?fiat=INR&payment=ALL" target="_blank">
                       <img src="images/grn-right-arw.png" />
-                    </Link>
+                    </a>
                   </div>
                   <div className="text">
                     Avg <span className="b">96.98</span>{" "}
@@ -343,6 +343,7 @@ export default function Exchange() {
     </div>
   );
 }
+
 
 
 
