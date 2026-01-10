@@ -702,6 +702,7 @@ section.section-4 .dflex-out .rw {
     background: transparent;
     margin-top: 10px;
 	font-weight: normal;
+    color: #000 !important;
 }
 
 .page-wrapperss.form-wrapper .form-bx .form-rw label.text {

@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE "Settings" ADD COLUMN     "depositMin" DOUBLE PRECISION NOT NULL DEFAULT 100;

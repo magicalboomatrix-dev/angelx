@@ -1,9 +1,13 @@
 // POST /api/admin/reject-selling-request
 import prisma from "@/lib/prisma";
 import { NextResponse } from "next/server";
+import { verifyAdminCookie } from "@/lib/adminAuth";
 
 export async function POST(req) {
   try {
+    const admin = verifyAdminCookie(req);
+    if (!admin) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+
     const { transactionId } = await req.json();
     if (!transactionId) {
       return NextResponse.json({ error: "Missing transactionId" }, { status: 400 });

@@ -15,6 +15,7 @@ export default function Exchange() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [checkingAuth, setCheckingAuth] = useState(true);
   const [timeLeft, setTimeLeft] = useState(52);
+  const [rate, setRate] = useState(102);
   
   useEffect(() => {
     if (timeLeft <= 0) {
@@ -57,6 +58,20 @@ export default function Exchange() {
       setIsLoggedIn(true);
     }
     setCheckingAuth(false);
+    
+    // Fetch rate from API
+    const fetchRate = async () => {
+      try {
+        const res = await fetch('/api/limits');
+        if (res.ok) {
+          const data = await res.json();
+          setRate(data.rate || 102);
+        }
+      } catch (err) {
+        console.error('Failed to fetch rate:', err);
+      }
+    };
+    fetchRate();
   }, []);
 
   if (checkingAuth) return null;
@@ -115,10 +130,10 @@ export default function Exchange() {
                 <div className="reff-price">
                   <div className="base-price">
                     <h4>
-                      102 <span>Base</span>
+                      {rate} <span>Base</span>
                     </h4>
                   </div>
-                  <p className="onepriceex">1 USDT = &#8377;102</p>
+                  <p className="onepriceex">1 USDT = &#8377;{rate}</p>
 
                   <div className="pricerefBx">
                     <table width="100%">
@@ -132,25 +147,25 @@ export default function Exchange() {
                         <tr>
                           <td>&gt;=980.4 and &lt;1960.79</td>
                           <td>
-                            102+ <span className="red">0.25</span>
+                            {rate}+ <span className="red">0.25</span>
                           </td>
                         </tr>
                         <tr>
                           <td>&gt;=1960.79 and &lt;2941.18</td>
                           <td>
-                            102+ <span className="red">0.5</span>
+                            {rate}+ <span className="red">0.5</span>
                           </td>
                         </tr>
                         <tr>
                           <td>&gt;=2941.18 and &lt;4901.97</td>
                           <td>
-                            102+ <span className="red">1</span>
+                            {rate}+ <span className="red">1</span>
                           </td>
                         </tr>
                         <tr>
                           <td>&gt;=4901.97</td>
                           <td>
-                            102+ <span className="red">1.5</span>
+                            {rate}+ <span className="red">1.5</span>
                           </td>
                         </tr>
                         <tr>

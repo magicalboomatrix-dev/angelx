@@ -12,24 +12,48 @@ export default function DepositAmount() {
   const [showModal, setShowModal] = useState(false);
   const [message, setMessage] = useState(null);
 
+  // State for dynamic data from API
+  const [qrCodes, setQrCodes] = useState({
+    TRC20: "images/trc20.png",
+    ERC20: "images/erc20.png",
+  });
+
+  const [depositAddresses, setDepositAddresses] = useState({
+    TRC20: "TU7f7jwJr56owuutyzbJEwVqF3ii4KCiPV",
+    ERC20: "0x78845f99b319b48393fbcde7d32fcb7ccd6661bf",
+  });
+
+  // Fetch deposit info from database
+  useEffect(() => {
+    const fetchDepositInfo = async () => {
+      try {
+        const res = await fetch('/api/deposit-info');
+        if (res.ok) {
+          const data = await res.json();
+          if (data.TRC20 && data.ERC20) {
+            setDepositAddresses({
+              TRC20: data.TRC20.address,
+              ERC20: data.ERC20.address,
+            });
+            setQrCodes({
+              TRC20: data.TRC20.qrUrl,
+              ERC20: data.ERC20.qrUrl,
+            });
+          }
+        }
+      } catch (err) {
+        console.error('Error fetching deposit info:', err);
+      }
+    };
+    fetchDepositInfo();
+  }, []);
+
   useEffect(() => {
     const skipReminder = localStorage.getItem("skipFeeReminder");
     if (!skipReminder) {
       setShowModal(true);
     }
   }, []);
-
-  // QR codes
-  const qrCodes = {
-    TRC20: "images/trc20.png",
-    ERC20: "images/erc20.png",
-  };
-
-  // Deposit addresses
-  const depositAddresses = {
-    TRC20: "TU7f7jwJr56owuutyzbJEwVqF3ii4KCiPV",
-    ERC20: "0x78845f99b319b48393fbcde7d32fcb7ccd6661bf",
-  };
 
   // Timer state
   const [timeLeft, setTimeLeft] = useState(0);

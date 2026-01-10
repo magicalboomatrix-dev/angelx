@@ -23,7 +23,8 @@ export default function AddBank() {
   const [successMessage, setSuccessMessage] = useState("");
   const [amount, setAmount] = useState("");
   const [balance, setBalance] = useState(0);
-  const rate = 102;
+  const [rate, setRate] = useState(102);
+  const [withdrawMin, setWithdrawMin] = useState(50);
 
   const selectedBank = banks.find((b) => b.id === selectedBankId);
 
@@ -36,7 +37,21 @@ export default function AddBank() {
   useEffect(() => {
     if (!initialBank) fetchBanks();
     fetchBalance();
+    fetchLimits();
   }, []);
+
+  const fetchLimits = async () => {
+    try {
+      const res = await fetch('/api/limits');
+      if (res.ok) {
+        const data = await res.json();
+        setWithdrawMin(data.withdrawMin || 50);
+        setRate(data.rate || 102);
+      }
+    } catch (err) {
+      console.error('Failed to fetch limits:', err);
+    }
+  };
 
   const fetchBanks = async () => {
     const token = localStorage.getItem("token");
@@ -58,7 +73,14 @@ export default function AddBank() {
       }
 
       const data = await res.json();
-      setBanks(data.banks || []);
+      const banksList = data.banks || [];
+      setBanks(banksList);
+      
+      // Auto-select the first bank or the one marked as selected
+      if (banksList.length > 0 && !selectedBankId) {
+        const defaultBank = banksList.find(b => b.isSelected) || banksList[0];
+        setSelectedBankId(defaultBank.id);
+      }
     } catch (err) {
       console.error(err);
       setMessage("Something went wrong. Please try again later.");
@@ -101,13 +123,21 @@ export default function AddBank() {
       setSuccessMessage(""); // clear success
       return;
     }
-    if (250 > amt) {
-      setMessage("❌ Minimum 250 USDT, please add funds to complete the transaction.");
+    
+    if (!selectedBank) {
+      setMessage("❌ Please select a bank account first.");
       setSuccessMessage("");
       return;
     }
-    if (!selectedBank) {
-      setMessage("Please select a bank account.");
+    
+    if (withdrawMin > amt) {
+      setMessage(`❌ Minimum ${withdrawMin} USDT required for withdrawal.`);
+      setSuccessMessage("");
+      return;
+    }
+    
+    if (amt > balance) {
+      setMessage(`❌ Insufficient balance. Available: ${balance.toFixed(2)} USDT`);
       setSuccessMessage("");
       return;
     }
@@ -192,49 +222,83 @@ export default function AddBank() {
                 </div>
               </div>
 
-              {selectedBank ? (
-                <div style={selectedBankCardStyle}>
-                  <div
-                    style={{
-                      borderBottom: "1px solid #ddd",
-                      padding: "10px 0",
-                      fontSize: "12px",
-                      color: "gray",
-                      display: "flex",
-                      justifyContent: "space-between",
-                    }}
-                  >
-                    <span>Account No.</span>
-                    <span>{selectedBank.accountNo}</span>
-                  </div>
+              {banks.length > 0 ? (
+                <>
+                  {/* Show all available banks for selection */}
+                  {banks.length > 1 && (
+                    <div style={{ padding: '10px 0', borderBottom: '1px solid #eee' }}>
+                      <label style={{ fontSize: '12px', fontWeight: '600', color: '#666', marginBottom: '6px', display: 'block' }}>
+                        Select Bank Account:
+                      </label>
+                      <select 
+                        value={selectedBankId || ''} 
+                        onChange={(e) => setSelectedBankId(Number(e.target.value))}
+                        style={{
+                          width: '100%',
+                          padding: '12px',
+                          borderRadius: '8px',
+                          border: '1px solid #ddd',
+                          fontSize: '14px',
+                          backgroundColor: 'white',
+                          color: '#000',
+                          fontWeight: '500'
+                        }}
+                      >
+                        {banks.map(bank => (
+                          <option key={bank.id} value={bank.id}>
+                            {bank.payeeName} - {bank.accountNo} ({bank.bankName || 'Bank'})
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+                  )}
+                  
+                  {/* Show selected bank details */}
+                  {selectedBank && (
+                    <div style={selectedBankCardStyle}>
+                      <div
+                        style={{
+                          borderBottom: "1px solid #ddd",
+                          padding: "10px 0",
+                          fontSize: "12px",
+                          color: "gray",
+                          display: "flex",
+                          justifyContent: "space-between",
+                        }}
+                      >
+                        <span>Account No.</span>
+                        <span style={{ color: "black" }}>{selectedBank.accountNo}</span>
+                      </div>
 
-                  <div
-                    style={{
-                      borderBottom: "1px solid #ddd",
-                      padding: "10px 0",
-                      fontSize: "12px",
-                      color: "gray",
-                      display: "flex",
-                      justifyContent: "space-between",
-                    }}
-                  >
-                    <span>IFSC</span>
-                    <span style={{ color: "black" }}>{selectedBank.ifsc}</span>
-                  </div>
+                      <div
+                        style={{
+                          borderBottom: "1px solid #ddd",
+                          padding: "10px 0",
+                          fontSize: "12px",
+                          color: "gray",
+                          display: "flex",
+                          justifyContent: "space-between",
+                        }}
+                      >
+                        <span>IFSC</span>
+                        <span style={{ color: "black" }}>{selectedBank.ifsc}</span>
+                      </div>
 
-                  <div
-                    style={{
-                      padding: "10px 0",
-                      fontSize: "12px",
-                      color: "gray",
-                      display: "flex",
-                      justifyContent: "space-between",
-                    }}
-                  >
-                    <span>Payee Name</span>
-                    <span style={{ color: "black" }}>{selectedBank.payeeName}</span>
-                  </div>
-                </div>
+                      <div
+                        style={{
+                          padding: "10px 0",
+                          fontSize: "12px",
+                          color: "gray",
+                          display: "flex",
+                          justifyContent: "space-between",
+                        }}
+                      >
+                        <span>Payee Name</span>
+                        <span style={{ color: "black" }}>{selectedBank.payeeName}</span>
+                      </div>
+                    </div>
+                  )}
+                </>
               ) : (
                 <div className="add-bank">
                   <Link href="/bind-bank-card" className="button-style">

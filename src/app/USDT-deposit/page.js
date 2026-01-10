@@ -8,6 +8,7 @@ export default function USDTDeposit() {
   const [amount, setAmount] = useState('');
   const [walletBalance, setWalletBalance] = useState(0);
   const [error, setError] = useState(''); 
+  const [depositMin, setDepositMin] = useState(100);
   const router = useRouter();
 
   useEffect(() => {
@@ -38,7 +39,20 @@ export default function USDTDeposit() {
       }
     };
 
+    const fetchLimits = async () => {
+      try {
+        const res = await fetch('/api/limits');
+        if (res.ok) {
+          const data = await res.json();
+          setDepositMin(data.depositMin || 100);
+        }
+      } catch (err) {
+        console.error('Failed to fetch limits:', err);
+      }
+    };
+
     fetchWallet();
+    fetchLimits();
   }, []);
 
   // Handle input change
@@ -46,15 +60,15 @@ export default function USDTDeposit() {
     const value = e.target.value;
     setAmount(value);
 
-    if (value && parseFloat(value) < 50) {
-      setError('Minimum deposit amount is 50 USDT.');
+    if (value && parseFloat(value) < depositMin) {
+      setError(`Minimum deposit amount is ${depositMin} USDT.`);
     } else {
       setError('');
     }
   };
 
-  // Disable deposit if amount < 50
-  const isDepositDisabled = !amount || parseFloat(amount) < 50;
+  // Disable deposit if amount < depositMin
+  const isDepositDisabled = !amount || parseFloat(amount) < depositMin;
 
   return (
     <div>

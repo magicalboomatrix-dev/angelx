@@ -30,6 +30,7 @@ model BankCard {
   accountNo  String
   ifsc       String
   payeeName  String
+  bankName   String?
   isSelected Boolean  @default(false)
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt
@@ -63,6 +64,7 @@ model Transaction {
   network    String?  // TRC20, ERC20, etc.
   address    String?  // deposit or withdraw address
   status     String   @default("PENDING") // PENDING / SUCCESS / FAILED
+  description String? // Optional description/reason for the transaction
 
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt
@@ -74,4 +76,17 @@ model Admin {
   password  String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+}
+
+model Settings {
+  id          Int      @id @default(autoincrement())
+  rate        Float    @default(102)
+  withdrawMin Float    @default(50)
+  depositMin  Float    @default(100)
+  trc20Address String  @default("TU7f7jwJr56owuutyzbJEwVqF3ii4KCiPV")
+  erc20Address String  @default("0x78845f99b319b48393fbcde7d32fcb7ccd6661bf")
+  trc20QrUrl   String  @default("images/trc20.png")
+  erc20QrUrl   String  @default("images/erc20.png")
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 }

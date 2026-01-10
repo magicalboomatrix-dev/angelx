@@ -190,6 +190,7 @@ export default function BankPage() {
                         ...(selectedBankId === bank.id ? styles.bankCardSelected : {}),
                       }}
                     >
+                      {bank.bankName && <p style={{ ...styles.paragraph, fontWeight: '600', fontSize: '13px' }}>{bank.bankName}</p>}
                       <p style={styles.paragraph}>Account No: {bank.accountNo}</p>
                       <p style={styles.paragraph}>IFSC: {bank.ifsc}</p>
                       <p style={styles.paragraph}>Payee Name: {bank.payeeName}</p>

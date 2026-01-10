@@ -1,8 +1,12 @@
 import { NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
+import { verifyAdminCookie } from "@/lib/adminAuth";
 
 export async function POST(req) {
   try {
+    const admin = verifyAdminCookie(req);
+    if (!admin) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+
     const body = await req.json();
     const { transactionId } = body;
 

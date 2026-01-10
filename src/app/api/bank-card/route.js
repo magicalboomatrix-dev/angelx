@@ -31,6 +31,7 @@ export async function GET(req) {
         accountNo: true,
         ifsc: true,
         payeeName: true,
+        bankName: true,
         createdAt: true,
       },
     });
@@ -50,9 +51,9 @@ export async function POST(req) {
       return new Response(JSON.stringify({ message: 'Unauthorized' }), { status: 401 });
     }
 
-    const { accountNo, ifsc, payeeName } = await req.json();
+    const { accountNo, ifsc, payeeName, bankName } = await req.json();
     if (!accountNo || !ifsc || !payeeName) {
-      return new Response(JSON.stringify({ message: 'All fields are required' }), { status: 400 });
+      return new Response(JSON.stringify({ message: 'Account number, IFSC, and payee name are required' }), { status: 400 });
     }
 
     // Check for duplicate account
@@ -65,7 +66,7 @@ export async function POST(req) {
     }
 
     const bankCard = await prisma.bankCard.create({
-      data: { userId: user.id, accountNo, ifsc, payeeName },
+      data: { userId: user.id, accountNo, ifsc, payeeName, bankName },
     });
 
     return new Response(JSON.stringify({ message: 'Bank card added successfully!', bankCard }), { status: 200 });

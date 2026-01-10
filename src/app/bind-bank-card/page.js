@@ -9,6 +9,7 @@ export default function AddBankCard() {
   const [accountNo, setAccountNo] = useState('');
   const [ifsc, setIfsc] = useState('');
   const [payeeName, setPayeeName] = useState('');
+  const [bankName, setBankName] = useState('');
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState(''); 
   const [messageType, setMessageType] = useState(''); 
@@ -37,7 +38,7 @@ const handleSubmit = async () => {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${token}`,
       },
-      body: JSON.stringify({ accountNo, ifsc, payeeName }),
+      body: JSON.stringify({ accountNo, ifsc, payeeName, bankName }),
     });
 
     const data = await response.json();
@@ -49,6 +50,7 @@ const handleSubmit = async () => {
       setAccountNo('');
       setIfsc('');
       setPayeeName('');
+      setBankName('');
 
       // Redirect after 1.5 seconds
       setTimeout(() => {
@@ -61,6 +63,7 @@ const handleSubmit = async () => {
       setAccountNo('');
       setIfsc('');
       setPayeeName('');
+      setBankName('');
     }
   } catch (error) {
     console.error(error);
@@ -69,6 +72,7 @@ const handleSubmit = async () => {
     setAccountNo('');
     setIfsc('');
     setPayeeName('');
+    setBankName('');
   } finally {
     setLoading(false);
   }
@@ -126,6 +130,17 @@ const handleSubmit = async () => {
                     placeholder="Please enter Payee Name."
                     value={payeeName}
                     onChange={(e) => setPayeeName(e.target.value)}
+                  />
+                </div>
+
+                <div className="form-rw">
+                  <label className="text" htmlFor="bank-name">Bank Name</label>
+                  <input
+                    type="text"
+                    id="bank-name"
+                    placeholder="Please enter Bank Name (e.g., HDFC, SBI)"
+                    value={bankName}
+                    onChange={(e) => setBankName(e.target.value)}
                   />
                 </div>
 

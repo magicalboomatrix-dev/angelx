@@ -20,7 +20,7 @@ export async function POST(req) {
       data: {
         userId: user.id,
         depositId,
-        txnId: txid,
+        txnId: txid || null,
         type: "DEPOSIT",
         amount: Number(amount),
         network,
@@ -32,6 +32,15 @@ export async function POST(req) {
     return NextResponse.json({ success: true, transaction });
   } catch (err) {
     console.error("Deposit error:", err);
+    if (err.code === 'P2002') {
+      const field = err.meta?.target?.[0];
+      if (field === 'txnId') {
+        return NextResponse.json({ error: "Transaction ID already used" }, { status: 400 });
+      }
+      if (field === 'depositId') {
+        return NextResponse.json({ error: "Deposit request already submitted" }, { status: 400 });
+      }
+    }
     return NextResponse.json({ error: "Server error" }, { status: 500 });
   }
 }

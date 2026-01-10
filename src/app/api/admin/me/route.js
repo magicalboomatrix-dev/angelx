@@ -1,13 +1,27 @@
-import { verifyAdminToken } from "@/lib/adminAuth";
-import Prisma from "@/lib/prisma";
+import { verifyAdminCookie } from "@/lib/adminAuth";
+import prisma from "@/lib/prisma";
+import { NextResponse } from "next/server";
 
+export async function GET(req) {
+  try {
+    const decoded = verifyAdminCookie(req);
+    if (!decoded) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
 
-export default async function handler(req, res) {
-  const decoded = verifyAdminToken(req);
-  if (!decoded) return res.status(401).json({ error: "Unauthorized" });
+    const admin = await prisma.admin.findUnique({ 
+      where: { id: decoded.id },
+      select: { id: true, email: true }
+    });
 
-  const admin = await prisma.admin.findUnique({ where: { id: decoded.id } });
-  if (!admin) return res.status(401).json({ error: "Unauthorized" });
+    if (!admin) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
 
-  res.status(200).json({ admin: { id: admin.id, email: admin.email } });
+    return NextResponse.json({ admin }, { status: 200 });
+  } catch (err) {
+    console.error("Admin me error:", err);
+    return NextResponse.json({ error: "Server error" }, { status: 500 });
+  }
 }
+

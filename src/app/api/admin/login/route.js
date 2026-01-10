@@ -12,27 +12,22 @@ export async function POST(req) {
     const { email, password } = await req.json();
 
     if (!email || !password) {
-      console.log("❌ Missing email or password");
       return NextResponse.json(
         { error: "Email and password are required" },
         { status: 400 }
       );
     }
 
-    console.log("🔑 Admin login attempt:", email);
-
     // Check if admin exists
     const admin = await prisma.admin.findUnique({ where: { email } });
 
     if (!admin) {
-      console.log("❌ Admin not found:", email);
       return NextResponse.json({ error: "Admin not found" }, { status: 400 });
     }
 
     // Verify password
     const valid = await bcrypt.compare(password, admin.password);
     if (!valid) {
-      console.log("❌ Password mismatch:", email);
       return NextResponse.json({ error: "Incorrect password" }, { status: 400 });
     }
 
@@ -42,8 +37,6 @@ export async function POST(req) {
       JWT_SECRET,
       { expiresIn: "7d" }
     );
-
-    console.log("✅ Login successful for:", email);
 
     // Set HTTP-only cookie
     const response = NextResponse.json(

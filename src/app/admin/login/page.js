@@ -9,7 +9,6 @@ export default function AdminLoginPage() {
   const [loading, setLoading] = useState(false);
   const router = useRouter();
 
-  // ✅ Auto redirect if already logged in (cookie exists)
   useEffect(() => {
     const checkAdmin = async () => {
       try {
@@ -18,7 +17,7 @@ export default function AdminLoginPage() {
           router.replace("/admin/dashboard");
         }
       } catch (err) {
-        // no cookie, do nothing
+        // no cookie
       }
     };
     checkAdmin();
@@ -39,7 +38,6 @@ export default function AdminLoginPage() {
       const data = await res.json();
 
       if (res.ok) {
-        // Cookie is set by backend, just redirect
         router.replace("/admin/dashboard");
       } else {
         setError(data.error || "Invalid credentials");
@@ -52,43 +50,208 @@ export default function AdminLoginPage() {
     }
   };
 
-  // Inline styles (unchanged)
-  const styles = {
-    container: { minHeight: "100vh", display: "flex", justifyContent: "center", alignItems: "center", backgroundColor: "#f3f4f6" },
-    card: { backgroundColor: "#fff", padding: "2rem", borderRadius: "1rem", boxShadow: "0 4px 12px rgba(0,0,0,0.1)", width: "100%", maxWidth: "400px" },
-    title: { textAlign: "center", fontSize: "1.5rem", fontWeight: "bold", marginBottom: "1.5rem" },
-    input: { width: "100%", padding: "0.75rem", marginBottom: "1rem", border: "1px solid #ccc", borderRadius: "0.5rem", outline: "none" },
-    button: { width: "100%", padding: "0.75rem", borderRadius: "0.5rem", fontWeight: "bold", color: "#fff", backgroundColor: loading ? "#9ca3af" : "#3b82f6", cursor: loading ? "not-allowed" : "pointer", border: "none" },
-    error: { color: "red", textAlign: "center", marginTop: "1rem" },
-  };
-
   return (
-    <div style={styles.container}>
-      <div style={styles.card}>
-        <h2 style={styles.title}>Admin Login</h2>
-        <form onSubmit={handleLogin}>
-          <input
-            type="email"
-            placeholder="Email"
-            style={styles.input}
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
-          <input
-            type="password"
-            placeholder="Password"
-            style={styles.input}
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-          <button type="submit" style={styles.button} disabled={loading}>
-            {loading ? "Logging in..." : "Login"}
-          </button>
-        </form>
-        {error && <p style={styles.error}>{error}</p>}
+    <div style={{
+      minHeight: "100vh",
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      padding: "16px",
+      background: "#f8fafc",
+      fontFamily: "'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif"
+    }}>
+      <div style={{ width: "100%", maxWidth: "448px" }}>
+        {/* Header */}
+        <div style={{ textAlign: "center", marginBottom: "40px" }}>
+          <div style={{
+            width: "64px",
+            height: "64px",
+            background: "linear-gradient(135deg, #2563eb 0%, #1e40af 100%)",
+            borderRadius: "16px",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            margin: "0 auto 24px",
+            boxShadow: "0 10px 15px -3px rgba(0,0,0,0.1), 0 10px 10px -5px rgba(0,0,0,0.04)",
+            fontSize: "28px"
+          }}>
+            🛡️
+          </div>
+          <h1 style={{
+            fontSize: "30px",
+            fontWeight: "700",
+            color: "#111827",
+            margin: 0,
+            letterSpacing: "-0.5px"
+          }}>AngelX Super</h1>
+          <p style={{
+            color: "#6b7280",
+            marginTop: "8px",
+            fontSize: "14px",
+            fontWeight: "500"
+          }}>Admin Dashboard</p>
+        </div>
+
+        {/* Login Card */}
+        <div style={{
+          background: "#ffffff",
+          borderRadius: "20px",
+          boxShadow: "0 20px 25px -5px rgba(0,0,0,0.1), 0 10px 10px -5px rgba(0,0,0,0.04)",
+          padding: "32px"
+        }}>
+          <form onSubmit={handleLogin}>
+            {/* Email Field */}
+            <div style={{ marginBottom: "24px" }}>
+              <label style={{
+                display: "block",
+                fontSize: "14px",
+                fontWeight: "500",
+                color: "#374151",
+                marginBottom: "8px"
+              }}>Email Address</label>
+              <div style={{ position: "relative" }}>
+                <div style={{
+                  position: "absolute",
+                  left: "12px",
+                  top: "50%",
+                  transform: "translateY(-50%)",
+                  color: "#9ca3af",
+                  fontSize: "16px",
+                  pointerEvents: "none"
+                }}>✉️</div>
+                <input
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="admin@angelxsuper.com"
+                  required
+                  style={{
+                    width: "100%",
+                    padding: "12px 16px 12px 40px",
+                    border: "1px solid #d1d5db",
+                    borderRadius: "12px",
+                    fontSize: "14px",
+                    boxSizing: "border-box",
+                    transition: "all 0.2s ease",
+                    outline: "none",
+                    background: "#ffffff"
+                  }}
+                  onFocus={(e) => {
+                    e.target.style.borderColor = "#2563eb";
+                    e.target.style.boxShadow = "0 0 0 3px rgba(37, 99, 235, 0.1)";
+                  }}
+                  onBlur={(e) => {
+                    e.target.style.borderColor = "#d1d5db";
+                    e.target.style.boxShadow = "none";
+                  }}
+                />
+              </div>
+            </div>
+
+            {/* Password Field */}
+            <div style={{ marginBottom: "24px" }}>
+              <label style={{
+                display: "block",
+                fontSize: "14px",
+                fontWeight: "500",
+                color: "#374151",
+                marginBottom: "8px"
+              }}>Password</label>
+              <div style={{ position: "relative" }}>
+                <div style={{
+                  position: "absolute",
+                  left: "12px",
+                  top: "50%",
+                  transform: "translateY(-50%)",
+                  color: "#9ca3af",
+                  fontSize: "16px",
+                  pointerEvents: "none"
+                }}>🔒</div>
+                <input
+                  type="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  placeholder="••••••••"
+                  required
+                  style={{
+                    width: "100%",
+                    padding: "12px 16px 12px 40px",
+                    border: "1px solid #d1d5db",
+                    borderRadius: "12px",
+                    fontSize: "14px",
+                    boxSizing: "border-box",
+                    transition: "all 0.2s ease",
+                    outline: "none",
+                    background: "#ffffff"
+                  }}
+                  onFocus={(e) => {
+                    e.target.style.borderColor = "#2563eb";
+                    e.target.style.boxShadow = "0 0 0 3px rgba(37, 99, 235, 0.1)";
+                  }}
+                  onBlur={(e) => {
+                    e.target.style.borderColor = "#d1d5db";
+                    e.target.style.boxShadow = "none";
+                  }}
+                />
+              </div>
+            </div>
+
+            {/* Error Message */}
+            {error && (
+              <div style={{
+                background: "#fee2e2",
+                border: "1px solid #fecaca",
+                color: "#991b1b",
+                padding: "12px 16px",
+                borderRadius: "8px",
+                fontSize: "14px",
+                marginBottom: "20px",
+                display: "flex",
+                alignItems: "center",
+                gap: "8px"
+              }}>
+                <span>❌</span>
+                {error}
+              </div>
+            )}
+
+            {/* Submit Button */}
+            <button
+              type="submit"
+              disabled={loading}
+              style={{
+                width: "100%",
+                background: loading ? "#9ca3af" : "linear-gradient(135deg, #2563eb 0%, #1e40af 100%)",
+                color: "#ffffff",
+                fontWeight: "600",
+                padding: "14px 16px",
+                borderRadius: "12px",
+                border: "none",
+                cursor: loading ? "not-allowed" : "pointer",
+                fontSize: "14px",
+                transition: "all 0.2s ease",
+                marginBottom: "20px",
+                boxShadow: "0 4px 6px -1px rgba(0,0,0,0.1)"
+              }}
+              onMouseEnter={(e) => !loading && (e.target.style.opacity = "0.95")}
+              onMouseLeave={(e) => !loading && (e.target.style.opacity = "1")}
+            >
+              {loading ? "🔄 Signing in..." : "🔓 Sign In"}
+            </button>
+          </form>
+        </div>
+
+        {/* Footer */}
+        <div style={{
+          marginTop: "32px",
+          textAlign: "center",
+          fontSize: "12px",
+          color: "#9ca3af"
+        }}>
+          © 2024 AngelX Super. All rights reserved.
+        </div>
       </div>
     </div>
   );
 }
+
