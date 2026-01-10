@@ -1,7 +1,6 @@
-import pkg from 'next-pwa';
-const { withPWA } = pkg;
+import withPWA from 'next-pwa';
 
-const nextConfig = withPWA({
+const pwaConfig = withPWA({
   dest: 'public',
   register: true,
   skipWaiting: true,
@@ -98,9 +97,11 @@ const nextConfig = withPWA({
       }
     }
   ]
-})({
-  reactStrictMode: true,
-  // other Next.js config
 });
 
-export default nextConfig;
+const nextConfig = {
+  reactStrictMode: true,
+  // other Next.js config
+};
+
+export default pwaConfig(nextConfig);
