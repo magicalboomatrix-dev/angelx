@@ -2,6 +2,7 @@
   "name": "AngelX - USDT Exchange Platform",
   "short_name": "AngelX",
   "description": "Buy and sell USDT seamlessly with AngelX",
+  "version": "1.0.1",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#ffffff",
