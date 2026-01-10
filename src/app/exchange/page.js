@@ -17,9 +17,7 @@ export default function Exchange() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [checkingAuth, setCheckingAuth] = useState(true);
   const [timeLeft, setTimeLeft] = useState(52);
-
-  // ❗ RATE cannot have a default!
-  const [rate, setRate] = useState(null);
+  const [rate, setRate] = useState(102);
 
 
   // Timer
@@ -79,8 +77,7 @@ export default function Exchange() {
     fetchRate();
   }, []);
 
-  // ⛔ Prevent hydration mismatch
-  if (checkingAuth || rate === null) return null;
+  if (checkingAuth) return null;
 
   return (
     <div>
