@@ -5,12 +5,10 @@ import dynamic from "next/dynamic";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 
-// Dynamically load react-slick (prevents hydration crash)
 const Slider = dynamic(() => import("react-slick"), {
   ssr: false,
 });
 
-// Slick CSS MUST stay imported client-side
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
@@ -19,23 +17,23 @@ export default function Exchange() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [checkingAuth, setCheckingAuth] = useState(true);
   const [timeLeft, setTimeLeft] = useState(52);
-  const [rate, setRate] = useState(102);
 
-  // Timer refresh
+  // ❗ RATE cannot have a default!
+  const [rate, setRate] = useState<number | null>(null);
+
+  // Timer
   useEffect(() => {
     if (timeLeft <= 0) {
       window.location.reload();
       return;
     }
-
-    const timer = setInterval(() => {
-      setTimeLeft((prev) => prev - 1);
-    }, 1000);
-
+    const timer = setInterval(
+      () => setTimeLeft((prev) => prev - 1),
+      1000
+    );
     return () => clearInterval(timer);
   }, [timeLeft]);
 
-  // Slider settings
   const settings = {
     dots: false,
     arrows: false,
@@ -56,11 +54,10 @@ export default function Exchange() {
     pauseOnHover: false,
   };
 
-  // Auth + rate fetch
+  // Auth + Rate
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (token) setIsLoggedIn(true);
-    setCheckingAuth(false);
 
     const fetchRate = async () => {
       try {
@@ -68,16 +65,21 @@ export default function Exchange() {
         if (res.ok) {
           const data = await res.json();
           setRate(data.rate || 102);
+        } else {
+          setRate(102);
         }
-      } catch (error) {
-        console.error("Failed to fetch rate:", error);
+      } catch {
+        setRate(102);
+      } finally {
+        setCheckingAuth(false);
       }
     };
 
     fetchRate();
   }, []);
 
-  if (checkingAuth) return null;
+  // ⛔ Prevent hydration mismatch
+  if (checkingAuth || rate === null) return null;
 
   return (
     <div>
@@ -153,25 +155,25 @@ export default function Exchange() {
                         <tr>
                           <td>&gt;=980.4 and &lt;1960.79</td>
                           <td>
-                            {rate}+ <span className="red">0.25</span>
+                            {rate} + <span className="red">0.25</span>
                           </td>
                         </tr>
                         <tr>
                           <td>&gt;=1960.79 and &lt;2941.18</td>
                           <td>
-                            {rate}+ <span className="red">0.5</span>
+                            {rate} + <span className="red">0.5</span>
                           </td>
                         </tr>
                         <tr>
                           <td>&gt;=2941.18 and &lt;4901.97</td>
                           <td>
-                            {rate}+ <span className="red">1</span>
+                            {rate} + <span className="red">1</span>
                           </td>
                         </tr>
                         <tr>
                           <td>&gt;=4901.97</td>
                           <td>
-                            {rate}+ <span className="red">1.5</span>
+                            {rate} + <span className="red">1.5</span>
                           </td>
                         </tr>
                         <tr>
@@ -230,7 +232,7 @@ export default function Exchange() {
                   </div>
                 </div>
 
-                {/* Notifications Slider */}
+                {/* Notifications */}
                 <div className="notify">
                   <div className="lefts">
                     <div className="icon">
