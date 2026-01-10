@@ -5,9 +5,14 @@
   "type": "module",
   "scripts": {
     "dev": "next dev --turbopack",
-    "build": "next build",
+    "build": "prisma generate && prisma migrate deploy && next build",
+    "postinstall": "prisma generate",
     "start": "next start",
     "lint": "next lint",
+    "seed": "node prisma/seed.js",
+    "vercel-build": "prisma generate && prisma migrate deploy && prisma db seed && next build"
+  },
+  "prisma": {
     "seed": "node prisma/seed.js"
   },
   "dependencies": {

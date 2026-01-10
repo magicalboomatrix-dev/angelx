@@ -1,0 +1,7 @@
+{
+  "buildCommand": "prisma generate && prisma migrate deploy && node prisma/seed.js && next build",
+  "env": {
+    "DATABASE_URL": "@database_url",
+    "JWT_SECRET": "@jwt_secret"
+  }
+}
