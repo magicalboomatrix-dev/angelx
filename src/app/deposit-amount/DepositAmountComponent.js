@@ -225,14 +225,14 @@ export default function DepositAmount() {
 
               {/* Timer */}
               <div className="rem-time">
-                <span className="num">{h[0]}</span>
-                <span className="num">{h[1]}</span>{" "}
+                <span className="num">{h.charAt(0)}</span>
+                <span className="num">{h.charAt(1)}</span>{" "}
                 <span className="sep">:</span>
-                <span className="num">{m[0]}</span>
-                <span className="num">{m[1]}</span>{" "}
+                <span className="num">{m.charAt(0)}</span>
+                <span className="num">{m.charAt(1)}</span>{" "}
                 <span className="sep">:</span>
-                <span className="num">{s[0]}</span>
-                <span className="num">{s[1]}</span> remaining
+                <span className="num">{s.charAt(0)}</span>
+                <span className="num">{s.charAt(1)}</span> remaining
               </div>
 
               <p>
