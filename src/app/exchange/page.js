@@ -19,7 +19,8 @@ export default function Exchange() {
   const [timeLeft, setTimeLeft] = useState(52);
 
   // ❗ RATE cannot have a default!
-  const [rate, setRate] = useState<number | null>(null);
+  const [rate, setRate] = useState(null);
+
 
   // Timer
   useEffect(() => {
