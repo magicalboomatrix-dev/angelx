@@ -6,11 +6,18 @@ import { useSearchParams } from "next/navigation";
 
 export default function DepositAmount() {
   const searchParams = useSearchParams();
-  const amount = searchParams.get("amount");
-  const network = searchParams.get("network");
+  const amount = searchParams.get("amount") || "";
+  const network = searchParams.get("network") || "TRC20";
   const token = localStorage.getItem("token");
   const [showModal, setShowModal] = useState(false);
   const [message, setMessage] = useState(null);
+
+  // Redirect if no amount provided
+  useEffect(() => {
+    if (!searchParams.get("amount")) {
+      window.location.href = "/USDT-deposit";
+    }
+  }, [searchParams]);
 
   // State for dynamic data from API
   const [qrCodes, setQrCodes] = useState({
