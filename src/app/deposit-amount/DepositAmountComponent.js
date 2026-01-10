@@ -91,7 +91,10 @@ export default function DepositAmount() {
     return { h, m, s };
   };
 
-  const { h, m, s } = formatTime(timeLeft);
+  const time = formatTime(timeLeft);
+  const h = time.h;
+  const m = time.m;
+  const s = time.s;
 
   // Persistent Txid input
   const [txid, setTxid] = useState("");

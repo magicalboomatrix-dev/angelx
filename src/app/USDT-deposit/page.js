@@ -197,10 +197,7 @@ export default function USDTDeposit() {
                 {/* DEPOSIT BUTTON */}
                 <p className="title" style={{paddingTop:'0px'}}>Available($) {walletBalance}</p>
                 <Link
-                  href={isDepositDisabled ? '#' : {
-                    pathname: "/deposit-amount",
-                    query: { amount, network: activeTab },
-                  }}
+                  href={isDepositDisabled ? '#' : `/deposit-amount?amount=${amount}&network=${activeTab}`}
                   className="button-style"
                   onClick={(e) => isDepositDisabled && e.preventDefault()} // prevent if invalid
                 >
