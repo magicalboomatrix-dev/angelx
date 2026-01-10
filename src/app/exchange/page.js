@@ -1,14 +1,18 @@
 "use client";
+
 import React, { useState, useEffect } from "react";
-
-import Slider from "react-slick";
-
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
-
-//import Image from "next/image";
+import dynamic from "next/dynamic";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+
+// Dynamically load react-slick (prevents hydration crash)
+const Slider = dynamic(() => import("react-slick"), {
+  ssr: false,
+});
+
+// Slick CSS MUST stay imported client-side
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
 export default function Exchange() {
   const router = useRouter();
@@ -16,7 +20,8 @@ export default function Exchange() {
   const [checkingAuth, setCheckingAuth] = useState(true);
   const [timeLeft, setTimeLeft] = useState(52);
   const [rate, setRate] = useState(102);
-  
+
+  // Timer refresh
   useEffect(() => {
     if (timeLeft <= 0) {
       window.location.reload();
@@ -27,10 +32,10 @@ export default function Exchange() {
       setTimeLeft((prev) => prev - 1);
     }, 1000);
 
-    return () => clearInterval(timer); 
+    return () => clearInterval(timer);
   }, [timeLeft]);
 
-
+  // Slider settings
   const settings = {
     dots: false,
     arrows: false,
@@ -39,7 +44,6 @@ export default function Exchange() {
     speed: 800,
     slidesToShow: 1,
     slidesToScroll: 1,
-    variableWidth: false,
   };
 
   const settings1 = {
@@ -52,30 +56,28 @@ export default function Exchange() {
     pauseOnHover: false,
   };
 
+  // Auth + rate fetch
   useEffect(() => {
     const token = localStorage.getItem("token");
-    if (token) {
-      setIsLoggedIn(true);
-    }
+    if (token) setIsLoggedIn(true);
     setCheckingAuth(false);
-    
-    // Fetch rate from API
+
     const fetchRate = async () => {
       try {
-        const res = await fetch('/api/limits');
+        const res = await fetch("/api/limits");
         if (res.ok) {
           const data = await res.json();
           setRate(data.rate || 102);
         }
-      } catch (err) {
-        console.error('Failed to fetch rate:', err);
+      } catch (error) {
+        console.error("Failed to fetch rate:", error);
       }
     };
+
     fetchRate();
   }, []);
 
   if (checkingAuth) return null;
-
 
   return (
     <div>
@@ -83,20 +85,20 @@ export default function Exchange() {
         <div className="page-wrappers">
           <header className="header">
             <div className="left">
-  {/*<img src="images/w-logo.jpg" />*/}
               <div className="header-left">
-                  <img alt="Logo" className="logo" src="/images/logo-icon.png" />
-                  <h1 className="title-left">Welcome to AngelX</h1>
-                </div>
+                <img alt="Logo" className="logo" src="/images/logo-icon.png" />
+                <h1 className="title-left">Welcome to AngelX</h1>
+              </div>
             </div>
             <div className="right">
               <a href="https://wa.me/16723270327?text=Hello%2C%20AngleX Team!">
-              <img src="/images/customer-care-icon.png" />
+                <img src="/images/customer-care-icon.png" />
               </a>
             </div>
           </header>
 
           <div className="page-wrapper page-wrapper-ex">
+            {/* Banner Slider */}
             <section className="section-1">
               <Slider {...settings}>
                 <div>
@@ -116,10 +118,12 @@ export default function Exchange() {
               </Slider>
             </section>
 
+            {/* Rate Box */}
             <section className="section-3">
               <p className="title" style={{ textAlign: "left" }}>
                 <b>Platform Price</b>
               </p>
+
               <div className="price-calc">
                 <div className="priceref">
                   <p>
@@ -127,20 +131,22 @@ export default function Exchange() {
                     <span className="ref">{timeLeft}s</span>
                   </p>
                 </div>
+
                 <div className="reff-price">
                   <div className="base-price">
                     <h4>
                       {rate} <span>Base</span>
                     </h4>
                   </div>
-                  <p className="onepriceex">1 USDT = &#8377;{rate}</p>
+
+                  <p className="onepriceex">1 USDT = ₹{rate}</p>
 
                   <div className="pricerefBx">
                     <table width="100%">
                       <thead>
                         <tr>
                           <th>Exchanges($)</th>
-                          <th>Prices(&#8377;)</th>
+                          <th>Prices(₹)</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -169,7 +175,7 @@ export default function Exchange() {
                           </td>
                         </tr>
                         <tr>
-                          <td colSpan="2">
+                          <td colSpan={2}>
                             <a href="#">What is tiered price policy?</a>
                           </td>
                         </tr>
@@ -178,6 +184,7 @@ export default function Exchange() {
                   </div>
                 </div>
 
+                {/* Login / Sell */}
                 <div className="login-bx">
                   <Link
                     href={isLoggedIn ? "/sell-usdt" : "/login"}
@@ -192,11 +199,13 @@ export default function Exchange() {
                     </p>
                   )}
                 </div>
+
+                {/* Buttons */}
                 <div className="deposit">
                   <div className="bx">
                     <Link href="/USDT-deposit">
                       <div className="icon">
-                        <img src="/images/card.png"/>
+                        <img src="/images/card.png" />
                       </div>
                       <p>Deposit</p>
                     </Link>
@@ -221,23 +230,26 @@ export default function Exchange() {
                   </div>
                 </div>
 
+                {/* Notifications Slider */}
                 <div className="notify">
                   <div className="lefts">
                     <div className="icon">
                       <img src="/images/notify.png" />
                     </div>
                     <div className="spr">|</div>
+
                     <Slider {...settings1} className="text-sl">
                       <p className="text">
-                        <span className="time">12:34</span> 84***4556 solid for
+                        <span className="time">12:34</span> 84***4556 sold for
                         $756
                       </p>
                       <p className="text">
-                        <span className="time">10:55</span> 84***6744 solid for
+                        <span className="time">10:55</span> 84***6744 sold for
                         $897
                       </p>
                     </Slider>
                   </div>
+
                   <div className="rights">
                     <div className="icon right">
                       <img src="/images/right-arw.png" />
@@ -247,14 +259,16 @@ export default function Exchange() {
               </div>
             </section>
 
+            {/* Exchanges */}
             <section className="section-4">
               <p className="title" style={{ textAlign: "left" }}>
                 <b>Exchanges Price</b>
               </p>
+
               <div className="dflex-out">
                 <div className="bx">
                   <div className="dflex">
-                    <img src="/images/wazirx.png" />{" "}
+                    <img src="/images/wazirx.png" />
                     <a href="https://wazirx.com/" target="_blank">
                       <img src="/images/grn-right-arw.png" />
                     </a>
@@ -271,11 +285,15 @@ export default function Exchange() {
                     Max <span className="black">92.79RS</span>
                   </div>
                 </div>
+
                 <div className="bx">
                   <div className="dflex">
-                    <img src="/images/binance.png" />{" "}
-                    <a href="https://p2p.binance.com/en/trade/BUY/USDT?fiat=INR&payment=ALL" target="_blank">
-                      <img src="images/grn-right-arw.png" />
+                    <img src="/images/binance.png" />
+                    <a
+                      href="https://p2p.binance.com/en/trade/BUY/USDT?fiat=INR&payment=ALL"
+                      target="_blank"
+                    >
+                      <img src="/images/grn-right-arw.png" />
                     </a>
                   </div>
                   <div className="text">
@@ -291,21 +309,22 @@ export default function Exchange() {
                   </div>
                 </div>
               </div>
-              <p className="title btm" style={{}}>
+
+              <p className="title btm">
                 Statistics based on the latest 10 pieces of data
               </p>
             </section>
+
+            {/* Advantages */}
             <section className="section-2">
               <p className="title" style={{ textAlign: "left" }}>
                 <b>Platform Advantage</b>
               </p>
+
               <div className="rw">
                 <div className="bx">
                   <div className="image">
-                    <img src="/images/mic.png" style={{}} />{" "}
-                    <h3>
-                      <span className="fontt">24/7</span> Support
-                    </h3>
+                    <img src="/images/mic.png" /> <h3>24/7 Support</h3>
                   </div>
                   <div className="info">
                     <p>
@@ -314,10 +333,10 @@ export default function Exchange() {
                     </p>
                   </div>
                 </div>
+
                 <div className="bx">
                   <div className="image">
-                    <img src="/images/card.png" style={{}} />{" "}
-                    <h3>Transaction Free</h3>
+                    <img src="/images/card.png" /> <h3>Transaction Free</h3>
                   </div>
                   <div className="info">
                     <p>
@@ -326,10 +345,10 @@ export default function Exchange() {
                     </p>
                   </div>
                 </div>
+
                 <div className="bx">
                   <div className="image">
-                    <img src="/images/money.png" style={{}} />{" "}
-                    <h3>Rich Information</h3>
+                    <img src="/images/money.png" /> <h3>Rich Information</h3>
                   </div>
                   <div className="info">
                     <p>
@@ -338,10 +357,10 @@ export default function Exchange() {
                     </p>
                   </div>
                 </div>
+
                 <div className="bx">
                   <div className="image">
-                    <img src="/images/pro.png" style={{}} />{" "}
-                    <h3>Reliable Security</h3>
+                    <img src="/images/pro.png" /> <h3>Reliable Security</h3>
                   </div>
                   <div className="info">
                     <p>
@@ -358,8 +377,3 @@ export default function Exchange() {
     </div>
   );
 }
-
-
-
-
-
