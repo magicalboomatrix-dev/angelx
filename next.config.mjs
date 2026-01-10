@@ -101,7 +101,19 @@ const pwaConfig = withPWA({
 
 const nextConfig = {
   reactStrictMode: true,
-  // other Next.js config
+  async headers() {
+    return [
+      {
+        source: '/.well-known/assetlinks.json',
+        headers: [
+          {
+            key: 'Content-Type',
+            value: 'application/json',
+          },
+        ],
+      },
+    ];
+  },
 };
 
 export default pwaConfig(nextConfig);

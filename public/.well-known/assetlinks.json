@@ -1,0 +1,8 @@
+[{
+      "relation": ["delegate_permission/common.handle_all_urls"],
+      "target": {
+        "namespace": "android_app",
+        "package_name": "in.ind.angelx.twa",
+        "sha256_cert_fingerprints": ["D2:3F:50:E6:AC:E8:56:C2:ED:01:6F:F6:E3:34:85:92:30:8D:70:4D:DA:25:53:33:0B:61:11:79:EE:A1:66:AE"]
+      }
+    }]
