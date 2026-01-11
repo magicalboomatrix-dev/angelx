@@ -23,7 +23,8 @@ export default function Index() {
     if (!mounted) return;
     
     if (timeLeft <= 0) {
-      window.location.reload();
+      // window.location.reload(); // Commented out for performance optimization. Consider re-fetching data instead of full page reload.
+      setTimeLeft(52); // Reset timer to continue countdown without reloading page
       return;
     }
 
@@ -48,22 +49,13 @@ export default function Index() {
           </div>}
         {!loading && (
           <div>
-            {/* Your main content goes here */}
-            <p>Content Loaded</p>
+
           </div>
         )}
         
         <header className="header">
             <div className="left">
-            {/*
-            <img
-              src="/images/logo.jpg"
-              alt="logo"
-              width="{96}"
-              height="{33}"
-              priority=""
-            />
-            */}
+
                 <div className="header-left">
                   <img alt="Logo" className="logo" src="/images/logo-icon.png" />
                   <h1 className="title-left">AngelX</h1>
@@ -162,7 +154,14 @@ export default function Index() {
   <section className="section-3">
 <div className="screenshot-wrapper">
   <div className="image">
-    <img alt="Logo" className="screenshot-img" src="/images/hm-mob-img.jpg" />                  
+    <Image 
+      alt="Logo" 
+      className="screenshot-img" 
+      src="/images/hm-mob-img.jpg" 
+      width={360} // Estimated width based on common mobile screenshot dimensions. Verify actual image dimensions.
+      height={640} // Estimated height based on common mobile screenshot dimensions. Verify actual image dimensions.
+      priority
+    />                  
   </div>
   <div className="overlay-box">
     <div className="overlay-header">

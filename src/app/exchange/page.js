@@ -5,9 +5,12 @@ import dynamic from "next/dynamic";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 
-const Slider = dynamic(() => import("react-slick"), {
-  ssr: false,
-});
+const Slider = dynamic(
+  () => import("react-slick").then((mod) => mod.default),
+  {
+    ssr: false,
+  }
+);
 
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
