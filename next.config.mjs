@@ -1,10 +1,10 @@
-import withPWA from 'next-pwa';
+import withPWAInit from 'next-pwa';
 
-const pwaConfig = withPWA({
+const withPWA = withPWAInit({
   dest: 'public',
   register: true,
   skipWaiting: true,
-  disable: false, 
+  disable: false,
   buildExcludes: [/middleware-manifest\.json$/, /middleware-runtime\.js$/],
   reloadOnOnline: true,
   runtimeCaching: [
@@ -118,4 +118,4 @@ const nextConfig = {
   },
 };
 
-export default pwaConfig(nextConfig);
+export default withPWA(nextConfig);
