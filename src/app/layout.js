@@ -1,10 +1,6 @@
-import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Script from "next/script";
 import LayoutClient from "./LayoutClient";
-
-const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] });
-const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"] });
 
 export const metadata = {
   title: "AngelX - USDT Exchange Platform",
@@ -54,7 +50,7 @@ export default function Layout({ children }) {
         <link rel="stylesheet" href="/css/style.css" type="text/css" />
         <meta name="description" content="" />
       </head>
-      <body className={`${geistSans.variable} ${geistMono.variable}`}>
+      <body >
         <LayoutClient>{children}</LayoutClient>
 
         <Script src="https://code.jquery.com/jquery-3.6.0.js" strategy="beforeInteractive" />
