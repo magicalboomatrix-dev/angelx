@@ -4,7 +4,7 @@ const pwaConfig = withPWA({
   dest: 'public',
   register: true,
   skipWaiting: true,
-  disable: true, // Temporarily disabled to clear cache
+  disable: false, 
   buildExcludes: [/middleware-manifest\.json$/, /middleware-runtime\.js$/],
   reloadOnOnline: true,
   runtimeCaching: [
