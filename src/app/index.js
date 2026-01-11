@@ -1,5 +1,5 @@
 'use client'
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import Image from "next/image";
 import Link from 'next/link';
 
@@ -8,6 +8,7 @@ import Footer from './components/footer';
 export default function Index() {
   const [loading, setLoading] = useState(true);
   const [mounted, setMounted] = useState(false);
+  const [rate, setRate] = useState(0);
   
   useEffect(() => {
     setMounted(true);
@@ -17,6 +18,25 @@ export default function Index() {
     return () => clearTimeout(timer);
   }, []);
 
+  const fetchRate = useCallback(async () => {
+    try {
+      const res = await fetch('/api/limits');
+      if (!res.ok) {
+        setRate(0);
+        return;
+      }
+
+      const data = await res.json();
+      setRate(data.rate || 0);
+    } catch {
+      setRate(0);
+    }
+  }, []);
+
+  useEffect(() => {
+    fetchRate();
+  }, [fetchRate]);
+
   const [timeLeft, setTimeLeft] = useState(52);
   
   useEffect(() => {
@@ -24,6 +44,7 @@ export default function Index() {
     
     if (timeLeft <= 0) {
       // window.location.reload(); // Commented out for performance optimization. Consider re-fetching data instead of full page reload.
+      fetchRate();
       setTimeLeft(52); // Reset timer to continue countdown without reloading page
       return;
     }
@@ -33,7 +54,7 @@ export default function Index() {
     }, 1000);
 
     return () => clearInterval(timer); 
-  }, [timeLeft, mounted]);
+  }, [timeLeft, mounted, fetchRate]);
  
   return (
     <div>
@@ -179,10 +200,10 @@ export default function Index() {
       <div className="reff-price">
         <div className="base-price">
           <h4>
-            102 <span>Base</span>
+            {rate} <span>Base</span>
           </h4>
         </div>
-        <p className="onepriceex">1 USDT = ₹102</p>
+        <p className="onepriceex">1 USDT = ₹{rate}</p>
       </div>
     </div>
   </div>
