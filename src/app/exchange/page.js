@@ -15,20 +15,11 @@ import "slick-carousel/slick/slick-theme.css";
 export default function Exchange() {
   const router = useRouter();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [checkingAuth, setCheckingAuth] = useState(true);
-  const [isMounted, setIsMounted] = useState(false);
   const [timeLeft, setTimeLeft] = useState(52);
   const [rate, setRate] = useState(102);
 
-  // Ensure component is mounted (client-side only)
-  useEffect(() => {
-    setIsMounted(true);
-  }, []);
-
   // Timer
   useEffect(() => {
-    if (!isMounted) return;
-    
     if (timeLeft <= 0) {
       window.location.reload();
       return;
@@ -38,7 +29,7 @@ export default function Exchange() {
       1000
     );
     return () => clearInterval(timer);
-  }, [timeLeft, isMounted]);
+  }, [timeLeft]);
 
   const settings = {
     dots: false,
@@ -62,7 +53,7 @@ export default function Exchange() {
 
   // Auth + Rate
   useEffect(() => {
-    if (!isMounted) return;
+    if (typeof window === 'undefined') return;
     
     const token = localStorage.getItem("token");
     if (token) setIsLoggedIn(true);
@@ -78,15 +69,11 @@ export default function Exchange() {
         }
       } catch {
         setRate(102);
-      } finally {
-        setCheckingAuth(false);
       }
     };
 
     fetchRate();
-  }, [isMounted]);
-
-  if (checkingAuth) return null;
+  }, []);
 
   return (
     <div>

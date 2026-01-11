@@ -12,6 +12,8 @@ export default function USDTDeposit() {
   const router = useRouter();
 
   useEffect(() => {
+    if (typeof window === 'undefined') return;
+    
     const token = localStorage.getItem("token");
     if (!token) {
       router.replace("/login");
@@ -19,6 +21,8 @@ export default function USDTDeposit() {
   }, [router]);
 
   useEffect(() => {
+    if (typeof window === 'undefined') return;
+    
     const fetchWallet = async () => {
       const token = localStorage.getItem('token');
       if (!token) return;

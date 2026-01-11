@@ -7,7 +7,10 @@ import Footer from './components/footer';
 
 export default function Index() {
   const [loading, setLoading] = useState(true);
-    useEffect(() => {
+  const [mounted, setMounted] = useState(false);
+  
+  useEffect(() => {
+    setMounted(true);
     const timer = setTimeout(() => {
       setLoading(false);
     }, 500);
@@ -17,6 +20,8 @@ export default function Index() {
   const [timeLeft, setTimeLeft] = useState(52);
   
   useEffect(() => {
+    if (!mounted) return;
+    
     if (timeLeft <= 0) {
       window.location.reload();
       return;
@@ -27,7 +32,7 @@ export default function Index() {
     }, 1000);
 
     return () => clearInterval(timer); 
-  }, [timeLeft]);
+  }, [timeLeft, mounted]);
  
   return (
     <div>

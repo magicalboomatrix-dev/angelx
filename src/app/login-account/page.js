@@ -20,6 +20,8 @@ export default function LoginAccount() {
 
   // ✅ Auth guard: redirect already logged-in users
   useEffect(() => {
+    if (typeof window === 'undefined') return;
+    
     const token = localStorage.getItem('token');
     if (token) router.replace('/home');
   }, [router]);
@@ -37,6 +39,8 @@ export default function LoginAccount() {
 
   // Load saved email + OTP cooldown
   useEffect(() => {
+    if (typeof window === 'undefined') return;
+    
     const savedEmail = localStorage.getItem('email');
     if (savedEmail) setEmail(savedEmail);
 

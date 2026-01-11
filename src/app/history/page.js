@@ -10,6 +10,8 @@ export default function DemoPage() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    if (typeof window === 'undefined') return;
+    
     const token = localStorage.getItem("token");
     if (!token) {
       router.push("/login");

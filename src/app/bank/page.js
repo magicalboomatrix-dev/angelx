@@ -22,6 +22,8 @@ export default function BankPage() {
   }, []);
 
   useEffect(() => {
+    if (typeof window === 'undefined') return;
+    
     const fetchBanks = async () => {
       const token = localStorage.getItem("token");
       if (!token) {

@@ -8,12 +8,21 @@ export default function DepositAmount() {
   const searchParams = useSearchParams();
   const amount = searchParams.get("amount") || "";
   const network = searchParams.get("network") || "TRC20";
-  const token = localStorage.getItem("token");
   const [showModal, setShowModal] = useState(false);
   const [message, setMessage] = useState(null);
+  const [token, setToken] = useState(null);
+
+  // Get token on mount
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      setToken(localStorage.getItem("token"));
+    }
+  }, []);
 
   // Redirect if no amount provided
   useEffect(() => {
+    if (typeof window === 'undefined') return;
+    
     if (!searchParams.get("amount")) {
       window.location.href = "/USDT-deposit";
     }
@@ -56,6 +65,8 @@ export default function DepositAmount() {
   }, []);
 
   useEffect(() => {
+    if (typeof window === 'undefined') return;
+    
     const skipReminder = localStorage.getItem("skipFeeReminder");
     if (!skipReminder) {
       setShowModal(true);
@@ -66,6 +77,8 @@ export default function DepositAmount() {
   const [timeLeft, setTimeLeft] = useState(0);
 
   useEffect(() => {
+    if (typeof window === 'undefined') return;
+    
     const duration = 60 * 60 * 1000; // 1 hour in ms
     let expiryTime = localStorage.getItem("depositExpiryTime");
 
@@ -107,6 +120,8 @@ export default function DepositAmount() {
   const [txid, setTxid] = useState("");
 
   useEffect(() => {
+    if (typeof window === 'undefined') return;
+    
     const saved = localStorage.getItem("txid");
     if (saved) setTxid(saved);
   }, []);

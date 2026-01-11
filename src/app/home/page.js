@@ -17,6 +17,8 @@ export default function HomePage() {
   }, []);
 
   useEffect(() => {
+    if (typeof window === 'undefined') return;
+    
     const token = localStorage.getItem("token");
     if (!token) {
       router.push("/login");

@@ -30,6 +30,8 @@ export default function AddBank() {
 
   // ✅ Auth guard
   useEffect(() => {
+    if (typeof window === 'undefined') return;
+    
     const token = localStorage.getItem("token");
     if (!token) router.replace("/login");
   }, [router]);
