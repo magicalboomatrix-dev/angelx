@@ -105,7 +105,7 @@ export default function Index() {
           </div>
         )}
         
-        <header className="header">
+        <header className="header" style={{position: 'relative'}}>
             <div className="left">
 
                 <div className="header-left">
@@ -763,6 +763,7 @@ export default function Index() {
     </div>
   );
 }
+
 
 
 
