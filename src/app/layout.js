@@ -28,7 +28,7 @@ export default function Layout({ children }) {
       <link rel="manifest" href="/manifest.json" />
       <link rel="apple-touch-icon" href="/icon-192x192.png" />
       <meta name="mobile-web-app-capable" content="yes" />
-      <meta meta name="viewport" content="width=device-width, user-scalable=no" /> 
+       
         <link
           href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
           rel="stylesheet"
@@ -45,6 +45,8 @@ export default function Layout({ children }) {
         />
         <link rel="stylesheet" href="/css/style.css" type="text/css" />
         <meta name="description" content="" />
+        <meta meta name="viewport" content="width=device-width, user-scalable=no" />
+            
       </head>
       <body >
         <LayoutClient>{children}</LayoutClient>
@@ -56,5 +58,6 @@ export default function Layout({ children }) {
     </html>
   );
 }
+
 
 
