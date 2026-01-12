@@ -82,7 +82,7 @@ export default function Index() {
               <div className="appimgtext">
                 <img src="/images/applinkimg.jpeg" alt="AngelX" />
                 <div className="textlink">
-                  <h4>AngelX Super</h4>
+                  <h4>AngelX</h4>
                   <p>India’s #1 Trusted USDT Exchange Platform.</p>
                 </div>
               </div>
@@ -155,7 +155,7 @@ export default function Index() {
                 <div className="right">
                 <div className="info">
                     <h3>Get started in seconds</h3>
-                    <p>Whether you are a beginner or an expert, you can easily get started without any professinals knowledge.</p>
+                    <p>Whether you are a beginner or an expert, you can easily get started without any professinals knowledge</p>
                 </div>
                 </div>
                 </div>
@@ -175,7 +175,7 @@ export default function Index() {
                 <div className="right">
                 <div className="info">
                     <h3>Boost your yields</h3>
-                    <p>Every transaction has potential for huge profits, allowing every user to thrive simultaneously with the platform.</p>
+                    <p>Every transaction has potential for huge profits, allowing every user to thrive simultaneously with the platform</p>
                 </div>
                 </div>
                 </div>
@@ -195,7 +195,7 @@ export default function Index() {
                 <div className="right">
                 <div className="info">
                     <h3>Acess expert knowledge</h3>
-                    <p>Ensure that every user can earn profits on the platform regardless of how much money they have.</p>
+                    <p>Ensure that every user can earn profits on the platform regardless of how much money they have</p>
                 </div>
                 </div>
                 </div>
@@ -763,6 +763,7 @@ export default function Index() {
     </div>
   );
 }
+
 
 
 
