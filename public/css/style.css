@@ -2953,6 +2953,9 @@ button.closeAppLink {
 	scrollbar-width: none;
 }
 
+.page-overflow .page-wrapper.page-wrapper-ex {
+    margin-top: 0;
+}
 
 
 
