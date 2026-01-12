@@ -389,7 +389,7 @@ export default function AddBank() {
               </div>
             </section>
 
-            <section className="table-section">
+{/* <section className="table-section">
                 <div className="pricerefBx">
   <table width="100%">
     <thead>
@@ -431,7 +431,7 @@ export default function AddBank() {
     </tbody>
   </table>
 </div>
-</section>
+</section> */}
 
             {/* FOOTER */}
             <div className="warning inner-space">
@@ -452,6 +452,7 @@ export default function AddBank() {
     </div>
   );
 }
+
 
 
 
