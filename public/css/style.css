@@ -1451,12 +1451,7 @@ section.section-2 .rw .bx .right .info h3 {
 	font-weight: 500;
 }
 
-section.section-2 .rw .bx .right .info p {
-    color: #9999a6;
-    letter-spacing: .1px;
-    line-height: 20px;
-    font-size: 14px;
-}
+
 
 section.section-3 .image {
     text-align: center;
@@ -2952,6 +2947,7 @@ button.closeAppLink {
 	padding-top: 5px;
     padding-bottom: 0px;
 }
+
 
 
 
