@@ -55,6 +55,8 @@ export default function Index() {
 
     return () => clearInterval(timer); 
   }, [timeLeft, mounted, fetchRate]);
+
+  const [showAppLink, setShowAppLink] = useState(true);
  
   return (
     <div>
@@ -71,6 +73,35 @@ export default function Index() {
         {!loading && (
           <div>
 
+          </div>
+        )}
+
+        {showAppLink && (
+          <div className="applinkMainDiv">
+            <div className="applinkdownload">
+              <div className="appimgtext">
+                <img src="/image/applinkimg.png" alt="AngelX" />
+                <div className="textlink">
+                  <h4>AngelX Super</h4>
+                  <p>India’s #1 Trusted USDT Exchange Platform.</p>
+                </div>
+              </div>
+  
+              <Link
+                href="AngelX.apk"
+                className="downloadbutton"
+                download
+              >
+                Download
+              </Link>
+            </div>
+  
+            <button
+              className="closeAppLink"
+              onClick={() => setShowAppLink(false)}
+            >
+              X
+            </button>
           </div>
         )}
         
@@ -732,6 +763,7 @@ export default function Index() {
     </div>
   );
 }
+
 
 
 
