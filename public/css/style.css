@@ -295,9 +295,9 @@ section.section-1a.banner-img {
 .page-wrapper-ex .price-calc .base-price h4 {
     font-size: 45px;
     font-family: corsicasx6;
-    font-weight: 600;
+  
     font-family: "Mona Sans", sans-serif;
-	letter-spacing: -3px;
+
 	line-height: 40px;
 	padding: 15px 0 0px 0;
 }
@@ -2957,6 +2957,7 @@ button.closeAppLink {
     margin: 0;
     height: auto;
 }
+
 
 
 
