@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Mona+Sans:ital,wght@0,200..900;1,200..900&display=swap');
+
 /*@font-face {
     font-family: 'corsicasx6';
     src: url('fonts/corsicasx6.eot');
@@ -21,7 +23,7 @@
 
 body {
 	margin: 0;
-	font: 14px "Roboto", sans-serif;
+	font: 14px "Mona Sans", sans-serif;
 	background: #eeeef1;
     color: #000;
 }
@@ -310,7 +312,7 @@ section.section-1a.banner-img {
     text-align: center;
     display: inline-block;
     font-style: italic;
-    font-family: 'Roboto';
+    font-family: "Mona Sans", sans-serif;
     font-weight: 400;
     background-position: center;
     position: relative;
@@ -505,7 +507,7 @@ section.section-4 .dflex-out .text span.b {
     color: #000;
     font-size: 28px;
     font-weight: bold;
-    font-family: 'Geist Mono';
+    font-family: "Mona Sans", sans-serif;
 }
 
 section.section-4 .dflex-out .text span.rs {
@@ -663,7 +665,7 @@ section.section-4 .dflex-out .rw {
     padding: 5px 10px;
     border-radius: 20px;
     cursor: pointer;
-    font-family: 'Roboto';
+    font-family: "Mona Sans", sans-serif;
     bottom: auto;
 }
 
@@ -684,7 +686,7 @@ section.section-4 .dflex-out .rw {
     font-size: 14px;
     text-decoration: none;
     display: inline-block;
-    font-family: 'Roboto';
+    font-family: "Mona Sans", sans-serif;
 	text-align: center;
 }
 
@@ -1587,7 +1589,7 @@ section.section-4 table td:last-child {
     text-align: center;
     display: inline-block;
     font-style: italic;
-    font-family: 'Roboto';
+    font-family: "Mona Sans", sans-serif;
     font-weight: 400;
     background-position: center;
     position: relative;
@@ -1775,7 +1777,7 @@ section.section-4 .dflex-out .text span.b {
 }
 
 span.font {
-    font-family: 'corsicasx6';
+    font-family: "Mona Sans", sans-serif;
 }
 
 section.section-4 .dflex-out .text span.rs {
@@ -1935,7 +1937,7 @@ section.section-4 .dflex-out .rw {
     padding: 5px 10px;
     border-radius: 20px;
     cursor: pointer;
-    font-family: 'Roboto';
+    font-family: "Mona Sans", sans-serif;
     bottom: auto;
 }
 
@@ -1956,7 +1958,7 @@ section.section-4 .dflex-out .rw {
     font-size: 14px;
     text-decoration: none;
     display: inline-block;
-    font-family: 'Roboto';
+    font-family: "Mona Sans", sans-serif;
 	text-align: center;
 }
 
@@ -2849,7 +2851,7 @@ section.section-3 .screenshot-wrapper img.screenshot-img {
     text-align: center;
     display: inline-block;
     font-style: italic;
-    font-family: 'Roboto';
+    font-family: "Mona Sans", sans-serif;
     font-weight: 400;
     background-position: center;
     position: relative;
@@ -2910,7 +2912,7 @@ section.hm-section-2  .rw .bx {
     font-size: 12px;
     font-weight: 600;
     color: #333;
-    font-family: "Roboto", sans-serif;
+    font-family: "Mona Sans", sans-serif;
     margin-bottom: 1px;
 }
 .appimgtext p {
@@ -2918,7 +2920,7 @@ section.hm-section-2  .rw .bx {
     font-weight: 400;
     color: #000;
     margin-bottom: 0px;
-    font-family: "Roboto", sans-serif;	
+    font-family: "Mona Sans", sans-serif;	
 }
 .applinkdownload .downloadbutton {
     background: #f3c86d;
@@ -2927,7 +2929,7 @@ section.hm-section-2  .rw .bx {
     font-size: 10px;
     color: #000;
     border-radius: 43px;
-	font-family: "Roboto", sans-serif;
+	font-family: "Mona Sans", sans-serif;
 	text-decoration: none;
 	position: relative;
 	top: 4px;
@@ -2950,6 +2952,7 @@ button.closeAppLink {
 	padding-top: 5px;
     padding-bottom: 0px;
 }
+
 
 
 
