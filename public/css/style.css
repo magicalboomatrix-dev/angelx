@@ -2918,17 +2918,16 @@ section.hm-section-2  .rw .bx {
     font-weight: 400;
     color: #000;
     margin-bottom: 0px;
-    font-family: "Roboto", sans-serif;
-	font-family: 'Mona Sans';
+    font-family: "Roboto", sans-serif;	
 }
 .applinkdownload .downloadbutton {
-    background: #01ba8e;
+    background: #f3c86d;
     padding: 4px 8px;
     border: 0px;
     font-size: 10px;
-    color: #fff;
+    color: #000;
     border-radius: 43px;
-	font-family: 'Mona Sans';
+	font-family: "Roboto", sans-serif;
 	text-decoration: none;
 	position: relative;
 	top: 4px;
@@ -2951,6 +2950,7 @@ button.closeAppLink {
 	padding-top: 5px;
     padding-bottom: 0px;
 }
+
 
 
 
