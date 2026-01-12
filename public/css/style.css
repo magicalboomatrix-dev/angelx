@@ -791,8 +791,8 @@ footer.footer {
 }
 
 .page-wrappers.home-wrappers .page-wrapper {
-    position: relative;
-    margin-top: 0;
+    /*position: relative;
+    margin-top: 0;*/
 }
 
 .page-wrappers.home-wrappers header.header {
@@ -2947,6 +2947,7 @@ button.closeAppLink {
 	padding-top: 5px;
     padding-bottom: 0px;
 }
+
 
 
 
