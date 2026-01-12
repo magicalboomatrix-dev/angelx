@@ -296,7 +296,7 @@ section.section-1a.banner-img {
     font-size: 45px;
     font-family: corsicasx6;
     font-weight: 600;
-    font-family: "Roboto", sans-serif;
+    font-family: "Mona Sans", sans-serif;
 	letter-spacing: -3px;
 	line-height: 40px;
 	padding: 15px 0 0px 0;
@@ -1170,7 +1170,7 @@ section.section-2.reffer .bx .arw img {
     font-size: 20px;
     font-weight: bold;
     border-radius: 5px;
-    font: 14px "Roboto", sans-serif;
+    font: 14px "Mona Sans", sans-serif;
     margin: 0 1px;
 }
 
@@ -1347,7 +1347,7 @@ footer.footer.footer-op1 button.button-style {
 
 body {
 	margin: 0;
-	font: 14px "Roboto", sans-serif;
+	font: 14px "Mona Sans", sans-serif;
 	background: #eeeef1;
 }
 
@@ -2952,6 +2952,7 @@ button.closeAppLink {
 	padding-top: 5px;
     padding-bottom: 0px;
 }
+
 
 
 
