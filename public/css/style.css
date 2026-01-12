@@ -2947,6 +2947,11 @@ button.closeAppLink {
     padding-bottom: 0px;
 }
 
+.page-overflow {
+    height: 85vh;
+    overflow: auto;
+}
+
 
 
 
