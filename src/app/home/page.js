@@ -118,7 +118,7 @@ export default function HomePage() {
                 <div className="top">
                   <div className="lefts">
                     <div className="lf">
-                      <img src="images/xicon.png" />
+                      <img src="images/xicon1.png" />
                     </div>
                     <div className="rf">
                       <p className="ttl">
@@ -235,6 +235,7 @@ export default function HomePage() {
     </div>
   );
 }
+
 
 
 
