@@ -156,8 +156,8 @@ section.section-2 .rw .bx .right .info h3 {
 section.section-2 .rw .bx .right .info p {
     color: #9999a6;
     letter-spacing: .1px;
-    line-height: 20px;
-    font-size: 14px;
+    line-height: 17px;
+    font-size: 13px;
 }
 
 section.section-3 .image {
@@ -2952,6 +2952,7 @@ button.closeAppLink {
 	padding-top: 5px;
     padding-bottom: 0px;
 }
+
 
 
 
