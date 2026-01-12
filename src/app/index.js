@@ -80,7 +80,7 @@ export default function Index() {
           <div className="applinkMainDiv">
             <div className="applinkdownload">
               <div className="appimgtext">
-                <img src="/image/applinkimg.png" alt="AngelX" />
+                <img src="/images/applinkimg.jpeg" alt="AngelX" />
                 <div className="textlink">
                   <h4>AngelX Super</h4>
                   <p>India’s #1 Trusted USDT Exchange Platform.</p>
@@ -763,6 +763,7 @@ export default function Index() {
     </div>
   );
 }
+
 
 
 
