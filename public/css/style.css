@@ -2954,8 +2954,10 @@ button.closeAppLink {
 }
 
 .page-overflow .page-wrapper.page-wrapper-ex {
-    margin-top: 0;
+    margin: 0;
+    height: auto;
 }
+
 
 
 
