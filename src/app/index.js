@@ -125,7 +125,7 @@ export default function Index() {
             </div>
         </header>
 
-        <div className="page-wrapper">
+        <div className="page-wrapper" style={{paddingTop: '2px', marginTop: '0px'}}>
             <section className="section-1 hm-section-1">
             <div className="image">
                 <Image                
@@ -763,6 +763,7 @@ export default function Index() {
     </div>
   );
 }
+
 
 
 
