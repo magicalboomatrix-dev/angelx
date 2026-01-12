@@ -152,7 +152,7 @@ export default function HomePage() {
                 </div>
                 <div className="mid">
                   <p className="ttl">
-                    Reward <img src="images/xicon.png" />
+                    Reward <img src="images/xicon1.png" />
                   </p>
                   <p>
                     <b>0</b>
@@ -235,6 +235,7 @@ export default function HomePage() {
     </div>
   );
 }
+
 
 
 
