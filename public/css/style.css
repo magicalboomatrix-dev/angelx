@@ -2884,6 +2884,77 @@ section.hm-section-2  .rw .bx {
 }
 
 
+.applinkMainDiv {
+    position: relative;
+}
+
+.applinkdownload {
+    padding: 10px 8px;
+    border-bottom: 1px solid #ccc;
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+    align-items: end;
+}
+.appimgtext {
+    display: flex;
+    width: 80%;
+    align-items: center;
+}
+.appimgtext img {
+    width: 32px;
+    height: 32px;
+    margin-right: 5px;
+}
+.appimgtext h4 {
+    font-size: 12px;
+    font-weight: 600;
+    color: #333;
+    font-family: "Roboto", sans-serif;
+    margin-bottom: 1px;
+}
+.appimgtext p {
+    font-size: 10px;
+    font-weight: 400;
+    color: #000;
+    margin-bottom: 0px;
+    font-family: "Roboto", sans-serif;
+	font-family: 'Mona Sans';
+}
+.applinkdownload .downloadbutton {
+    background: #01ba8e;
+    padding: 4px 8px;
+    border: 0px;
+    font-size: 10px;
+    color: #fff;
+    border-radius: 43px;
+	font-family: 'Mona Sans';
+	text-decoration: none;
+	position: relative;
+	top: 4px;
+}
+button.closeAppLink {
+    position: absolute;
+    top: 5px;
+    color: #000;
+    right: 10px;
+    font-size: 10px;
+    background-color: transparent;
+    border: 0px;
+    padding: 0px;
+	font-size: 13px;
+    font-weight: bold;
+}
+.coimmico {
+    display: flex;
+    justify-content: center;
+	padding-top: 5px;
+    padding-bottom: 0px;
+}
+
+
+
+
 
 
 
