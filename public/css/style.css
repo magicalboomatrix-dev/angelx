@@ -2950,7 +2950,9 @@ button.closeAppLink {
 .page-overflow {
     height: 85vh;
     overflow: auto;
+	scrollbar-width: none;
 }
+
 
 
 
