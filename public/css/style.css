@@ -26,6 +26,7 @@ body {
 	font: 14px "Mona Sans", sans-serif;
 	background: #eeeef1;
     color: #000;
+	touch-action: pan-y;
 }
 
 h1, h2, h3, h4, p {
@@ -2957,6 +2958,7 @@ button.closeAppLink {
     margin: 0;
     height: auto;
 }
+
 
 
 
