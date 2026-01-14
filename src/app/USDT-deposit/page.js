@@ -124,16 +124,16 @@ export default function USDTDeposit() {
                     </div>
 
                     <div
-                      className={`tb ${activeTab === 'ERC20' ? 'active' : ''}`}
-                      onClick={() => setActiveTab('ERC20')}
+                      className={`tb ${activeTab === 'BEP20' ? 'active' : ''}`}
+                      onClick={() => setActiveTab('BEP20')}
                     >
                       <input
                         type="radio"
                         name="tab"
-                        checked={activeTab === 'ERC20'}
-                        onChange={() => setActiveTab('ERC20')}
+                        checked={activeTab === 'BEP20'}
+                        onChange={() => setActiveTab('BEP20')}
                       />
-                      <img src="images/tb-ic2.png" className="icon" /> ERC20
+                      <img src="images/tb-ic2-10.png" className="icon" /> BEP20
                       <img src="images/y-tick.png" className="y-icon" />
                     </div>
                   </div>
@@ -223,6 +223,7 @@ export default function USDTDeposit() {
     </div>
   );
 }
+
 
 
 
