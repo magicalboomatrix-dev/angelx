@@ -234,7 +234,7 @@ export default function DepositAmount() {
             </div>
           </header>
 
-          <div className="page-wrapper">
+          <div className="page-wrapper" style={{marginTop: '50px'}}>
             <section className="section-1 text-center">
               <p className="title">
                 <b>Scan the QR code and pay</b>
@@ -487,6 +487,7 @@ export default function DepositAmount() {
     </div >
   );
 }
+
 
 
 
