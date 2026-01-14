@@ -31,12 +31,12 @@ export default function DepositAmount() {
   // State for dynamic data from API
   const [qrCodes, setQrCodes] = useState({
     TRC20: "images/trc20.png",
-    ERC20: "images/erc20.png",
+    BEP20: "images/bep20.png",
   });
 
   const [depositAddresses, setDepositAddresses] = useState({
     TRC20: "TU7f7jwJr56owuutyzbJEwVqF3ii4KCiPV",
-    ERC20: "0x78845f99b319b48393fbcde7d32fcb7ccd6661bf",
+    BEP20: "0x78845f99b319b48393fbcde7d32fcb7ccd6661bf",
   });
 
   // Fetch deposit info from database
@@ -46,14 +46,14 @@ export default function DepositAmount() {
         const res = await fetch('/api/deposit-info');
         if (res.ok) {
           const data = await res.json();
-          if (data.TRC20 && data.ERC20) {
+          if (data.TRC20 && data.BEP20) {
             setDepositAddresses({
               TRC20: data.TRC20.address,
-              ERC20: data.ERC20.address,
+              BEP20: data.BEP20.address,
             });
             setQrCodes({
               TRC20: data.TRC20.qrUrl,
-              ERC20: data.ERC20.qrUrl,
+              BEP20: data.BEP20.qrUrl,
             });
           }
         }
@@ -487,4 +487,5 @@ export default function DepositAmount() {
     </div >
   );
 }
+
 
