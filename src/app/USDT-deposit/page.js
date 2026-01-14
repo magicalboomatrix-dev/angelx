@@ -133,7 +133,7 @@ export default function USDTDeposit() {
                         checked={activeTab === 'BEP20'}
                         onChange={() => setActiveTab('BEP20')}
                       />
-                      <img src="images/tb-ic2-10.png" className="icon" /> BEP20
+                      <img src="images/tb-ic2-01.png" className="icon" /> BEP20
                       <img src="images/y-tick.png" className="y-icon" />
                     </div>
                   </div>
@@ -223,6 +223,7 @@ export default function USDTDeposit() {
     </div>
   );
 }
+
 
 
 
