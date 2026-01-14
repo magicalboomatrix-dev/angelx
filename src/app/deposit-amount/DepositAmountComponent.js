@@ -31,7 +31,7 @@ export default function DepositAmount() {
   // State for dynamic data from API
   const [qrCodes, setQrCodes] = useState({
     TRC20: "images/trc20.png",
-    BEP20: "images/bep20.png",
+    BEP20: "images/bep20.jpg",
   });
 
   const [depositAddresses, setDepositAddresses] = useState({
@@ -487,5 +487,6 @@ export default function DepositAmount() {
     </div >
   );
 }
+
 
 
