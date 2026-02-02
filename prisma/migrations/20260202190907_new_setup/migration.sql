@@ -1,11 +1,11 @@
 -- CreateTable
-CREATE TABLE "public"."User" (
+CREATE TABLE "User" (
     "id" SERIAL NOT NULL,
-    "email" TEXT NOT NULL,
+    "email" TEXT,
     "otp" TEXT,
     "otpExpiry" TIMESTAMP(3),
     "fullName" TEXT,
-    "mobile" TEXT,
+    "mobile" TEXT NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
 
@@ -13,7 +13,7 @@ CREATE TABLE "public"."User" (
 );
 
 -- CreateTable
-CREATE TABLE "public"."BankCard" (
+CREATE TABLE "BankCard" (
     "id" SERIAL NOT NULL,
     "userId" INTEGER NOT NULL,
     "accountNo" TEXT NOT NULL,
@@ -27,7 +27,7 @@ CREATE TABLE "public"."BankCard" (
 );
 
 -- CreateTable
-CREATE TABLE "public"."Wallet" (
+CREATE TABLE "Wallet" (
     "id" SERIAL NOT NULL,
     "userId" INTEGER NOT NULL,
     "usdtAvailable" DOUBLE PRECISION NOT NULL DEFAULT 0,
@@ -40,7 +40,7 @@ CREATE TABLE "public"."Wallet" (
 );
 
 -- CreateTable
-CREATE TABLE "public"."Transaction" (
+CREATE TABLE "Transaction" (
     "id" SERIAL NOT NULL,
     "userId" INTEGER NOT NULL,
     "depositId" TEXT NOT NULL,
@@ -51,6 +51,7 @@ CREATE TABLE "public"."Transaction" (
     "network" TEXT,
     "address" TEXT,
     "status" TEXT NOT NULL DEFAULT 'PENDING',
+    "description" TEXT,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
 
@@ -58,7 +59,7 @@ CREATE TABLE "public"."Transaction" (
 );
 
 -- CreateTable
-CREATE TABLE "public"."Admin" (
+CREATE TABLE "Admin" (
     "id" SERIAL NOT NULL,
     "email" TEXT NOT NULL,
     "password" TEXT NOT NULL,
@@ -68,29 +69,48 @@ CREATE TABLE "public"."Admin" (
     CONSTRAINT "Admin_pkey" PRIMARY KEY ("id")
 );
 
--- CreateIndex
-CREATE UNIQUE INDEX "User_email_key" ON "public"."User"("email");
+-- CreateTable
+CREATE TABLE "Settings" (
+    "id" SERIAL NOT NULL,
+    "rate" DOUBLE PRECISION NOT NULL DEFAULT 102,
+    "withdrawMin" DOUBLE PRECISION NOT NULL DEFAULT 50,
+    "depositMin" DOUBLE PRECISION NOT NULL DEFAULT 100,
+    "trc20Address" TEXT NOT NULL DEFAULT 'TU7f7jwJr56owuutyzbJEwVqF3ii4KCiPV',
+    "erc20Address" TEXT NOT NULL DEFAULT '0x78845f99b319b48393fbcde7d32fcb7ccd6661bf',
+    "trc20QrUrl" TEXT NOT NULL DEFAULT 'images/trc20.png',
+    "erc20QrUrl" TEXT NOT NULL DEFAULT 'images/erc20.png',
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
+
+    CONSTRAINT "Settings_pkey" PRIMARY KEY ("id")
+);
 
 -- CreateIndex
-CREATE UNIQUE INDEX "BankCard_userId_accountNo_key" ON "public"."BankCard"("userId", "accountNo");
+CREATE UNIQUE INDEX "User_email_key" ON "User"("email");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "Wallet_userId_key" ON "public"."Wallet"("userId");
+CREATE UNIQUE INDEX "User_mobile_key" ON "User"("mobile");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "Transaction_depositId_key" ON "public"."Transaction"("depositId");
+CREATE UNIQUE INDEX "BankCard_userId_accountNo_key" ON "BankCard"("userId", "accountNo");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "Transaction_txnId_key" ON "public"."Transaction"("txnId");
+CREATE UNIQUE INDEX "Wallet_userId_key" ON "Wallet"("userId");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "Admin_email_key" ON "public"."Admin"("email");
+CREATE UNIQUE INDEX "Transaction_depositId_key" ON "Transaction"("depositId");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "Transaction_txnId_key" ON "Transaction"("txnId");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "Admin_email_key" ON "Admin"("email");
 
 -- AddForeignKey
-ALTER TABLE "public"."BankCard" ADD CONSTRAINT "BankCard_userId_fkey" FOREIGN KEY ("userId") REFERENCES "public"."User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "BankCard" ADD CONSTRAINT "BankCard_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "public"."Wallet" ADD CONSTRAINT "Wallet_userId_fkey" FOREIGN KEY ("userId") REFERENCES "public"."User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "Wallet" ADD CONSTRAINT "Wallet_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "public"."Transaction" ADD CONSTRAINT "Transaction_userId_fkey" FOREIGN KEY ("userId") REFERENCES "public"."User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "Transaction" ADD CONSTRAINT "Transaction_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;

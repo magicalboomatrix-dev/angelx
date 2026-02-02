@@ -5,16 +5,18 @@ import { useRouter } from 'next/navigation';
 
 export default function CompleteProfile() {
   const router = useRouter();
+
   const [fullName, setFullName] = useState('');
-  const [mobile, setMobile] = useState('');
+  const [email, setEmail] = useState(''); // 🔁 mobile → email (logic only)
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
 
   const handleCompleteProfile = async () => {
-    if (!fullName || !mobile) {
+    if (!fullName || !email) {
       setError('Please fill in all fields');
       return;
     }
+
     setError('');
     setLoading(true);
 
@@ -28,10 +30,14 @@ export default function CompleteProfile() {
           'Content-Type': 'application/json',
           Authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify({ fullName, mobile }),
+        body: JSON.stringify({
+          fullName,
+          email, // ✅ send email instead of mobile
+        }),
       });
 
       const data = await res.json();
+
       if (res.ok) {
         router.push('/home');
       } else {
@@ -55,16 +61,29 @@ export default function CompleteProfile() {
                 <img src="images/back-btn.png" />
               </Link>
             </div>
+
             <section className="section-1">
               <h3 className="title">
                 <b>Welcome to AngelX</b>
               </h3>
-             <h4 style={{fontWeight: 'normal',fontSize: '20px',paddingBottom: '10px',color: '#696969'}}>
-                Exchange more, earn more, make your life better. 
+
+              <h4
+                style={{
+                  fontWeight: 'normal',
+                  fontSize: '20px',
+                  paddingBottom: '10px',
+                  color: '#696969',
+                }}
+              >
+                Exchange more, earn more, make your life better.
               </h4>
 
               <div className="form-bx">
-                {error && <p style={{ color: 'red', marginBottom: '10px' }}>{error}</p>}
+                {error && (
+                  <p style={{ color: 'red', marginBottom: '10px' }}>
+                    {error}
+                  </p>
+                )}
 
                 <div className="form-rw">
                   <label className="text">Full Name</label>
@@ -77,15 +96,16 @@ export default function CompleteProfile() {
                   />
                 </div>
 
+                {/* UI unchanged — logic is now EMAIL */}
                 <div className="form-rw">
-                  <label className="text">Mobile Number</label>
+                  <label className="text">Email</label>
                   <div className="pos">
                     <input
-                      type="text"
+                      type="text"          // ✅ important
                       id="dd"
-                      placeholder="Mobile Number"
-                      value={mobile}
-                      onChange={(e) => setMobile(e.target.value)}
+                      placeholder="Email"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
                     />
                   </div>
                 </div>
@@ -106,8 +126,3 @@ export default function CompleteProfile() {
     </div>
   );
 }
-
-
-
-
-
