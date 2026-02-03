@@ -114,7 +114,7 @@ export default function LoginAccountPage() {
                 <img src="images/back-btn.png" />
               </Link>
             </div>
-            <section className="section-1">
+            <section className="section-1" style={{padding:"0px"}}>
               <br/>
 
               <div className="form-bx">
@@ -135,7 +135,7 @@ export default function LoginAccountPage() {
                       </div>
                       <input
                         className="mobileInput"
-                        placeholder="Enter mobile number"
+                        placeholder=""
                         inputMode="numeric"
                         maxLength={10}
                         value={mobile}
@@ -159,7 +159,7 @@ export default function LoginAccountPage() {
                     <div className="mobileRowflex">
                       <input
                         className="otpInput"
-                        placeholder="Enter 4-digit OTP"
+                        placeholder=""
                         inputMode="numeric"
                         maxLength={4}
                         value={otp}
