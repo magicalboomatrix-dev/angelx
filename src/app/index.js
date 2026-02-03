@@ -114,7 +114,7 @@ export default function Index() {
                 </div>
             </div>
             <div className="right">
-            <a href="https://wa.me/12366055665?text=Hello%2C%20AngleX Team!">
+            <a href="https://t.me/angelxsuper">
                 <Image                
                 src="/images/customer-care-icon.png"
                 alt="customer"
