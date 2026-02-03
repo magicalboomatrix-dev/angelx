@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 
-export default function SettingPage() {
+export default function SettingPage() { 
       const router = useRouter();
 
     const handleLogout = () => {
@@ -35,7 +35,7 @@ export default function SettingPage() {
             <section className="section-2 reffer">
               <div className="rw">
                 <div className="bx">
-                  <Link href="">
+                  <Link href="https://t.me/angelxsuper">
                     <div className="image">
                       <h3>
                         <img src="images/s-icon1.jpg" /> Customer service
@@ -71,7 +71,7 @@ export default function SettingPage() {
                   </Link>
                 </div>
                 <div className="bx">
-                  <Link href="">
+                  <Link href="https://angelx.ind.in/AngelX.apk">
                     <div className="image">
                       <h3>
                         <img src="images/s-icon4.jpg" /> Intall the official version
