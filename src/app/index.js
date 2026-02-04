@@ -195,7 +195,7 @@ export default function Index() {
                 <div className="right">
                 <div className="info">
                     <h3>Acess expert knowledge</h3>
-                    <p>Ensure every user on AngelX can earn profits on the platform, regardless of how much money they have.e</p>
+                    <p>Ensure every user on AngelX can earn profits on the platform, regardless of how much money they have.</p>
                 </div>
                 </div>
                 </div>
