@@ -1,9 +1,12 @@
 'use client'
+import Head from "next/head";
 import React, { useCallback, useEffect, useState } from 'react';
 import Image from "next/image";
 import Link from 'next/link';
+import {Helmet} from "react-helmet"; 
 
 import Footer from './components/footer';
+
 
 
 
@@ -65,7 +68,33 @@ export default function Index() {
   
             
     <div>    
+    <Helmet>
 
+    <title>Welcome to AngelX — India's Trusted USDT Exchange Platform</title>
+    <meta name="description" content="Convert USDT to INR at premium rates with AngelX. Fast processing, instant payouts, strong security, reliable support, and easy crypto selling—your seamless exchange solution."/>
+
+    <meta name="keywords" content="angelx usdt price, angelx crypto, angelx usdt sell, angelx login, angelx pro, angelx pro apk, angelx exchange"/>
+
+    <link rel="canonical" href="https://www.angelx.ind.in/"/>
+
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"/>
+
+    <meta name="author" content="AngelX"/>
+    <meta name="publisher" content="AngelX"/>
+
+    <meta property="og:type" content="website"/>
+    <meta property="og:title" content="Welcome to AngelX — India's Trusted USDT Exchange Platform"/>
+    <meta property="og:description" content="Convert USDT to INR at premium rates with AngelX. Fast processing, instant payouts, strong security, reliable support, and easy crypto selling—your seamless exchange solution."/>
+    <meta property="og:url" content="https://www.angelx.ind.in/"/>
+    <meta property="og:site_name" content="AngelX"/>
+    <meta property="og:locale" content="en_IN"/>
+
+    <meta name="twitter:card" content="summary_large_image"/>
+    <meta name="twitter:title" content="Welcome to AngelX — India's Trusted USDT Exchange Platform"/>
+    <meta name="twitter:description" content="Convert USDT to INR at premium rates with AngelX. Fast processing, instant payouts, strong security, reliable support, and easy crypto selling—your seamless exchange solution."/>
+    <meta name="twitter:site" content="@AngelX"/>
+    
+  </Helmet>
 
 
       <div className="page-wrappers">
