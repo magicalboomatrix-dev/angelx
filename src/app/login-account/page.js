@@ -291,7 +291,7 @@ export default function LoginAccountPage() {
           width: 100%;
           border: 1px solid #e5e7eb;
           border-radius: 3px;
-          padding: 14px 14px;
+          padding: 11px;
           font-size: 16px;
           outline: none;
           background: #f9fafb;
