@@ -6,7 +6,7 @@ import Link from "next/link";
 import Image from "next/image";
 
 import { useRouter } from "next/navigation";
-import { Helmet, HelmetProvider } from 'react-helmet-next';
+import { Helmet } from 'react-helmet';
 
 
 export default function HomePage() {
@@ -67,7 +67,7 @@ export default function HomePage() {
   }
 
   return (
-    <HelmetProvider>
+
     <div>
     
     <Helmet>
@@ -273,7 +273,7 @@ export default function HomePage() {
        </div>                  
       </main>
     </div>
-</HelmetProvider>
+
   );
 }
 
