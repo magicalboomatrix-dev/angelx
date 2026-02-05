@@ -118,19 +118,20 @@ export default function LoginAccountPage() {
               <br/>
 
               <div className="form-bx">
-                <h3 className="title">
-                  <b>Login Account</b>
-                </h3>
+                
                 
                 {error && <div className="error-msg">{error}</div>}
 
                 {step === "mobile" ? (
                   <>
+                  <h3 className="title">
+                    <b>Login Account</b>
+                  </h3>
                     <p className="subtitle">Please enter your mobile number.</p>
 
                     <div className="mobileRow">
                       <div className="prefix">
-                        <span className="flag"><img src="images/ind-flag1.png" /></span>
+                        <span className="flag"><img src="images/flag-icon.png" /></span>
                         <span className="code">+91</span>
                       </div>
                       <input
@@ -154,8 +155,11 @@ export default function LoginAccountPage() {
                   </>
                 ) : (
                   <>
-                    <p className="subtitle">Kindly enter the SMS OTP sent to +91{mobile}</p>
-
+                    <h3 className="title">
+                      <b>Please enter SMS OTP</b>
+                    </h3>
+                    <p className="subtitle">SMS OTP sent to +91{mobile}</p>
+                    
                     <div className="mobileRowflex">
                       <input
                         className="otpInput"
@@ -173,13 +177,13 @@ export default function LoginAccountPage() {
                     </div>
 
                     <div className="otpActions">
-                      <button className="link" type="button" onClick={() => {
+                      {/* <button className="link" type="button" onClick={() => {
                         setStep("mobile");
                         setOtp("");
                         setError("");
                       }}>
                         Change number
-                      </button>
+                      </button> */}
                       {hideDiv && (
                         <button className="link" type="button" onClick={handleResendOtp}>
                           Resend OTP
