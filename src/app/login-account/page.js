@@ -260,7 +260,7 @@ export default function LoginAccountPage() {
         .prefix {
           display: flex;
           align-items: center;
-          padding: 7px 12px;
+          padding: 7px 11px 7px 8px;
           background: #f8f9fc;
           border-right: 1px solid #e5e7eb;
           min-width: 75px;
