@@ -9,7 +9,9 @@ import {Helmet} from "react-helmet";
 import Footer from './components/footer';
 
 
-
+export let metadata = {
+  description: 'Convert USDT to INR at premium rates with AngelX. Fast processing, instant payouts, strong security, reliable support, and easy crypto selling—your seamless exchange solution.',
+};
 
 export default function Index() {
   const [loading, setLoading] = useState(true);
@@ -68,17 +70,12 @@ export default function Index() {
 
   
             
-    <div>    
+    <div>
+    
+
     <>
       <title>Welcome to AngelX — India's Trusted USDT Exchange Platform</title>
-
-      <head>
-    <meta
-        name="description"
-        content="Convert USDT to INR at premium rates with AngelX. Fast processing, instant payouts, strong security, reliable support, and easy crypto selling—your seamless exchange solution."
-      />
-    </head>
-
+    
       <meta
         name="keywords"
         content="angelx usdt price, angelx crypto, angelx usdt sell, angelx login, angelx pro, angelx pro apk, angelx exchange"
