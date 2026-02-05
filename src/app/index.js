@@ -6,32 +6,6 @@ import Link from 'next/link';
 import Footer from './components/footer';
 
 
-export const metadata = {
-  title: "Welcome to AngelX — India's Trusted USDT Exchange Platform",
-  description:
-    "Convert USDT to INR at premium rates with AngelX. Fast processing, instant payouts, strong security, reliable support, and easy crypto selling—your seamless exchange solution.",
-  keywords:
-    "angelx usdt price, angelx crypto, angelx usdt sell, angelx login, angelx pro, angelx exchange",
-  alternates: {
-    canonical: "https://www.angelx.ind.in/",
-  },
-  openGraph: {
-    title: "Welcome to AngelX — India's Trusted USDT Exchange Platform",
-    description:
-      "Convert USDT to INR at premium rates with AngelX. Fast processing, instant payouts, strong security, reliable support.",
-    url: "https://www.angelx.ind.in/",
-    siteName: "AngelX",
-    locale: "en_IN",
-    type: "website",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Welcome to AngelX — India's Trusted USDT Exchange Platform",
-    description:
-      "Convert USDT to INR at premium rates with AngelX. Fast processing, instant payouts, strong security, reliable support.",
-  },
-};
-
 
 export default function Index() {
   const [loading, setLoading] = useState(true);
@@ -87,6 +61,42 @@ export default function Index() {
   const [showAppLink, setShowAppLink] = useState(true);
  
   return (
+    <>
+      <Head>
+        <title>Welcome to AngelX — India's Trusted USDT Exchange Platform</title>
+
+        <meta
+          name="description"
+          content="Convert USDT to INR at premium rates with AngelX. Fast processing, instant payouts, strong security, reliable support."
+        />
+
+        <meta
+          name="keywords"
+          content="angelx usdt price, angelx crypto, angelx usdt sell, angelx login, angelx exchange"
+        />
+
+        <link rel="canonical" href="https://www.angelx.ind.in/" />
+        <meta name="robots" content="index, follow" />
+
+        {/* Open Graph */}
+        <meta property="og:type" content="website" />
+        <meta property="og:title" content="AngelX — India's Trusted USDT Exchange Platform" />
+        <meta
+          property="og:description"
+          content="Convert USDT to INR at premium rates with AngelX."
+        />
+        <meta property="og:url" content="https://www.angelx.ind.in/" />
+        <meta property="og:site_name" content="AngelX" />
+
+        {/* Twitter */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="AngelX — Trusted USDT Exchange" />
+        <meta
+          name="twitter:description"
+          content="Fast, secure USDT to INR exchange with AngelX."
+        />
+      </Head>
+            
     <div>    
 
       <div className="page-wrappers">
@@ -790,6 +800,7 @@ export default function Index() {
 <Footer></Footer>
      </div>   
     </div>
+                  </>
   );
 }
 
