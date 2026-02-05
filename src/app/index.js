@@ -60,6 +60,8 @@ export default function Index() {
  
   return (
     <div>
+        <title>Welcome to AngelX — India's Trusted USDT Exchange Platform</title>
+
       <div className="page-wrappers">
          {loading && <div className="loader">
           <Image 
