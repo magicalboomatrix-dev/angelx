@@ -3,8 +3,8 @@ import Script from "next/script";
 import LayoutClient from "./LayoutClient";
 
 export const metadata = {
-  title: "AngelX - USDT Exchange Platform",
-  description: "Buy and sell USDT seamlessly with AngelX",
+  //title: "AngelX - USDT Exchange Platform",
+  //description: "Buy and sell USDT seamlessly with AngelX",
   manifest: "/manifest.json",
   themeColor: "#000000",
   appleWebApp: {
