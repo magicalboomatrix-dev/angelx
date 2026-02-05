@@ -261,7 +261,7 @@ export default function LoginAccountPage() {
           display: flex;
           align-items: center;
           padding: 5px 12px;
-          background: #f3f4f6;
+          background: #f8f9fc;
           border-right: 1px solid #e5e7eb;
           min-width: 75px;
           font-weight: normal;
