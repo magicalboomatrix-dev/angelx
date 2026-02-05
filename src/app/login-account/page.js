@@ -260,11 +260,11 @@ export default function LoginAccountPage() {
         .prefix {
           display: flex;
           align-items: center;
-          padding: 12px 12px;
+          padding: 12px;
           background: #f3f4f6;
           border-right: 1px solid #e5e7eb;
           min-width: 75px;
-          font-weight: 600;
+          font-weight: normal;
           color: #000;
         }
         .flag {
@@ -273,14 +273,14 @@ export default function LoginAccountPage() {
           margin-right: 6px;
         }
         .code {
-          font-size: 14px;
+          font-size: 16px;
         }
         .mobileInput {
           flex: 1;
           border: none;
           outline: none;
           background: transparent;
-          padding: 14px 14px;
+          padding: 12px;
           font-size: 16px;
           color: #000;
         }
