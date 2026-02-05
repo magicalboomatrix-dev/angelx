@@ -6,7 +6,7 @@ import Link from "next/link";
 import Image from "next/image";
 
 import { useRouter } from "next/navigation";
-import { Helmet } from 'react-helmet';
+import {Helmet} from "react-helmet";
 
 
 export default function HomePage() {
