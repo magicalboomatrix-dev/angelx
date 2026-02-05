@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from 'next/link';
 import {Helmet} from "react-helmet"; 
 
+
 import Footer from './components/footer';
 
 
@@ -71,10 +72,12 @@ export default function Index() {
     <>
       <title>Welcome to AngelX — India's Trusted USDT Exchange Platform</title>
 
-      <meta
+      <head>
+    <meta
         name="description"
         content="Convert USDT to INR at premium rates with AngelX. Fast processing, instant payouts, strong security, reliable support, and easy crypto selling—your seamless exchange solution."
       />
+    </head>
 
       <meta
         name="keywords"
