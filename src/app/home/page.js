@@ -7,17 +7,9 @@ import Image from "next/image";
 
 import { useRouter } from "next/navigation";
 import {Helmet} from "react-helmet"; 
-import { metadata } from "./metadata"
 
-export const metadata1 = {
-  title: "Welcome to AngelX",
-  description: "Log in to AngelX for instant USDT to INR conversions at top rates. Fast processing, secure payouts, reliable support—quickly access your account and sell crypto easily.",
-  keywords: "angelx usdt price, angelx crypto, angelx usdt sell, angelx login, angelx pro, angelx pro apk, angelx exchange",
-  canonical: "https://angelx.ind.in/home",
-  robots: "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1",
-  author: "AngelX",
-  publisher: "AngelX",
-};
+
+
 
 
 export default function HomePage() {
@@ -82,14 +74,14 @@ export default function HomePage() {
     <div>
     
     <Helmet>
-      <title>{metadata.title}</title>
-      <meta name="description" content={metadata.description} />
-      <meta name="keywords" content={metadata.keywords} />
-      <link rel="canonical" href={metadata.canonical} />
-      <meta name="robots" content={metadata.robots} />
-      <meta name="author" content={metadata.author} />
-      <meta name="publisher" content={metadata.publisher} />
-    </Helmet>
+      <title>Welcome to AngelX</title>
+      <meta name="description" content="Log in to AngelX for instant USDT to INR conversions at top rates. Fast processing, secure payouts, reliable support—quickly access your account and sell crypto easily." />
+      <meta name="keywords" content="angelx usdt price, angelx crypto, angelx usdt sell, angelx login, angelx pro, angelx pro apk, angelx exchange" />
+      <link rel="canonical" href="https://www.angelx.ind.in/login" />
+      <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"/>
+      <meta name="author" content="AngelX" />
+      <meta name="publisher" content="AngelX" />
+  </Helmet>
    
           
       <main>
