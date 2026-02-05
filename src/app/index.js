@@ -87,57 +87,7 @@ export default function Index() {
   const [showAppLink, setShowAppLink] = useState(true);
  
   return (
-    <div>
-     <Head>
-        <title>Welcome to AngelX — India's Trusted USDT Exchange Platform</title>
-
-        <meta
-          name="description"
-          content="Convert USDT to INR at premium rates with AngelX. Fast processing, instant payouts, strong security, reliable support, and easy crypto selling—your seamless exchange solution."
-        />
-
-        <meta
-          name="keywords"
-          content="angelx usdt price, angelx crypto, angelx usdt sell, angelx login, angelx pro, angelx pro apk, angelx exchange"
-        />
-
-        <link rel="canonical" href="https://www.angelx.ind.in/" />
-
-        <meta
-          name="robots"
-          content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
-        />
-
-        <meta name="author" content="AngelX" />
-        <meta name="publisher" content="AngelX" />
-
-        {/* Open Graph */}
-        <meta property="og:type" content="website" />
-        <meta
-          property="og:title"
-          content="Welcome to AngelX — India's Trusted USDT Exchange Platform"
-        />
-        <meta
-          property="og:description"
-          content="Convert USDT to INR at premium rates with AngelX. Fast processing, instant payouts, strong security, reliable support, and easy crypto selling—your seamless exchange solution."
-        />
-        <meta property="og:url" content="https://www.angelx.ind.in/" />
-        <meta property="og:site_name" content="AngelX" />
-        <meta property="og:locale" content="en_IN" />
-
-        {/* Twitter */}
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta
-          name="twitter:title"
-          content="Welcome to AngelX — India's Trusted USDT Exchange Platform"
-        />
-        <meta
-          name="twitter:description"
-          content="Convert USDT to INR at premium rates with AngelX. Fast processing, instant payouts, strong security, reliable support, and easy crypto selling—your seamless exchange solution."
-        />
-        <meta name="twitter:site" content="@AngelX" />
-      </Head>
-
+    <div>    
 
       <div className="page-wrappers">
          {loading && <div className="loader">
