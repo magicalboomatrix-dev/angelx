@@ -6,9 +6,10 @@ import Image from "next/image";
 
 import { useRouter } from "next/navigation";
 export const metadata = {
-  title: "Welcome to AngelX",
+  title: "Welcome to AngelX — India's Trusted USDT Exchange Platform",
+
   description:
-    "Log in to AngelX for instant USDT to INR conversions at top rates. Fast processing, secure payouts, reliable support—quickly access your account and sell crypto easily.",
+    "Convert USDT to INR at premium rates with AngelX. Fast processing, instant payouts, strong security, reliable support, and easy crypto selling—your seamless exchange solution.",
 
   keywords: [
     "angelx usdt price",
@@ -21,7 +22,7 @@ export const metadata = {
   ],
 
   alternates: {
-    canonical: "https://www.angelx.ind.in/login",
+    canonical: "https://www.angelx.ind.in/",
   },
 
   robots: {
@@ -34,8 +35,34 @@ export const metadata = {
 
   authors: [{ name: "AngelX" }],
   publisher: "AngelX",
-};
 
+  openGraph: {
+    type: "website",
+    title: "Welcome to AngelX — India's Trusted USDT Exchange Platform",
+    description:
+      "Convert USDT to INR at premium rates with AngelX. Fast processing, instant payouts, strong security, reliable support, and easy crypto selling—your seamless exchange solution.",
+    url: "https://www.angelx.ind.in/",
+    siteName: "AngelX",
+    locale: "en_IN",
+    images: [
+      {
+        url: "https://www.angelx.ind.in/images/og-image.png", // IMPORTANT
+        width: 1200,
+        height: 630,
+        alt: "AngelX USDT Exchange Platform",
+      },
+    ],
+  },
+
+  twitter: {
+    card: "summary_large_image",
+    title: "Welcome to AngelX — India's Trusted USDT Exchange Platform",
+    description:
+      "Convert USDT to INR at premium rates with AngelX. Fast processing, instant payouts, strong security, reliable support, and easy crypto selling—your seamless exchange solution.",
+    site: "@AngelX",
+    images: ["https://www.angelx.ind.in/images/og-image.png"],
+  },
+};
 
 
 
