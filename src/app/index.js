@@ -62,41 +62,8 @@ export default function Index() {
   const [showAppLink, setShowAppLink] = useState(true);
  
   return (
-    <>
-      <Head>
-        <title>Welcome to AngelX — India's Trusted USDT Exchange Platform</title>
 
-        <meta
-          name="description"
-          content="Convert USDT to INR at premium rates with AngelX. Fast processing, instant payouts, strong security, reliable support."
-        />
-
-        <meta
-          name="keywords"
-          content="angelx usdt price, angelx crypto, angelx usdt sell, angelx login, angelx exchange"
-        />
-
-        <link rel="canonical" href="https://www.angelx.ind.in/" />
-        <meta name="robots" content="index, follow" />
-
-        {/* Open Graph */}
-        <meta property="og:type" content="website" />
-        <meta property="og:title" content="AngelX — India's Trusted USDT Exchange Platform" />
-        <meta
-          property="og:description"
-          content="Convert USDT to INR at premium rates with AngelX."
-        />
-        <meta property="og:url" content="https://www.angelx.ind.in/" />
-        <meta property="og:site_name" content="AngelX" />
-
-        {/* Twitter */}
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="AngelX — Trusted USDT Exchange" />
-        <meta
-          name="twitter:description"
-          content="Fast, secure USDT to INR exchange with AngelX."
-        />
-      </Head>
+  
             
     <div>    
 
@@ -801,7 +768,7 @@ export default function Index() {
 <Footer></Footer>
      </div>   
     </div>
-                  </>
+
   );
 }
 
