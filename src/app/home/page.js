@@ -6,7 +6,7 @@ import Link from "next/link";
 import Image from "next/image";
 
 import { useRouter } from "next/navigation";
-import {Helmet} from "react-helmet";
+import { Helmet, HelmetProvider } from 'react-helmet-next';
 
 
 export default function HomePage() {
@@ -67,16 +67,15 @@ export default function HomePage() {
   }
 
   return (
-    
+    <HelmetProvider>
     <div>
+    
     <Helmet>
          
                 <title>Welcome to AngelX</title>
                 {/* Meta Description */}
-      <meta
-        name="description"
-        content="Log in to AngelX for instant USDT to INR conversions at top rates. Fast processing, secure payouts, reliable support—quickly access your account and sell crypto easily."
-      />
+  
+          <meta name="description" content="Log in to AngelX for instant USDT to INR conversions at top rates. Fast processing, secure payouts, reliable support—quickly access your account and sell crypto easily." />
 
       {/* Keywords (optional) */}
       <meta
@@ -274,6 +273,7 @@ export default function HomePage() {
        </div>                  
       </main>
     </div>
+</HelmetProvider>
   );
 }
 
