@@ -72,10 +72,7 @@ export default function HomePage() {
     <Helmet>
                 <meta charSet="utf-8" />
                 <title>Welcome to AngelX</title>
-                <meta
-        name="description"
-        content="Log in to AngelX for instant USDT to INR conversions at top rates. Fast processing, secure payouts, reliable support—quickly access your account and sell crypto easily."
-      />
+                <meta name="description" content="Nested component" />
             </Helmet>
    
           
