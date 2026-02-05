@@ -1,9 +1,7 @@
-
-export const metadata = {
-  title: "Welcome to AngelX",
-}
-
 "use client";
+import Head from "next/head";
+import { useRouter } from "next/router";
+
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -69,6 +67,9 @@ export default function HomePage() {
 
   return (
     <div>
+      <Head>
+        <title>About | AngelX</title>
+      </Head>
       <main>
         <div className="page-wrappers page-wrapper-ex home-wrappers">
           <header className="header" style={{position: "relative"}}>
