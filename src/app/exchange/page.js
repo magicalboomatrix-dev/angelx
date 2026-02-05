@@ -1,5 +1,5 @@
 "use client";
-
+import Head from "next/head";
 import React, { useState, useEffect } from "react";
 import dynamic from "next/dynamic";
 import Link from "next/link";
