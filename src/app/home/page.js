@@ -76,7 +76,8 @@ export default function HomePage() {
     <Helmet>
       <title>Welcome to AngelX</title>      
       <meta name="keywords" content="angelx usdt price, angelx crypto, angelx usdt sell, angelx login, angelx pro, angelx pro apk, angelx exchange" />
-      <meta name="description" content="Log in to AngelX for instant USDT to INR conversions at top rates. Fast processing, secure payouts, reliable support—quickly access your account and sell crypto easily." />
+  {/*<meta name="description" content="Log in to AngelX for instant USDT to INR conversions at top rates. Fast processing, secure payouts, reliable support—quickly access your account and sell crypto easily." />*/}
+      <meta name="description" content="Log in to AngelX for fast USDT to INR conversions at top rates. Secure payouts, reliable support, and instant crypto selling." />
       <link rel="canonical" href="https://www.angelx.ind.in/login" />
       <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"/>
       <meta name="author" content="AngelX" />
