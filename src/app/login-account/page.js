@@ -260,7 +260,7 @@ export default function LoginAccountPage() {
         .prefix {
           display: flex;
           align-items: center;
-          padding: 12px;
+          padding: 5px 12px;
           background: #f3f4f6;
           border-right: 1px solid #e5e7eb;
           min-width: 75px;
@@ -272,6 +272,9 @@ export default function LoginAccountPage() {
           display: flex;
           margin-right: 6px;
         }
+        .flag img {
+            max-width: 26px;
+        }
         .code {
           font-size: 16px;
         }
@@ -280,7 +283,7 @@ export default function LoginAccountPage() {
           border: none;
           outline: none;
           background: transparent;
-          padding: 12px;
+          padding: 5px 14px;
           font-size: 16px;
           color: #000;
         }
