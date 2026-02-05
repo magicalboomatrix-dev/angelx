@@ -5,6 +5,56 @@ import Link from 'next/link';
 
 import Footer from './components/footer';
 
+export const metadata = {
+  title: "Welcome to AngelX — India's Trusted USDT Exchange Platform",
+  description:
+    "Convert USDT to INR at premium rates with AngelX. Fast processing, instant payouts, strong security, reliable support, and easy crypto selling—your seamless exchange solution.",
+
+  keywords: [
+    "angelx usdt price",
+    "angelx crypto",
+    "angelx usdt sell",
+    "angelx login",
+    "angelx pro",
+    "angelx pro apk",
+    "angelx exchange",
+  ],
+
+  authors: [{ name: "AngelX" }],
+  publisher: "AngelX",
+
+  alternates: {
+    canonical: "https://www.angelx.ind.in/",
+  },
+
+  robots: {
+    index: true,
+    follow: true,
+    maxSnippet: -1,
+    maxImagePreview: "large",
+    maxVideoPreview: -1,
+  },
+
+  openGraph: {
+    type: "website",
+    title: "Welcome to AngelX — India's Trusted USDT Exchange Platform",
+    description:
+      "Convert USDT to INR at premium rates with AngelX. Fast processing, instant payouts, strong security, reliable support, and easy crypto selling—your seamless exchange solution.",
+    url: "https://www.angelx.ind.in/",
+    siteName: "AngelX",
+    locale: "en_IN",
+  },
+
+  twitter: {
+    card: "summary_large_image",
+    title: "Welcome to AngelX — India's Trusted USDT Exchange Platform",
+    description:
+      "Convert USDT to INR at premium rates with AngelX. Fast processing, instant payouts, strong security, reliable support, and easy crypto selling—your seamless exchange solution.",
+    site: "@AngelX",
+  },
+};
+
+
 export default function Index() {
   const [loading, setLoading] = useState(true);
   const [mounted, setMounted] = useState(false);
