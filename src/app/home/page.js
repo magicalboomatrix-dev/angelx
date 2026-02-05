@@ -1,13 +1,13 @@
 
+export const metadata = {
+  title: "Welcome to AngelX",
+}
+
 "use client";
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
-
-export const metadata = {
-  title: "Welcome to AngelX",
-}
 
 
 export default function HomePage() {
