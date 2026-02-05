@@ -6,9 +6,7 @@ import Link from "next/link";
 import Image from "next/image";
 
 import { useRouter } from "next/navigation";
-import { Helmet } from "react-helmet-async";
-
-
+import {Helmet} from "react-helmet";
 
 
 export default function HomePage() {
@@ -72,37 +70,14 @@ export default function HomePage() {
     
     <div>
     <Helmet>
-      {/* Title */}
-      <title>Welcome to AngelX</title>
-
-      {/* Meta Description */}
-      <meta
+                <meta charSet="utf-8" />
+                <title>Welcome to AngelX</title>
+                <meta
         name="description"
         content="Log in to AngelX for instant USDT to INR conversions at top rates. Fast processing, secure payouts, reliable support—quickly access your account and sell crypto easily."
       />
-
-      {/* Keywords (optional) */}
-      <meta
-        name="keywords"
-        content="angelx usdt price, angelx crypto, angelx usdt sell, angelx login, angelx pro, angelx pro apk, angelx exchange"
-      />
-
-      {/* Canonical */}
-      <link
-        rel="canonical"
-        href="https://www.angelx.ind.in/login"
-      />
-
-      {/* Robots */}
-      <meta
-        name="robots"
-        content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
-      />
-
-      {/* Author & Publisher */}
-      <meta name="author" content="AngelX" />
-      <meta name="publisher" content="AngelX" />
-    </Helmet>
+            </Helmet>
+   
           
       <main>
         <div className="page-wrappers page-wrapper-ex home-wrappers">
