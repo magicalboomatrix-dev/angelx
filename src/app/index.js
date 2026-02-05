@@ -1,6 +1,4 @@
-export const metadata = {
-  title: "Welcome to AngelX — India's Trusted USDT Exchange Platform",
-}
+
   
 'use client'
 import React, { useCallback, useEffect, useState } from 'react';
