@@ -9,9 +9,15 @@ import {Helmet} from "react-helmet";
 import Footer from './components/footer';
 
 
-export let metadata = {
-  description: 'Convert USDT to INR at premium rates with AngelX. Fast processing, instant payouts, strong security, reliable support, and easy crypto selling—your seamless exchange solution.',
-};
+export async function generateMetadata({ searchParams }) {
+  const dynamicDescription = searchParams.desc || 
+    'Convert USDT to INR at premium rates with AngelX. Fast processing, instant payouts, strong security, reliable support, and easy crypto selling—your seamless exchange solution.';
+    
+  return {
+    description: dynamicDescription,
+  };
+}
+
 
 export default function Index() {
   const [loading, setLoading] = useState(true);
