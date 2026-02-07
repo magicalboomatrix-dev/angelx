@@ -27,6 +27,7 @@ model BankCard {
   id         Int      @id @default(autoincrement())
   user       User     @relation(fields: [userId], references: [id])
   userId     Int
+  bankName   String
   accountNo  String
   ifsc       String
   payeeName  String

@@ -1,71 +1,9 @@
 "use client";
-//import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 
 import { useRouter } from "next/navigation";
-export const metadata = {
-  title: "Welcome to AngelX — India's Trusted USDT Exchange Platform",
-
-  description:
-    "Convert USDT to INR at premium rates with AngelX. Fast processing, instant payouts, strong security, reliable support, and easy crypto selling—your seamless exchange solution.",
-
-  keywords: [
-    "angelx usdt price",
-    "angelx crypto",
-    "angelx usdt sell",
-    "angelx login",
-    "angelx pro",
-    "angelx pro apk",
-    "angelx exchange",
-  ],
-
-  alternates: {
-    canonical: "https://www.angelx.ind.in/",
-  },
-
-  robots: {
-    index: true,
-    follow: true,
-    maxSnippet: -1,
-    maxImagePreview: "large",
-    maxVideoPreview: -1,
-  },
-
-  authors: [{ name: "AngelX" }],
-  publisher: "AngelX",
-
-  openGraph: {
-    type: "website",
-    title: "Welcome to AngelX — India's Trusted USDT Exchange Platform",
-    description:
-      "Convert USDT to INR at premium rates with AngelX. Fast processing, instant payouts, strong security, reliable support, and easy crypto selling—your seamless exchange solution.",
-    url: "https://www.angelx.ind.in/",
-    siteName: "AngelX",
-    locale: "en_IN",
-    images: [
-      {
-        url: "https://www.angelx.ind.in/images/og-image.png", // IMPORTANT
-        width: 1200,
-        height: 630,
-        alt: "AngelX USDT Exchange Platform",
-      },
-    ],
-  },
-
-  twitter: {
-    card: "summary_large_image",
-    title: "Welcome to AngelX — India's Trusted USDT Exchange Platform",
-    description:
-      "Convert USDT to INR at premium rates with AngelX. Fast processing, instant payouts, strong security, reliable support, and easy crypto selling—your seamless exchange solution.",
-    site: "@AngelX",
-    images: ["https://www.angelx.ind.in/images/og-image.png"],
-  },
-};
-
-
-
 
 export default function HomePage() {
   const router = useRouter();
@@ -126,20 +64,7 @@ export default function HomePage() {
 
   return (
 
-    <div>
-    
-    <Helmet>
-      <title>Welcome to AngelX</title>      
-      <meta name="keywords" content="angelx usdt price, angelx crypto, angelx usdt sell, angelx login, angelx pro, angelx pro apk, angelx exchange" />
-  {/*<meta name="description" content="Log in to AngelX for instant USDT to INR conversions at top rates. Fast processing, secure payouts, reliable support—quickly access your account and sell crypto easily." />*/}
-      <meta name="description" content="Log in to AngelX for fast USDT to INR conversions at top rates. Secure payouts, reliable support, and instant crypto selling." />
-      <link rel="canonical" href="https://www.angelx.ind.in/login" />
-      <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"/>
-      <meta name="author" content="AngelX" />
-      <meta name="publisher" content="AngelX" />
-  </Helmet>
-   
-          
+    <div> 
       <main>
         <div className="page-wrappers page-wrapper-ex home-wrappers">
           <header className="header" style={{position: "relative"}}>

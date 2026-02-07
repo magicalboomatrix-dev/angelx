@@ -4,38 +4,6 @@ import dynamic from "next/dynamic";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 
-export const metadata = {
-  title: "Welcome to AngelX — India’s #1 Trusted USDT Exchange Platform",
-  description:
-    "Exchange USDT for INR instantly on AngelX—high rates, fast processing, immediate payouts, strong security, reliable support, and easy crypto selling for seamless trades.",
-
-  keywords: [
-    "angelx usdt price",
-    "angelx crypto",
-    "angelx usdt sell",
-    "angelx login",
-    "angelx pro",
-    "angelx pro apk",
-    "angelx exchange",
-  ],
-
-  alternates: {
-    canonical: "https://www.angelx.ind.in/exchange",
-  },
-
-  robots: {
-    index: true,
-    follow: true,
-    maxSnippet: -1,
-    maxImagePreview: "large",
-    maxVideoPreview: -1,
-  },
-
-  authors: [{ name: "AngelX" }],
-  publisher: "AngelX",
-};
-
-
 const Slider = dynamic(
   () => import("react-slick").then((mod) => mod.default),
   {
@@ -111,18 +79,6 @@ export default function Exchange() {
 
   return (
     <div>
-    <Helmet>
-
-    <title>Welcome to AngelX — India’s #1 Trusted USDT Exchange Platform</title>
-    <meta name="description" content="Exchange USDT for INR instantly on AngelX—high rates, fast processing, immediate payouts, strong security, reliable support, and easy crypto selling for seamless trades."/>
-    <meta name="keywords" content="angelx usdt price, angelx crypto, angelx usdt sell, angelx login, angelx pro, angelx pro apk, angelx exchange"/>
-    <link rel="canonical" href="https://www.angelx.ind.in/exchange"/>
-    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"/>
-    <meta name="author" content="AngelX"/>
-    <meta name="publisher" content="AngelX"/>
-    
-  </Helmet>
-    
       <main>
         <div className="page-wrappers">
           <header className="header">
