@@ -47,7 +47,7 @@ export default function DemoPage() {
               <img src="/images/back-btn.png" alt="Back" className="back-img" />
             </Link>
           </div>
-          <h3 className="header-title">Deposit History</h3>
+          <h3 className="header-title">History</h3>
         </div>
 
         <section className="section-1">
