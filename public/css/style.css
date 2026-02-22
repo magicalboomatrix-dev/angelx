@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Mona+Sans:ital,wght@0,200..900;1,200..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap');
 
 /*@font-face {
     font-family: 'corsicasx6';
@@ -301,6 +302,7 @@ section.section-1a.banner-img {
 
 	line-height: 40px;
 	padding: 15px 0 0px 0;
+	font-family: "Manrope", sans-serif;
 }
 
 .page-wrapper-ex .price-calc .base-price h4 span {
@@ -1596,6 +1598,7 @@ section.section-4 table td:last-child {
     text-align: center;
     font-weight: bold;
     padding: 10px 0;
+	font-family: "Manrope", sans-serif;
 }
 
 .page-wrapper-ex .pricerefBx {
@@ -2833,10 +2836,9 @@ section.section-3 .screenshot-wrapper img.screenshot-img {
 }
 .screenshot-wrapper .price-calc .base-price h4 {
     font-size: 45px;
+	font-family: "Manrope", sans-serif;
 }
-.screenshot-wrapper .price-calc .base-price h4 {
-    font-size: 45px;
-}
+
 .screenshot-wrapper .price-calc .base-price h4 span {
     background: url(../images/base.png);
     font-size: 13px;
@@ -2858,6 +2860,7 @@ section.section-3 .screenshot-wrapper img.screenshot-img {
     text-align: center;
     font-weight: bold;
     padding: 10px 0;
+	font-family: "Manrope", sans-serif;
 }
 
 .screenshot-wrapper .overlay-box {
