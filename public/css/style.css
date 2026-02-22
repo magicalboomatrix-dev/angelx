@@ -2836,10 +2836,9 @@ section.section-3 .screenshot-wrapper img.screenshot-img {
 }
 .screenshot-wrapper .price-calc .base-price h4 {
     font-size: 45px;
+	font-family: "Manrope", sans-serif;
 }
-.screenshot-wrapper .price-calc .base-price h4 {
-    font-size: 45px;
-}
+
 .screenshot-wrapper .price-calc .base-price h4 span {
     background: url(../images/base.png);
     font-size: 13px;
@@ -2861,6 +2860,7 @@ section.section-3 .screenshot-wrapper img.screenshot-img {
     text-align: center;
     font-weight: bold;
     padding: 10px 0;
+	font-family: "Manrope", sans-serif;
 }
 
 .screenshot-wrapper .overlay-box {
