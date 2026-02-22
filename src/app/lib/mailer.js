@@ -1,0 +1,38 @@
+import nodemailer from 'nodemailer';
+
+const transporter = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+    user: process.env.EMAIL_USER,
+    pass: process.env.EMAIL_PASS,
+  },
+});
+
+export const sendEmail = async (to, otp) => {
+  const html = `
+    <div style="font-family: Arial, sans-serif; text-align: center; color: #333;">
+      <h2 style="color: #28a745;">Your AngelX Verification Code</h2>
+      <p>Use the code below to verify your email address:</p>
+      <h1 style="font-size: 48px; color: #28a745;">${otp}</h1>
+      <p>This code will expire in 5 minutes.</p>
+      <p>If you did not request this code, please ignore this email.</p>
+      <footer style="margin-top: 20px; font-size: 12px; color: #aaa;">
+        © 2026 AngelX. All rights reserved.
+      </footer>
+    </div>
+  `;
+
+  try {
+    await transporter.sendMail({
+      from: `"AngelX" <${process.env.EMAIL_USER}>`,
+      to,
+      subject: 'Your AngelX Verification Code',
+      html,
+    });
+    console.log(`✅ Email sent successfully to ${to}`);
+  } catch (error) {
+    console.error('❌ Error sending email:', error);
+    throw new Error('Failed to send OTP email');
+  }
+};
+

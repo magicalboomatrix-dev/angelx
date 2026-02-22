@@ -1,0 +1,158 @@
+
+
+.phoneContainer {
+    width: 100%;
+    max-width: 375px;
+    min-height: 100vh;
+    background-color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    -webkit-font-smoothing: antialiased;
+    margin: 0;
+    padding: 0;
+    background-color: #f7f7f7;
+    color: #1a1a1a;
+    margin: auto;
+}
+
+/* Header Navigation */
+.header {
+    display: flex;
+    align-items: center;
+    padding: 18px 16px;
+    background-color: #fff;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+.backIcon {
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+.formRowrap {
+    background: #fff;
+    margin-top: 10px;
+}
+
+.formRowrap .formRow {
+    align-items: center;
+    display: flex;
+}
+.backIcon img {
+    width: 100%;
+    object-fit: contain;
+}
+
+.headerTitle {
+    flex-grow: 1;
+    text-align: center;
+    font-size: 17px;
+    font-weight: 600;
+    margin: 0;
+    margin-right: 24px;
+}
+
+/* Form Layout */
+.formContent {
+    flex: 1;
+}
+
+.formRow {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 16px;
+    border-bottom: 1px solid #f2f2f2;
+}
+
+.label {
+    font-size: 14px;
+    font-weight: normal;
+    color: #000;
+    width: 100px;
+}
+
+.networkDisplay {
+    display: flex;
+    align-items: center;
+    font-weight: normal;
+    font-size: 14px;
+}
+
+.networkLogo {
+    width: 20px;
+    height: 20px;
+    margin-right: 8px;
+}
+
+.addressInput {
+    flex: 1;
+    border: none;
+    outline: none;
+    font-family: 'Mona Sans', sans-serif;
+    font-size: 15px;
+    color: #333;
+}
+
+.addressInput::placeholder {
+    color: #d1d1d1;
+    font-weight: normal;
+}
+
+
+/* Action Section */
+.actionContainer {
+    padding: 30px 20px;
+}
+
+.commitBtn {
+    width: 100%;
+    padding: 12px 15px;
+    border-radius: 30px;
+    border: none;
+    background-color: #e5e5e5;
+    color: #fff;
+    font-size: 17px;
+    font-weight: 600;
+    cursor: not-allowed;
+}
+
+.commitBtnEnabled {
+    background-color: #000000;
+    color: #fff;
+    cursor: pointer;
+}
+
+/* Disclaimer Area */
+.warningBox {
+    background-color: #f7f7f7;
+    padding: 25px 20px;
+    flex-grow: 1;
+}
+
+.warningText {
+    color: #a1a1a1;
+    font-size: 14px;
+    line-height: 1.6;
+    font-weight: 600;
+    margin: 0;
+}
+
+.message {
+  text-align: center;
+  margin-top: 10px;
+  font-weight: 600;
+}
+
+.success {
+  color: green;
+}
+
+.error {
+  color: red;
+}
