@@ -1,22 +1,9 @@
 'use client'
-import Head from "next/head";
 import React, { useCallback, useEffect, useState } from 'react';
 import Image from "next/image";
 import Link from 'next/link';
-import {Helmet} from "react-helmet"; 
-
 
 import Footer from './components/footer';
-
-
-export async function generateMetadata({ searchParams }) {
-  const dynamicDescription = searchParams.desc || 'Convert USDT to INR at premium rates with AngelX. Fast processing, instant payouts, strong security, reliable support, and easy crypto selling—your seamless exchange solution.';
-    
-  return {
-    description: dynamicDescription,
-  };
-}
-
 
 export default function Index() {
   const [loading, setLoading] = useState(true);

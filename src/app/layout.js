@@ -39,10 +39,7 @@ export default function Layout({ children }) {
           crossOrigin="anonymous"
         />
         <link rel="stylesheet" href="/css/style.css" type="text/css" />
-        <meta
-          name="description"
-          content="Convert USDT to INR at premium rates with AngelX. Fast processing, instant payouts, strong security, reliable support, and easy crypto selling—your seamless exchange solution."
-        />
+      
         <meta name="viewport" content="width=device-width, user-scalable=no" />
         <meta
           name="keywords"
