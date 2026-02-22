@@ -1,0 +1,23 @@
+# robots.txt for https://www.angelx.ind.in/
+
+User-agent: *
+Disallow: /home
+Disallow: /withdraw
+Disallow: /wallet
+Disallow: /wallet/add?currency=USDT
+Disallow: /wallet/add?currency=PAYX
+Disallow: /USDT-deposit
+Disallow: /deposit-amount?amount=100&network=TRC20
+Disallow: /deposit-amount?amount=100&network=BEP20
+Disallow: /sell-usdt
+Disallow: /bank
+Disallow: /bind-bank-card
+Disallow: /history
+Disallow: /statements
+Disallow: /invite
+
+# Allow Google to access everything except above
+Allow: /
+
+# Sitemap
+Sitemap: https://www.angelx.ind.in/sitemap.xml

@@ -2,70 +2,28 @@ import "./globals.css";
 import Script from "next/script";
 import LayoutClient from "./LayoutClient";
 
-/*export const metadata = {
-
-  title: "Welcome to AngelX — India's Trusted USDT Exchange Platform",
-  description:
-    "Convert USDT to INR at premium rates with AngelX. Fast processing, instant payouts, strong security, reliable support, and easy crypto selling—your seamless exchange solution.",
-
-  keywords: [
-    "angelx usdt price",
-    "angelx crypto",
-    "angelx usdt sell",
-    "angelx login",
-    "angelx pro",
-    "angelx pro apk",
-    "angelx exchange",
-  ],
-
-  alternates: {
-    canonical: "https://www.angelx.ind.in/",
-  },
-
-  robots: {
-    index: true,
-    follow: true,
-    googleBot: {
-      index: true,
-      follow: true,
-      maxSnippet: -1,
-      maxImagePreview: "large",
-      maxVideoPreview: -1,
-    },
-  },
-
-  authors: [{ name: "AngelX" }],
-  publisher: "AngelX",
-
-  openGraph: {
-    type: "website",
-    title: "Welcome to AngelX — India's Trusted USDT Exchange Platform",
-    description:
-      "Convert USDT to INR at premium rates with AngelX. Fast processing, instant payouts, strong security, reliable support, and easy crypto selling—your seamless exchange solution.",
-    url: "https://www.angelx.ind.in/",
-    siteName: "AngelX",
-    locale: "en_IN",
-  },
-
-  twitter: {
-    card: "summary_large_image",
-    title: "Welcome to AngelX — India's Trusted USDT Exchange Platform",
-    description:
-      "Convert USDT to INR at premium rates with AngelX. Fast processing, instant payouts, strong security, reliable support, and easy crypto selling—your seamless exchange solution.",
-    site: "@AngelX",
-  },
-};*/
-
-
 export default function Layout({ children }) {
   return (
     <html lang="en">
       <head>
-      <link rel="icon" type="image/x-icon" href="/images/fav.png" />
-      <link rel="manifest" href="/manifest.json" />
-      <link rel="apple-touch-icon" href="/icon-192x192.png" />
-      <meta name="mobile-web-app-capable" content="yes" />
-       
+        <link rel="icon" type="image/x-icon" href="/images/fav.png" />
+        <link rel="manifest" href="/manifest.json" />
+        <link rel="apple-touch-icon" href="/icon-192x192.png" />
+        <meta name="mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="theme-color" content="#ffffff" />
+        <title>Welcome to AngelX — Sell USDT Anytime, Anywhere</title>
+        <meta charSet="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta
+          name="googlebot"
+          content="index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1"
+        />
+        <meta
+          name="bingbot"
+          content="index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1"
+        />
+
         <link
           href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
           rel="stylesheet"
@@ -81,47 +39,124 @@ export default function Layout({ children }) {
           crossOrigin="anonymous"
         />
         <link rel="stylesheet" href="/css/style.css" type="text/css" />
-        <meta name="description" content="" />
-        <meta meta name="viewport" content="width=device-width, user-scalable=no" />
-
-         {/* Google tag */}
+        <meta
+          name="description"
+          content="Convert USDT to INR at premium rates with AngelX. Fast processing, instant payouts, strong security, reliable support, and easy crypto selling—your seamless exchange solution."
+        />
+        <meta name="viewport" content="width=device-width, user-scalable=no" />
+        <meta
+          name="keywords"
+          content="angelx usdt price, angelx crypto, angelx usdt sell"
+        />
+        <meta
+          name="robots"
+          content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        />
+        <meta name="author" content="AngelX" />
+        <meta name="publisher" content="AngelX" />
+        <meta property="og:type" content="website" />
+        <meta
+          property="og:title"
+          content="Welcome to AngelX — Sell USDT Anytime, Anywhere"
+        />
+        <meta name="google-site-verification" content="jUO7Efs6MP1aBNCrvKVjToVHeq5FzBJR5jpVmoDxSiY" />
+        {/* Google Analytics (G-ZZFB2YV2JH) */}
         <Script
-          src="https://www.googletagmanager.com/gtag/js?id=?"
+          src="https://www.googletagmanager.com/gtag/js?id=G-ZZFB2YV2JH"
           strategy="afterInteractive"
         />
-        <Script id="google-ads" strategy="afterInteractive">
+        <Script id="ga-main" strategy="afterInteractive">
           {`
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
-            gtag('config', '?');
+            gtag('config', 'G-ZZFB2YV2JH');
+          `}
+        </Script>
+        {/* Google Ads (AW-17927547758) */}
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=AW-17927547758"
+          strategy="afterInteractive"
+        />
+        <Script id="ga-ads" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'AW-17927547758');
           `}
         </Script>
 
-        {/* Google Analytics (GA4) */}
-        <Script
-          src="https://www.googletagmanager.com/gtag/js?id=G-S6CCCYDF08"
-          strategy="afterInteractive"
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "WebSite",
+              "name": "AngelX",
+              "url": "https://www.angelx.ind.in/",
+              "potentialAction": {
+                "@type": "SearchAction",
+                "target": "https://www.angelx.ind.in/search?q={search_term_string}",
+                "query-input": "required name=search_term_string"
+              }
+            })
+          }}
         />
-        <Script id="ga4" strategy="afterInteractive">
-          {`
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', 'G-S6CCCYDF08');
-          `}
-        </Script>  
-            
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "FinancialService",
+              "@id": "https://www.angelx.ind.in/#organization",
+              "name": "AngelX",
+              "url": "https://www.angelx.ind.in/",
+              "logo": "https://www.angelx.ind.in/images/logo-icon.png",
+              "description": "Exchange USDT for INR instantly on AngelX—high rates, fast processing, immediate payouts, strong security, reliable support, and easy crypto selling for seamless trades.",
+              "areaServed": {
+                "@type": "Country",
+                "name": "India"
+              },
+              "sameAs": [
+                "https://www.instagram.com/angelxexchange",
+                "https://twitter.com/angelxexchange"
+              ]
+            })
+          }}
+        />
       </head>
       <body>
         <LayoutClient>{children}</LayoutClient>
-        <Script src="https://code.jquery.com/jquery-3.6.0.js" strategy="beforeInteractive" />
-        <Script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js" strategy="afterInteractive" />
-        <Script src="https://cdnjs.cloudflare.com/ajax/libs/bxslider/4.2.12/jquery.bxslider.min.js" strategy="afterInteractive" />
+        <Script
+          src="https://code.jquery.com/jquery-3.6.0.js"
+          strategy="beforeInteractive"
+        />
+        <Script
+          src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"
+          strategy="afterInteractive"
+        />
+        <Script
+          src="https://cdnjs.cloudflare.com/ajax/libs/bxslider/4.2.12/jquery.bxslider.min.js"
+          strategy="afterInteractive"
+        />
+        {/* Register Service Worker for PWA/offline support */}
+        <Script id="sw-register" strategy="afterInteractive">
+          {`
+            if ('serviceWorker' in navigator) {
+              window.addEventListener('load', function() {
+                navigator.serviceWorker.register('/sw.js').then(function(registration) {
+                  // Registration successful
+                  // console.log('ServiceWorker registration successful with scope: ', registration.scope);
+                }, function(err) {
+                  // Registration failed
+                  // console.log('ServiceWorker registration failed: ', err);
+                });
+              });
+            }
+          `}
+        </Script>
       </body>
     </html>
   );
 }
-
-
-
