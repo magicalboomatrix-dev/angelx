@@ -2,28 +2,85 @@ import "./globals.css";
 import Script from "next/script";
 import LayoutClient from "./LayoutClient";
 
+export const metadata = {
+  title: "Welcome to AngelX — Sell USDT Anytime, Anywhere",
+  description:
+    "Convert USDT to INR at premium rates with AngelX. Fast processing, instant payouts, strong security, reliable support, and easy crypto selling—your seamless exchange solution.",
+  keywords: [
+    "angelx usdt price",
+    "angelx crypto",
+    "angelx usdt sell",
+    "angelx login",
+    "angelx pro",
+    "angelx pro apk",
+    "angelx ind in",
+    "angelx exchange",
+  ],
+  alternates: {
+    canonical: "https://www.angelx.ind.in/",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    content: "index, follow",
+    maxSnippet: -1,
+    maxImagePreview: "large",
+    maxVideoPreview: -1,
+  },
+  googleBot: {
+    index: true,
+    follow: true,
+    content: "index, follow",
+    maxSnippet: -1,
+    maxImagePreview: "large",
+    maxVideoPreview: -1,
+  },
+  bingbot: {
+    index: true,
+    follow: true,
+    content: "index, follow",
+    maxSnippet: -1,
+    maxImagePreview: "large",
+    maxVideoPreview: -1,
+  },
+  authors: [{ name: "AngelX" }],
+  publisher: "AngelX",
+  openGraph: {
+    type: "website",
+    title: "Welcome to AngelX — Sell USDT Anytime, Anywhere",
+    description:
+      "Convert USDT to INR at premium rates with AngelX. Fast processing, instant payouts, strong security, reliable support, and easy crypto selling—your seamless exchange solution.",
+    url: "https://www.angelx.ind.in/",
+    siteName: "AngelX",
+    locale: "en_IN",
+    images: [
+      {
+        url: "https://www.angelx.ind.in/images/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "AngelX USDT Exchange Platform",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Welcome to AngelX — Sell USDT Anytime, Anywhere",
+    description:
+      "Convert USDT to INR at premium rates with AngelX. Fast processing, instant payouts, strong security, reliable support, and easy crypto selling—your seamless exchange solution.",
+    site: "@AngelX",
+    images: ["https://www.angelx.ind.in/images/og-image.png"],
+  },
+};
+
+
 export default function Layout({ children }) {
   return (
     <html lang="en">
       <head>
         <link rel="icon" type="image/x-icon" href="/images/fav.png" />
         <link rel="manifest" href="/manifest.json" />
-        <link rel="apple-touch-icon" href="/icon-192x192.png" />
-        <meta name="mobile-web-app-capable" content="yes" />
-        <meta name="apple-mobile-web-app-capable" content="yes" />
-        <meta name="theme-color" content="#ffffff" />
-        <title>Welcome to AngelX — Sell USDT Anytime, Anywhere</title>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <meta
-          name="googlebot"
-          content="index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1"
-        />
-        <meta
-          name="bingbot"
-          content="index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1"
-        />
-
         <link
           href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
           rel="stylesheet"
@@ -39,23 +96,7 @@ export default function Layout({ children }) {
           crossOrigin="anonymous"
         />
         <link rel="stylesheet" href="/css/style.css" type="text/css" />
-      
-        <meta name="viewport" content="width=device-width, user-scalable=no" />
-        <meta
-          name="keywords"
-          content="angelx usdt price, angelx crypto, angelx usdt sell"
-        />
-        <meta
-          name="robots"
-          content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
-        />
-        <meta name="author" content="AngelX" />
-        <meta name="publisher" content="AngelX" />
-        <meta property="og:type" content="website" />
-        <meta
-          property="og:title"
-          content="Welcome to AngelX — Sell USDT Anytime, Anywhere"
-        />
+    
         <meta name="google-site-verification" content="jUO7Efs6MP1aBNCrvKVjToVHeq5FzBJR5jpVmoDxSiY" />
         {/* Google Analytics (G-ZZFB2YV2JH) */}
         <Script
