@@ -5,7 +5,7 @@ import LayoutClient from "./LayoutClient";
 export const metadata = {
   title: "Welcome to AngelX → India’s #1 Trusted USDT Exchange Platform",
   description:
-    "Convert USDT to INR at premium rates with AngelX. Fast processing, instant payouts, strong security, reliable support, and easy crypto selling—your seamless exchange solution.",
+    "Log in to AngelX for instant USDT to INR conversions at the best market rates. Fast processing, secure payouts, reliable support—quickly access your account and sell crypto easily.",
   keywords: [
     "angelx usdt price",
     "angelx crypto",
@@ -49,7 +49,7 @@ export const metadata = {
     type: "website",
     title: "Welcome to AngelX → India’s #1 Trusted USDT Exchange Platform",
     description:
-      "Convert USDT to INR at premium rates with AngelX. Fast processing, instant payouts, strong security, reliable support, and easy crypto selling—your seamless exchange solution.",
+      "Log in to AngelX for instant USDT to INR conversions at the best market rates. Fast processing, secure payouts, reliable support—quickly access your account and sell crypto easily.",
     url: "https://www.angelx.ind.in/",
     siteName: "AngelX",
     locale: "en_IN",
@@ -66,7 +66,7 @@ export const metadata = {
     card: "summary_large_image",
     title: "Welcome to AngelX → India’s #1 Trusted USDT Exchange Platform",
     description:
-      "Convert USDT to INR at premium rates with AngelX. Fast processing, instant payouts, strong security, reliable support, and easy crypto selling—your seamless exchange solution.",
+      "Log in to AngelX for instant USDT to INR conversions at the best market rates. Fast processing, secure payouts, reliable support—quickly access your account and sell crypto easily.",
     site: "@AngelX",
     images: ["https://www.angelx.ind.in/images/og-image.png"],
   },
