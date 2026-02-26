@@ -163,11 +163,24 @@ export default function Layout({ children }) {
             })
           }}
         />
-        <script type="application/ld+json">
-  {"{"}"@context": "http://schema.org","@type": "Product", "name": "AngelX",
-  "aggregateRating": {"{"}"@type": "AggregateRating","ratingValue": "4.9",
-  "ratingCount": "7966", "reviewCount": "7966" {"}"} {"}"}{" "}
-/>  
+        <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: `
+          {
+            "@context": "https://schema.org",
+            "@type": "Product",
+            "name": "AngelX",
+            "aggregateRating": {
+              "@type": "AggregateRating",
+              "ratingValue": "4.9",
+              "ratingCount": "7966",
+              "reviewCount": "7966"
+            }
+          }
+          `,
+        }}
+      />
       </head>
       <body>
         <LayoutClient>{children}</LayoutClient>
