@@ -94,7 +94,7 @@ const handleSubmit = async () => {
             <div className="right"></div>
           </header>
 
-          <div className="page-wrapperss page-wrapper-ex page-wrapper-login page-wrapper-loginacc form-wrapper">
+          <div className="page-wrapperss page-wrapper-ex page-wrapper-login page-wrapper-loginacc form-wrapper" style={{paddingTop: '40px'}}>
             <section className="section-1">
               <div className="form-bx">
                 <div className="form-rw">
