@@ -3,7 +3,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 import Image from "next/image";
 import Link from 'next/link';
 
-import Readmore from "./components/Readmore";
+//import Readmore from "./components/Readmore";
 import Footer from './components/footer';
 
 export default function Index() {
@@ -757,7 +757,7 @@ export default function Index() {
   </section>
   
 </>
-
+{/*
       <section className="game-detail">
         <div className="containers">
           <div className="rowr">
@@ -995,7 +995,7 @@ export default function Index() {
             </div>
           </div>
         </div>
-      </section>            
+      </section>   */}         
 
             </div>
     
