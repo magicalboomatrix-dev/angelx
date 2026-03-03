@@ -61,7 +61,7 @@ export default function Index() {
  
   return (   
     <div>
-      <div className="page-wrappers">
+      <div className="page-wrappers" style={{height: '100%'}}>
          {loading && <div className="loader">
           <Image 
             src="/images/loading.webp"
@@ -126,7 +126,7 @@ export default function Index() {
             </div>
         </header>
 
-        <div className="page-wrapper" style={{paddingTop: '2px', marginTop: '0px'}}>
+        <div className="page-wrapper" style={{paddingTop: '2px', marginTop: '0px',height: '100%',marginBottom:"65px"}}>
             <section className="section-1 hm-section-1">
             <div className="image">
                 <Image                
