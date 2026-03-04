@@ -3046,15 +3046,29 @@ section.game-detail .containers {
 }
 
 section.game-detail .rowr {
-    display: flex;
+
 }
 
 section.game-detail .rowr .col-left {
-    width: 35%;
+    width: 100%;
 }
 
 section.game-detail .rowr .col-right {
-    width: 65%;
+    width: 100%;
+}
+
+.header_btn {
+    color: #000;
+    border-radius: 50px;
+    background-color: #ffc107;
+    border: 1px solid #ffc107;
+    cursor: pointer;
+    font-weight: 700;
+}
+
+.header_btn:hover.header_btn span
+ {
+    padding-right: 20px;
 }
 
 section.game-detail .text-left2 h1{
