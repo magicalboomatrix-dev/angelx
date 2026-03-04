@@ -3071,20 +3071,22 @@ section.game-detail .rowr .col-right {
     padding-right: 20px;
 }
 
-section.game-detail .text-left2 h1{
-    font-size: 23px;
-    font-weight: 500;
+section.game-detail .text-left2 h1
+ {
+    font-size: 20px;
+    font-weight: 600;
     color: #041f30;
-    font-family: 'Roboto Mono';
+    /* font-family: 'Roboto Mono'; */
     letter-spacing: -1px;
+    padding-bottom: 10px;
 }
 
 section.game-detail .content h2 {
-	font-size: 20px;
-    font-weight: 700;
+	font-size: 16px;
+    font-weight: 600;
     color: #041f30;
     margin-top: 20px;
-	margin-bottom: 7px;
+    margin-bottom: 7px;
 }
 
 section.game-detail .content h3 {
@@ -3100,12 +3102,12 @@ section.game-detail .content h3 {
 }
 
 section.game-detail .content p {
-    font-size: 16px;
+    font-size: 14px;
     font-weight: 400;
     color: #041f30;
     line-height: 23px;
     margin-bottom: 7px !important;
-    line-height: 150%;
+    line-height: 142%;
 }
 
 section.game-detail .header_btn {
