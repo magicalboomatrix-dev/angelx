@@ -3038,11 +3038,16 @@ button.closeAppLink {
 }
 
 section.game-detail {
-    padding: 40px 0 0;
+    padding: 10px 0 0;
 }
-
+.header_btn span {
+    font-size: 16px;
+    font-weight: 700;
+    position: relative;
+    transition: linear 0.5s;
+}
 section.game-detail .containers {
-    padding: 0 15px;
+    padding: 0 5px;
 }
 
 section.game-detail .rowr {
