@@ -775,11 +775,11 @@ export default function Index() {
 
 <p>Tired of complicated crypto exchanges with endless KYC hurdles and low rates? AngelX is here to simplify your USDT-to-INR conversions. As a trusted Singapore-based cryptocurrency exchange platform founded in 2021, AngelX lets you sell USDT for INR seamlessly through —no fuss, no verification, just fast payouts. Our app delivers top USDT rates that beat the market.</p>
 
-<p>Download the <strong>AngelX Apk</strong> today and experience the easiest crypto exchange for Indians. Trusted by thousands since 2021, AngelX is your go-to for reliable, no-KYC <strong>AngelX USDT selling</strong> services.</p>
+<p>Download the <Link href="https://www.angelx.ind.in/AngelX.apk"><strong>"AngelX Apk"</strong></Link> today and experience the easiest crypto exchange for Indians. Trusted by thousands since 2021, AngelX is your go-to for reliable, no-KYC <strong>AngelX USDT selling</strong> services.</p>
 
 <h2>Why Choose AngelX for USDT-to-INR Exchanges?</h2>
 
-<p>In the world of <strong>AngelX cryptocurrency exchange</strong>, speed and reliability matter most. AngelX stands out as the top cryptocurrency exchange for Indians, bridging the gap between stable coins like <strong>USDT</strong> and everyday <strong>INR</strong>. No more waiting days for bank transfers or dealing with shady platforms. With AngelX, you get:</p>
+<p>In the world of <Link href="https://www.angelx.ind.in/exchange"><strong>AngelX cryptocurrency exchange</strong></Link>, speed and reliability matter most. AngelX stands out as the top cryptocurrency exchange for Indians, bridging the gap between stable coins like <strong>USDT</strong> and everyday <strong>INR</strong>. No more waiting days for bank transfers or dealing with shady platforms. With AngelX, you get:</p>
 
                 {/* ... the rest remains unchanged ... */}
 
