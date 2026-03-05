@@ -3127,7 +3127,7 @@ section.game-detail .header_btn span {
 .question {
   font-size: 1.2rem;
   font-weight: 600;
-  padding: 20px 80px 20px 20px;
+  padding: 15px 52px 15px 20px;
   position: relative;
   display: flex;
   align-items: center;
@@ -3177,6 +3177,7 @@ section.faq-section .rowr .col-right {
     width: 48%;
 }
 
+
 section.faq-section h2 {
     font-weight: 900;
     font-size: 30px;
@@ -3184,7 +3185,7 @@ section.faq-section h2 {
 }
 
 section.faq-section .question {
-    font-size: 16px;
+    font-size: 14px;
     font-weight: 500;
     border-top: 1px solid #333;
     padding-left: 0;
@@ -3193,7 +3194,7 @@ section.faq-section .question {
 
 
 section.faq-section .answercont .answer {
-    padding: 0 0 40px 0;
+    padding: 0 0 20px 0;
     font-size: 15px;
 }
 section.faq-section span.sr {
@@ -3230,8 +3231,8 @@ section.faq-section {
 }
 
 section.faq-section h2 {
-    padding: 0 10px;
-    font-size: 25px;
+    padding: 0 0px;
+    font-size: 20px;
     margin-bottom: 20px;
 }
 
