@@ -764,38 +764,41 @@ export default function Index() {
             <div className="col-left">
               <div className="text-left2">
                 <h1>
-                  Welcome to AngelX → Your USDT-to-INR Exchange Needs, One App! 
+                  Welcome to AngelX → Your USDT-to-INR Exchange Needs, One App!
 
                 </h1>
               </div>
             </div>
             <div className="col-right">
               <div className="content">
-                <p>
-                  Tired of complicated crypto exchanges with endless KYC hurdles and low rates? AngelX is here to simplify your USDT-to-INR conversions. As a trusted Singapore-based cryptocurrency exchange platform founded in 2021, AngelX lets you sell USDT for INR seamlessly through —no fuss, no verification, just fast payouts. Our app delivers top USDT rates that beat the market.</p>
+                
 
-<p>Download the AngelX Apk today and experience the easiest crypto exchange for Indians. Trusted by thousands since 2021, AngelX is your go-to for reliable, no-KYC AngelX USDT selling services.
+<p>Tired of complicated crypto exchanges with endless KYC hurdles and low rates? AngelX is here to simplify your USDT-to-INR conversions. As a trusted Singapore-based cryptocurrency exchange platform founded in 2021, AngelX lets you sell USDT for INR seamlessly through —no fuss, no verification, just fast payouts. Our app delivers top USDT rates that beat the market.</p>
 
-                </p>
-                <h2>Why Choose AngelX for USDT-to-INR Exchanges?
-</h2>
-                <p>
-                  In the world of AngelX cryptocurrency exchange, speed and reliability matter most. AngelX stands out as the top cryptocurrency exchange for Indians, bridging the gap between stable coins like USDT and everyday INR. No more waiting days for bank transfers or dealing with shady platforms. With AngelX, you get:
+<p>Download the <strong>AngelX Apk</strong> today and experience the easiest crypto exchange for Indians. Trusted by thousands since 2021, AngelX is your go-to for reliable, no-KYC <strong>AngelX USDT selling</strong> services.</p>
 
-                </p>
+<h2>Why Choose AngelX for USDT-to-INR Exchanges?</h2>
+
+<p>In the world of <strong>AngelX cryptocurrency exchange</strong>, speed and reliability matter most. AngelX stands out as the top cryptocurrency exchange for Indians, bridging the gap between stable coins like <strong>USDT</strong> and everyday <strong>INR</strong>. No more waiting days for bank transfers or dealing with shady platforms. With AngelX, you get:</p>
 
                 {/* ... the rest remains unchanged ... */}
 
                 <Readmore>
                   <h2>Key Features That Make AngelX Unbeatable</h2>
 
+<p><strong>Download & Login:</strong> Get the AngelX Apk from our site. Sign In with only your mobile number — no password required.</p>
+
 <p><strong>No KYC Required:</strong> On AngelX, you can exchange cryptocurrency instantly without any PAN card, or Aadhaar verification— Perfect for privacy-conscious users dealing in USDT-to-INR.</p>
 
 <p><strong>Top USDT Price:</strong> We buy USDT at premium rates above market averages, maximizing your INR returns.</p>
 
-<p><strong>Instant Deposits & Approvals:</strong> Send from any wallet; we support ERC-20, TRC-20, and more., get approved in 1-2 minutes.</p>
+<p><strong>Instant USDT Deposits & Approvals:</strong> Send from any wallet; we support ERC-20, TRC-20, and more., get approved in 1-2 minutes.</p>
 
-<p><strong>Instant Withdrawal:</strong> Secure, direct INR payouts to any Indian bank—no extra steps.</p>
+<p><strong>Add Bank Account:</strong> Link any Indian bank (yours or rental). No verification hassles.</p>
+
+<p><strong>Instant INR Withdrawal:</strong> Secure, direct INR payouts to any Indian bank—no extra steps.</p>
+
+<p><strong>Track & Download:</strong> Monitor everything in-app. Need a statement? Download your transaction file instantly.</p>
 
 <p><strong>24/7 Customer Support:</strong> Real humans ready to help anytime, via chat or call.</p>
 
@@ -803,25 +806,43 @@ export default function Index() {
 
 <h2>How to Use AngelX: Sell USDT for INR in Minutes</h2>
 
-<p>Getting with AngelX is dead simple. Follow these steps on the AngelX platform:</p>
+<p>Here’s a step-by-step guide based on your instructions to perform actions on AngelX:</p>
 
-<p><strong>Download & Login:</strong> Grab the AngelX Apk from our site. Login using just your mobile number—no passwords needed.</p>
+<p><strong>1. Login Using Mobile Number</strong></p>
+<p>— Go to: https://angelx.ind.in/</p>
+<p>— Click Login / Register.</p>
+<p>— Enter your Mobile Number.</p>
+<p>— Complete the login (or sign-up) process as per instructions (OTP verification if needed).</p>
 
-<p><strong>Check USDT Price:</strong> View real-time USDT price with AngelX and lock in your rate.</p>
+<p><strong>2. Complete Profile (Name & Mobile)</strong></p>
+<p>— Fill in your Full Name.</p>
+<p>— Enter your E-mail ID.</p>
+<p>— Save the details.</p>
 
-<p><strong>Add Bank Account:</strong> Link any Indian bank (yours or rental). No verification hassles.</p>
+<p><strong>3. Add Bank Account (Exchange Page)</strong></p>
+<p>— On the withdrawal section, look for a Bank Account.</p>
+<p>— Add your Bank Account Number, IFSC Code, Bank Name, etc.</p>
+<p>— Submit and verify if needed.</p>
 
-<p><strong>Instant USDT Deposit:</strong> Send USDT via TRC20 or BEP20 networks. Our system approves it in 1-2 minutes.</p>
+<p><strong>4. Add USDT (Deposit Section on Exchange Page)</strong></p>
+<p>— On the Exchange Page, navigate to the Deposit section.</p>
+<p>— Select USDT (Tether) as the deposit currency.</p>
+<p>— You’ll be shown a Wallet Address (TRC20/BEP20).</p>
+<p>— Transfer the USDT to the given wallet address.</p>
+<p>— Submit the Transaction Hash/ID if required.</p>
 
-<p><strong>Instant INR Withdrawal:</strong> After selling, request Confirm, and INR hits your account in about 30 minutes via bank transfer.</p>
+<p><strong>5. Balance Update (within 5 minutes)</strong></p>
+<p>— After depositing, the balance in your account will be updated within approximately 5 minutes.</p>
+<p>— You can check this on your Wallet Balance or Dashboard.</p>
 
-<p><strong>Track & Download:</strong> Monitor everything in-app. Need a statement? Download your transaction file instantly.</p>
+<p><strong>6. Place a Sell Order (Exchange Page)</strong></p>
+<p>— Navigate to the Exchange or Trade section.</p>
+<p>— Select USDT to INR (or preferred currency).</p>
+<p>— Enter the amount of USDT you wish to sell.</p>
+<p>— Place the Sell Order.</p>
+<p>— Confirm the transaction.</p>
 
-<p><strong>Pro Tip:</strong> Use the AngelX Apk version for advanced tools like price alerts, portfolio tracking, and one-tap “AngelX USDT Sell” orders. It's free for all users and updates automatically.</p>
-
-<p>In volatile crypto markets, every second counts. AngelX gives you an edge with real-time "AngelX USDT Price" data pulled from top exchanges like Binance and WazirX, adjusted for Indian rupee liquidity.</p>
-
-<p>Download the "AngelX Apk" today—it's 100% free, no subscriptions. Perfect for traders scaling up from basic USDT-to-INR swaps.</p>
+<p>Download the <strong>"AngelX Apk"</strong> today—it's 100% free, no subscriptions. Perfect for traders scaling up from basic USDT-to-INR swaps.</p>
                 </Readmore>
               </div>
             </div>
