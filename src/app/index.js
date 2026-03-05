@@ -842,7 +842,7 @@ export default function Index() {
 <p>— Place the Sell Order.</p>
 <p>— Confirm the transaction.</p>
 
-<p>Download the <Link href="https://www.angelx.ind.in/AngelX.apk"><strong>"AngelX Apk"</strong></a> today—it's 100% free, no subscriptions. Perfect for traders scaling up from basic USDT-to-INR swaps.</p>
+<p>Download the <Link href="https://www.angelx.ind.in/AngelX.apk"><strong>"AngelX Apk"</strong></Link> today—it's 100% free, no subscriptions. Perfect for traders scaling up from basic USDT-to-INR swaps.</p>
                 </Readmore>
               </div>
             </div>
