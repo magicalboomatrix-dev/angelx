@@ -757,7 +757,7 @@ export default function Index() {
   </section>
   
 </>
-<section className="game-detail" style={{display:"none"}}>
+<section className="game-detail">
         <div className="containers">
           <div className="rowr">
             <div className="col-left">
