@@ -3,6 +3,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 import Image from "next/image";
 import Link from 'next/link';
 
+import FAQ from "./components/faq";
 import Readmore from "./components/Readmore";
 import Footer from './components/footer';
 
@@ -827,6 +828,8 @@ export default function Index() {
           </div>
         </div>
       </section>  
+
+<FAQ />
 
             </div>
     
