@@ -3124,6 +3124,118 @@ section.game-detail .header_btn span {
 }
 
 
+.question {
+  font-size: 1.2rem;
+  font-weight: 600;
+  padding: 20px 80px 20px 20px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.question::after {
+  content: "\002B";
+  font-size: 2.2rem;
+  position: absolute;
+  right: 10px;
+  transition: 0.2s;
+}
+
+.question.active::after {
+  transform: rotate(45deg);
+}
+
+section.faq-section .question::after {
+    font-weight: 100;
+}
+
+.answercont {
+  max-height: 0;
+  overflow: hidden;
+  transition: 0.3s;
+}
+
+.answer {
+  padding: 0 20px 20px;
+  line-height: 1.5rem;
+}
+
+
+section.faq-section {
+	padding: 60px 0;
+}
+
+section.faq-section .rowr {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+}
+
+section.faq-section .rowr .col-left,
+section.faq-section .rowr .col-right {
+    width: 48%;
+}
+
+section.faq-section h2 {
+    font-weight: 900;
+    font-size: 30px;
+    margin-bottom: 40px;
+}
+
+section.faq-section .question {
+    font-size: 16px;
+    font-weight: 500;
+    border-top: 1px solid #333;
+    padding-left: 0;
+    box-shadow: none;
+}
+
+
+section.faq-section .answercont .answer {
+    padding: 0 0 40px 0;
+    font-size: 15px;
+}
+section.faq-section span.sr {
+    color: #000;
+    margin-right: 10px;
+    background: #fff;
+    border-radius: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    width: 32px;
+    height: 32px;
+    font-size: 14px;
+    border: 1px solid #000;
+}
+
+
+.faq-list {
+    padding: 0 16px;
+}
+
+.faq-list .container01 {
+    width: 100%;
+}
+
+section.faq-section span.sr {
+    min-width: 32px;
+}
+
+section.faq-section {
+    padding-bottom: 20px;
+    padding-top: 40px;
+}
+
+section.faq-section h2 {
+    padding: 0 10px;
+    font-size: 25px;
+    margin-bottom: 20px;
+}
+
+
 
 
 
