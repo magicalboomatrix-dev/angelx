@@ -266,23 +266,31 @@ export default function Layout({ children }) {
   }}
 />
 
-  <Script type="application/ld+json">
-    {
-      "@context": "https://schema.org/", 
-      "@type": "BreadcrumbList", 
-      "itemListElement": [{
-        "@type": "ListItem", 
-        "position": 1, 
-        "name": "Instant USDT-to-INR Exchange",
-        "item": "https://www.angelx.ind.in/exchange"  
-      },{
-        "@type": "ListItem", 
-        "position": 2, 
-        "name": "Login to sell USDT",
-        "item": "https://www.angelx.ind.in/login"  
-      }]
-    }
-/>
+  <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: `
+            {
+              "@context": "https://schema.org/",
+              "@type": "BreadcrumbList",
+              "itemListElement": [
+                {
+                  "@type": "ListItem",
+                  "position": 1,
+                  "name": "Instant USDT-to-INR Exchange",
+                  "item": "https://www.angelx.ind.in/exchange"
+                },
+                {
+                  "@type": "ListItem",
+                  "position": 2,
+                  "name": "Login to sell USDT",
+                  "item": "https://www.angelx.ind.in/login"
+                }
+              ]
+            }
+            `,
+          }}
+        />
           
       </body>
     </html>
