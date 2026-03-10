@@ -111,19 +111,6 @@ export default function Layout({ children }) {
             gtag('config', 'G-ZZFB2YV2JH');
           `}
         </Script>
-        {/* Google Ads (AW-17927547758) */}
-        <Script
-          src="https://www.googletagmanager.com/gtag/js?id=AW-17927547758"
-          strategy="afterInteractive"
-        />
-        <Script id="ga-ads" strategy="afterInteractive">
-          {`
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', 'AW-17927547758');
-          `}
-        </Script>
 
         <script
           type="application/ld+json"
@@ -220,10 +207,10 @@ export default function Layout({ children }) {
   "@type": "FAQPage",
   "mainEntity": [{
     "@type": "Question",
-    "name": "What is AngelX, and how does it handle USDT to INR exchanges?",
+    "name": "What is AngelX?",
     "acceptedAnswer": {
       "@type": "Answer",
-      "text": "AngelX is a reliable Singapore-based crypto exchange app launched in 2021, focused on quick USDT-to-INR swaps without any KYC hassle. Just download the AngelX APK, log in using your phone number, send USDT over TRC20, BEP20, or ERC20 networks, and receive INR in your Indian bank account within 30 minutes."
+      "text": "AngelX is a reliable India-based crypto exchange app launched in 2021, focused on quick USDT-to-INR swaps without any KYC hassle."
     }
   },{
     "@type": "Question",
