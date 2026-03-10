@@ -35,7 +35,7 @@ export default function FAQ() {
                 }}
               >
                 <div className="answer">
-                  AngelX is a reliable Singapore-based crypto exchange app launched in 2021, focused on quick USDT-to-INR swaps without any KYC hassle. Just download the AngelX APK, log in using your phone number, send USDT over TRC20, BEP20, or ERC20 networks, and receive INR in your Indian bank account within 30 minutes.
+                  AngelX is a reliable India-based crypto exchange app launched in 2021, focused on quick USDT-to-INR swaps without any KYC hassle. Just download the AngelX APK, log in using your phone number, send USDT over TRC20, BEP20, or ERC20 networks, and receive INR in your Indian bank account within 30 minutes.
                 </div>
               </div>
             </div>
@@ -57,7 +57,7 @@ export default function FAQ() {
                 }}
               >
                 <div className="answer">
-                  Absolutely—AngelX skips KYC entirely for USDT-to-INR trades. No PAN, Aadhaar, or documents required. Sell your USDT anonymously at rates that beat market USD/INR levels, with speedy deposits and straight-to-bank payouts.
+                  Absolutely—AngelX skips KYC entirely for USDT-to-INR trades. No PAN, Aadhaar, or documents required. 
                 </div>
               </div>
             </div>
@@ -79,7 +79,7 @@ export default function FAQ() {
                 }}
               >
                 <div className="answer">
-AngelX delivers superior USDT rates above market averages for bigger INR returns. Open the app for live, clear pricing pulled from Binance and WazirX, covering TRC20, BEP20, and ERC20—with zero hidden charges.
+                 AngelX delivers superior USDT rates above market averages for bigger INR returns.
                 </div>
               </div>
             </div>
@@ -112,7 +112,7 @@ AngelX delivers superior USDT rates above market averages for bigger INR returns
                 className={`question ${activeIndex === 4 ? "active" : ""}`}
                 onClick={() => toggleFAQ(4)}
               >
-                <span className="sr">05.</span> Is the AngelX APK secure and free?
+                <span className="sr">05.</span> Is the AngelX Apk secure and free?
 
               </div>
               <div
@@ -124,7 +124,7 @@ AngelX delivers superior USDT rates above market averages for bigger INR returns
                 }}
               >
                 <div className="answer">
-                  Yes, the AngelX APK is completely free, secure, and auto-updates for peace of mind. Since 2021, countless users have trusted it for private USDT-to-INR exchanges and 24/7 portfolio monitoring, no fees or privacy risks involved.
+                  Yes, the AngelX Apk is completely free, secure, and auto-updates for peace of mind. 
                 </div>
               </div>
             </div>
@@ -146,8 +146,7 @@ AngelX delivers superior USDT rates above market averages for bigger INR returns
                 }}
               >
                 <div className="answer">
-                   Connect any Indian bank account—personal or even rented—without verification. AngelX sends INR directly via fast transfers, compatible with all major banks for effortless USDT sales.
-
+                   Connect any Indian bank account—personal or even rented—without any verification.
                 </div>
               </div>
             </div>
@@ -169,7 +168,7 @@ AngelX delivers superior USDT rates above market averages for bigger INR returns
                 }}
               >
                 <div className="answer">
-                  Yes, it supports TRC20, BEP20, ERC20, and others for effortless deposits from any wallet. Confirmations happen in 1-2 minutes, positioning AngelX as India's go-to for stablecoin-to-INR conversions.
+                  Yes, it supports TRC20, BEP20, ERC20, and others for effortless deposits from any wallet.
                 </div>
               </div>
             </div>
