@@ -111,7 +111,7 @@ export default function Index() {
             <div className="left">
 
                 <div className="header-left">
-                  <img alt="Logo" className="logo" src="/images/logo-icon.png" />
+                  <img alt="AngelX Logo" className="logo" src="/images/logo-icon.png" />
                   <h1 className="title-left">AngelX</h1>
                 </div>
             </div>
@@ -147,7 +147,7 @@ export default function Index() {
                 <div className="image">
                      <Image                
                 src="/images/get-started.png"
-                alt="angelx"
+                alt="AngelX"
                 width={96}
                 height={96}
                 priority
@@ -167,7 +167,7 @@ export default function Index() {
                 <div className="image">
                 <Image                
                 src="/images/boost.png"
-                alt="angelx"
+                alt="AngelX"
                 width={96}
                 height={96}
                 priority
@@ -187,7 +187,7 @@ export default function Index() {
                 <div className="image">
                     <Image                
                     src="/images/access.png"
-                    alt="angelx"
+                    alt="AngelX"
                     width={96}
                     height={96}
                     priority
@@ -209,7 +209,7 @@ export default function Index() {
 <div className="screenshot-wrapper">
   <div className="image">
     <Image 
-      alt="Logo" 
+      alt="AngelX Logo" 
       className="screenshot-img" 
       src="/images/hm-mob-img.jpg" 
       width={360} // Estimated width based on common mobile screenshot dimensions. Verify actual image dimensions.
@@ -344,7 +344,7 @@ export default function Index() {
               <div className="icon">
                 <Image                
                 src="/images/matic.png"
-                alt="matic"
+                alt="Eos"
                 width={35}
                 height={35}
                 priority
@@ -370,7 +370,7 @@ export default function Index() {
               <div className="icon">
                 <Image                
                 src="/images/eos.png"
-                alt="eos"
+                alt="EOS"
                 width={35}
                 height={35}
                 priority
@@ -396,7 +396,7 @@ export default function Index() {
               <div className="icon">
                 <Image                
                 src="/images/dot.png"
-                alt="dot"
+                alt="DOT"
                 width={35}
                 height={35}
                 priority
@@ -422,7 +422,7 @@ export default function Index() {
               <div className="icon">
                 <Image                
                 src="/images/usdt.png"
-                alt="usdt"
+                alt="USDT"
                 width={35}
                 height={35}
                 priority
@@ -448,7 +448,7 @@ export default function Index() {
               <div className="icon">
                 <Image                
                 src="/images/doge.png"
-                alt="doge"
+                alt="Doge"
                 width={35}
                 height={35}
                 priority
@@ -474,7 +474,7 @@ export default function Index() {
               <div className="icon">
                 <Image                
                 src="/images/btc.png"
-                alt="btc"
+                alt="BTC"
                 width={35}
                 height={35}
                 priority
@@ -500,7 +500,7 @@ export default function Index() {
               <div className="icon">
                 <Image                
                 src="/images/sol.png"
-                alt="sol"
+                alt="SOL"
                 width={35}
                 height={35}
                 priority
@@ -526,7 +526,7 @@ export default function Index() {
               <div className="icon">
                 <Image                
                 src="/images/ton.png"
-                alt="ton"
+                alt="TON"
                 width={35}
                 height={35}
                 priority
@@ -552,7 +552,7 @@ export default function Index() {
               <div className="icon">
                 <Image                
                 src="/images/avax.png"
-                alt="avax"
+                alt="Avax"
                 width={35}
                 height={35}
                 priority
@@ -578,7 +578,7 @@ export default function Index() {
               <div className="icon">
                 <Image                
                 src="/images/bnb.png"
-                alt="bnb"
+                alt="BNB"
                 width={35}
                 height={35}
                 priority
@@ -604,7 +604,7 @@ export default function Index() {
               <div className="icon">
                 <Image                
                 src="/images/xrp.png"
-                alt="xrp"
+                alt="XRP"
                 width={35}
                 height={35}
                 priority
@@ -630,7 +630,7 @@ export default function Index() {
               <div className="icon">
                 <Image                
                 src="/images/eth.png"
-                alt="eth"
+                alt="ETH"
                 width={35}
                 height={35}
                 priority
@@ -656,7 +656,7 @@ export default function Index() {
               <div className="icon">
                 <Image                
                 src="/images/link.png"
-                alt="link"
+                alt="LINK"
                 width={35}
                 height={35}
                 priority
@@ -682,7 +682,7 @@ export default function Index() {
               <div className="icon">
                 <Image                
                 src="/images/trx.png"
-                alt="trx"
+                alt="TRX"
                 width={35}
                 height={35}
                 priority
@@ -708,7 +708,7 @@ export default function Index() {
               <div className="icon">
                 <Image                
                 src="/images/ada.png"
-                alt="ada"
+                alt="ADA"
                 width={35}
                 height={35}
                 priority
@@ -734,7 +734,7 @@ export default function Index() {
               <div className="icon">
                 <Image                
                 src="/images/ftm.png"
-                alt="ftm"
+                alt="FTM"
                 width={35}
                 height={35}
                 priority
@@ -840,7 +840,7 @@ export default function Index() {
 <p>— Place the Sell Order.</p>
 <p>— Confirm the transaction.</p>
 
-<p>Download the <Link href="https://www.angelx.ind.in/AngelX.apk"><strong>"AngelX Apk"</strong></Link> today—it's 100% free, no subscriptions. Perfect for traders scaling up from basic USDT-to-INR swaps.</p>
+<p>Download the <Link href="https://www.angelx.ind.in/AngelX.apk"><strong>"AngelX Apk"</strong></Link> today—it's 100% safe, no KYC required. Perfect for traders scaling up from basic USDT-to-INR swaps.</p>
                 </Readmore>
               </div>
             </div>
