@@ -112,7 +112,7 @@ export default function Index() {
 
                 <div className="header-left">
                   <img alt="AngelX Logo" className="logo" src="/images/logo-icon.png" />
-                  <h1 className="title-left">AngelX</h1>
+                  <h3 className="title-left">AngelX</h3>
                 </div>
             </div>
             <div className="right">
