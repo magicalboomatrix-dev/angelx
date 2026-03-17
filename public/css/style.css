@@ -3236,7 +3236,9 @@ section.faq-section h2 {
     margin-bottom: 20px;
 }
 
-
+.header-left h1.title-left {
+    font-size: 18px;
+}
 
 
 
