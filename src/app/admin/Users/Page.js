@@ -22,6 +22,13 @@ export default function AdminUsersPage() {
   const [pageSize] = useState(20);
   const [total, setTotal] = useState(0);
 
+  const getInitial = (user) => {
+    return (user?.fullName || user?.email || '')
+      .trim()
+      .charAt(0)
+      .toUpperCase();
+  };
+
   const fetchUsers = async (p = page) => {
     setLoading(true);
     try {
@@ -62,6 +69,7 @@ export default function AdminUsersPage() {
       showToast('Please enter a valid amount', 'error');
       return;
     }
+
     setAdjusting(true);
     try {
       const res = await fetch('/api/admin/users/adjust-wallet', {
@@ -74,11 +82,23 @@ export default function AdminUsersPage() {
           reason: adjustmentReason
         })
       });
+
       const data = await res.json();
+
       if (res.ok) {
         showToast('Wallet adjusted successfully', 'success');
-        setUsers(users.map(u => u.id === selectedUser.id ? { ...u, wallet: { ...u.wallet, usdtAvailable: data.newBalance } } : u));
-        setSelectedUser({ ...selectedUser, wallet: { ...selectedUser.wallet, usdtAvailable: data.newBalance } });
+
+        setUsers(users.map(u =>
+          u.id === selectedUser.id
+            ? { ...u, wallet: { ...u.wallet, usdtAvailable: data.newBalance } }
+            : u
+        ));
+
+        setSelectedUser({
+          ...selectedUser,
+          wallet: { ...selectedUser.wallet, usdtAvailable: data.newBalance }
+        });
+
         setShowAdjustmentForm(false);
         setAdjustmentAmount('');
         setAdjustmentReason('');
@@ -92,7 +112,6 @@ export default function AdminUsersPage() {
     }
   };
 
-  // Filter users based only on fullName or email
   const filteredUsers = (Array.isArray(users) ? users : []).filter((user) => {
     const searchTerm = search.toLowerCase();
     return (
@@ -101,244 +120,158 @@ export default function AdminUsersPage() {
     );
   });
 
-  if (loading) return <div className={styles.loadingState}><i className="fas fa-spinner fa-spin"></i> Loading users...</div>;
+  if (loading)
+    return (
+      <div className={styles.loadingState}>
+        <i className="fas fa-spinner fa-spin"></i> Loading users...
+      </div>
+    );
 
   return (
     <>
       <div className={styles.pageHeader}>
         <div>
           <h1 className={styles.pageTitle}>User Management</h1>
-          <p className={styles.pageSubtitle}>Manage all AngelX Super users</p>
+          <p className={styles.pageSubtitle}>Manage all AngelX users</p>
         </div>
+
         <div className={styles.searchContainer}>
           <input
             type="text"
-            placeholder="Search users..."
+            placeholder="Search by name or email..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             className={styles.searchInput}
           />
-          <span className={styles.searchIcon}>
-            <i className="fas fa-search"></i>
-          </span>
         </div>
       </div>
 
-      <div className={styles.sectionCard} style={{ padding: 0, overflow: "hidden" }}>
-        <div style={{ overflowX: "auto" }}>
-          <table className={styles.table}>
-            <thead>
-              <tr>
-                <th>User</th>
-                <th>Contact</th>
-                <th>Wallet Balance</th>
-                <th>Status</th>
-                <th>Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              {filteredUsers.length > 0 ? filteredUsers.map((user) => (
+      <div className={styles.sectionCard} style={{ padding: 0 }}>
+        <table className={styles.table}>
+          <thead>
+            <tr>
+              <th>User</th>
+              <th>Contact</th>
+              <th>Wallet</th>
+              <th>Status</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            {filteredUsers.length > 0 ? (
+              filteredUsers.map((user) => (
                 <tr key={user.id}>
                   <td>
-                    <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
-                      <div style={{ width: "40px", height: "40px", borderRadius: "50%", background: "#e0e7ff", color: "#4f46e5", display: "flex", alignItems: "center", justifyContent: "center", fontWeight: 700 }}>
-                        {user.fullName ? user.fullName.charAt(0).toUpperCase() : user.email.charAt(0).toUpperCase()}
+                    <div style={{ display: 'flex', gap: 12, alignItems: 'center' }}>
+                      <div style={{
+                        width: 42,
+                        height: 42,
+                        borderRadius: '50%',
+                        background: '#6366f1',
+                        color: '#fff',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        fontWeight: 700
+                      }}>
+                        {getInitial(user)}
                       </div>
+
                       <div>
-                        <div style={{ fontWeight: 600, color: "#111827" }}>{user.fullName || "N/A"}</div>
-                        <div style={{ fontSize: "12px", color: "#6b7280" }}>ID: #{user.id}</div>
+                        <div style={{ fontWeight: 600 }}>{user.fullName || 'N/A'}</div>
+                        <div style={{ fontSize: 12, color: '#6b7280' }}>#{user.id}</div>
                       </div>
                     </div>
                   </td>
+
                   <td>
-                    <div style={{ fontSize: "14px", color: "#374151" }}>{user.email}</div>
-                    <div style={{ fontSize: "12px", color: "#6b7280" }}>{user.mobile || "N/A"}</div>
+                    <div>{user.email || 'N/A'}</div>
+                    <div style={{ fontSize: 12, color: '#6b7280' }}>
+                      {user.mobile || 'N/A'}
+                    </div>
                   </td>
+
                   <td>
-                    <div style={{ fontWeight: 600, color: "#111827" }}>${user.wallet?.usdtAvailable ?? 0}</div>
-                    <div style={{ fontSize: "12px", color: "#6b7280" }}>USDT</div>
+                    <strong>${user.wallet?.usdtAvailable ?? 0}</strong>
                   </td>
+
                   <td>
-                    <span className={`${styles.statBadge} ${styles.badgeGreen}`}>Active</span>
+                    <span className={`${styles.statBadge} ${styles.badgeGreen}`}>
+                      Active
+                    </span>
                   </td>
+
                   <td>
-                    <button 
+                    <button
                       onClick={() => openUserModal(user)}
-                      className={styles.viewAllBtn} 
+                      className={styles.viewAllBtn}
                     >
-                      View Details
+                      View
                     </button>
                   </td>
                 </tr>
-              )) : (
-                <tr>
-                  <td colSpan="5" style={{ textAlign: "center", padding: "32px", color: "#6b7280" }}>
-                    No users found matching your search.
-                  </td>
-                </tr>
-              )}
-            </tbody>
-          </table>
-        </div>
+              ))
+            ) : (
+              <tr>
+                <td colSpan="5" style={{ textAlign: 'center', padding: 20 }}>
+                  No users found
+                </td>
+              </tr>
+            )}
+          </tbody>
+        </table>
       </div>
 
       <div className={styles.paginationContainer}>
-        <button onClick={() => { if (page > 1) fetchUsers(page - 1); }} disabled={page <= 1} className={styles.paginationBtn}>← Previous</button>
-        <span style={{ fontSize: '14px', color: '#6b7280' }}>Page {page} of {Math.ceil(total / pageSize) || 1}</span>
-        <button onClick={() => { if (page * pageSize < total) fetchUsers(page + 1); }} disabled={page * pageSize >= total} className={styles.paginationBtn}>Next →</button>
+        <button onClick={() => fetchUsers(page - 1)} disabled={page <= 1}>
+          Prev
+        </button>
+
+        <span>
+          Page {page} / {Math.ceil(total / pageSize) || 1}
+        </span>
+
+        <button
+          onClick={() => fetchUsers(page + 1)}
+          disabled={page * pageSize >= total}
+        >
+          Next
+        </button>
       </div>
 
-      {/* User Details Modal */}
       <Modal
         isOpen={isModalOpen}
         onClose={closeUserModal}
         title="User Details"
-        footer={
-          <>
-            <button className={styles.btnSecondary} onClick={closeUserModal}>Close</button>
-            {!showAdjustmentForm ? (
-              <button className={styles.btnPrimary} onClick={() => setShowAdjustmentForm(true)}>
-                <i className="fas fa-wallet"></i> Adjust Wallet
-              </button>
-            ) : (
-              <button 
-                className={styles.btnPrimary} 
-                onClick={handleWalletAdjustment}
-                disabled={adjusting}
-              >
-                {adjusting ? <i className="fas fa-spinner fa-spin"></i> : <i className="fas fa-check"></i>} Confirm Adjustment
-              </button>
-            )}
-          </>
-        }
       >
         {selectedUser && (
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '16px', paddingBottom: '24px', borderBottom: '1px solid #e5e7eb' }}>
-              <div style={{ width: "64px", height: "64px", borderRadius: "50%", background: "#e0e7ff", color: "#4f46e5", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "24px", fontWeight: 700 }}>
-                {selectedUser.fullName ? selectedUser.fullName.charAt(0).toUpperCase() : selectedUser.email.charAt(0).toUpperCase()}
-              </div>
-              <div>
-                <h4 style={{ fontSize: '18px', fontWeight: 700, margin: 0 }}>{selectedUser.fullName || 'N/A'}</h4>
-                <p style={{ color: '#6b7280', margin: 0 }}>{selectedUser.email}</p>
-                <span className={`${styles.statBadge} ${styles.badgeGreen}`} style={{ marginTop: '8px', display: 'inline-block' }}>Active User</span>
-              </div>
-            </div>
+          <div>
+            <h3>{selectedUser.fullName || 'N/A'}</h3>
+            <p>{selectedUser.email}</p>
 
-            <div>
-              <h5 style={{ fontSize: '14px', fontWeight: 600, color: '#374151', marginBottom: '12px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Personal Information</h5>
-              <div className={styles.detailRow}>
-                <span className={styles.detailLabel}>User ID</span>
-                <span className={styles.detailValue}>#{selectedUser.id}</span>
-              </div>
-              <div className={styles.detailRow}>
-                <span className={styles.detailLabel}>Mobile Number</span>
-                <span className={styles.detailValue}>{selectedUser.mobile || 'N/A'}</span>
-              </div>
-              <div className={styles.detailRow}>
-                <span className={styles.detailLabel}>Joined Date</span>
-                <span className={styles.detailValue}>{new Date(selectedUser.createdAt).toLocaleDateString()}</span>
-              </div>
-            </div>
+            <p>
+              Balance: ${selectedUser.wallet?.usdtAvailable ?? 0}
+            </p>
 
-            <div>
-              <h5 style={{ fontSize: '14px', fontWeight: 600, color: '#374151', marginBottom: '12px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Wallet Overview</h5>
-              <div style={{ background: '#f9fafb', padding: '16px', borderRadius: '12px', border: '1px solid #e5e7eb' }}>
-                <div className={styles.detailRow}>
-                  <span className={styles.detailLabel}>Available Balance</span>
-                  <span className={styles.detailValue} style={{ color: '#059669' }}>${selectedUser.wallet?.usdtAvailable ?? 0}</span>
-                </div>
-                <div className={styles.detailRow}>
-                  <span className={styles.detailLabel}>Total Deposited</span>
-                  <span className={styles.detailValue}>${selectedUser.wallet?.usdtDeposited ?? 0}</span>
-                </div>
-                <div className={styles.detailRow}>
-                  <span className={styles.detailLabel}>Total Withdrawn</span>
-                  <span className={styles.detailValue}>${selectedUser.wallet?.usdtWithdrawn ?? 0}</span>
-                </div>
-              </div>
-            </div>
+            <button onClick={() => setShowAdjustmentForm(!showAdjustmentForm)}>
+              Adjust Wallet
+            </button>
 
             {showAdjustmentForm && (
-              <div style={{ background: '#eff6ff', padding: '16px', borderRadius: '12px', border: '1px solid #bfdbfe', animation: 'fadeIn 0.3s' }}>
-                <h5 style={{ fontSize: '14px', fontWeight: 600, color: '#1e40af', marginBottom: '12px' }}>Adjust Wallet Balance</h5>
-                <div className={styles.formGroup}>
-                  <label className={styles.label}>Type</label>
-                  <div style={{ display: 'flex', gap: '12px' }}>
-                    <button 
-                      className={adjustmentType === 'CREDIT' ? styles.btnPrimary : styles.btnOutline}
-                      onClick={() => setAdjustmentType('CREDIT')}
-                      style={{ flex: 1, padding: '8px' }}
-                    >
-                      Credit (+)
-                    </button>
-                    <button 
-                      className={adjustmentType === 'DEBIT' ? styles.btnDanger : styles.btnOutline}
-                      onClick={() => setAdjustmentType('DEBIT')}
-                      style={{ flex: 1, padding: '8px' }}
-                    >
-                      Debit (-)
-                    </button>
-                  </div>
-                </div>
-                <div className={styles.formGroup}>
-                  <label className={styles.label}>Amount (USDT)</label>
-                  <input 
-                    type="number" 
-                    className={styles.input} 
-                    value={adjustmentAmount}
-                    onChange={(e) => setAdjustmentAmount(e.target.value)}
-                    placeholder="0.00"
-                  />
-                </div>
-                <div className={styles.formGroup}>
-                  <label className={styles.label}>Reason (Optional)</label>
-                  <input 
-                    type="text" 
-                    className={styles.input} 
-                    value={adjustmentReason}
-                    onChange={(e) => setAdjustmentReason(e.target.value)}
-                    placeholder="e.g. Bonus, Correction"
-                  />
-                </div>
+              <div>
+                <input
+                  type="number"
+                  value={adjustmentAmount}
+                  onChange={(e) => setAdjustmentAmount(e.target.value)}
+                  placeholder="Amount"
+                />
+
+                <button onClick={handleWalletAdjustment} disabled={adjusting}>
+                  {adjusting ? 'Processing...' : 'Confirm'}
+                </button>
               </div>
             )}
-
-            <div>
-              <h5 style={{ fontSize: '14px', fontWeight: 600, color: '#374151', marginBottom: '12px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Bank Accounts</h5>
-              {selectedUser.bankCards && selectedUser.bankCards.length > 0 ? (
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-                  {selectedUser.bankCards.map((bank, idx) => (
-                    <div key={idx} style={{ padding: '16px', border: '1px solid #e5e7eb', borderRadius: '8px', background: '#f9fafb' }}>
-                      <div style={{ display: 'grid', gridTemplateColumns: '120px 1fr', gap: '8px', marginBottom: '6px' }}>
-                        <span style={{ fontSize: '13px', fontWeight: 600, color: '#6b7280' }}>Account Name:</span>
-                        <span style={{ fontSize: '13px', color: '#111827', fontWeight: 500 }}>{bank.payeeName || bank.holderName || 'N/A'}</span>
-                      </div>
-                      <div style={{ display: 'grid', gridTemplateColumns: '120px 1fr', gap: '8px', marginBottom: '6px' }}>
-                        <span style={{ fontSize: '13px', fontWeight: 600, color: '#6b7280' }}>Account No:</span>
-                        <span style={{ fontSize: '13px', color: '#111827', fontWeight: 500 }}>{bank.accountNo || 'N/A'}</span>
-                      </div>
-                      <div style={{ display: 'grid', gridTemplateColumns: '120px 1fr', gap: '8px', marginBottom: '6px' }}>
-                        <span style={{ fontSize: '13px', fontWeight: 600, color: '#6b7280' }}>IFSC Code:</span>
-                        <span style={{ fontSize: '13px', color: '#111827', fontWeight: 500 }}>{bank.ifsc || 'N/A'}</span>
-                      </div>
-                      <div style={{ display: 'grid', gridTemplateColumns: '120px 1fr', gap: '8px' }}>
-                        <span style={{ fontSize: '13px', fontWeight: 600, color: '#6b7280' }}>Bank Name:</span>
-                        <span style={{ fontSize: '13px', color: '#111827', fontWeight: 500 }}>{bank.bankName || 'N/A'}</span>
-                      </div>
-                      {bank.isSelected && (
-                        <div style={{ marginTop: '8px', padding: '4px 8px', background: '#dcfce7', color: '#166534', fontSize: '11px', fontWeight: 600, borderRadius: '4px', display: 'inline-block' }}>
-                          <i className="fas fa-check-circle" style={{ marginRight: '4px' }}></i>
-                          Selected Account
-                        </div>
-                      )}
-                    </div>
-                  ))}
-                </div>
-              ) : (
-                <p style={{ color: "#9ca3af", fontStyle: "italic", fontSize: '14px' }}>No bank accounts linked</p>
-              )}
-            </div>
           </div>
         )}
       </Modal>
