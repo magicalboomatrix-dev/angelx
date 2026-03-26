@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from 'next/link';
 
 import FAQ from "./components/faq";
+import TetimonialCarousel from "./components/tetimonials";
 import Readmore from "./components/Readmore";
 import Footer from './components/footer';
 
@@ -926,7 +927,24 @@ export default function Index() {
 			</div>
 		  </div>
 		</section>
-  <FAQ />
+
+	<section className="section-4-table section-refer-earn">
+		  <div className="container">
+		  <div className="section-title">
+			  <h2 className="title">Refer and Earn Crypto Rewards: Invite Friends, You Get Paid!</h2>
+			  <div className="image">
+				<img src="/images/Referal-Image1.png" className="image img-responsive" alt="AngelX Refer and Earn Rewards" />          
+			  </div>
+			  <p>
+				Sign up for our rewards program and start earning rewards to redeem today! How does it work, you ask? Simple — refer your friends to join our platform and grow together as they actively trade on the platform; reap rewards in return! Sign up now, don’t miss out on making some extra money with friends!
+			  </p>
+			</div>
+		  </div>
+		</section>
+		
+		<TetimonialCarousel />
+	
+  		<FAQ />
                 </Readmore>
               </div>
             </div>
