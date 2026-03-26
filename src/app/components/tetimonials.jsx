@@ -35,7 +35,7 @@ export default function TetimonialCarousel() {
 		 
         <div>
 		  <div className="tbx">
-		  <div className="desc"><p>Lightning-fast! 500 USDT sold on TRC20, credited to ICICI account in <30 minutes. No KYC bullshit — great for quick trades.
+		  <div className="desc"><p>Lightning-fast! 500 USDT sold on TRC20, credited to ICICI account in &lt;30 minutes. No KYC bullshit — great for quick trades.
 </p>   </div>
 		  <div className="info">
 		  <span className="uname">Amit Singh </span>
