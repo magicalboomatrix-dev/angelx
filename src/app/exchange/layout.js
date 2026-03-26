@@ -1,5 +1,5 @@
 export const metadata = {
-  title: "AngelX Exchange → India’s #1 Trusted Crypto Exchange Platform",
+  title: "AngelX → Your USDT-to-INR Exchange Needs, One App!",
   description:
              "Fast-track USDT-to-INR conversions on AngelX: Best market rates, robust security, quick processing. Reliable team ready—access account, sell crypto now!",
   keywords: [
@@ -44,7 +44,7 @@ export const metadata = {
   publisher: "AngelX",
   openGraph: {
     type: "website",
-    title: "AngelX Exchange → India’s #1 Trusted Crypto Exchange Platform",
+    title: "AngelX → Your USDT-to-INR Exchange Needs, One App!",
     description:
       "Fast-track USDT-to-INR conversions on AngelX: Best market rates, robust security, quick processing. Reliable team ready—access account, sell crypto now!.",
     url: "https://www.angelx.ind.in/exchange",
@@ -55,13 +55,13 @@ export const metadata = {
         url: "https://www.angelx.ind.in/images/logo-icon.png",
         width: 1200,
         height: 630,
-        alt: "AngelX USDT Exchange Platform",
+        alt: "AngelX → Your USDT-to-INR Exchange Needs, One App!",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "AngelX Exchange → India’s #1 Trusted Crypto Exchange Platform",
+    title: "AngelX → Your USDT-to-INR Exchange Needs, One App!",
     description:
       "Fast-track USDT-to-INR conversions on AngelX: Best market rates, robust security, quick processing. Reliable team ready—access account, sell crypto now!.",
     site: "@AngelX",
