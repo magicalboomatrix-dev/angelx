@@ -936,7 +936,7 @@ export default function Index() {
 				<img src="/images/Referal-Image1.png" className="image img-responsive" alt="AngelX Refer and Earn Rewards" />          
 			  </div>
 			  <p>
-				Sign up for our rewards program and start earning rewards to redeem today! How does it work, you ask? Simple — refer your friends to join our platform and grow together as they actively trade on the platform; reap rewards in return! Sign up now, don’t miss out on making some extra money with friends!
+				Join our rewards program for points you can redeem now! How does it work, you ask? It’s easy — invite your friends to our platform and to grow with us as they trade actively within the platform; you will get rewarded! Now sign up, don’t miss your chance to earn extra cash with friends!
 			  </p>
 			</div>
 		  </div>
