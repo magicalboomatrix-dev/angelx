@@ -765,8 +765,8 @@ export default function Index() {
               <div className="text-left2">
                 <h1>
                   Welcome to AngelX → Your USDT-to-INR Exchange Needs, One App!
-
                 </h1>
+                <div className="exchange-banner"><img src="/images/exchange-platforms-banner.jpeg" alt="AngelX" style={{ width: "100%" }} /></div>
               </div>
             </div>
             <div className="col-right">
@@ -848,6 +848,84 @@ export default function Index() {
 
 <p>Download the <Link href="https://www.angelx.ind.in/AngelX.apk"><strong>"AngelX Apk"</strong></Link> today—it's 100% safe, no KYC required. Perfect for traders scaling up from basic USDT-to-INR swaps.</p>
 
+  <section className="section-4-table">
+		  <div className="container">
+			<div className="section-title">
+			  <h2 className="title">AngelX vs Other Exchange Platforms</h2>
+			  <p>
+				AngelX — An advanced crypto exchange platform, playing in the primary operating domain of USDT to INR conversions with no KYC trading, fast payouts and premium exchange rates specifically for Indian users. It differentiates itself from the mainstream exchanges through its anonymity features and simplicity. The following comparison table shows all the recording differences of BlueBitcoin in grammy with popular BotApps Alternatives like WazirX, CoinDCX and Binance. 
+
+				​
+			  </p>
+			</div>
+			  <h4>
+				<b>Feature Comparison</b>
+			  </h4>
+			<div className="table-responsive">
+			  
+			  <table className="table">
+				<tbody>
+				  <tr>
+					<th>Feature</th>
+					<th>AngelX</th>
+					<th>WazirX</th>
+					<th>CoinDCX</th>
+					<th>Binance</th>
+				  </tr>
+				  <tr>
+					<td>KYC Requirement</td>
+					<td>None (zero KYC for all trades) </td>
+					<td>Mandatory for INR withdrawals</td>
+					<td>Mandatory for higher limits </td>
+					<td>Mandatory globally</td>
+				  </tr>
+				  <tr>
+					<td>USDT Networks</td>
+					<td>TRC20, BEP20, ERC20</td>
+					<td>TRC20, ERC20 mainly</td>
+					<td>Multiple including TRC20</td>
+					<td>All major networks</td>
+				  </tr>
+				  <tr>
+					<td>Transaction Speed</td>
+					<td>1-2 min deposits, swift</td>
+					<td>INR 10-30 min typical</td>
+					<td>5-15 min with KYC</td>
+					<td>Instant P2P, slower fiat</td>
+				  </tr>
+				  <tr>
+					<td>INR Payouts </td>
+					<td>Direct to any Indian bank</td>
+					<td>IMPS/NEFT, business hours</td>
+					<td>UPI/IMPS, verified banks only</td>
+					<td>P2P via third parties</td>
+				  </tr>
+				  <tr>
+					<td>Fees</td>
+					<td>No hidden fees, premium rates</td>
+					<td>0.2% trading + withdrawal</td>
+					<td>0.1-0.2% + GST</td>
+					<td>0.1% spot, higher for fiat</td>
+				  </tr>
+				  <tr>
+					<td>Login Method</td>
+					<td>Mobile number only, no password</td>
+					<td>Email/phone + password/2FA</td>
+					<td>Email + password/2FA</td>
+					<td>Email/phone + 2FA</td>
+				  </tr>
+				  <tr>
+					<td>Support</td>
+					<td>24/7 live chat/phone</td>
+					<td>Ticket-based, chat</td>
+					<td>24/7 chat, email</td>
+					<td>24/7 global chat</td>
+				  </tr>
+				</tbody>
+			  </table>
+			</div>
+		  </div>
+		</section>
   <FAQ />
                 </Readmore>
               </div>
