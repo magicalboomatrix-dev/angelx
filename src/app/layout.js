@@ -3,7 +3,7 @@ import Script from "next/script";
 import LayoutClient from "./LayoutClient";
 
 export const metadata = {
-  title: "AngelX → Your USDT-to-INR Exchange Needs, One App!",
+  title: "AngelX → USDT selling Platform",
   description:
     "Log in to AngelX for instant USDT-to-INR conversions at the best market rates. Fast processing, secure payouts, reliable support—sell your crypto easily now!",
   keywords: [
@@ -47,7 +47,7 @@ export const metadata = {
   publisher: "AngelX",
   openGraph: {
     type: "website",
-    title: "AngelX → Your USDT-to-INR Exchange Needs, One App!",
+    title: "AngelX → USDT selling Platform",
     description:
       "Log in to AngelX for instant USDT-to-INR conversions at the best market rates. Fast processing, secure payouts, reliable support—sell your crypto easily now!",
     url: "https://www.angelx.ind.in/",
@@ -58,13 +58,13 @@ export const metadata = {
         url: "https://www.angelx.ind.in/images/logo-icon.png",
         width: 1200,
         height: 630,
-        alt: "AngelX USDT Exchange Platform",
+        alt: "AngelX → USDT selling Platform",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "AngelX → Your USDT-to-INR Exchange Needs, One App!",
+    title: "AngelX → USDT selling Platform",
     description:
       "Log in to AngelX for instant USDT-to-INR conversions at the best market rates. Fast processing, secure payouts, reliable support—sell your crypto easily now!",
     site: "@AngelX",
