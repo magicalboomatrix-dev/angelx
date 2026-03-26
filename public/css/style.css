@@ -3242,6 +3242,156 @@ section.faq-section h2 {
 }
 
 
+section.section-4-table {
+    padding-top: 25px;
+}
+
+section.section-4-table .container {
+    margin: 0;
+    max-width: 100%;
+}
+
+section.section-4-table h2.title {
+    font-size: 19px;
+    font-weight: 600;
+    color: #041f30;
+    letter-spacing: -1px;
+    padding-bottom: 10px;
+}
+
+section.section-4-table .table-responsive {
+    padding-top: 0;
+    text-align: center;
+    overflow: auto;
+    border: 1px solid #ccc;
+}
+
+section.section-4-table .table-responsive table.table {
+    /* border: 1px solid #ccc; */
+    padding: 0;
+    border-collapse: collapse;
+    overflow: auto;
+}
+
+section.section-4-table  table.table .th,section.section-4-table  table.table .td {
+    padding: 10px;
+}
+
+section.section-4-table table.table th, section.section-4-table table.table td {
+    padding: 10px;
+}
+
+section.section-4-table table.table th {
+    background: #000;
+    color: #fff;
+}
+
+section.section-4-table h4 {
+    padding: 15px;
+    text-align: center;
+    font-weight: 400;
+    font-size: 16px;
+}
+
+section.section-4-table table.table td {
+    white-space: nowrap;
+    border: 1px solid #ccc;
+}
+
+section.section-4-table table.table tr:nth-child(odd) {
+    background: #eee;
+}
+
+section.section-refer-earn {}
+
+section.section-refer-earn img.image {
+    height: auto;
+    width: 100%;
+}
+
+section.section-refer-earn h2.title {
+    margin-top: 0;
+}
+
+section.tetimonial-carousel {
+    padding-top: 5px;
+}
+
+section.tetimonial-carousel .info {
+    display: flex;
+    align-items: center;
+    flex-direction: row-reverse;
+    justify-content: center;
+    gap: 10px;
+    padding: 10px 0;
+}
+
+section.tetimonial-carousel .info span.uimg >img {
+    border-radius: 0;
+    height: 100%;
+    object-fit: cover;
+}
+
+section.tetimonial-carousel .info span.uimg {
+    max-width: 45px;
+    height: 45px;
+    border-radius: 100px;
+    overflow: hidden;
+}
+
+section.tetimonial-carousel h2.title {
+    text-align: center;
+}
+
+section.tetimonial-carousel {
+    text-align: center;
+}
+
+section.section-4-table {
+    padding-top: 15px;
+}
+
+section.section-4-table h2.title {
+    margin-top: 0;
+    padding-bottom: 0;
+}
+
+section.section-refer-earn h2.title {}
+
+section.tetimonial-carousel {
+    border: 1px solid #ccc;
+    padding: 15px 10px 10px 10px;
+    margin-top: 20px;
+}
+
+section.tetimonial-carousel button.slick-arrow {
+    display: none !important;
+}
+
+section.tetimonial-carousel ul.slick-dots {
+    bottom: -40px;
+}
+
+section.tetimonial-carousel ul.slick-dots li {
+    margin: 0;
+}
+section.section-4-table h2.title span.color {
+    color: #f3c86d;
+}
+
+section.section-4-table .exchange-banner {
+    padding-top: 7px;
+    padding-bottom: 7px;
+}
+
+.header-left h1.title-left {
+    font-size: 18px;
+    font-weight: 600;
+}
+
+
+
+
 
 
 
