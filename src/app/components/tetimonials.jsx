@@ -25,7 +25,7 @@ export default function TetimonialCarousel() {
       <Slider {...settings}>
         <div>
 		  <div className="tbx">
-		  <div className="desc"><p>Lightning-fast! Sold 500 USDT on TRC20, went to ICICI account in less than 30 minutes. No KYC bullshit, so good for fast trades.</p>   </div>
+		  <div className="desc"><p>AngelX shines in India. No labor P2P, same-day bank transfers; services that are ready when you need them. Robust security for large trades. Consistent—my trusted platform. Outstanding!</p>   </div>
 		  <div className="info">
 		  <span className="uname">Rahul Kumar </span>
 		  <span className="uimg"><img src="/images/user1-img.jpg" style={{ width: "100%" }} /> </span>
@@ -35,7 +35,8 @@ export default function TetimonialCarousel() {
 		 
         <div>
 		  <div className="tbx">
-		  <div className="desc"><p>Love AngelX's speed! User-friendly notifications from the app + zero delays on USDT-INR swaps Support fixed verification overnight. Transparent, secure—ideal for pros. Thumbs up!</p>   </div>
+		  <div className="desc"><p>Lightning-fast! 500 USDT sold on TRC20, credited to ICICI account in <30 minutes. No KYC bullshit — great for quick trades.
+</p>   </div>
 		  <div className="info">
 		  <span className="uname">Amit Singh </span>
 		  <span className="uimg"><img src="/images/user2-img.jpg" style={{ width: "100%" }} /> </span>
@@ -45,7 +46,7 @@ export default function TetimonialCarousel() {
 		
         <div>
 		  <div className="tbx">
-		  <div className="desc"><p>AngelX shines in India. P2P, same-day bank transfers without work; support ahead of the game. Robust security for large trades. Consistent—my trusted platform. Outstanding!</p>   </div>
+		  <div className="desc"><p>Love AngelX's speed! App-friendly alerts + no wait time on USDT-INR swaps Fixed verification overnight. Transparent, secure—ideal for pros. Thumbs up!</p>   </div>
 		  <div className="info">
 		  <span className="uname">Vikram Reddy</span>
 		  <span className="uimg"><img src="/images/user3-img.jpg" style={{ width: "100%" }} /> </span>
