@@ -780,6 +780,12 @@ export default function Index() {
                 {/* ... the rest remains unchanged ... */}
 
                 <Readmore>
+                  <h2>What is AngelX?</h2>
+<p>AngelX is a mobile app specially focusing on selling USDT (Tether) and transfering it into INR in bank account. It acts as a place to buy and sell different digital assets, while providing quick, reliable and almost instant payouts as well as 24/7 customer service for users.</p>
+
+<p>AngelX is an overall focus on speed, security and user-friendliness for users to convert USDT into INR without going through the complexities of traditional crypto trading methods.</p>
+
+
                   <h2>Key Features That Make AngelX Unbeatable</h2>
 
 <p><strong>Download & Login:</strong> Get the AngelX Apk from our site. Sign In with only your mobile number — no password required.</p>
