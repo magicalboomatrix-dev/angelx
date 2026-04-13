@@ -46,9 +46,9 @@ export default function exchangeListPage() {
 						  <div class="info-bx-grs">
 							 <div class="info-row">
 								<span class="label">Network</span>
-								<div class="value"><img alt="network" width="20" height="20" class="jsx-ae303611235dc644" src="/images/bnb.png"><span class="jsx-ae303611235dc644">BEP20-USDT</span></div>
+								<div class="value"><img alt="network" width="20" height="20" class="jsx-ae303611235dc644" src="/images/bnb.png" /><span class="jsx-ae303611235dc644">BEP20-USDT</span></div>
 							 </div>
-							 <div class="info-row">
+							 <div class="info-row info-row-mid">
 							 <span class="label">Trade detail</span>
 							 <div class="value df-value">
 								<div class="badge-left">
