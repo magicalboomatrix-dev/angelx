@@ -278,7 +278,7 @@ export default function DemoPage() {
           display: flex;
           justify-content: space-between;
           align-items: center;
-          font-size: 0.95rem;
+          font-size: 13px;
         }
 
         .label {
@@ -336,11 +336,11 @@ export default function DemoPage() {
 .history-list .card span.id-text {
     font-weight: 700;
     color: #111;
-    font-size: 15px;
+    font-size: 13px;
 }
 
 .history-list .card span.status-text {
-    font-size: 14px;
+    font-size: 13px;
 }
 
 .info-bx-gr {
@@ -356,13 +356,13 @@ export default function DemoPage() {
 }
 
 .info-bx-gr .info-row span.label {
-    font-size: 14px;
+    font-size: 13px;
     color: #777777;
 }
 
 .info-bx-gr .info-row  .value {
     color: #111;
-    font-size: 14px;
+    font-size: 13px;
 }
 .divider {
     background-color: #e1e1e1;
