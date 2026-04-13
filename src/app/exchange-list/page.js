@@ -26,44 +26,44 @@ export default function exchangeListPage() {
             <div className="history-list">
               
                   <div className="card-div deposit-card">
-					  <div class="card">
-					   <div class="card-header">
-						  <div class="header-left">
-							 <div class="icon-wrapper">
-								<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#444" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="jsx-ae303611235dc644">
-								   <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" class="jsx-ae303611235dc644"></path>
-								   <polyline points="14 2 14 8 20 8" class="jsx-ae303611235dc644"></polyline>
-								   <line x1="16" y1="13" x2="8" y2="13" class="jsx-ae303611235dc644"></line>
-								   <line x1="16" y1="17" x2="8" y2="17" class="jsx-ae303611235dc644"></line>
+					  <div className="card">
+					   <div className="card-header">
+						  <div className="header-left">
+							 <div className="icon-wrapper">
+								<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#444" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" className="jsx-ae303611235dc644">
+								   <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" className="jsx-ae303611235dc644"></path>
+								   <polyline points="14 2 14 8 20 8" className="jsx-ae303611235dc644"></polyline>
+								   <line x1="16" y1="13" x2="8" y2="13" className="jsx-ae303611235dc644"></line>
+								   <line x1="16" y1="17" x2="8" y2="17" className="jsx-ae303611235dc644"></line>
 								</svg>
 							 </div>
-							 <span class="id-text">CD84***0088</span>
+							 <span className="id-text">CD84***0088</span>
 						  </div>
-						  <span class="status-text" style="color: rgb(245, 158, 11);">Pending</span>
+						  <span className="status-text red">Failed</span>
 					   </div>
-					   <div class="divider"></div>
-					   <div class="info-list">
-						  <div class="info-bx-grs">
-							 <div class="info-row">
-								<span class="label">Network</span>
-								<div class="value"><img alt="network" width="20" height="20" class="jsx-ae303611235dc644" src="/images/bnb.png" /><span class="jsx-ae303611235dc644">BEP20-USDT</span></div>
+					   <div className="divider"></div>
+					   <div className="info-list">
+						  <div className="info-bx-grs">
+							 <div className="info-row">
+								<span className="label">Network</span>
+								<div className="value"><img alt="network" width="20" height="20" className="jsx-ae303611235dc644" src="/images/bnb.png"><span className="jsx-ae303611235dc644">BEP20-USDT</span></div>
 							 </div>
-							 <div class="info-row info-row-mid">
-							 <span class="label">Trade detail</span>
-							 <div class="value df-value">
-								<div class="badge-left">
-								<div class="badge-usdt">₮</div>
-								<span class="amount-bold"> 120</span>
+							 <div className="info-row info-row-mid">
+							 <span className="label">Trade detail</span>
+							 <div className="value df-value">
+								<div className="badge-left">
+								<div className="badge-usdt">₮</div>
+								<span className="amount-bold"> 120</span>
 								</div>
-								<div class="badge-mid">
+								<div className="badge-mid">
 									<img src="/images/trade-icon.png" alt="icon" />
 								</div>
-								<div class="badge-ri">
+								<div className="badge-ri">
 									<span>₹</span> 1210
 								</div>
 							 </div>
 							 </div>
-							 <div class="info-row"><span class="jsx-ae303611235dc644 label">Create time</span><span class="jsx-ae303611235dc644 value">4/13/2026, 3:23:55 PM</span></div>
+							 <div className="info-row"><span className="jsx-ae303611235dc644 label">Create time</span><span className="jsx-ae303611235dc644 value">4/13/2026, 3:23:55 PM</span></div>
 						  </div>
 						  
 					   </div>
