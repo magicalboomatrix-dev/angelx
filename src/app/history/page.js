@@ -44,7 +44,7 @@ export default function DemoPage() {
   }, [router]);
 
   return (
-    <div className="app-container" style={{backgroundColor:'#fff'}}>
+    <div className="app-container page-wrappers "  style={{backgroundColor:'#fff'}}>
       <main className="content-wrapper">
         <div className="brdc">
           <div className="back-btn-container">
