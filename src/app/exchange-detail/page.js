@@ -23,6 +23,70 @@ export default function exchangeDetailPage() {
             <div className="history-list">
               
                   
+<div class="containerinner">
+    
+    <div class="amount">
+        <p>You will receive</p>
+        <h1>₹1020</h1>
+    </div>
+
+    <div class="status-line">
+        <div class="status">
+            <div class="circle success">✓</div>
+            <div class="status-label">Submitted</div>
+            <div class="status-time">10 Apr 2026 22:54:27</div>
+        </div>
+
+        <div class="status">
+            <div class="circle success">✓</div>
+        </div>
+
+        <div class="status">
+            <div class="circle failed">✕</div>
+            <div class="status-label">Failed</div>
+            <div class="status-time">11 Apr 2026 11:36:15</div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h3>Payee information</h3>
+
+        <div class="row">
+            <div class="label">Account No</div>
+            <div class="value">1775101010267</div>
+        </div>
+
+        <div class="row">
+            <div class="label">IFSC</div>
+            <div class="value">CNRB0001775</div>
+        </div>
+
+        <div class="row">
+            <div class="label">Payee Name</div>
+            <div class="value">Manish Jangra</div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h3>Trade information</h3>
+
+        <div class="row">
+            <div class="label">Trade no</div>
+            <div class="value">CD2042654958687490048</div>
+        </div>
+
+        <div class="row">
+            <div class="label">Trade detail</div>
+            <div class="value">10 ≈ ₹1020</div>
+        </div>
+
+        <div class="row">
+            <div class="label">Remark</div>
+            <div class="value">Transfer failed. Try again after trying to change the transfer information</div>
+        </div>
+    </div>
+
+</div>
                 
              
             </div>
@@ -225,6 +289,112 @@ export default function exchangeDetailPage() {
 }
 .divider {
     background-color: #e1e1e1;
+    }
+
+    .amount {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    .amount p {
+        margin: 0;
+        color: #666;
+        font-size: 16px;
+    }
+
+    .amount h1 {
+        margin: 5px 0 0;
+        font-size: 32px;
+        color: #000;
+    }
+
+    .status-line {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin: 20px 0;
+        position: relative;
+    }
+
+    .status-line::before {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 10%;
+        right: 10%;
+        height: 2px;
+        background: #ddd;
+        z-index: 0;
+    }
+
+    .status {
+        text-align: center;
+        z-index: 1;
+    }
+
+    .circle {
+        width: 26px;
+        height: 26px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: auto;
+        font-size: 14px;
+        color: #fff;
+    }
+
+    .success {
+        background: #28a745;
+    }
+
+    .failed {
+        background: #dc3545;
+    }
+
+    .status-label {
+        margin-top: 8px;
+        font-size: 14px;
+        color: #333;
+    }
+
+    .status-time {
+        font-size: 12px;
+        color: #777;
+    }
+
+    .section {
+        margin-top: 20px;
+    }
+
+    .section h3 {
+        margin-bottom: 10px;
+        font-size: 16px;
+        color: #333;
+        border-bottom: 1px solid #eee;
+        padding-bottom: 8px;
+    }
+
+    .row {
+        display: flex;
+        justify-content: space-between;
+        margin: 10px 0;
+        font-size: 14px;
+    }
+
+    .label {
+        color: #666;
+    }
+
+    .value {
+        color: #000;
+        text-align: right;
+    }
+
+    .remark {
+        margin-top: 10px;
+        font-size: 14px;
+        color: #333;
     }
       `}</style>
     </div>
