@@ -347,6 +347,8 @@ export default function DemoPage() {
     background: #eeeef1;
     padding: 2px 14px;
     border-radius: 3px;
+    display: flex;
+    flex-direction: column;
 }
 
 .info-bx-gr .info-row {
