@@ -139,14 +139,16 @@ export default function Exchange() {
 
             {/* Rate Box */}
             <section className="section-3">
-              <div className="reload-btn">
-                  <img src="/images/reaload-btn.png" alt="" />
-              </div>
+              
               <p className="title" style={{ textAlign: "left" }}>
                 <b>Platform Price</b>
               </p>
 
               <div className="price-calc">
+              <div className="reload-btn">
+                  <img src="/images/reaload-btn.png" alt="" />
+              </div>
+              
                 <div className="priceref">
                   <p>
                     Automatic refresh after{" "}
