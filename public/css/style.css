@@ -3392,6 +3392,21 @@ section.section-4-table .exchange-banner {
 
 
 
+.header-left .left-div.pic {
+	width: 10%;
+}
+.header-left .left-div.pic img {
+    width: 100%;
+}
+.header-left .right-div h1 {
+    font-size: 16px;
+}
+
+.header-left .right-div p {
+    font-weight: 600;
+    color: #656565;
+	font-size: 12px;
+}
 
 
 
