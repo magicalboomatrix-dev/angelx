@@ -310,7 +310,7 @@ export default function exchangeDetailPage() {
 
     .status-line {
         display: flex;
-        align-items: center;
+        align-items: start;
         justify-content: space-between;
         margin: 20px 0;
         position: relative;
@@ -318,13 +318,15 @@ export default function exchangeDetailPage() {
 
     .status-line::before {
         content: "";
-        position: absolute;
-        top: 50%;
-        left: 10%;
-        right: 10%;
-        height: 2px;
-        background: #ddd;
-        z-index: 0;
+    position: absolute;
+    top: 17%;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: #ddd;
+    z-index: 0;
+    width: 72%;
+    margin: auto;
     }
 
     .status {
@@ -396,6 +398,39 @@ export default function exchangeDetailPage() {
         font-size: 14px;
         color: #333;
     }
+
+    .containerinner {
+    padding-top: 20px;
+    margin-top: 10px;
+}
+
+.containerinner .amount {
+    padding: 10px;
+    background: #fff;
+    margin-bottom: 10px;
+}
+
+.containerinner .amount p {
+    font-weight: 600;
+}
+
+.containerinner .status-line {
+    padding: 20px 30px;
+    background: #fff;
+    margin: 0 0 10px 0;
+}
+
+.containerinner .status {}
+
+.containerinner .status .status-label {
+    font-weight: 700;
+}
+
+.containerinner .section {
+    padding: 20px 14px;
+    background: #fff;
+    margin: 0 0 10px 0;
+}
       `}</style>
     </div>
   );
