@@ -341,6 +341,26 @@ export default function DemoPage() {
 .history-list .card span.status-text {
     font-size: 15px;
 }
+
+.info-bx-gr {
+    background: #eeeef1;
+    padding: 2px 14px;
+    border-radius: 3px;
+}
+
+.info-bx-gr .info-row {
+    margin: 5px 0;
+}
+
+.info-bx-gr .info-row span.label {
+    font-size: 14px;
+    color: #777777;
+}
+
+.info-bx-gr .info-row  .value {
+    color: #111;
+    font-size: 14px;
+}
       `}</style>
     </div>
   );
