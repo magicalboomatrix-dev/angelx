@@ -140,6 +140,16 @@ export default function DemoPage() {
                             </span>
                           </div>
                         </div>
+                                <div className="info-row">
+                          <span className="label">Create time</span>
+                          <span className="value">
+                            {tx.createdAt
+                              ? new Date(tx.createdAt).toLocaleString()
+                              : "N/A"}
+                          </span>
+                        </div>
+                        
+                              </div>
                         <div className="info-row">
                           <span className="label">Trade detail</span>
                           <div className="value">
@@ -149,15 +159,6 @@ export default function DemoPage() {
                               {tx.amount ?? "0.00"}
                             </span>
                           </div>
-                        </div>
-                              </div>
-                        <div className="info-row">
-                          <span className="label">Create time</span>
-                          <span className="value">
-                            {tx.createdAt
-                              ? new Date(tx.createdAt).toLocaleString()
-                              : "N/A"}
-                          </span>
                         </div>
                       </div>
                     </div>
