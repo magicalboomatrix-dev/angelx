@@ -172,7 +172,7 @@ export default function HomePage() {
                   </p>
                 </div>
                 <div className="rights">
-                  <Link href="/reward-list" className="btn">Details</link>
+                  <Link href="/reward-list" className="btn">Details</Link>
                    <p>{today}</p>
                 </div>
               </div>
