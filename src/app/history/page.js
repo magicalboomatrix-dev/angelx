@@ -361,6 +361,9 @@ export default function DemoPage() {
     color: #111;
     font-size: 14px;
 }
+.divider {
+    background-color: #e1e1e1;
+    }
       `}</style>
     </div>
   );
