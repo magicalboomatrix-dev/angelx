@@ -15,7 +15,7 @@ export default function exchangeListPage() {
           <img src="/images/back-btn.png" alt="back" style={{marginLeft: '0'}} />
         </Link>
           </div>
-          <h3 className="header-title">Exchange History</h3>
+          <h3 className="header-title">Referrals reward</h3>
         </div>
 
         <section className="section-1" style={{ background: "#fff" }}>
