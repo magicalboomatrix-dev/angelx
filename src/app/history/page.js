@@ -49,7 +49,7 @@ export default function DemoPage() {
         <div className="brdc">
           <div className="back-btn-container">
             <Link href="/home" className="back-link" style={{position: 'relative',zIndex: '999'}}>
-          <img src="/images/back-btn.png" alt="back" />
+          <img src="/images/back-btn.png" alt="back" style={{marginLeft: '0'}} />
         </Link>
           </div>
           <h3 className="header-title">Transaction History ss</h3>
