@@ -23,7 +23,7 @@ export default function exchangeListPage() {
             <div className="history-list container-inn">
               <div className="headertop">
         <div>Date</div>
-        <div className="reward">Reward <span className="coin"></span></div>
+        <div className="reward">Reward <span className="coin"><img src="/images/payx.jpg"></span></div>
     </div>
 
     <div className="row"><div>13 Apr 2026</div><div className="amount">0</div></div>
@@ -262,13 +262,15 @@ export default function exchangeListPage() {
     }
 
     .container-inn .coin {
-        width: 14px;
-        height: 14px;
-        background: gold;
-        border-radius: 50%;
-        display: inline-block;
-    }
-
+    width: 18px;
+    height: 18px;
+    background: gold;
+    border-radius: 50%;
+    display: inline-block;
+}
+			 .container-inn .coin img {
+    max-width: 100%;
+}
     .container-inn .row {
         display: flex;
         justify-content: space-between;
