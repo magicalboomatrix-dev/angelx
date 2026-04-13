@@ -6,9 +6,6 @@ import { useRouter } from "next/navigation";
 
 export default function exchangeListPage() {
 
-
-
-
   return (
     <div className="app-container page-wrappers "  style={{backgroundColor:'#fff'}}>
       <main className="content-wrapper">
@@ -25,7 +22,7 @@ export default function exchangeListPage() {
     
             <div className="history-list">
               
-            <div className="card-div deposit-card">
+            <Link href="/exchange-detail" className="card-div deposit-card" >
 					  <div className="card">
 					   <div className="card-header">
 						  <div className="header-left">
@@ -68,7 +65,7 @@ export default function exchangeListPage() {
 						  
 					   </div>
 					</div>
-                  </div>
+                  </Link>
                 
              
             </div>
