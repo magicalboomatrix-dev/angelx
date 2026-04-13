@@ -3409,6 +3409,16 @@ section.section-4-table .exchange-banner {
 	font-size: 12px;
 }
 
+section.section-3 .price-calc {
+    position: relative;
+}
+
+section.section-3 .price-calc .reload-btn {
+    position: absolute;
+	top: 10px;
+    right: 13px;
+}
+
 
 
 
