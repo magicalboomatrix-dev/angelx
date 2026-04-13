@@ -3466,8 +3466,16 @@ section.table-section.tb-pricerefBx {
     width: 15px;
 }
 
-
-
+.page-wrappers.home-wrappers section.section-3 .inside a.btn {
+    background: #181818;
+    border: 0;
+    color: #fff;
+    border-radius: 20px;
+    padding: 6px 19px;
+    margin-bottom: 10px;
+    cursor: pointer;
+    display: inline-block;
+}
 
 
 
