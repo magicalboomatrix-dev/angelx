@@ -38,6 +38,18 @@ export function sanitizeText(value, { maxLength = 255, allowEmpty = true } = {})
 }
 
 /**
+ * Generate a unique reference ID with an optional prefix.
+ * Format: PREFIX-TIMESTAMP-RANDOM (e.g. DEP-1713012345678-A1B2C3)
+ * @param {string} [prefix='REF']
+ * @returns {string}
+ */
+export function generateReference(prefix = 'REF') {
+  const ts = Date.now().toString(36).toUpperCase();
+  const rand = Math.random().toString(36).slice(2, 8).toUpperCase();
+  return `${prefix}-${ts}-${rand}`;
+}
+
+/**
  * Parse and validate a positive numeric amount.
  * @param {unknown} value
  * @param {{ min?: number, max?: number }} [options]
