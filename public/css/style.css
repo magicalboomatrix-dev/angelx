@@ -3421,6 +3421,19 @@ section.section-3 .price-calc .reload-btn {
 
 
 
+.pricerefBx.pricerefBx-grbg {
+    padding: 10px;
+}
+
+section.table-section.tb-pricerefBx {
+    padding: 10px 15px;
+    background: #fff;
+}
+
+.page-wrappers.deposit-amount-page.add-bank-page .pricerefBx.pricerefBx-grbg {
+    background: #f3f6f8;
+}
+
 
 
 
