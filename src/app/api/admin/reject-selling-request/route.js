@@ -1,40 +1,31 @@
 // POST /api/admin/reject-selling-request
-import prisma from "@/lib/prisma";
 import { NextResponse } from "next/server";
 import { verifyAdminCookie } from "@/lib/adminAuth";
+import { parsePositiveInt, sanitizeText } from "@/lib/validation";
+import { rejectSell } from '@/lib/walletService';
+import { serializeTransaction, serializeWallet } from '@/lib/serializers';
 
 export async function POST(req) {
   try {
     const admin = verifyAdminCookie(req);
     if (!admin) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
-    const { transactionId } = await req.json();
-    if (!transactionId) {
+    const { transactionId, reason } = await req.json();
+    const parsedTransactionId = parsePositiveInt(transactionId);
+    if (!parsedTransactionId) {
       return NextResponse.json({ error: "Missing transactionId" }, { status: 400 });
     }
 
-    const tx = await prisma.transaction.findUnique({ where: { id: Number(transactionId) } });
-    if (!tx || tx.status !== "PENDING") {
-      return NextResponse.json({ error: "Transaction not found or already processed" }, { status: 404 });
-    }
-
-    // Refund the balance
-    await prisma.wallet.update({
-      where: { userId: tx.userId },
-      data: {
-        usdtAvailable: { increment: tx.amount },
-        usdtWithdrawn: { decrement: tx.amount }
-      }
+    const result = await rejectSell({
+      transactionId: parsedTransactionId,
+      adminId: admin.id,
+      reviewNote: sanitizeText(reason, { maxLength: 500 }) || null,
     });
 
-    await prisma.transaction.update({
-      where: { id: tx.id },
-      data: { status: "FAILED" },
-    });
-
-    return NextResponse.json({ success: true });
+    return NextResponse.json({ success: true, transaction: serializeTransaction(result.transaction), wallet: serializeWallet(result.wallet) });
   } catch (err) {
     console.error("Error rejecting selling request:", err);
-    return NextResponse.json({ error: "Server error" }, { status: 500 });
+    const status = err.message === 'Locked balance is insufficient' || err.message === 'Available balance is insufficient for this legacy pending sell' ? 400 : err.message === 'Transaction not found or already processed' ? 404 : 500;
+    return NextResponse.json({ error: status === 500 ? 'Server error' : err.message }, { status });
   }
 }

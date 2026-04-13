@@ -1,6 +1,8 @@
 import { NextResponse } from 'next/server';
-import prisma from '@/app/lib/prisma';
 import { verifyAdminCookie } from '@/app/lib/adminAuth';
+import { parsePositiveAmount, parsePositiveInt, sanitizeText } from '@/lib/validation';
+import { adjustWalletBalance } from '@/lib/walletService';
+import { serializeWallet } from '@/lib/serializers';
 
 export async function POST(request) {
   const auth = verifyAdminCookie(request);
@@ -10,59 +12,26 @@ export async function POST(request) {
 
   try {
     const { userId, amount, type, reason } = await request.json();
+    const parsedUserId = parsePositiveInt(userId);
+    const parsedAmount = parsePositiveAmount(amount);
+    const normalizedType = String(type || '').toUpperCase();
 
-    if (!userId || !amount || !type) {
+    if (!parsedUserId || !parsedAmount || !['CREDIT', 'DEBIT'].includes(normalizedType)) {
       return NextResponse.json({ error: 'Missing required fields' }, { status: 400 });
     }
 
-    const numAmount = parseFloat(amount);
-    if (isNaN(numAmount) || numAmount <= 0) {
-      return NextResponse.json({ error: 'Invalid amount' }, { status: 400 });
-    }
+    const result = await adjustWalletBalance({
+      userId: parsedUserId,
+      adminId: auth.id,
+      amount: parsedAmount,
+      type: normalizedType,
+      reason: sanitizeText(reason, { maxLength: 300 }) || null,
+    });
 
-    const user = await prisma.user.findUnique({ where: { id: parseInt(userId) } });
-    if (!user) {
-      return NextResponse.json({ error: 'User not found' }, { status: 404 });
-    }
-
-    // Update wallet
-    let newBalance;
-    if (type === 'CREDIT') {
-      newBalance = (user.wallet?.usdtAvailable || 0) + numAmount;
-    } else {
-      newBalance = (user.wallet?.usdtAvailable || 0) - numAmount;
-    }
-
-    // Create transaction record
-    await prisma.$transaction([
-      prisma.wallet.upsert({
-        where: { userId: parseInt(userId) },
-        create: {
-          userId: parseInt(userId),
-          usdtAvailable: newBalance,
-          usdtDeposited: user.wallet?.usdtDeposited || 0,
-          usdtWithdrawn: user.wallet?.usdtWithdrawn || 0
-        },
-        update: {
-          usdtAvailable: newBalance
-        }
-      }),
-      prisma.transaction.create({
-        data: {
-          userId: parseInt(userId),
-          depositId: `ADJ-${Date.now()}-${Math.floor(Math.random() * 10000)}`,
-          type: type === 'CREDIT' ? 'ADMIN_CREDIT' : 'ADMIN_DEBIT',
-          amount: numAmount,
-          currency: 'USDT',
-          status: 'COMPLETED',
-          description: reason || `Admin ${type} adjustment`
-        }
-      })
-    ]);
-
-    return NextResponse.json({ success: true, newBalance });
+    return NextResponse.json({ success: true, newBalance: result.wallet?.usdtAvailable?.toString ? Number(result.wallet.usdtAvailable.toString()) : 0, wallet: serializeWallet(result.wallet) });
   } catch (error) {
     console.error('Wallet adjustment error:', error);
-    return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
+    const status = error.message === 'User not found' ? 404 : error.message === 'Insufficient wallet balance' ? 400 : 500;
+    return NextResponse.json({ error: status === 500 ? 'Internal Server Error' : error.message }, { status });
   }
 }

@@ -1,5 +1,6 @@
 import { getCurrentUser } from '@/lib/auth';
 import prisma  from '@/lib/prisma';
+import { serializeTransactions } from '@/lib/serializers';
 
 export async function GET(req) {
   try {
@@ -16,7 +17,7 @@ export async function GET(req) {
     });
 
     return new Response(
-      JSON.stringify({ history }),
+      JSON.stringify({ history: serializeTransactions(history) }),
       { status: 200 }
     );
   } catch (err) {

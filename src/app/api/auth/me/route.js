@@ -1,5 +1,6 @@
 import { getCurrentUser } from '@/lib/auth';
 import prisma  from '@/lib/prisma';
+import { decimalToNumber, serializeWallet } from '@/lib/serializers';
 
 export async function GET(req) {
   try {
@@ -14,6 +15,7 @@ export async function GET(req) {
     // If wallet missing, fallback to zeros
     const wallet = user.wallet || {
       usdtAvailable: 0,
+      usdtLocked: 0,
       usdtDeposited: 0,
       usdtWithdrawn: 0,
     };
@@ -23,37 +25,27 @@ export async function GET(req) {
       _sum: { amount: true },
       where: {
         userId: user.id,
-        type: { in: ['SELL', 'WITHDRAW'] },
-        status: 'PENDING',
-      },
-    });
-
-    const depositPendingTx = await prisma.transaction.aggregate({
-      _sum: { amount: true },
-      where: {
-        userId: user.id,
         type: 'DEPOSIT',
         status: 'PENDING',
       },
     });
-
-    const sellPending = sellPendingTx._sum.amount || 0;
-    const depositPending = depositPendingTx._sum.amount || 0;
+    const serializedWallet = serializeWallet(wallet);
+    const sellPending = serializedWallet?.usdtLocked || 0;
+    const depositPending = decimalToNumber(sellPendingTx._sum.amount || 0);
 
     return new Response(
       JSON.stringify({
         user: {
           id: user.id,
-          email: user.email,
-          fullName: user.fullName,
           mobile: user.mobile,
           wallet: {
-            total: wallet.usdtDeposited,
-            available: wallet.usdtAvailable,
-            withdrawn: wallet.usdtWithdrawn,
+            total: serializedWallet?.usdtDeposited || 0,
+            available: serializedWallet?.usdtAvailable || 0,
+            locked: serializedWallet?.usdtLocked || 0,
+            withdrawn: serializedWallet?.usdtWithdrawn || 0,
             progressing: sellPending + depositPending,
-            sellPending: sellPending,
-            depositPending: depositPending,
+            sellPending,
+            depositPending,
           },
         },
       }),

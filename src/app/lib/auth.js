@@ -10,7 +10,7 @@ const JWT_SECRET = process.env.JWT_SECRET || "your-secret-key";
  * @returns {string} token
  */
 export function generateToken(user) {
-  const payload = { id: user.id, email: user.email };
+  const payload = { id: user.id, mobile: user.mobile };
   return jwt.sign(payload, JWT_SECRET, { expiresIn: "7d" });
 }
 

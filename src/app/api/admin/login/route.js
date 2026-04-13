@@ -2,57 +2,61 @@ import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import prisma from "@/lib/prisma";
 import { NextResponse } from "next/server";
+import { setAdminAuthCookie, ADMIN_TOKEN_MAX_AGE_SECONDS } from "@/lib/adminAuth";
+import { checkRateLimit, createRateLimitResponse, getClientIdentifier } from "@/lib/rateLimit";
+import { sanitizeText } from "@/lib/validation";
 
-// Ensure JWT secret exists
 const JWT_SECRET = process.env.JWT_SECRET;
-if (!JWT_SECRET) console.warn("⚠️ JWT_SECRET is not set! Admin login will fail.");
 
 export async function POST(req) {
   try {
-    const { email, password } = await req.json();
+    if (!JWT_SECRET) {
+      return NextResponse.json({ error: "Server configuration error" }, { status: 500 });
+    }
 
-    if (!email || !password) {
+    const { email, password } = await req.json();
+    const normalizedEmail = sanitizeText(email, { maxLength: 254, allowEmpty: false })?.toLowerCase();
+    const clientId = getClientIdentifier(req, normalizedEmail || "admin");
+    const rateLimit = checkRateLimit(`admin-login:${clientId}`, { windowMs: 60 * 60 * 1000, max: 10 });
+
+    if (!rateLimit.allowed) {
+      return createRateLimitResponse(rateLimit, "Too many login attempts. Please try again later.");
+    }
+
+    if (!normalizedEmail || !password) {
       return NextResponse.json(
         { error: "Email and password are required" },
         { status: 400 }
       );
     }
 
-    // Check if admin exists
-    const admin = await prisma.admin.findUnique({ where: { email } });
+    const admin = await prisma.admin.findUnique({ where: { email: normalizedEmail } });
+    const invalidCredentialsResponse = NextResponse.json({ error: "Invalid email or password" }, { status: 400 });
 
     if (!admin) {
-      return NextResponse.json({ error: "Admin not found" }, { status: 400 });
+      return invalidCredentialsResponse;
     }
 
-    // Verify password
     const valid = await bcrypt.compare(password, admin.password);
     if (!valid) {
-      return NextResponse.json({ error: "Incorrect password" }, { status: 400 });
+      return invalidCredentialsResponse;
     }
 
-    // Sign JWT
     const token = jwt.sign(
       { id: admin.id, email: admin.email },
       JWT_SECRET,
-      { expiresIn: "7d" }
+      { expiresIn: ADMIN_TOKEN_MAX_AGE_SECONDS }
     );
 
-    // Set HTTP-only cookie
     const response = NextResponse.json(
       { message: "Login successful" },
       { status: 200 }
     );
-    response.cookies.set("adminToken", token, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
-      maxAge: 7 * 24 * 60 * 60, // 7 days
-      path: "/",
-    });
 
+    setAdminAuthCookie(response, token);
     return response;
   } catch (err) {
-    console.error("🔥 Admin login error:", err);
+    console.error("Admin login error:", err);
     return NextResponse.json(
       { error: "Internal server error" },
       { status: 500 }

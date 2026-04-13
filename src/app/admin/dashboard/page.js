@@ -1,235 +1,161 @@
-"use client";
-import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
-import styles from '../admin.module.css';
-import AdminDepositsPage from "../deposits/page";
-import AdminSellingRequests from "../Sellings/page";
-import Users from "../Users/Page";
-import AdminSettingsPage from "../settings/page";
-import AdminProfilePage from "../profile/page";
-import AdminTransactionsPage from "../transactions/page";
+'use client';
 
-export default function AdminDashboard() {
-  const router = useRouter();
+import Link from 'next/link';
+import { useEffect, useState } from 'react';
+import { ArrowDownToLine, ArrowUpFromLine, ChartSpline, ShieldCheck, Users } from 'lucide-react';
+
+import { Button } from '@/components/ui/button';
+
+import { AdminEmptyState, AdminMetricCard, AdminPageHeader, AdminSurface, StatusBadge, formatAdminDate, formatAdminMoney } from '../components/admin-kit';
+
+const initialStats = {
+  deposits: 0,
+  sells: 0,
+  users: 0,
+  totalDeposits: 0,
+  totalVolume: 0,
+  recentActivity: [],
+};
+
+export default function AdminDashboardPage() {
+  const [stats, setStats] = useState(initialStats);
   const [loading, setLoading] = useState(true);
-  const [activePage, setActivePage] = useState("dashboard");
-  const [adminEmail, setAdminEmail] = useState("Admin");
-  const [stats, setStats] = useState({ deposits: 0, sells: 0, users: 0, recentActivity: [] });
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   useEffect(() => {
-    const init = async () => {
+    let cancelled = false;
+
+    async function loadStats() {
+      setLoading(true);
       try {
-        const sessionRes = await fetch("/api/admin/check-session");
-        if (!sessionRes.ok) {
-          router.replace("/admin/login");
-          return;
+        const response = await fetch('/api/admin/stats', { cache: 'no-store' });
+        const data = await response.json();
+        if (!cancelled && response.ok) {
+          setStats({ ...initialStats, ...data });
         }
-        const sessionData = await sessionRes.json();
-        setAdminEmail(sessionData.email || "Admin");
-
-        const statsRes = await fetch("/api/admin/stats");
-        if (statsRes.ok) {
-          const statsData = await statsRes.json();
-          setStats(statsData);
+      } catch (error) {
+        console.error('Failed to load admin stats:', error);
+      } finally {
+        if (!cancelled) {
+          setLoading(false);
         }
-        setLoading(false);
-      } catch (err) {
-        router.replace("/admin/login");
       }
+    }
+
+    loadStats();
+    return () => {
+      cancelled = true;
     };
-    init();
-  }, [router]);
+  }, []);
 
-  const handleLogout = async () => {
-    try {
-      await fetch("/api/admin/logout", { method: "POST" });
-    } catch (err) {
-      console.error("Logout failed:", err);
-    } finally {
-      router.replace("/admin/login");
-    }
-  };
-
-  if (loading) return <div className={styles.loadingState}><i className="fas fa-spinner fa-spin"></i> Loading dashboard...</div>;
-
-  const renderContent = () => {
-    switch (activePage) {
-      case "dashboard":
-        return (
-          <>
-            <div className={styles.pageHeader}>
-              <h2 className={styles.pageTitle}>Dashboard Overview</h2>
-              <p className={styles.pageSubtitle}>Welcome back, here's what's happening today.</p>
-            </div>
-
-            <div className={styles.statsGrid}>
-              <div className={styles.statCard}>
-                <div className={styles.statHeader}>
-                  <div className={`${styles.iconWrapper} ${styles.iconBlue}`}>
-                    <i className="fas fa-exchange-alt"></i>
-                  </div>
-                  <span className={styles.statLabel}>Pending Sells</span>
-                </div>
-                <div className={styles.statValue}>{stats.sells}</div>
-                <div className={styles.statTrend}>
-                  <span className={styles.trendLabel}>Requests waiting</span>
-                </div>
-              </div>
-
-              <div className={styles.statCard}>
-                <div className={styles.statHeader}>
-                  <div className={`${styles.iconWrapper} ${styles.iconGreen}`}>
-                    <i className="fas fa-wallet"></i>
-                  </div>
-                  <span className={styles.statLabel}>Pending Deposits</span>
-                </div>
-                <div className={styles.statValue}>{stats.deposits}</div>
-                <div className={styles.statTrend}>
-                  <span className={styles.trendLabel}>Requests waiting</span>
-                </div>
-              </div>
-
-              <div className={styles.statCard}>
-                <div className={styles.statHeader}>
-                  <div className={`${styles.iconWrapper} ${styles.iconPurple}`}>
-                    <i className="fas fa-users"></i>
-                  </div>
-                  <span className={styles.statLabel}>Total Users</span>
-                </div>
-                <div className={styles.statValue}>{stats.users}</div>
-                <div className={styles.statTrend}>
-                  <span className={styles.trendLabel}>Registered users</span>
-                </div>
-              </div>
-            </div>
-
-            <div className={styles.dashboardGrid}>
-              <div className={styles.sectionCard}>
-                <div className={styles.cardHeader}>
-                  <h3 className={styles.cardTitle}>Recent Activities</h3>
-                  <button className={styles.viewAllBtn} onClick={() => setActivePage('transactions')}>View All</button>
-                </div>
-                <div className={styles.activityList}>
-                  {stats.recentActivity && stats.recentActivity.length > 0 ? (
-                    stats.recentActivity.map((txn) => (
-                      <div key={txn.id} className={styles.activityItem}>
-                        <div className={styles.activityIcon}>
-                          <i className={`fas ${txn.type === 'DEPOSIT' ? 'fa-wallet' : 'fa-exchange-alt'}`} style={{ color: txn.type === 'DEPOSIT' ? '#10b981' : '#f59e0b' }}></i>
-                        </div>
-                        <div className={styles.activityContent}>
-                          <div className={styles.activityTitle}>{txn.type} - {txn.status}</div>
-                          <div className={styles.activityDesc}>{txn.amount} {txn.currency} by {txn.user?.fullName || txn.user?.email || 'User'}</div>
-                          <div className={styles.activityTime}>{new Date(txn.createdAt).toLocaleString()}</div>
-                        </div>
-                      </div>
-                    ))
-                  ) : (
-                    <div style={{ padding: '20px', textAlign: 'center', color: '#6b7280' }}>No recent activity</div>
-                  )}
-                </div>
-              </div>
-            </div>
-          </>
-        );
-      case "users":
-        return <Users />;
-      case "deposits":
-        return <AdminDepositsPage />;
-      case "withdrawals":
-        return <AdminSellingRequests />;
-      case "settings":
-        return <AdminSettingsPage />;
-      case "profile":
-        return <AdminProfilePage />;
-      case "transactions":
-        return <AdminTransactionsPage />;
-      default:
-        return null;
-    }
-  };
-
-  const navItems = [
-    { id: "dashboard", label: "Dashboard", icon: "fas fa-th-large" },
-    { id: "users", label: "Users", icon: "fas fa-users" },
-    { id: "deposits", label: "Deposits", icon: "fas fa-wallet" },
-    { id: "withdrawals", label: "Withdrawals", icon: "fas fa-exchange-alt" },
-    { id: "transactions", label: "Transactions", icon: "fas fa-list" },
-    { id: "settings", label: "Settings", icon: "fas fa-cog" },
-    { id: "profile", label: "Profile", icon: "fas fa-user-circle" },
-  ];
+  const pendingQueue = Number(stats.deposits || 0) + Number(stats.sells || 0);
 
   return (
-    <div className={styles.adminShell}>
-      {/* Mobile Sidebar Overlay */}
-      {isMobileMenuOpen && (
-        <div 
-          className={styles.sidebarOverlay} 
-          onClick={() => setIsMobileMenuOpen(false)}
-        />
-      )}
+    <div className="space-y-6">
+      <AdminPageHeader
+        title="Premium operations console"
+        description="A clean command surface for user moderation, queue handling, and treasury configuration. The dashboard keeps the active backlog and recent transaction flow in one view."
+        actions={
+          <div className="flex w-full flex-col gap-2 sm:w-auto sm:flex-row sm:flex-wrap sm:gap-3">
+            <Button asChild className="w-full sm:w-auto">
+              <Link href="/admin/deposits">Review deposits</Link>
+            </Button>
+            <Button asChild variant="secondary" className="w-full sm:w-auto">
+              <Link href="/admin/withdrawals">Review withdrawals</Link>
+            </Button>
+          </div>
+        }
+      />
 
-      {/* Top Navigation Bar */}
-      <header className={styles.topBar}>
-        <div className={styles.brand}>
-          <button 
-            className={styles.mobileMenuBtn} 
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-          >
-            <i className="fas fa-bars"></i>
-          </button>
-          <div className={styles.brandIcon}>
-            <i className="fas fa-bolt"></i>
-          </div>
-          <div className={styles.brandText}>AngelX Super</div>
-        </div>
-        
-        <button className={styles.userMenuBtn}>
-          <div className={styles.userAvatar}>
-            <i className="fas fa-user"></i>
-          </div>
-          <div style={{ textAlign: 'left' }}>
-            <div className={styles.userName}>{adminEmail}</div>
-            <div style={{ fontSize: '11px', color: '#6b7280' }}>Administrator</div>
-          </div>
-        </button>
-      </header>
+      <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+        <AdminMetricCard label="Registered users" value={stats.users || 0} detail="Total users available to search and manage." icon={Users} tone="slate" />
+        <AdminMetricCard label="Pending deposits" value={stats.deposits || 0} detail="Crypto deposits waiting for admin confirmation." icon={ArrowDownToLine} tone="cyan" />
+        <AdminMetricCard label="Pending withdrawals" value={stats.sells || 0} detail="Sell-to-bank requests needing final approval." icon={ArrowUpFromLine} tone="amber" />
+        <AdminMetricCard label="Settled volume" value={`$${formatAdminMoney(stats.totalVolume || 0)}`} detail="Approved transaction value across completed flows." icon={ChartSpline} tone="emerald" />
+      </div>
 
-      {/* Sidebar */}
-      <aside className={`${styles.adminSidebar} ${isMobileMenuOpen ? styles.sidebarOpen : ''}`}>
-        <div className={styles.mobileSidebarHeader}>
-            <div className={styles.brandText}>Menu</div>
-            <button className={styles.closeSidebarBtn} onClick={() => setIsMobileMenuOpen(false)}>
-                <i className="fas fa-times"></i>
-            </button>
-        </div>
-        <div style={{ display: "flex", flexDirection: "column", gap: "4px", flex: 1 }}>
-          {navItems.map((item) => (
-            <div
-              key={item.id}
-              className={`${styles.navItem} ${activePage === item.id ? styles.active : ''}`}
-              onClick={() => {
-                setActivePage(item.id);
-                setIsMobileMenuOpen(false);
-              }}
-            >
-              <span className={styles.navIcon}><i className={item.icon}></i></span>
-              <span>{item.label}</span>
+      <div className="grid gap-6 xl:grid-cols-[minmax(0,1.4fr)_minmax(320px,0.8fr)]">
+        <AdminSurface
+          title="Live queue"
+          description="The operations backlog that currently needs admin attention."
+          action={<StatusBadge status={pendingQueue > 0 ? 'PENDING' : 'SUCCESS'} className="px-3 py-1" />}
+        >
+          <div className="grid gap-4 md:grid-cols-3">
+            <div className="border border-slate-200/80 bg-slate-50/80 p-4 sm:p-5">
+              <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-slate-500">Open queue</p>
+              <p className="mt-2.5 text-2xl font-semibold tracking-[-0.04em] text-slate-950 md:text-[1.75rem]">{pendingQueue}</p>
+              <p className="mt-1.5 text-[13px] leading-5 text-slate-500 md:text-sm md:leading-6">Combined deposit and withdrawal requests still pending review.</p>
             </div>
-          ))}
-        </div>
+            <div className="border border-slate-200/80 bg-slate-50/80 p-4 sm:p-5">
+              <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-slate-500">Approved deposits</p>
+              <p className="mt-2.5 text-2xl font-semibold tracking-[-0.04em] text-slate-950 md:text-[1.75rem]">{stats.totalDeposits || 0}</p>
+              <p className="mt-1.5 text-[13px] leading-5 text-slate-500 md:text-sm md:leading-6">Deposit approvals already processed through the ledger-backed flow.</p>
+            </div>
+            <div className="border border-slate-200/80 bg-[linear-gradient(135deg,#0f172a_0%,#0f3b52_100%)] p-4 text-white shadow-[0_20px_40px_rgba(15,23,42,0.18)] sm:p-5">
+              <div className="flex items-center justify-between gap-3">
+                <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-white/72">Control posture</p>
+                <ShieldCheck className="h-5 w-5 text-cyan-300" />
+              </div>
+              <p className="mt-2.5 text-xl font-semibold tracking-[-0.04em] md:text-2xl">Guardrails active</p>
+              <p className="mt-1.5 text-[13px] leading-5 text-white/80 md:text-sm md:leading-6">Cookie auth, atomic settlement, and audit logging remain in place while the UI is fully refreshed.</p>
+            </div>
+          </div>
+        </AdminSurface>
 
-        <div style={{ marginTop: "24px", paddingTop: "24px", borderTop: "1px solid #e5e7eb" }}>
-          <button className={styles.logoutBtn} onClick={handleLogout}>
-            <i className="fas fa-sign-out-alt"></i> Logout
-          </button>
-        </div>
-      </aside>
+        <AdminSurface title="Quick access" description="Shortcuts into the most common admin actions.">
+          <div className="grid gap-3">
+            <Link href="/admin/Users" className=" border border-slate-200/80 bg-slate-50/80 p-4 transition hover:border-slate-300 hover:bg-white">
+              <p className="text-sm font-semibold text-slate-900">Search and edit users</p>
+              <p className="mt-1 text-sm leading-6 text-slate-500">Open the new searchable directory and manage user, bank, and crypto wallet records.</p>
+            </Link>
+            <Link href="/admin/settings" className=" border border-slate-200/80 bg-slate-50/80 p-4 transition hover:border-slate-300 hover:bg-white">
+              <p className="text-sm font-semibold text-slate-900">Update platform settings</p>
+              <p className="mt-1 text-sm leading-6 text-slate-500">Adjust rate, minimums, and QR/address targets for TRC20 and ERC20/USDT deposits.</p>
+            </Link>
+            <Link href="/admin/transactions" className=" border border-slate-200/80 bg-slate-50/80 p-4 transition hover:border-slate-300 hover:bg-white">
+              <p className="text-sm font-semibold text-slate-900">Inspect full transaction feed</p>
+              <p className="mt-1 text-sm leading-6 text-slate-500">Search historical deposit and withdrawal activity with filters.</p>
+            </Link>
+          </div>
+        </AdminSurface>
+      </div>
 
-      {/* Main Content */}
-      <main className={styles.adminMain}>
-        {renderContent()}
-      </main>
+      <AdminSurface title="Recent activity" description="Latest transaction records flowing through the platform.">
+        {loading ? (
+          <div className=" border border-dashed border-slate-200 bg-slate-50/80 px-5 py-12 text-center text-sm text-slate-500">Loading recent transactions...</div>
+        ) : stats.recentActivity?.length ? (
+          <div className="overflow-x-auto admin-scrollbar">
+            <table className="min-w-full text-left text-sm">
+              <thead>
+                <tr className="border-b border-slate-200 text-slate-500">
+                  <th className="px-4 py-3 font-semibold">Reference</th>
+                  <th className="px-4 py-3 font-semibold">User</th>
+                  <th className="px-4 py-3 font-semibold">Type</th>
+                  <th className="px-4 py-3 font-semibold">Status</th>
+                  <th className="px-4 py-3 font-semibold">Amount</th>
+                  <th className="px-4 py-3 font-semibold">Created</th>
+                </tr>
+              </thead>
+              <tbody>
+                {stats.recentActivity.map((item) => (
+                  <tr key={item.id} className="border-b border-slate-100 last:border-b-0">
+                    <td className="px-4 py-4 font-medium text-slate-900">{item.referenceId || `TX-${item.id}`}</td>
+                    <td className="px-4 py-4">
+                      <p className="font-medium text-slate-900">{item.user?.mobile ? `+91 ${item.user.mobile}` : 'Unknown user'}</p>
+                      <p className="text-xs text-slate-500">{item.user?.id ? `User #${item.user.id}` : 'No user id'}</p>
+                    </td>
+                    <td className="px-4 py-4 text-slate-700">{item.type}</td>
+                    <td className="px-4 py-4"><StatusBadge status={item.status} /></td>
+                    <td className="px-4 py-4 font-medium text-slate-900">${formatAdminMoney(item.amount)}</td>
+                    <td className="px-4 py-4 text-slate-500">{formatAdminDate(item.createdAt)}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        ) : (
+          <AdminEmptyState title="No transactions yet" description="Once deposits or withdrawals are submitted, the latest records will appear here for quick review." />
+        )}
+      </AdminSurface>
     </div>
   );
 }

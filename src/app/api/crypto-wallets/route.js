@@ -1,29 +1,17 @@
 import prisma from '@/lib/prisma';
 import { NextResponse } from 'next/server';
-import jwt from 'jsonwebtoken';
+import { getCurrentUser } from '@/lib/auth';
+import { parsePositiveInt, sanitizeText } from '@/lib/validation';
 
 export async function GET(request) {
   try {
-    const authHeader = request.headers.get('authorization');
-    if (!authHeader || !authHeader.startsWith('Bearer ')) {
+    const user = await getCurrentUser(request);
+    if (!user) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    const token = authHeader.split(' ')[1];
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    const userId = decoded.id;
-
-    // Verify user exists
-    const user = await prisma.user.findUnique({
-      where: { id: userId }
-    });
-
-    if (!user) {
-      return NextResponse.json({ error: 'User not found' }, { status: 404 });
-    }
-
     const wallets = await prisma.cryptoWallet.findMany({
-      where: { userId },
+      where: { userId: user.id },
       orderBy: { createdAt: 'desc' }
     });
 
@@ -39,36 +27,26 @@ export async function GET(request) {
 
 export async function POST(request) {
   try {
-    const authHeader = request.headers.get('authorization');
-    if (!authHeader || !authHeader.startsWith('Bearer ')) {
+    const user = await getCurrentUser(request);
+    if (!user) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    const token = authHeader.split(' ')[1];
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    const userId = decoded.id;
-
-    // Verify user exists
-    const user = await prisma.user.findUnique({
-      where: { id: userId }
-    });
-
-    if (!user) {
-      return NextResponse.json({ error: 'User not found' }, { status: 404 });
-    }
-
     const { address, network, label, currency } = await request.json();
+    const cleanAddress = sanitizeText(address, { maxLength: 255, allowEmpty: false });
+    const cleanNetwork = sanitizeText(network, { maxLength: 50, allowEmpty: false });
+    const cleanLabel = sanitizeText(label, { maxLength: 120 });
+    const cleanCurrency = sanitizeText(currency, { maxLength: 20 }) || 'USDT';
 
-    if (!address || !network) {
+    if (!cleanAddress || !cleanNetwork) {
       return NextResponse.json(
         { error: 'Address and network are required' },
         { status: 400 }
       );
     }
 
-    // Check if wallet already exists
     const existing = await prisma.cryptoWallet.findFirst({
-      where: { userId, address }
+      where: { userId: user.id, address: cleanAddress }
     });
 
     if (existing) {
@@ -80,12 +58,12 @@ export async function POST(request) {
 
     const wallet = await prisma.cryptoWallet.create({
       data: {
-        userId,
-        address,
-        network,
-        label: label || null,
+        userId: user.id,
+        address: cleanAddress,
+        network: cleanNetwork,
+        label: cleanLabel || null,
         isSelected: false,
-        currency: currency || "USDT"
+        currency: cleanCurrency,
       }
     });
 

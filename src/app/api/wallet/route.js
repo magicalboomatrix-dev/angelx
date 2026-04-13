@@ -1,5 +1,6 @@
 import prisma from "@/lib/prisma";
 import { getCurrentUser } from "@/lib/auth";
+import { serializeWallet } from '@/lib/serializers';
 
 export async function GET(req) {
   const user = await getCurrentUser(req);
@@ -19,6 +20,7 @@ export async function GET(req) {
         data: {
           userId: user.id,
           usdtAvailable: 0,
+          usdtLocked: 0,
           usdtDeposited: 0,
           usdtWithdrawn: 0,
         },
@@ -26,7 +28,7 @@ export async function GET(req) {
       console.log(`Wallet created for userId: ${user.id}`);
     }
 
-    return new Response(JSON.stringify(wallet), { status: 200 });
+    return new Response(JSON.stringify(serializeWallet(wallet)), { status: 200 });
   } catch (err) {
     console.error("Wallet fetch error:", err);
     return new Response(JSON.stringify({ message: "Server error" }), { status: 500 });

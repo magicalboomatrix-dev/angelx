@@ -1,6 +1,8 @@
 import { NextResponse } from "next/server";
-import prisma from "@/lib/prisma";
 import { verifyAdminCookie } from "@/lib/adminAuth";
+import { parsePositiveInt } from "@/lib/validation";
+import { confirmDeposit } from '@/lib/walletService';
+import { serializeTransaction, serializeWallet } from '@/lib/serializers';
 
 export async function POST(req) {
   try {
@@ -8,43 +10,21 @@ export async function POST(req) {
     if (!admin) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
     const body = await req.json();
-    const { transactionId } = body;
+    const transactionId = parsePositiveInt(body.transactionId);
 
     if (!transactionId) {
       return NextResponse.json({ error: "Missing transactionId" }, { status: 400 });
     }
 
-    const tx = await prisma.transaction.findUnique({
-      where: { id: Number(transactionId) },
+    const result = await confirmDeposit({
+      transactionId,
+      adminId: admin.id,
     });
 
-    if (!tx || tx.status !== "PENDING") {
-      return NextResponse.json({ error: "Transaction not found or already processed" }, { status: 404 });
-    }
-
-    // update wallet balances
-    const wallet = await prisma.wallet.upsert({
-      where: { userId: tx.userId },
-      update: {
-        usdtAvailable: { increment: tx.amount },
-        usdtDeposited: { increment: tx.amount },
-      },
-      create: {
-        userId: tx.userId,
-        usdtAvailable: tx.amount,
-        usdtDeposited: tx.amount,
-      },
-    });
-
-    // mark transaction success
-    await prisma.transaction.update({
-      where: { id: tx.id },
-      data: { status: "SUCCESS" },
-    });
-
-    return NextResponse.json({ success: true, wallet });
+    return NextResponse.json({ success: true, transaction: serializeTransaction(result.transaction), wallet: serializeWallet(result.wallet) });
   } catch (err) {
     console.error("Admin confirm error:", err);
-    return NextResponse.json({ error: "Server error" }, { status: 500 });
+    const status = err.message === "Transaction not found or already processed" ? 404 : 500;
+    return NextResponse.json({ error: status === 404 ? err.message : "Server error" }, { status });
   }
 }

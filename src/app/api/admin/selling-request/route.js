@@ -1,50 +1,71 @@
 import prisma from "@/lib/prisma";
 import { NextResponse } from "next/server";
-import jwt from "jsonwebtoken";
-
-function getUserIdFromToken(req) {
-  try {
-    const authHeader = req.headers.get("authorization") || "";
-    const token = authHeader.split(" ")[1]; // "Bearer <token>"
-    if (!token) return null;
-
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    return decoded.id; // assuming JWT payload contains { id: userId }
-  } catch (err) {
-    console.error("Invalid token:", err);
-    return null;
-  }
-}
+import { getCurrentUser } from "@/lib/auth";
+import { getOrCreateSettings } from "@/lib/settings";
+import { parsePositiveAmount, parsePositiveInt } from "@/lib/validation";
+import { checkRateLimit, createRateLimitResponse, getClientIdentifier } from '@/lib/rateLimit';
+import { createPendingSellRequest } from '@/lib/walletService';
+import { serializeTransaction, serializeWallet } from '@/lib/serializers';
 
 export async function POST(req) {
   try {
     const { bank, amount } = await req.json();
-    const userId = getUserIdFromToken(req);
+    const user = await getCurrentUser(req);
 
-    if (!userId) {
+    if (!user) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
-    if (!bank || !amount) {
+    const bankId = parsePositiveInt(bank?.id);
+    const parsedAmount = parsePositiveAmount(amount);
+
+    if (!bankId || !parsedAmount) {
       return NextResponse.json({ error: "Missing bank or amount" }, { status: 400 });
     }
 
-    const transaction = await prisma.transaction.create({
-      data: {
-        userId,
-        depositId: `SELL-${Date.now()}`,
-        type: "SELL",
-        amount,
-        currency: "USDT",
-        network: "BANK",
-        address: bank.accountNo,
-        status: "PENDING",
+    const selectedBank = await prisma.bankCard.findFirst({
+      where: {
+        id: bankId,
+        userId: user.id,
       },
     });
 
-    return NextResponse.json({ success: true, transaction });
+    if (!selectedBank) {
+      return NextResponse.json({ error: "Bank account not found" }, { status: 404 });
+    }
+
+    const settings = await getOrCreateSettings(prisma);
+    if (parsedAmount < settings.withdrawMin) {
+      return NextResponse.json(
+        { error: `Minimum withdrawal amount is ${settings.withdrawMin} USDT` },
+        { status: 400 }
+      );
+    }
+
+    const rateLimit = checkRateLimit(`wallet-action:bank-sell:${user.id}:${getClientIdentifier(req)}`, {
+      windowMs: 60 * 1000,
+      max: 3,
+    });
+    if (!rateLimit.allowed) {
+      return createRateLimitResponse(rateLimit, 'Too many wallet actions. Please try again in a minute.');
+    }
+
+    const result = await createPendingSellRequest({
+      userId: user.id,
+      amount: parsedAmount,
+      network: 'BANK',
+      address: selectedBank.accountNo,
+      description: `Sell ${parsedAmount} USDT to bank account ${selectedBank.accountNo}`,
+    });
+
+    return NextResponse.json({
+      success: true,
+      transaction: serializeTransaction(result.transaction),
+      wallet: serializeWallet(result.wallet),
+    });
   } catch (err) {
     console.error("Error creating selling request:", err);
-    return NextResponse.json({ error: "Server error" }, { status: 500 });
+    const status = err.message === 'Insufficient balance' || err.message.includes('maximum number') ? 400 : 500;
+    return NextResponse.json({ error: status === 500 ? 'Server error' : err.message }, { status });
   }
 }

@@ -4,8 +4,12 @@ import bcrypt from "bcryptjs";
 const prisma = new PrismaClient();
 
 async function main() {
-  const email = "admin@angelx.ind";
-  const password = "AngelX@54321"; // In production, use environment variables or secure vaults for secrets
+  const email = process.env.ADMIN_SEED_EMAIL;
+  const password = process.env.ADMIN_SEED_PASSWORD;
+
+  if (!password) {
+    throw new Error("ADMIN_SEED_PASSWORD is required to seed the admin account");
+  }
 
   const hashed = await bcrypt.hash(password, 10);
 
@@ -16,9 +20,7 @@ async function main() {
     });
     console.log("Admin user created:", email);
   } else {
-    // If admin exists but password is different (dev convenience), update hashed password
-    await prisma.admin.update({ where: { email }, data: { password: hashed } });
-    console.log("Admin exists. Password updated for:", email);
+    console.log("Admin already exists:", email);
   }
 }
 

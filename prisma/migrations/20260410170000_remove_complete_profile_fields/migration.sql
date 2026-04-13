@@ -1,0 +1,3 @@
+ALTER TABLE "User"
+DROP COLUMN "email",
+DROP COLUMN "fullName";

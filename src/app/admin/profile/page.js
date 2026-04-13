@@ -1,150 +1,118 @@
-"use client";
+'use client';
+
 import { useEffect, useState } from 'react';
-import styles from '../admin.module.css';
-import { useToast } from '@/app/components/ToastProvider';
 import { useRouter } from 'next/navigation';
+import { LockKeyhole, Mail, ShieldCheck } from 'lucide-react';
+
+import { useToast } from '@/app/components/ToastProvider';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+
+import { AdminMetricCard, AdminPageHeader, AdminSurface } from '../components/admin-kit';
 
 export default function AdminProfilePage() {
-  const { showToast } = useToast();
   const router = useRouter();
+  const { showToast } = useToast();
+  const [adminId, setAdminId] = useState(null);
   const [email, setEmail] = useState('');
-  const [loading, setLoading] = useState(true);
   const [currentPassword, setCurrentPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
+  const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
 
   useEffect(() => {
-    fetchProfile();
-  }, []);
+    let cancelled = false;
 
-  const fetchProfile = async () => {
-    setLoading(true);
-    try {
-      const res = await fetch('/api/admin/profile');
-      if (res.status === 401) return router.replace('/admin/login');
-      // If the route doesn't exist yet, we might get 404, handle gracefully
-      if (res.status === 404) {
-         // Mock data if API not ready
-         setEmail('admin@angelx.com');
-         setLoading(false);
-         return;
+    async function loadProfile() {
+      setLoading(true);
+      try {
+        const response = await fetch('/api/admin/profile', { cache: 'no-store' });
+        const data = await response.json();
+        if (!cancelled && response.ok && data.admin) {
+          setAdminId(data.admin.id || null);
+          setEmail(data.admin.email || '');
+        }
+      } catch (error) {
+        console.error('Failed to load admin profile:', error);
+        if (!cancelled) {
+          showToast('Failed to load admin profile', 'error');
+        }
+      } finally {
+        if (!cancelled) {
+          setLoading(false);
+        }
       }
-      const data = await res.json();
-      if (data.admin) setEmail(data.admin.email);
-    } catch (err) {
-      console.error(err);
-      // showToast('Failed to load profile', 'error');
-    } finally {
-      setLoading(false);
     }
-  };
+
+    loadProfile();
+    return () => {
+      cancelled = true;
+    };
+  }, [showToast]);
 
   const handleSave = async () => {
-    if (!currentPassword) return showToast('Current password is required', 'error');
     setSaving(true);
     try {
-      const res = await fetch('/api/admin/profile', {
+      const response = await fetch('/api/admin/profile', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ currentPassword, newPassword: newPassword || undefined, newEmail: email || undefined }),
+        body: JSON.stringify({
+          currentPassword,
+          newPassword,
+          newEmail: email,
+        }),
       });
-      
-      if (res.status === 404) {
-        showToast('Profile API not implemented yet', 'info');
-        setSaving(false);
+      const data = await response.json();
+      if (!response.ok) {
+        showToast(data.error || 'Failed to update profile', 'error');
         return;
       }
 
-      const data = await res.json();
-      if (res.ok) {
-        showToast('Profile updated ✅', 'success');
-        setCurrentPassword('');
-        setNewPassword('');
-        if (data.emailChanged) {
-          showToast('Email changed — please login again', 'info');
-          setTimeout(() => router.replace('/admin/login'), 1500);
-        }
-      } else {
-        showToast(data.error || 'Failed to update profile', 'error');
+      showToast('Admin profile updated', 'success');
+      setCurrentPassword('');
+      setNewPassword('');
+
+      if (data.emailChanged) {
+        router.replace('/admin/login');
       }
-    } catch (err) {
-      console.error(err);
-      showToast('Server error', 'error');
+    } catch (error) {
+      console.error('Failed to update admin profile:', error);
+      showToast('Failed to update profile', 'error');
     } finally {
       setSaving(false);
     }
   };
 
-  if (loading) return <div className={styles.loadingState}><i className="fas fa-spinner fa-spin"></i> Loading profile...</div>;
-
   return (
-    <div className={styles.dashboardContainer}>
-      <div className={styles.pageHeader}>
-        <div>
-          <h1 className={styles.pageTitle}>My Profile</h1>
-          <p className={styles.pageSubtitle}>Manage your admin account details</p>
-        </div>
+    <div className="space-y-6">
+      <AdminPageHeader title="Admin profile" description="Manage the administrator identity used for login and secure console access." />
+
+      <div className="grid gap-4 md:grid-cols-3">
+        <AdminMetricCard label="Admin id" value={adminId || '—'} detail="Primary identifier for the current administrator account." icon={ShieldCheck} tone="slate" />
+        <AdminMetricCard label="Email" value={email || '—'} detail="Current address used for administrator authentication." icon={Mail} tone="cyan" />
+        <AdminMetricCard label="Password" value={newPassword ? 'Updating' : 'Protected'} detail="Set a new password here if you need to rotate credentials." icon={LockKeyhole} tone="emerald" />
       </div>
 
-      <div className={styles.sectionCard} style={{ maxWidth: '600px' }}>
-        <div className={styles.cardHeader}>
-          <h3 className={styles.cardTitle}>Account Information</h3>
-        </div>
-        
-        <div className={styles.formGroup}>
-          <label className={styles.formLabel}>Email Address</label>
-          <div className={styles.inputGroup}>
-            <span className={styles.inputIcon}><i className="fas fa-envelope"></i></span>
-            <input 
-              type="email"
-              value={email} 
-              onChange={(e) => setEmail(e.target.value)} 
-              className={styles.formInput}
-              placeholder="admin@angelxsuper.com"
-            />
+      <AdminSurface title="Account credentials" description="Changing the admin email may require signing in again with the new address.">
+        <div className="grid gap-4 md:grid-cols-2">
+          <div className="space-y-2 md:col-span-2">
+            <label className="text-sm font-semibold text-slate-700">Email address</label>
+            <Input type="email" value={email} onChange={(event) => setEmail(event.target.value)} placeholder="admin@angelx.com" disabled={loading} />
           </div>
-          <p className={styles.formHint}>Your admin email for login and notifications</p>
-        </div>
-
-        <div className={styles.formGroup}>
-          <label className={styles.formLabel}>Current Password</label>
-          <div className={styles.inputGroup}>
-            <span className={styles.inputIcon}><i className="fas fa-lock"></i></span>
-            <input 
-              type="password" 
-              value={currentPassword} 
-              onChange={(e) => setCurrentPassword(e.target.value)} 
-              className={styles.formInput}
-              placeholder="Enter your current password"
-            />
+          <div className="space-y-2">
+            <label className="text-sm font-semibold text-slate-700">Current password</label>
+            <Input type="password" value={currentPassword} onChange={(event) => setCurrentPassword(event.target.value)} placeholder="Enter current password" disabled={loading} />
           </div>
-          <p className={styles.formHint}>Required to make any changes</p>
-        </div>
-
-        <div className={styles.formGroup}>
-          <label className={styles.formLabel}>New Password (Optional)</label>
-          <div className={styles.inputGroup}>
-            <span className={styles.inputIcon}><i className="fas fa-key"></i></span>
-            <input 
-              type="password" 
-              value={newPassword} 
-              onChange={(e) => setNewPassword(e.target.value)} 
-              className={styles.formInput}
-              placeholder="Leave blank to keep current password"
-            />
+          <div className="space-y-2">
+            <label className="text-sm font-semibold text-slate-700">New password</label>
+            <Input type="password" value={newPassword} onChange={(event) => setNewPassword(event.target.value)} placeholder="Leave blank to keep current password" disabled={loading} />
           </div>
         </div>
 
-        <div style={{ marginTop: '2rem', display: 'flex', justifyContent: 'flex-end' }}>
-          <button 
-            className={styles.btnPrimary} 
-            onClick={handleSave} 
-            disabled={saving}
-          >
-            {saving ? <><i className="fas fa-spinner fa-spin"></i> Saving...</> : <><i className="fas fa-save"></i> Save Changes</>}
-          </button>
+        <div className="mt-6 flex justify-end">
+          <Button onClick={handleSave} disabled={loading || saving}>{saving ? 'Saving...' : 'Save account changes'}</Button>
         </div>
-      </div>
+      </AdminSurface>
     </div>
   );
 }

@@ -1,0 +1,222 @@
+@import url("https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap");
+
+:root {
+  --admin-bg: #f4f6fb;
+  --admin-surface: rgba(255, 255, 255, 0.88);
+  --admin-border: rgba(148, 163, 184, 0.22);
+  --admin-text: #0f172a;
+}
+
+.admin-app {
+  min-height: 100vh;
+  font-family: "Instrument Sans", "Segoe UI", sans-serif;
+  background:
+    radial-gradient(circle at top left, rgba(103, 232, 249, 0.24), transparent 24%),
+    radial-gradient(circle at 90% 0%, rgba(59, 130, 246, 0.18), transparent 20%),
+    radial-gradient(circle at 20% 100%, rgba(244, 114, 182, 0.12), transparent 18%),
+    linear-gradient(180deg, #f7fbff 0%, #f3f6fb 48%, #edf1f7 100%);
+  color: var(--admin-text);
+}
+
+.admin-app::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background-image: linear-gradient(rgba(148, 163, 184, 0.08) 1px, transparent 1px), linear-gradient(90deg, rgba(148, 163, 184, 0.08) 1px, transparent 1px);
+  background-size: 34px 34px;
+  mask-image: radial-gradient(circle at center, black 32%, transparent 82%);
+}
+
+.font-display {
+  font-family: "Space Grotesk", "Instrument Sans", sans-serif;
+}
+
+.admin-shell {
+  position: relative;
+  display: grid;
+  min-height: 100vh;
+  grid-template-columns: 320px minmax(0, 1fr);
+  gap: 24px;
+  padding: 24px;
+}
+
+.admin-shell__aurora {
+  position: fixed;
+  inset: auto auto 12% 22%;
+  height: 340px;
+  width: 340px;
+  border-radius: 999px;
+  background: radial-gradient(circle, rgba(34, 211, 238, 0.18) 0%, rgba(34, 211, 238, 0) 72%);
+  filter: blur(12px);
+  pointer-events: none;
+}
+
+.admin-sidebar {
+  position: sticky;
+  top: 24px;
+  z-index: 30;
+  display: flex;
+  max-height: calc(100vh - 48px);
+  flex-direction: column;
+  border: 1px solid var(--admin-border);
+  border-radius: 34px;
+  padding: 24px;
+  background: linear-gradient(180deg, rgba(255,255,255,0.9) 0%, rgba(248,250,252,0.82) 100%);
+  backdrop-filter: blur(18px);
+  box-shadow: 0 26px 60px rgba(15, 23, 42, 0.08);
+}
+
+.admin-nav-link {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border-radius: 18px;
+  padding: 14px 16px;
+  color: #334155;
+  font-size: 14px;
+  font-weight: 600;
+  transition: 180ms ease;
+}
+
+.admin-nav-link:hover {
+  background: rgba(241, 245, 249, 0.9);
+  color: #0f172a;
+}
+
+.admin-nav-link--active {
+  background: linear-gradient(135deg, #0f172a 0%, #0f3b52 100%);
+  color: #f8fafc;
+  box-shadow: 0 16px 32px rgba(15, 23, 42, 0.18);
+}
+
+.admin-main {
+  position: relative;
+  z-index: 1;
+  min-width: 0;
+}
+
+.admin-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.75);
+  border-radius: 28px;
+  padding: 20px 22px;
+  background: rgba(255, 255, 255, 0.82);
+  backdrop-filter: blur(18px);
+  box-shadow: 0 16px 40px rgba(15, 23, 42, 0.06);
+}
+
+.admin-page-frame {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.admin-loading-screen {
+  display: flex;
+  min-height: 100vh;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+
+.admin-loading-card {
+  display: flex;
+  max-width: 520px;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.85);
+  border-radius: 34px;
+  background: rgba(255, 255, 255, 0.9);
+  padding: 36px;
+  text-align: center;
+  box-shadow: 0 26px 60px rgba(15, 23, 42, 0.08);
+}
+
+.admin-loading-orb {
+  height: 72px;
+  width: 72px;
+  border-radius: 999px;
+  background: conic-gradient(from 180deg, #0891b2, #38bdf8, #0f172a, #0891b2);
+  animation: admin-spin 1.15s linear infinite;
+  box-shadow: 0 14px 34px rgba(8, 145, 178, 0.24);
+}
+
+.admin-sidebar-backdrop {
+  display: none;
+}
+
+.admin-status-badge {
+  gap: 6px;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+}
+
+.admin-scrollbar::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+.admin-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(148, 163, 184, 0.5);
+  border-radius: 999px;
+}
+
+.admin-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+@keyframes admin-spin {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (max-width: 1100px) {
+  .admin-shell {
+    grid-template-columns: 1fr;
+    padding: 16px;
+  }
+
+  .admin-sidebar {
+    position: fixed;
+    top: 16px;
+    bottom: 16px;
+    left: 16px;
+    width: min(320px, calc(100vw - 32px));
+    max-height: none;
+    transform: translateX(-110%);
+    transition: transform 220ms ease;
+  }
+
+  .admin-sidebar--open {
+    transform: translateX(0);
+  }
+
+  .admin-sidebar-backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: 20;
+    display: block;
+    background: rgba(15, 23, 42, 0.42);
+    backdrop-filter: blur(4px);
+  }
+}
+
+@media (max-width: 767px) {
+  .admin-topbar {
+    align-items: flex-start;
+    border-radius: 24px;
+    padding: 18px;
+  }
+}

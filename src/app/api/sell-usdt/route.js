@@ -1,38 +1,32 @@
 import prisma from '@/lib/prisma';
 import { NextResponse } from 'next/server';
-import jwt from 'jsonwebtoken';
+import { getCurrentUser } from '@/lib/auth';
+import { getOrCreateSettings } from '@/lib/settings';
+import { parsePositiveAmount, parsePositiveInt } from '@/lib/validation';
+import { checkRateLimit, createRateLimitResponse, getClientIdentifier } from '@/lib/rateLimit';
+import { createPendingSellRequest } from '@/lib/walletService';
+import { serializeTransaction, serializeWallet } from '@/lib/serializers';
 
 export async function POST(request) {
   try {
-    const authHeader = request.headers.get('authorization');
-    if (!authHeader || !authHeader.startsWith('Bearer ')) {
+    const user = await getCurrentUser(request);
+    if (!user) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    const token = authHeader.split(' ')[1];
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    const userId = decoded.id;
-
     const { amount, walletId } = await request.json();
+    const parsedWalletId = parsePositiveInt(walletId);
+    const numAmount = parsePositiveAmount(amount);
 
-    if (!amount || !walletId) {
+    if (!numAmount || !parsedWalletId) {
       return NextResponse.json(
         { error: 'Amount and wallet ID are required' },
         { status: 400 }
       );
     }
 
-    const numAmount = parseFloat(amount);
-    if (isNaN(numAmount) || numAmount <= 0) {
-      return NextResponse.json(
-        { error: 'Invalid amount' },
-        { status: 400 }
-      );
-    }
-
-    // Check wallet exists and belongs to user
     const wallet = await prisma.cryptoWallet.findFirst({
-      where: { id: walletId, userId }
+      where: { id: parsedWalletId, userId: user.id },
     });
 
     if (!wallet) {
@@ -42,55 +36,40 @@ export async function POST(request) {
       );
     }
 
-    // Check user balance
-    const userWallet = await prisma.wallet.findUnique({
-      where: { userId }
-    });
-
-    if (!userWallet || userWallet.usdtAvailable < numAmount) {
-      return NextResponse.json(
-        { error: 'Insufficient balance' },
-        { status: 400 }
-      );
-    }
-
-    // Get settings for min withdraw
-    const settings = await prisma.settings.findFirst();
-    if (settings && numAmount < settings.withdrawMin) {
+    const settings = await getOrCreateSettings(prisma);
+    if (numAmount < settings.withdrawMin) {
       return NextResponse.json(
         { error: `Minimum withdrawal amount is ${settings.withdrawMin} USDT` },
         { status: 400 }
       );
     }
 
-    // Create transaction
-    const transaction = await prisma.transaction.create({
-      data: {
-        userId,
-        depositId: `SELL-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
-        type: 'SELL',
+    const rateLimit = checkRateLimit(`wallet-action:sell:${user.id}:${getClientIdentifier(request)}`, {
+      windowMs: 60 * 1000,
+      max: 3,
+    });
+    if (!rateLimit.allowed) {
+      return createRateLimitResponse(rateLimit, 'Too many wallet actions. Please try again in a minute.');
+    }
+
+    try {
+      const result = await createPendingSellRequest({
+        userId: user.id,
         amount: numAmount,
-        currency: 'USDT',
         network: wallet.network,
         address: wallet.address,
-        status: 'PENDING',
-        description: `Sell ${numAmount} USDT to ${wallet.network} address`
-      }
-    });
+        description: `Sell ${numAmount} USDT to ${wallet.network} address`,
+      });
 
-    // Update wallet balance (deduct available)
-    await prisma.wallet.update({
-      where: { userId },
-      data: {
-        usdtAvailable: { decrement: numAmount },
-        usdtWithdrawn: { increment: numAmount }
-      }
-    });
-
-    return NextResponse.json({
-      message: 'Sell request submitted successfully',
-      transaction
-    });
+      return NextResponse.json({
+        message: 'Sell request submitted successfully',
+        transaction: serializeTransaction(result.transaction),
+        wallet: serializeWallet(result.wallet),
+      });
+    } catch (error) {
+      const status = error.message === 'Insufficient balance' || error.message.includes('maximum number') ? 400 : 500;
+      return NextResponse.json({ error: status === 500 ? 'Failed to process sell request' : error.message }, { status });
+    }
   } catch (err) {
     console.error('Error processing sell request:', err);
     return NextResponse.json(

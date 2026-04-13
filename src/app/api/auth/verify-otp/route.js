@@ -1,77 +1,17 @@
-// import prisma from '@/lib/prisma';
-// import { generateToken } from '@/lib/auth';
-
-// export async function POST(req) {
-//   try {
-//     const body = await req.json();
-//     const email = body.email?.toString().trim();
-//     const otp = body.otp?.toString().trim();
-
-//     if (!email || !otp) {
-//       return new Response(JSON.stringify({ error: 'Email and OTP are required' }), { status: 400 });
-//     }
-
-//     const user = await prisma.user.findUnique({ where: { email } });
-
-//     if (!user) {
-//       return new Response(JSON.stringify({ error: 'Invalid OTP' }), { status: 401 });
-//     }
-
-//     if (user.otp?.toString().trim() !== otp) {
-//       return new Response(JSON.stringify({ error: 'Invalid OTP' }), { status: 401 });
-//     }
-
-//     if (!user.otpExpiry || user.otpExpiry < new Date()) {
-//       return new Response(JSON.stringify({ error: 'OTP expired' }), { status: 401 });
-//     }
-
-//     const token = generateToken(user);
-
-//     await prisma.user.update({
-//       where: { email },
-//       data: { otp: null, otpExpiry: null },
-//     });
-
-//     let wallet = await prisma.wallet.findUnique({ where: { userId: user.id } });
-//     if (!wallet) {
-//       wallet = await prisma.wallet.create({
-//         data: {
-//           userId: user.id,
-//           usdtAvailable: 0,
-//           usdtDeposited: 0,
-//           usdtWithdrawn: 0,
-//         },
-//       });
-//       console.log(`Wallet created for userId: ${user.id}`);
-//     }
-
-//     const redirectTo = user.fullName && user.mobile ? '/home' : '/complete-profile';
-
-//     console.log(`User ${user.email} verified via OTP. Redirecting to ${redirectTo}`);
-
-//     return new Response(
-//       JSON.stringify({
-//         token,
-//         redirectTo,
-//         message: 'OTP verified successfully',
-//         wallet,
-//       }),
-//       { status: 200 }
-//     );
-//   } catch (error) {
-//     console.error('Error verifying OTP:', error);
-//     return new Response(JSON.stringify({ error: 'Server error' }), { status: 500 });
-//   }
-// }
-
 import prisma from '@/lib/prisma';
-import { generateToken } from '@/lib/auth';
+import bcrypt from 'bcryptjs';
+import { NextResponse } from 'next/server';
+import { generateToken, setUserAuthCookie } from '@/lib/auth';
+import { ensureUserInviteCode } from '@/lib/referrals';
+import { checkRateLimit, createRateLimitResponse, getClientIdentifier } from '@/lib/rateLimit';
+import { normalizePhone, OTP_LENGTH, sanitizeText, timingSafeEqualStrings } from '@/lib/validation';
 
 export async function POST(req) {
   try {
     const body = await req.json();
-    const phone = body.phone?.toString().trim();
+    const phone = normalizePhone(body.phone);
     const otp = body.otp?.toString().trim();
+    const referralCode = sanitizeText(body.referralCode, { maxLength: 40, allowEmpty: false }) || null;
 
     if (!phone || !otp) {
       return new Response(
@@ -80,15 +20,22 @@ export async function POST(req) {
       );
     }
 
-    // 🇮🇳 Phone validation
-    if (!/^[6-9]\d{9}$/.test(phone)) {
+    if (!/^\d+$/.test(otp) || otp.length !== OTP_LENGTH) {
       return new Response(
-        JSON.stringify({ error: 'Invalid phone number' }),
+        JSON.stringify({ error: `Please enter a valid ${OTP_LENGTH}-digit OTP` }),
         { status: 400 }
       );
     }
 
-    // ✅ FIX: phone → mobile
+    const rateLimit = checkRateLimit(`otp-verify:${getClientIdentifier(req)}:${phone}`, {
+      windowMs: 5 * 60 * 1000,
+      max: 5,
+    });
+
+    if (!rateLimit.allowed) {
+      return createRateLimitResponse(rateLimit, 'Too many OTP attempts. Please try again later.');
+    }
+
     const user = await prisma.user.findUnique({
       where: { mobile: phone },
     });
@@ -100,7 +47,12 @@ export async function POST(req) {
       );
     }
 
-    if (!user.otp || user.otp.toString().trim() !== otp) {
+    const storedOtp = user.otp?.toString().trim();
+    const otpMatches = storedOtp?.startsWith('$2')
+      ? await bcrypt.compare(otp, storedOtp)
+      : timingSafeEqualStrings(storedOtp, otp);
+
+    if (!storedOtp || !otpMatches) {
       return new Response(
         JSON.stringify({ error: 'Invalid OTP' }),
         { status: 401 }
@@ -114,53 +66,73 @@ export async function POST(req) {
       );
     }
 
-    // 🔐 Generate JWT
     const token = generateToken(user);
 
-    // 🧹 Clear OTP
-    await prisma.user.update({
-      where: { mobile: phone },
-      data: {
-        otp: null,
-        otpExpiry: null,
-      },
-    });
+    const wallet = await prisma.$transaction(async (tx) => {
+      await ensureUserInviteCode(tx, user.id);
 
-    // 💰 Ensure wallet exists
-    let wallet = await prisma.wallet.findUnique({
-      where: { userId: user.id },
-    });
+      const existingWallet = await tx.wallet.findUnique({
+        where: { userId: user.id },
+      });
 
-    if (!wallet) {
-      wallet = await prisma.wallet.create({
+      let referredById = user.referredById || null;
+
+      if (!existingWallet && !referredById && referralCode) {
+        const referrer = await tx.user.findUnique({
+          where: { inviteCode: referralCode },
+          select: { id: true },
+        });
+
+        if (referrer && referrer.id !== user.id) {
+          referredById = referrer.id;
+        }
+      }
+
+      await tx.user.update({
+        where: { mobile: phone },
+        data: {
+          otp: null,
+          otpExpiry: null,
+          ...(referredById && !user.referredById
+            ? {
+                referredById,
+                referredAt: new Date(),
+              }
+            : {}),
+        },
+      });
+
+      if (existingWallet) {
+        return existingWallet;
+      }
+
+      return tx.wallet.create({
         data: {
           userId: user.id,
           usdtAvailable: 0,
+          usdtLocked: 0,
           usdtDeposited: 0,
           usdtWithdrawn: 0,
         },
       });
-    }
+    });
 
-    // 🧭 Profile completeness
-    const redirectTo =
-      user.fullName && user.email ? '/home' : '/complete-profile';
+    const redirectTo = '/home';
 
-    console.log(
-      `User ${user.mobile} verified via OTP. Redirecting to ${redirectTo}`
-    );
-
-    return new Response(
-      JSON.stringify({
+    const response = NextResponse.json(
+      {
         token,
         redirectTo,
         message: 'OTP verified successfully',
         wallet,
-      }),
+      },
       { status: 200 }
     );
+
+    setUserAuthCookie(response, token);
+    return response;
   } catch (error) {
-    console.error('❌ Error verifying OTP:', error);
+    console.error('Error verifying OTP:', error);
     return new Response(
       JSON.stringify({ error: 'Server error' }),
       { status: 500 }
