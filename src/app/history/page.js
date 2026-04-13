@@ -340,7 +340,7 @@ export default function DemoPage() {
 }
 
 .history-list .card span.status-text {
-    font-size: 15px;
+    font-size: 14px;
 }
 
 .info-bx-gr {
