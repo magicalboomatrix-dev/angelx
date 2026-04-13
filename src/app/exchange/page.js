@@ -94,8 +94,15 @@ export default function Exchange() {
           <header className="header">
             <div className="left">
               <div className="header-left">
-                <img alt="Logo" className="logo" src="/images/logo-icon.png" />
-                <h1 className="title-left">Welcome to AngelX</h1>
+            <div className="left-div pic">
+            <img src="/images/user-pic.png"/>
+            </div>
+
+            <div className="right-div">
+            <div className="exchange-user-copy"><h1>+91 822***2546</h1><p>$14500</p>
+            </div>
+            </div>
+                
               </div>
             </div>
             <div className="right">
