@@ -204,7 +204,9 @@ export default function AddBank() {
               <h3>Exchange</h3>
             </div>
             <div className="right">
+    <Link href="/exchange-list">
               <img src="images/undo.png" />
+     </Link>
             </div>
           </header>
 
