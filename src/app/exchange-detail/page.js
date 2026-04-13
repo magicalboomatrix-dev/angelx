@@ -77,7 +77,18 @@ export default function exchangeDetailPage() {
 
         <div class="row">
             <div class="label">Trade detail</div>
-            <div class="value">10 ≈ ₹1020</div>
+            <div className="value df-value">
+								<div className="badge-left">
+								<div className="badge-usdt">₮</div>
+								<span className="amount-bold"> 120</span>
+								</div>
+								<div className="badge-mid">
+									<img src="/images/trade-icon.jpg" alt="icon" />
+								</div>
+								<div className="badge-ri">
+									<span>₹</span>1210
+								</div>
+							 </div>
         </div>
 
         <div class="row">
