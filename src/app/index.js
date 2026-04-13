@@ -157,7 +157,7 @@ export default function Index() {
                 </div>
                 <div className="right">
                 <div className="info">
-                    <h3>Get started in seconds</h3>
+                    <h3>Get started in secondssss</h3>
                     <p>Whether you are a beginner or an expert, you can easily get started without any professional knowledge.</p>
                 </div>
                 </div>
