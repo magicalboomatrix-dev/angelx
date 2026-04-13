@@ -319,13 +319,13 @@ export default function exchangeDetailPage() {
     .status-line::before {
         content: "";
     position: absolute;
-    top: 17%;
+    top: 33%;
     left: 0;
     right: 0;
     height: 2px;
     background: #ddd;
     z-index: 0;
-    width: 72%;
+    width: 52%;
     margin: auto;
     }
 
