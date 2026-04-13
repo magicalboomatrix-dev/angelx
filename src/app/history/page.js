@@ -52,7 +52,7 @@ export default function DemoPage() {
           <img src="/images/back-btn.png" alt="back" style={{marginLeft: '0'}} />
         </Link>
           </div>
-          <h3 className="header-title">Transaction History</h3>
+          <h3 className="header-title">Deposit History</h3>
         </div>
 
         <section className="section-1" style={{ background: "#fff" }}>
@@ -119,7 +119,8 @@ export default function DemoPage() {
                       </div>
                       <div className="divider"></div>
                       <div className="info-list">
-                        <div className="info-row">
+                        <div className="info-bx-gr">
+                          <div className="info-row">
                           <span className="label">Network</span>
                           <div className="value">
                             <img
@@ -149,6 +150,7 @@ export default function DemoPage() {
                             </span>
                           </div>
                         </div>
+                              </div>
                         <div className="info-row">
                           <span className="label">Create time</span>
                           <span className="value">
@@ -318,6 +320,27 @@ export default function DemoPage() {
           color: #000;
           font-weight: 600;
         }
+
+        .history-list {
+        height: 100vh;
+    background: #f8f9fa;
+        }
+
+        .history-list {}
+
+.history-list .card {
+    padding: 10px;
+}
+
+.history-list .card span.id-text {
+    font-weight: 700;
+    color: #111;
+    font-size: 15px;
+}
+
+.history-list .card span.status-text {
+    font-size: 15px;
+}
       `}</style>
     </div>
   );
