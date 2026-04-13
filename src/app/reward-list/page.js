@@ -21,25 +21,25 @@ export default function exchangeListPage() {
         <section className="section-1" style={{ background: "#fff" }}>
     
             <div className="history-list container-inn">
-              <div className=headertop">
+              <div className="headertop">
         <div>Date</div>
-        <div className=reward">Reward <span className=coin"></span></div>
+        <div className="reward">Reward <span className="coin"></span></div>
     </div>
 
-    <div className="row"><div>13 Apr 2026</div><div className=amount">0</div></div>
-    <div className="row"><div>12 Apr 2026</div><div className=amount">0</div></div>
-    <div className="row"><div>11 Apr 2026</div><div className=amount">0</div></div>
-    <div className="row"><div>10 Apr 2026</div><div className=amount">0</div></div>
-    <div className="row"><div>09 Apr 2026</div><div className=amount">0</div></div>
-    <div className="row"><div>08 Apr 2026</div><div className=amount">0</div></div>
-    <div className="row"><div>07 Apr 2026</div><div className=amount">0</div></div>
-    <div className="row"><div>06 Apr 2026</div><div className=amount">0</div></div>
-    <div className="row"><div>05 Apr 2026</div><div className=amount">0</div></div>
-    <div className="row"><div>04 Apr 2026</div><div className=amount">0</div></div>
-    <div className="row"><div>03 Apr 2026</div><div className=amount">0</div></div>
-    <div className="row"><div>02 Apr 2026</div><div className=amount">0</div></div>
-    <div className="row"><div>01 Apr 2026</div><div className=amount">0</div></div>
-    <div className="row"><div>31 Mar 2026</div><div className=amount">0</div></div>
+    <div className="row"><div>13 Apr 2026</div><div className="amount">0</div></div>
+    <div className="row"><div>12 Apr 2026</div><div className="amount">0</div></div>
+    <div className="row"><div>11 Apr 2026</div><div className="amount">0</div></div>
+    <div className="row"><div>10 Apr 2026</div><div className="amount">0</div></div>
+    <div className="row"><div>09 Apr 2026</div><div className="amount">0</div></div>
+    <div className="row"><div>08 Apr 2026</div><div className="amount">0</div></div>
+    <div className="row"><div>07 Apr 2026</div><div className="amount">0</div></div>
+    <div className="row"><div>06 Apr 2026</div><div className="amount">0</div></div>
+    <div className="row"><div>05 Apr 2026</div><div className="amount">0</div></div>
+    <div className="row"><div>04 Apr 2026</div><div className="amount">0</div></div>
+    <div className="row"><div>03 Apr 2026</div><div className="amount">0</div></div>
+    <div className="row"><div>02 Apr 2026</div><div className="amount">0</div></div>
+    <div className="row"><div>01 Apr 2026</div><div className="amount">0</div></div>
+    <div className="row"><div>31 Mar 2026</div><div className="amount">0</div></div>
             
                 
              
