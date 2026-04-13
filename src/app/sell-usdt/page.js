@@ -392,12 +392,12 @@ export default function AddBank() {
 <section className="table-section">
                 <div className="pricerefBx">
   <table width="100%">
-    <thead>
+              {/* <thead>
       <tr>
         <th>Exchanges($)</th>
         <th>Prices(₹)</th>
       </tr>
-    </thead>
+    </thead> */}
     <tbody>
       <tr>
         <td>&gt;=980.4 and &lt;1960.79</td>
@@ -423,11 +423,11 @@ export default function AddBank() {
           102+ <span className="red">1.5</span>
         </td>
       </tr>
-      <tr>
+{/*<tr>
         <td colSpan={2}>
           <a href="#">What is tiered price policy?</a>
         </td>
-      </tr>
+      </tr>*/}
     </tbody>
   </table>
 </div>
