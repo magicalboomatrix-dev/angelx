@@ -389,8 +389,8 @@ export default function AddBank() {
               </div>
             </section>
 
-<section className="table-section">
-                <div className="pricerefBx">
+<section className="table-section tb-pricerefBx">
+                <div className="pricerefBx pricerefBx-grbg">
   <table width="100%">
               {/* <thead>
       <tr>
