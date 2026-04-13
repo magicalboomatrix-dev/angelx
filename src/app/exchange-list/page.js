@@ -56,7 +56,7 @@ export default function exchangeListPage() {
 								<span className="amount-bold"> 120</span>
 								</div>
 								<div className="badge-mid">
-									<img src="/images/trade-icon.png" alt="icon" />
+									<img src="/images/trade-icon.jpg" alt="icon" />
 								</div>
 								<div className="badge-ri">
 									<span>₹</span> 1210
