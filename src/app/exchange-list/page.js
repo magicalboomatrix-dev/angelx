@@ -18,7 +18,7 @@ export default function exchangeListPage() {
           <img src="/images/back-btn.png" alt="back" style={{marginLeft: '0'}} />
         </Link>
           </div>
-          <h3 className="header-title">Deposit History</h3>
+          <h3 className="header-title">Exchange History</h3>
         </div>
 
         <section className="section-1" style={{ background: "#fff" }}>
@@ -37,26 +37,35 @@ export default function exchangeListPage() {
 								   <line x1="16" y1="17" x2="8" y2="17" class="jsx-ae303611235dc644"></line>
 								</svg>
 							 </div>
-							 <span class="id-text">84</span>
+							 <span class="id-text">CD84***0088</span>
 						  </div>
 						  <span class="status-text" style="color: rgb(245, 158, 11);">Pending</span>
 					   </div>
 					   <div class="divider"></div>
 					   <div class="info-list">
-						  <div class="info-bx-gr">
+						  <div class="info-bx-grs">
 							 <div class="info-row">
 								<span class="label">Network</span>
 								<div class="value"><img alt="network" width="20" height="20" class="jsx-ae303611235dc644" src="/images/bnb.png"><span class="jsx-ae303611235dc644">BEP20-USDT</span></div>
 							 </div>
+							 <div class="info-row">
+							 <span class="label">Trade detail</span>
+							 <div class="value df-value">
+								<div class="badge-left">
+								<div class="badge-usdt">₮</div>
+								<span class="amount-bold"> 120</span>
+								</div>
+								<div class="badge-mid">
+									<img src="/images/trade-icon.png" alt="icon" />
+								</div>
+								<div class="badge-ri">
+									<span>₹</span> 1210
+								</div>
+							 </div>
+							 </div>
 							 <div class="info-row"><span class="jsx-ae303611235dc644 label">Create time</span><span class="jsx-ae303611235dc644 value">4/13/2026, 3:23:55 PM</span></div>
 						  </div>
-						  <div class="info-row">
-							 <span class="label">Trade detail</span>
-							 <div class="value">
-								<div class="badge-usdt">₮</div>
-								<span class="amount-bold"> 1200</span>
-							 </div>
-						  </div>
+						  
 					   </div>
 					</div>
                   </div>
