@@ -3435,6 +3435,37 @@ section.table-section.tb-pricerefBx {
 	margin-top: 0;
 }
 
+.value.df-value {
+    display: flex;
+    gap: 10px;
+}
+
+.value.df-value .badge-left {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.value.df-value .badge-ri span {
+    font-weight: bold;
+}
+
+.value.df-value .badge-ri {}
+
+.value.df-value .badge-mid {
+    display: flex;
+    gap: 10px;
+}
+
+.info-row.info-row-mid {
+    margin: 10px 0;
+}
+
+.value.df-value .badge-left .badge-usdt {
+    height: 15px;
+    width: 15px;
+}
+
 
 
 
