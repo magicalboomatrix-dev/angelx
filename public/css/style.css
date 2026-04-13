@@ -3393,7 +3393,8 @@ section.section-4-table .exchange-banner {
 
 
 .header-left .left-div.pic {
-	width: 10%;
+	width: 12%;
+	display: flex;
 }
 .header-left .left-div.pic img {
     width: 100%;
