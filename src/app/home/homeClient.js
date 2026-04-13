@@ -205,7 +205,7 @@ export default function HomePage() {
                   </Link>
                 </div>
                 <div className="bx">
-                  <Link href="/statements">
+                  <Link href="/statement-details">
                     <div className="image">
                       <h3>
                         <img src="/images/ref-icon3.png" /> Statement
