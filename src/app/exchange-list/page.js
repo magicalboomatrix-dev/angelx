@@ -4,44 +4,10 @@ import Link from "next/link";
 import Footer from "../components/footer";
 import { useRouter } from "next/navigation";
 
-export default function DemoPage() {
-  const router = useRouter();
-  const [history, setHistory] = useState([]);
-  const [loading, setLoading] = useState(true);
+export default function exchangeListPage() {
 
-  const networkIcons = {
-    TRC20: "/images/tb-ic1.png",
-    BEP20: "/images/bnb.png",
-  };
 
-  useEffect(() => {
-    if (typeof window === "undefined") return;
 
-    const token = localStorage.getItem("token");
-    if (!token) {
-      router.push("/login");
-      return;
-    }
-
-    const fetchHistory = async () => {
-      try {
-        const res = await fetch("/api/history", {
-          headers: { Authorization: `Bearer ${token}` },
-        });
-        if (!res.ok) throw new Error("Unauthorized");
-        const data = await res.json();
-        setHistory(data.history || []);
-      } catch (err) {
-        console.error(err);
-        localStorage.removeItem("token");
-        router.push("/login");
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchHistory();
-  }, [router]);
 
   return (
     <div className="app-container page-wrappers "  style={{backgroundColor:'#fff'}}>
@@ -56,118 +22,48 @@ export default function DemoPage() {
         </div>
 
         <section className="section-1" style={{ background: "#fff" }}>
-          {loading ? (
-            <div className="status-container">
-              <p className="status-text">Loading...</p>
-            </div>
-          ) : history.length === 0 ? (
-            <div className="empty-state">
-              <img
-                src="/images/empty.jpg"
-                alt="No History"
-                className="empty-img"
-              />
-              <p className="status-text">No transactions found</p>
-            </div>
-          ) : (
+    
             <div className="history-list">
-              {history.map((tx, index) => {
-                if (!tx) return null;
-
-                const safeId = tx.depositId || String(tx.id || "");
-                const displayId =
-                  safeId.length > 10
-                    ? `${safeId.substring(0, 4)}****${safeId.slice(-4)}`
-                    : safeId || "ID Error";
-
-                const currentIcon =
-                  networkIcons[tx.network] || "/images/default.png";
-
-                return (
-                  <div className="card-div deposit-card" key={tx.id || index}>
-                    <div className="card">
-                      <div className="card-header">
-                        <div className="header-left">
-                          <div className="icon-wrapper">
-                            <svg
-                              width="18"
-                              height="18"
-                              viewBox="0 0 24 24"
-                              fill="none"
-                              stroke="#444"
-                              strokeWidth="2.5"
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                            >
-                              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
-                              <polyline points="14 2 14 8 20 8"></polyline>
-                              <line x1="16" y1="13" x2="8" y2="13"></line>
-                              <line x1="16" y1="17" x2="8" y2="17"></line>
-                            </svg>
-                          </div>
-                          <span className="id-text">{displayId}</span>
-                        </div>
-                        {/* Dynamic Status */}
-                        <span
-                          className="status-text"
-                          style={{
-                            color: tx.status === "PENDING" ? "#f59e0b" : "#555",
-                          }}
-                        >
-                          {tx.status === "PENDING" ? "Pending" : "Finish"}
-                        </span>
-                      </div>
-                      <div className="divider"></div>
-                      <div className="info-list">
-                        <div className="info-bx-gr">
-                          <div className="info-row">
-                          <span className="label">Network</span>
-                          <div className="value">
-                            <img
-                              src={
-                                networkIcons[
-                                  tx.network === "BANK" ? "TRC20" : tx.network
-                                ] || "/images/default.png"
-                              }
-                              alt="network"
-                              width="20"
-                              height="20"
-                            />
-
-                            <span>
-                              {tx.network === "BANK" ? "TRC20" : tx.network}-
-                              {tx.currency}
-                            </span>
-                          </div>
-                        </div>
-                                <div className="info-row">
-                          <span className="label">Create time</span>
-                          <span className="value">
-                            {tx.createdAt
-                              ? new Date(tx.createdAt).toLocaleString()
-                              : "N/A"}
-                          </span>
-                        </div>
-                        
-                              </div>
-                        <div className="info-row">
-                          <span className="label">Trade detail</span>
-                          <div className="value">
-                            <div className="badge-usdt">₮</div>
-                            <span className="amount-bold">
-                              {" "}
-                              {tx.amount ?? "0.00"}
-                            </span>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
+              
+                  <div className="card-div deposit-card">
+					  <div class="card">
+					   <div class="card-header">
+						  <div class="header-left">
+							 <div class="icon-wrapper">
+								<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#444" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="jsx-ae303611235dc644">
+								   <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" class="jsx-ae303611235dc644"></path>
+								   <polyline points="14 2 14 8 20 8" class="jsx-ae303611235dc644"></polyline>
+								   <line x1="16" y1="13" x2="8" y2="13" class="jsx-ae303611235dc644"></line>
+								   <line x1="16" y1="17" x2="8" y2="17" class="jsx-ae303611235dc644"></line>
+								</svg>
+							 </div>
+							 <span class="id-text">84</span>
+						  </div>
+						  <span class="status-text" style="color: rgb(245, 158, 11);">Pending</span>
+					   </div>
+					   <div class="divider"></div>
+					   <div class="info-list">
+						  <div class="info-bx-gr">
+							 <div class="info-row">
+								<span class="label">Network</span>
+								<div class="value"><img alt="network" width="20" height="20" class="jsx-ae303611235dc644" src="/images/bnb.png"><span class="jsx-ae303611235dc644">BEP20-USDT</span></div>
+							 </div>
+							 <div class="info-row"><span class="jsx-ae303611235dc644 label">Create time</span><span class="jsx-ae303611235dc644 value">4/13/2026, 3:23:55 PM</span></div>
+						  </div>
+						  <div class="info-row">
+							 <span class="label">Trade detail</span>
+							 <div class="value">
+								<div class="badge-usdt">₮</div>
+								<span class="amount-bold"> 1200</span>
+							 </div>
+						  </div>
+					   </div>
+					</div>
                   </div>
-                );
-              })}
+                
              
             </div>
-          )}
+          
         </section>
 
         <Footer />
