@@ -1,4 +1,5 @@
 import crypto from 'crypto';
+import prisma from './prisma';
 
 /**
  * Ensure a user has an invite code. If they don't, generate and save one.
@@ -35,4 +36,56 @@ export async function ensureUserInviteCode(tx, userId) {
   }
 
   throw new Error('Failed to generate a unique invite code after multiple attempts');
+}
+
+/**
+ * Fetch all data needed for the referral dashboard.
+ * @param {number} userId
+ * @param {string} origin - e.g. "https://example.com"
+ */
+export async function getReferralDashboardData(userId, origin) {
+  const user = await prisma.user.findUnique({
+    where: { id: userId },
+    select: {
+      inviteCode: true,
+      referrals: {
+        select: {
+          id: true,
+          mobile: true,
+          createdAt: true,
+        },
+        orderBy: { createdAt: 'desc' },
+      },
+    },
+  });
+
+  const [settings, rewardsAgg, rewardedReferrals] = await Promise.all([
+    prisma.settings.findFirst({ select: { inviteReward: true } }),
+    prisma.referralReward.aggregate({
+      _sum: { amount: true },
+      where: { referrerId: userId },
+    }),
+    prisma.referralReward.findMany({
+      where: { referrerId: userId },
+      select: { referredUserId: true },
+      distinct: ['referredUserId'],
+    }),
+  ]);
+
+  const inviteCode = user?.inviteCode || null;
+  const inviteLink = inviteCode ? `${origin}/login-account?ref=${inviteCode}` : null;
+
+  return {
+    inviteCode,
+    inviteLink,
+    inviteReward: settings?.inviteReward ?? 0,
+    totalReferrals: user?.referrals?.length ?? 0,
+    totalRewards: Number(rewardsAgg._sum.amount ?? 0),
+    rewardedReferrals: rewardedReferrals.length,
+    referrals: (user?.referrals ?? []).map((r) => ({
+      id: r.id,
+      mobile: r.mobile,
+      joinedAt: r.createdAt,
+    })),
+  };
 }

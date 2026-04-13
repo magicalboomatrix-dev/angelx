@@ -55,3 +55,20 @@ export async function getCurrentUser(req) {
     return null;
   }
 }
+
+const USER_TOKEN_MAX_AGE_SECONDS = 60 * 60 * 24 * 7; // 7 days
+
+/**
+ * Set the user session cookie on a NextResponse.
+ * @param {import('next/server').NextResponse} response
+ * @param {string} token
+ */
+export function setUserAuthCookie(response, token) {
+  response.cookies.set("userToken", token, {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
+    sameSite: "lax",
+    maxAge: USER_TOKEN_MAX_AGE_SECONDS,
+    path: "/",
+  });
+}
