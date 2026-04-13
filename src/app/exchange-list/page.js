@@ -25,7 +25,7 @@ export default function exchangeListPage() {
     
             <div className="history-list">
               
-                  <div className="card-div deposit-card">
+            <div className="card-div deposit-card">
 					  <div className="card">
 					   <div className="card-header">
 						  <div className="header-left">
@@ -46,7 +46,7 @@ export default function exchangeListPage() {
 						  <div className="info-bx-grs">
 							 <div className="info-row">
 								<span className="label">Network</span>
-								<div className="value"><img alt="network" width="20" height="20" className="jsx-ae303611235dc644" src="/images/bnb.png"><span className="jsx-ae303611235dc644">BEP20-USDT</span></div>
+								<div className="value"><img alt="network" width="20" height="20" className="jsx-ae303611235dc644" src="/images/bnb.png" /><span className="jsx-ae303611235dc644">BEP20-USDT</span></div>
 							 </div>
 							 <div className="info-row info-row-mid">
 							 <span className="label">Trade detail</span>
