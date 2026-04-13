@@ -311,7 +311,7 @@ export default function AddBank() {
             </section>
 
             {/* SELL AMOUNT */}
-            <section className="section-2 inner-space">
+            <section className="section-2 inner-space" style={{marginBottom: '0'; }}>
               <div className="inside">
                 <div className="btm">
                   <p className="title">Sell USDT</p>
