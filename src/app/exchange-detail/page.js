@@ -330,7 +330,7 @@ export default function exchangeDetailPage() {
     .status-line::before {
         content: "";
     position: absolute;
-    top: 33%;
+    top: 33px;
     left: 0;
     right: 0;
     height: 2px;
