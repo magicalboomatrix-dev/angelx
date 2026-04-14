@@ -413,15 +413,6 @@ const [activeTab, setActiveTab] = useState("USDT");
   margin-left: 4px;
 }
 
-.history-list .containersss .card {
-    padding: 15px;
-    background: #fff;
-    border-radius: 0;
-    margin: 0;
-    border-bottom-left-radius: 10px;
-    border-bottom-right-radius: 10px;
-}
-
 .history-list .contentinfo {
     background: #f8f9fa;
     padding: 15px;
