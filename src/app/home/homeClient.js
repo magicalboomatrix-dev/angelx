@@ -116,7 +116,7 @@ export default function HomePage() {
                   <h3>{(user?.wallet?.total || 0).toFixed(2)}</h3>
                 </div>
                 <div className="bx">
-                  <p>Available($) xxx</p>
+                  <p>Available($)</p>
                   <h3>{(user?.wallet?.available || 0).toFixed(2)}</h3>
                 </div>
                 <div className="bx">
