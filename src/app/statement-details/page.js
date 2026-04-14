@@ -22,57 +22,57 @@ export default function exchangeListPage() {
     
             <div className="history-list container-inner">
               
-				   <div class="wallet-card">
+				   <div className="wallet-card">
     <div>
-      <div class="wallet-text">Wallet total amount</div>
-      <div class="wallet-amount">$10</div>
+      <div className="wallet-text">Wallet total amount</div>
+      <div className="wallet-amount">$10</div>
     </div>
-    <div class="wallet-icon"></div>
+    <div className="wallet-icon"></div>
   </div>
 
-  <div class="date">11 April 2026</div>
+  <div className="date">11 April 2026</div>
 
-  <div class="transaction">
-    <div class="left">
-      <div class="icon">⇄</div>
+  <div className="transaction">
+    <div className="left">
+      <div className="icon">⇄</div>
       <div>
-        <div class="title">Exchange failed</div>
-        <div class="time">11:36</div>
+        <div className="title">Exchange failed</div>
+        <div className="time">11:36</div>
       </div>
     </div>
-    <div class="right">
-      <div class="amount green">+$10</div>
-      <div class="balance">Balance: $10</div>
+    <div className="right">
+      <div className="amount green">+$10</div>
+      <div className="balance">Balance: $10</div>
     </div>
   </div>
 
-  <div class="date">10 April 2026</div>
+  <div className="date">10 April 2026</div>
 
-  <div class="transaction">
-    <div class="left">
-      <div class="icon">⇄</div>
+  <div className="transaction">
+    <div className="left">
+      <div className="icon">⇄</div>
       <div>
-        <div class="title">Exchange</div>
+        <div className="title">Exchange</div>
         <div class="time">22:54</div>
       </div>
     </div>
-    <div class="right">
-      <div class="amount red">-$10</div>
-      <div class="balance">Balance: $0</div>
+    <div className="right">
+      <div className="amount red">-$10</div>
+      <div className="balance">Balance: $0</div>
     </div>
   </div>
 
-  <div class="transaction">
-    <div class="left">
-      <div class="icon">▣</div>
+  <div className="transaction">
+    <div className="left">
+      <div className="icon">▣</div>
       <div>
-        <div class="title">Deposit</div>
-        <div class="time">22:47</div>
+        <div className="title">Deposit</div>
+        <div className="time">22:47</div>
       </div>
     </div>
-    <div class="right">
-      <div class="amount green">+$10</div>
-      <div class="balance">Balance: $10</div>
+    <div className="right">
+      <div className="amount green">+$10</div>
+      <div className="balance">Balance: $10</div>
     </div>
   </div>
              
