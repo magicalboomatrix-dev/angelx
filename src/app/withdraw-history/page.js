@@ -54,7 +54,7 @@ const [activeTab, setActiveTab] = useState("USDT");
             <div className="row">
               <span className="label">Network</span>
               <span className="value network">
-                <span className="dot"><img class="icon" src="/images/tb-ic1.png"/></span> TRC20
+                <span className="dot"><img className="icon" src="/images/tb-ic1.png"/></span> TRC20
               </span>
             </div>
 
@@ -69,7 +69,7 @@ const [activeTab, setActiveTab] = useState("USDT");
 		  <div className="rowend">
               <span className="label">Amount</span>
               <span className="value amount">
-                10 <span className="usdt"><img class="icon" src="/images/uic.png"/></span>
+                10 <span className="usdt"><img className="icon" src="/images/uic.png"/></span>
               </span>
             </div>
         </Link>
