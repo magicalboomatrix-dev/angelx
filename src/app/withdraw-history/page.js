@@ -41,7 +41,7 @@ const [activeTab, setActiveTab] = useState("USDT");
 
       {/* Content */}
       {activeTab === "USDT" && (
-        <div className="card">
+        <Link href="withdraw-detail" className="card">
           <div className="card-header">
             <div className="left">
               <span className="icon">📄</span>
@@ -72,11 +72,11 @@ const [activeTab, setActiveTab] = useState("USDT");
                 10 <span className="usdt"><img class="icon" src="/images/uic.png"/></span>
               </span>
             </div>
-        </div>
+        </Link>
       )}
 
       {activeTab === "PAYX" && (
-        <div className="card">
+        <Link href="withdraw-detail" className="card">
           <div className="card-header">
             <div className="left">
               <span className="icon">📄</span>
@@ -91,7 +91,7 @@ const [activeTab, setActiveTab] = useState("USDT");
               <span className="value">No transactions found</span>
             </div>
           </div>
-        </div>
+        </Link>
       )}
 
       <p className="footer">No more data</p>
@@ -327,11 +327,13 @@ const [activeTab, setActiveTab] = useState("USDT");
 
 /* Card */
 .history-list .containersss .card {
-  margin-top: 15px;
-  background: #fff;
-  border-radius: 12px;
   padding: 15px;
-  box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+    background: #fff;
+    /* border-radius: 0; */
+    /* margin: 0; */
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+	display: inline-block;
 }
 
 .history-list .containersss .card-header {
@@ -451,6 +453,49 @@ const [activeTab, setActiveTab] = useState("USDT");
 .history-list .containersss  p.footer {
     text-align: center;
     padding-top: 16px;
+}
+
+.history-list .containersss img.icon {
+    width: 100%;
+    line-height: 0;
+    display: block;
+}
+
+.history-list .containersss .dot {
+    line-height: normal;
+    position: relative;
+    display: inline-block;
+    width: 17px;
+    height: 17px;
+    background: transparent;
+}
+
+img.icon {}
+
+.history-list .containersss  span.usdt {
+    display: block;
+    width: 17px;
+    height: 17px;
+    padding: 0;
+}
+
+.history-list .containersss span.usdt img.icon {
+    display: inline-block;
+}
+
+.rowend {
+    display: flex;
+    justify-content: end;
+    padding-top: 10px;
+    gap: 10px;
+}
+
+.history-list .containersss .rowend .amount {
+    gap: 0;
+}
+
+.history-list .containersss .rowend span.label {
+    color: #333;
 }
       `}</style>
     </div>
