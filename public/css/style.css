@@ -3479,6 +3479,52 @@ section.table-section.tb-pricerefBx {
     display: inline-block;
 }
 
+.currency-tabs {
+    display: flex;
+    gap: 10px;
+}
+
+.content-row.currency-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 24px;
+}
+
+button.tab {
+    display: flex;
+    align-items: center;
+    padding: 6px 12px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: 700;
+    border: 1px solid #e5e5e5;
+    position: relative;
+}
+
+button.tab img {
+    width: 14px;
+    margin-right: 6px;
+}
+
+button.tab.active {
+    border-color: #00c087;
+    background-color: #fdd8301c;
+    border: 1px solid #fdd830;
+}
+
+button.tab img.y-icon {
+    display: none;
+    position: absolute;
+    right: 0;
+    bottom: -2px;
+    margin: 0;
+}
+
+button.tab.active img.y-icon {
+    display: block;
+}
+
 
 
 
