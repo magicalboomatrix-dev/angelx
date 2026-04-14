@@ -27,7 +27,7 @@ export default function exchangeListPage() {
     
     <div className="amount">
         <p>You will receive</p>
-        <h1><span className="">count</span> USDT</h1>
+        <h1><span className="count">10 </span> USDT</h1>
     </div>
 
     <div className="status-line">
@@ -420,6 +420,60 @@ export default function exchangeListPage() {
     padding: 20px 14px;
     background: #fff;
     margin: 0 0 10px 0;
+}
+
+h1.jsx-d9a2491c6fdf1711 {}
+
+.amount h1 .count {
+    font-size: 30px;
+    line-height: 40px;
+}
+
+.amount h1 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+}
+
+.withdraw-detail-li {}
+
+.withdraw-detail-li .amount {
+    background: #111;
+    width: 93%;
+    margin: auto;
+    border-radius: 10px;
+    margin-bottom: 15px;
+    color: #fff;
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+
+.withdraw-detail-li .containerinner .amount p {
+    color: #b5b5b5;
+}
+
+.withdraw-detail-li .containerinner .amount h1 {
+    color: #e9e9e9;
+}
+
+.withdraw-detail-li .circle.success.grey {
+    background: #b5b5b5;
+}
+
+.withdraw-detail-li img.icon {
+    width: 100%;
+}
+
+.withdraw-detail-li .value {
+    max-width: 20px;
+    width: 100%;
+    align-items: center;
+}
+
+.withdraw-detail-li .row {
+    position: relative;
+    width: 100%;
 }
       `}</style>
     </div>
