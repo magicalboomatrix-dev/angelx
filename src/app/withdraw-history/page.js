@@ -5,7 +5,7 @@ import Footer from "../components/footer";
 import { useRouter } from "next/navigation";
 
 export default function exchangeListPage() {
-
+const [activeTab, setActiveTab] = useState("USDT");
   return (
     <div className="app-container page-wrappers "  style={{backgroundColor:'#fff'}}>
       <main className="content-wrapper">
@@ -22,44 +22,78 @@ export default function exchangeListPage() {
     
             <div className="history-list container-inner">
             <div className="contentinfo">
-              <div className="tabs">
-        <button className="tab">PAYX</button>
-        <button className="tab active">USDT</button>
+              <div className="containersss">
+      {/* Tabs */}
+      <div className="tabs">
+        <button
+          className={`tab ${activeTab === "PAYX" ? "active" : ""}`}
+          onClick={() => setActiveTab("PAYX")}
+        >
+          PAYX
+        </button>
+        <button
+          className={`tab ${activeTab === "USDT" ? "active" : ""}`}
+          onClick={() => setActiveTab("USDT")}
+        >
+          USDT
+        </button>
       </div>
 
-      {/* Card */}
-      <div className="card">
-        <div className="card-header">
-          <div className="left">
-            <span className="icon">📄</span>
-            <span className="txid">XF20****7184</span>
+      {/* Content */}
+      {activeTab === "USDT" && (
+        <div className="card">
+          <div className="card-header">
+            <div className="left">
+              <span className="icon">📄</span>
+              <span className="txid">XF20****7184</span>
+            </div>
+            <div className="status">Processing</div>
           </div>
-          <div className="status">Processing</div>
+
+          <div className="card-body">
+            <div className="row">
+              <span className="label">Network</span>
+              <span className="value network">
+                <span className="dot"></span> TRC20
+              </span>
+            </div>
+
+            <div className="row">
+              <span className="label">Create time</span>
+              <span className="value">13 Apr 2026 23:28:28</span>
+            </div>
+
+            <div className="row">
+              <span className="label">Amount</span>
+              <span className="value amount">
+                10 <span className="usdt">T</span>
+              </span>
+            </div>
+          </div>
         </div>
+      )}
 
-        <div className="card-body">
-          <div className="row">
-            <span className="label">Network</span>
-            <span className="value network">
-              <span className="dot"></span> TRC20
-            </span>
+      {activeTab === "PAYX" && (
+        <div className="card">
+          <div className="card-header">
+            <div className="left">
+              <span className="icon">📄</span>
+              <span className="txid">No PAYX Data</span>
+            </div>
+            <div className="status">-</div>
           </div>
 
-          <div className="row">
-            <span className="label">Create time</span>
-            <span className="value">13 Apr 2026 23:28:28</span>
-          </div>
-
-          <div className="row">
-            <span className="label">Amount</span>
-            <span className="value amount">
-              10 <span className="usdt">T</span>
-            </span>
+          <div className="card-body">
+            <div className="row">
+              <span className="label">Info</span>
+              <span className="value">No transactions found</span>
+            </div>
           </div>
         </div>
-      </div>
+      )}
 
       <p className="footer">No more data</p>
+    </div>
 				   
              
             </div>
