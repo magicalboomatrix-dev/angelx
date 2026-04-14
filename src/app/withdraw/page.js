@@ -148,11 +148,11 @@ export default function WithdrawUSDT() {
     <div className="withdraw-container page-wrappers page-wrapper-ex home-wrapperss setting-wrapper">
       {/* Top Header */}
       <header className="main-header">
-        <Link href="/withdraw-history" className="back-link">
+        <Link href="/withdraw" className="back-link">
           <img src="/images/back-btn.png" alt="back" />
         </Link>
         <h3 className="header-title">Withdraw USDT</h3>
-        <Link href="/history" className="history-link">
+        <Link href="/withdraw-history" className="history-link">
           <img src="/images/undo.png" alt="history" />
         </Link>
       </header>
