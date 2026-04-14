@@ -41,7 +41,7 @@ const [activeTab, setActiveTab] = useState("USDT");
 
       {/* Content */}
       {activeTab === "USDT" && (
-        <Link href="withdraw-detail" className="card">
+        <Link href="/withdraw-detail" className="card">
           <div className="card-header">
             <div className="left">
               <span className="icon">📄</span>
@@ -76,7 +76,7 @@ const [activeTab, setActiveTab] = useState("USDT");
       )}
 
       {activeTab === "PAYX" && (
-        <Link href="withdraw-detail" className="card">
+        <Link href="/withdraw-detail" className="card">
           <div className="card-header">
             <div className="left">
               <span className="icon">📄</span>
