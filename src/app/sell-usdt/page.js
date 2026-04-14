@@ -325,8 +325,8 @@ export default function AddBank() {
 					  className={`tab ${activeTab === "PAYX" ? "active" : ""}`}
 					  onClick={() => handleTabSwitch("PAYX")}
 					>
-					  <img src="/images/payx.jpg" alt="PAYX" />
-					  <span>PAYX</span>
+					  <img src="/images/CMD-icon.jpg" alt="PAYX" />
+					  <span>CMD</span>
 					  {activeTab === "PAYX" && (
 						<img src="/images/y-tick.png" className="y-icon" alt="selected" />
 					  )}
@@ -336,8 +336,8 @@ export default function AddBank() {
 					  className={`tab ${activeTab === "USDT" ? "active" : ""}`}
 					  onClick={() => handleTabSwitch("USDT")}
 					>
-					  <img src="/images/uic.png" alt="USDT" />
-					  <span>USDT</span>
+					  <img src="/images/IMPS-icon.png" alt="USDT" />
+					  <span>IMPS</span>
 					  {activeTab === "USDT" && (
 						<img src="/images/y-tick.png" className="y-icon" alt="selected" />
 					  )}
