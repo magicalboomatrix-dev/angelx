@@ -21,7 +21,7 @@ export default function exchangeListPage() {
         <section className="section-1" style={{ background: "#fff" }}>
     
             <div className="history-list container-inner">
-              
+              <div className="contentinfo">
 				   <div className="wallet-card">
     <div>
       <div className="wallet-text">Wallet total amount</div>
@@ -75,7 +75,7 @@ export default function exchangeListPage() {
       <div className="balance">Balance: $10</div>
     </div>
   </div>
-             
+             </div>
             </div>
           
         </section>
