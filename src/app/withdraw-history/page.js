@@ -329,11 +329,11 @@ const [activeTab, setActiveTab] = useState("USDT");
 .history-list .containersss .card {
   padding: 15px;
     background: #fff;
-    /* border-radius: 0; */
-    margin-top: 15px; 
     border-bottom-left-radius: 10px;
     border-bottom-right-radius: 10px;
-	display: inline-block;
+    display: block;
+    max-width: 93%;
+    margin: 15px auto 0;
 }
 
 .history-list .containersss .card-header {
@@ -415,7 +415,7 @@ const [activeTab, setActiveTab] = useState("USDT");
 
 .history-list .contentinfo {
     background: #f8f9fa;
-    padding: 15px;
+    padding: 0px;
 }
 
 .history-list.container-inner {}
@@ -424,8 +424,6 @@ const [activeTab, setActiveTab] = useState("USDT");
     background: #fff;
     width: 100%;
     border-radius: 0;
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
 }
 
 .history-list .containersss .tabs button.tab {
