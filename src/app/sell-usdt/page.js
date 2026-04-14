@@ -6,7 +6,7 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 
 export default function AddBank() {
-  const [activeTab, setActiveTab] = useState("PAYX");
+  const [activeTab, setActiveTab] = useState("CMD");
 
   const handleTabSwitch = (tab) => {
     setActiveTab(tab);
@@ -498,7 +498,7 @@ export default function AddBank() {
         </div>
       </main>
 
-				<style jsx global>{`
+				<style jsx>{`
 				.content-row {
           display: flex;
           align-items: center;
