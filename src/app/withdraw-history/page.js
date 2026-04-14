@@ -299,7 +299,7 @@ const [activeTab, setActiveTab] = useState("USDT");
     background-color: #e1e1e1;
     }
 	
-	.tabs {
+	.history-list .containersss .tabs {
   display: flex;
   background: #e9eaee;
   border-radius: 20px;
@@ -307,7 +307,7 @@ const [activeTab, setActiveTab] = useState("USDT");
   width: fit-content;
 }
 
-.tab {
+.history-list .containersss .tab {
   border: none;
   padding: 8px 18px;
   border-radius: 20px;
@@ -317,14 +317,14 @@ const [activeTab, setActiveTab] = useState("USDT");
   color: #777;
 }
 
-.tab.active {
+.history-list .containersss .tab.active {
   background: #fff;
   color: #000;
   box-shadow: 0 1px 2px rgba(0,0,0,0.1);
 }
 
 /* Card */
-.card {
+.history-list .containersss .card {
   margin-top: 15px;
   background: #fff;
   border-radius: 12px;
@@ -332,51 +332,51 @@ const [activeTab, setActiveTab] = useState("USDT");
   box-shadow: 0 1px 4px rgba(0,0,0,0.05);
 }
 
-.card-header {
+.history-list .containersss .card-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-.left {
+.history-list .containersss .left {
   display: flex;
   align-items: center;
   gap: 8px;
 }
 
-.icon {
+.history-list .containersss .icon {
   font-size: 16px;
 }
 
-.txid {
+.history-list .containersss .txid {
   font-weight: 600;
 }
 
-.status {
+.history-list .containersss .status {
   color: #2ecc71;
   font-weight: 500;
 }
 
 /* Body */
-.card-body {
+.history-list .containersss .card-body {
   margin-top: 12px;
   background: #f7f8fa;
   border-radius: 8px;
   padding: 10px;
 }
 
-.row {
+.history-list .containersss .row {
   display: flex;
   justify-content: space-between;
   margin-bottom: 8px;
 }
 
-.label {
+.history-list .containersss .label {
   color: #888;
   font-size: 13px;
 }
 
-.value {
+.history-list .containersss .value {
   font-size: 13px;
   font-weight: 500;
 }
@@ -388,7 +388,7 @@ const [activeTab, setActiveTab] = useState("USDT");
   gap: 5px;
 }
 
-.dot {
+.history-list .containersss .dot {
   width: 8px;
   height: 8px;
   background: red;
@@ -396,17 +396,59 @@ const [activeTab, setActiveTab] = useState("USDT");
 }
 
 /* Amount */
-.amount {
+.history-list .containersss .amount {
   font-weight: bold;
 }
 
-.usdt {
+.history-list .containersss .usdt {
   background: #e6f7f1;
   color: #00a86b;
   padding: 2px 6px;
   border-radius: 50%;
   font-size: 12px;
   margin-left: 4px;
+}
+
+.history-list .containersss .card {
+    padding: 15px;
+    background: #fff;
+    border-radius: 0;
+    margin: 0;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
+.history-list .contentinfo {
+    background: #f8f9fa;
+    padding: 15px;
+}
+
+.history-list.container-inner {}
+
+.history-list .containersss .tabs {
+    background: #fff;
+    width: 100%;
+    border-radius: 0;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.history-list .containersss .tabs button.tab {
+    color: #292929;
+    font-weight: bold;
+    font-size: 15px;
+    border-radius: 0;
+    box-shadow: none;
+    border-bottom: 2px solid transparent;
+}
+
+.history-list .containersss .tabs button.tab.active {
+    border-bottom: 2px solid #111;
+}
+
+.history-list .containersss  p.footer {
+    text-align: center;
+    padding-top: 16px;
 }
       `}</style>
     </div>
