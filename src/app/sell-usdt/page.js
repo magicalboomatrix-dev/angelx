@@ -6,6 +6,12 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 
 export default function AddBank() {
+  const [activeTab, setActiveTab] = useState("IMPS");
+
+  const handleTabSwitch = (tab) => {
+    setActiveTab(tab);
+  };
+  
   const router = useRouter();
 
   const [initialBank] = useState(() => {
@@ -312,9 +318,47 @@ export default function AddBank() {
               )}
             </section>
 
-            {/* SELL AMOUNT */}
+			<div className="content-row currency-row">
+				  <span className="field-label">Rupee</span>
+
+				  <div className="currency-tabs">
+					<button
+				        className={`tab ${activeTab === "CMD" ? "active" : ""}`}
+				        onClick={() => setActiveTab("CMD")}
+				      >
+				        <img src="/images/CMD-icon.png" alt="CMD" />
+				        <span>CMD</span>
+				
+				        <img
+				          src="/images/y-tick.png"
+				          className="y-icon"
+				          alt="selected"
+				        />
+				      </button>
+				
+				      {/* IMPS */}
+				      <button
+				        className={`tab ${activeTab === "IMPS" ? "active" : ""}`}
+				        onClick={() => setActiveTab("IMPS")}
+				      >
+				        <img src="/images/IMPS-icon.png" alt="IMPS" />
+				        <span>IMPS</span>
+				
+				        <img
+				          src="/images/y-tick.png"
+				          className="y-icon"
+				          alt="selected"
+				        />
+				      </button>
+				  </div>
+				</div>
+
+							  
             <section className="section-2 inner-space" style={{marginBottom: '0' }}>
+				  
               <div className="inside">
+				
+				
                 <div className="btm">
                   <p className="title">Sell USDT</p>
                   <div className="select-amt" style={{ position: "relative", border:'1px solid #ddd', padding:'6px' }}>
@@ -375,7 +419,7 @@ export default function AddBank() {
 
                 {/* EXTRA INFO */}
                 <div className="dflex avail">
-                  <p className="title clrgren" style={{ fontSize: "10px", fontWeight: "600" }}>
+                  <p className="title clrgren" style={{ fontSize: "11px", fontWeight: "600" }}>
                     Available($) {balance}{" "}
                     <img src="images/uic.png" className="icon" style={{ maxWidth: 13 }} />
                   </p>
@@ -443,6 +487,7 @@ export default function AddBank() {
           </div>
         </div>
       </main>
+
     </div>
   );
 }

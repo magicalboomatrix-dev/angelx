@@ -2,202 +2,82 @@
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import Footer from "../components/footer";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 
-function formatDate(dateStr) {
-  if (!dateStr) return "—";
-  return new Date(dateStr).toLocaleString("en-IN", {
-    day: "2-digit",
-    month: "short",
-    year: "numeric",
-    hour: "2-digit",
-    minute: "2-digit",
-    second: "2-digit",
-    hour12: false,
-  });
-}
-
-export default function exchangeDetailPage() {
-  const router = useRouter();
-  const searchParams = useSearchParams();
-  const txId = searchParams.get("id");
-
-  const [tx, setTx] = useState(null);
-  const [bank, setBank] = useState(null);
-  const [rate, setRate] = useState(102);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const token = typeof window !== "undefined" ? localStorage.getItem("token") : null;
-    if (!token) { router.replace("/login"); return; }
-    if (!txId) { router.replace("/exchange-list"); return; }
-
-    async function fetchData() {
-      try {
-        const [histRes, banksRes, limitsRes] = await Promise.all([
-          fetch("/api/history", { headers: { Authorization: `Bearer ${token}` } }),
-          fetch("/api/bank-card", { headers: { Authorization: `Bearer ${token}` } }),
-          fetch("/api/limits"),
-        ]);
-
-        if (histRes.status === 401 || banksRes.status === 401) {
-          router.replace("/login");
-          return;
-        }
-
-        const histData = histRes.ok ? await histRes.json() : {};
-        const banksData = banksRes.ok ? await banksRes.json() : {};
-        const limitsData = limitsRes.ok ? await limitsRes.json() : {};
-
-        const found = (histData.history || []).find(
-          (t) => String(t.id) === String(txId)
-        );
-        setTx(found || null);
-
-        if (found && found.address) {
-          const matchedBank = (banksData.banks || []).find(
-            (b) => b.accountNo === found.address
-          );
-          setBank(matchedBank || null);
-        }
-
-        if (limitsData.rate) setRate(limitsData.rate);
-      } catch (err) {
-        console.error("Failed to fetch exchange detail:", err);
-      } finally {
-        setLoading(false);
-      }
-    }
-
-    fetchData();
-  }, [router, txId]);
-
-  const status = tx?.status?.toUpperCase() || "";
-  const isPending = status === "PENDING";
-  const isSuccess = status === "SUCCESS";
-  const isFailed = status === "FAILED" || status === "REJECTED";
-
-  // Step circles: submitted, processing, final
-  const step1Class = "success";                                      // always submitted
-  const step2Class = isPending ? "pending" : isSuccess ? "success" : "success";
-  const step3Class = isPending ? "pending" : isSuccess ? "success" : "failed";
-
-  const step1Icon = "✓";
-  const step2Icon = isPending ? "…" : "✓";
-  const step3Icon = isPending ? "…" : isSuccess ? "✓" : "✕";
-
-  const finalLabel = isPending ? "Pending" : isSuccess ? "Completed" : (tx?.status ? tx.status.charAt(0).toUpperCase() + tx.status.slice(1).toLowerCase() : "");
-
-  const inrAmount = tx ? Math.round(tx.amount * rate) : 0;
+export default function exchangeListPage() {
 
   return (
-    <div className="app-container page-wrappers exchange-detail-page"  style={{backgroundColor:'#fff'}}>
+    <div className="app-container page-wrappers "  style={{backgroundColor:'#fff'}}>
       <main className="content-wrapper">
         <div className="brdc">
           <div className="back-btn-container">
-            <Link href="/exchange-list" className="back-link" style={{position: 'relative',zIndex: '999'}}>
+            <Link href="/withdraw-history" className="back-link" style={{position: 'relative',zIndex: '999'}}>
           <img src="/images/back-btn.png" alt="back" style={{marginLeft: '0'}} />
         </Link>
           </div>
-          <h3 className="header-title">Exchange Detail</h3>
+          <h3 className="header-title">Withdraw Detail</h3>
         </div>
 
         <section className="section-1" style={{ background: "#fff" }}>
     
-            <div className="history-list">
-
-              {loading && (
-                <div className="empty-state">
-                  <p style={{ color: "#999", fontSize: "14px" }}>Loading...</p>
-                </div>
-              )}
-
-              {!loading && !tx && (
-                <div className="empty-state">
-                  <p style={{ color: "#999", fontSize: "14px" }}>Transaction not found.</p>
-                </div>
-              )}
-
-              {!loading && tx && (
+            <div className="history-list withdraw-detail-li">
+              
+                  
 <div className="containerinner">
     
     <div className="amount">
         <p>You will receive</p>
-        <h1>₹{inrAmount.toLocaleString("en-IN")}</h1>
+        <h1><span className="count">10 </span> USDT</h1>
     </div>
 
     <div className="status-line">
         <div className="status">
-            <div className={`circle ${step1Class}`}>{step1Icon}</div>
+            <div className="circle success">✓</div>
             <div className="status-label">Submitted</div>
-            <div className="status-time">{formatDate(tx.createdAt)}</div>
+            <div className="status-time">12 Apr 2026 22:54:27</div>
         </div>
 
         <div className="status">
-            <div className={`circle ${step2Class}`}>{step2Icon}</div>
-        </div>
-
-        <div className="status">
-            <div className={`circle ${step3Class}`}>{step3Icon}</div>
-            <div className="status-label">{finalLabel}</div>
-            <div className="status-time">{tx.reviewedAt ? formatDate(tx.reviewedAt) : ""}</div>
+            <div className="circle success grey">✓</div>
+            <div className="status-label">Processing</div>
         </div>
     </div>
 
-    {tx.network === "BANK" && (
     <div className="section">
-        <h3>Payee information</h3>
+        <h3>Wallet information</h3>
 
         <div className="row">
-            <div className="label">Account No</div>
-            <div className="value">{tx.address || "—"}</div>
+            <div className="label">Network No</div>
+            <div className="value"><img className="icon" src="/images/tb-ic1.png" />  TRC20-USDT</div>
         </div>
 
         <div className="row">
-            <div className="label">IFSC</div>
-            <div className="value">{bank?.ifsc || "—"}</div>
-        </div>
-
-        <div className="row">
-            <div className="label">Payee Name</div>
-            <div className="value">{bank?.payeeName || "—"}</div>
+            <div className="label">Wallet address</div>
+            <div className="value">CD2042654958687490048</div>
         </div>
     </div>
-    )}
 
     <div className="section">
         <h3>Trade information</h3>
 
         <div className="row">
             <div className="label">Trade no</div>
-            <div className="value">{tx.referenceId}</div>
+            <div className="value">CD2042654958687490048</div>
+        </div>
+	    <div className="row">
+            <div className="label">Amount</div>
+            <div className="value">10 USDT</div>
+        </div>
+		
+        <div className="row">
+            <div className="label">Refund Fee</div>
+            <div className="value">1 USDT</div>
         </div>
 
-        <div className="row">
-            <div className="label">Trade detail</div>
-            <div className="value df-value">
-								<div className="badge-left">
-								<div className="badge-usdt">₮</div>
-								<span className="amount-bold"> {tx.amount}</span>
-								</div>
-								<div className="badge-mid">
-									<img src="/images/trade-icon.jpg" alt="icon" />
-								</div>
-								<div className="badge-ri">
-									<span>₹</span>{inrAmount.toLocaleString("en-IN")}
-								</div>
-							 </div>
-        </div>
-
-        <div className="row">
-            <div className="label">Remark</div>
-            <div className="value">{tx.reviewNote || tx.description || "—"}</div>
-        </div>
     </div>
 
 </div>
-              )}
-
+                
              
             </div>
           
@@ -414,7 +294,7 @@ export default function exchangeDetailPage() {
 
     .amount h1 {
         margin: 5px 0 0;
-        font-size: 32px;
+        font-size: 18px;
         color: #000;
     }
 
@@ -541,7 +421,61 @@ export default function exchangeDetailPage() {
     background: #fff;
     margin: 0 0 10px 0;
 }
+
+h1.jsx-d9a2491c6fdf1711 {}
+
+.amount h1 .count {
+    font-size: 30px;
+    line-height: 40px;
+}
+
+.amount h1 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+}
+
+.withdraw-detail-li {}
+
+.withdraw-detail-li .amount {
+    background: #2a2a2a;
+    width: 93%;
+    margin: auto;
+    border-radius: 10px;
+    margin-bottom: 15px;
+    color: #fff;
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+
+.withdraw-detail-li .containerinner .amount p {
+    color: #b5b5b5;
+}
+
+.withdraw-detail-li .containerinner .amount h1 {
+    color: #e9e9e9;
+}
+
+.withdraw-detail-li .circle.success.grey {
+    background: #b5b5b5;
+}
+
+.withdraw-detail-li img.icon {
+    width: 20px;
+}
+
+.withdraw-detail-li .value {
+
+    align-items: center;
+}
+
+.withdraw-detail-li .row {
+    position: relative;
+    width: 100%;
+}
       `}</style>
     </div>
   );
 }
+

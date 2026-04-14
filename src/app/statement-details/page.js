@@ -81,6 +81,7 @@ export default function exchangeListPage() {
         <section className="section-1" style={{ background: "#fff" }}>
     
             <div className="history-list container-inner">
+<<<<<<< HEAD
 
               <div className="wallet-card">
                 <div>
@@ -121,6 +122,63 @@ export default function exchangeListPage() {
                 </React.Fragment>
               ))}
 
+=======
+              <div className="contentinfo">
+				   <div className="wallet-card">
+    <div>
+      <div className="wallet-text">Wallet total amount</div>
+      <div className="wallet-amount">$10</div>
+    </div>
+    <div className="wallet-icon"></div>
+  </div>
+
+  <div className="date">11 April 2026</div>
+
+  <div className="transaction">
+    <div className="left">
+      <div className="icon">⇄</div>
+      <div>
+        <div className="title">Exchange failed</div>
+        <div className="time">11:36</div>
+      </div>
+    </div>
+    <div className="right">
+      <div className="amount green">+$10</div>
+      <div className="balance">Balance: $10</div>
+    </div>
+  </div>
+
+  <div className="date">10 April 2026</div>
+
+  <div className="transaction">
+    <div className="left">
+      <div className="icon">⇄</div>
+      <div>
+        <div className="title">Exchange</div>
+        <div class="time">22:54</div>
+      </div>
+    </div>
+    <div className="right">
+      <div className="amount red">-$10</div>
+      <div className="balance">Balance: $0</div>
+    </div>
+  </div>
+
+  <div className="transaction">
+    <div className="left">
+      <div className="icon">▣</div>
+      <div>
+        <div className="title">Deposit</div>
+        <div className="time">22:47</div>
+      </div>
+    </div>
+    <div className="right">
+      <div className="amount green">+$10</div>
+      <div className="balance">Balance: $10</div>
+    </div>
+  </div>
+             </div>
+>>>>>>> e123a134e2db41cb5905d1e70fd31da23c70f18f
             </div>
           
         </section>
@@ -282,7 +340,10 @@ export default function exchangeListPage() {
     background: #f8f9fa;
         }
 
-        .history-list {}
+        .history-list .contentinfo {
+    background: #fff;
+    padding: 15px;
+}
 
 .history-list .card {
     padding: 10px;
@@ -324,7 +385,7 @@ export default function exchangeListPage() {
     }
 	
 	
-  .wallet-card {
+  .history-list .wallet-card {
     background: linear-gradient(90deg, #e7f3e7, #e0efe0);
     border-radius: 12px;
     padding: 15px;
@@ -333,18 +394,18 @@ export default function exchangeListPage() {
     align-items: center;
   }
 
-  .wallet-text {
+  .history-list .wallet-text {
     font-size: 14px;
     color: #333;
   }
 
-  .wallet-amount {
+  .history-list .wallet-amount {
     font-size: 26px;
     font-weight: bold;
     margin-top: 5px;
   }
 
-  .wallet-icon {
+  .history-list .wallet-icon {
     width: 50px;
     height: 50px;
     background: linear-gradient(180deg, #6ea8ff, #3f6fd9);
@@ -352,7 +413,7 @@ export default function exchangeListPage() {
     position: relative;
   }
 
-  .wallet-icon::before {
+  .history-list .wallet-icon::before {
     content: "";
     position: absolute;
     width: 30px;
@@ -363,13 +424,13 @@ export default function exchangeListPage() {
     border-radius: 4px;
   }
 
-  .date {
+  .history-list .date {
     margin-top: 15px;
     font-size: 13px;
     color: #777;
   }
 
-  .transaction {
+  .history-list .transaction {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -377,13 +438,13 @@ export default function exchangeListPage() {
     border-bottom: 1px solid #eee;
   }
 
-  .left {
+  .history-list .left {
     display: flex;
     align-items: center;
     gap: 10px;
   }
 
-  .icon {
+  .history-list .icon {
     width: 30px;
     height: 30px;
     border-radius: 50%;
@@ -394,35 +455,35 @@ export default function exchangeListPage() {
     font-size: 14px;
   }
 
-  .title {
+  .history-list .title {
     font-size: 14px;
     font-weight: 600;
   }
 
-  .time {
+  .history-list .time {
     font-size: 12px;
     color: #777;
   }
 
-  .right {
+  .history-list .right {
     text-align: right;
   }
 
-  .amount {
+  .history-list .amount {
     font-size: 14px;
     font-weight: bold;
   }
 
-  .balance {
+  .history-list .balance {
     font-size: 12px;
     color: #777;
   }
 
-  .green {
+  .history-list .green {
     color: #2e7d32;
   }
 
-  .red {
+  .history-list .red {
     color: #999;
   }
       `}</style>
