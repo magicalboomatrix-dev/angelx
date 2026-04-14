@@ -6,6 +6,7 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 
 export default function AddBank() {
+  const [activeTab, setActiveTab] = useState("PAYX");
   const router = useRouter();
 
   const [initialBank] = useState(() => {
@@ -315,6 +316,28 @@ export default function AddBank() {
             {/* SELL AMOUNT */}
             <section className="section-2 inner-space" style={{marginBottom: '0' }}>
               <div className="inside">
+              {/* Currency Row */}
+        <div className="content-row currency-row">
+          <span className="field-label" style={{ margin: 0 }}>
+            Currency
+          </span>
+          <div className="currency-badges">
+            <div
+              className={`badge badge-PAYX tb ${activeTab === "PAYX" ? "active" : ""}`}
+              onClick={() => handleTabSwitch("PAYX")}
+            >
+              <img src="/images/payx.jpg" alt="payx" /> PAYX
+              <img src="/images/y-tick.png" className="y-icon" />
+            </div>
+            <div
+              className={`badge badge-USDT tb ${activeTab === "USDT" ? "active" : ""}`}
+              onClick={() => handleTabSwitch("USDT")}
+            >
+              <img src="/images/uic.png" alt="usdt" /> USDT
+              <img src="/images/y-tick.png" className="y-icon" />
+            </div>
+          </div>
+        </div>
                 <div className="btm">
                   <p className="title">Sell USDT</p>
                   <div className="select-amt" style={{ position: "relative", border:'1px solid #ddd', padding:'6px' }}>
