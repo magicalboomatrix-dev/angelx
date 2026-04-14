@@ -54,7 +54,7 @@ const [activeTab, setActiveTab] = useState("USDT");
             <div className="row">
               <span className="label">Network</span>
               <span className="value network">
-                <span className="dot"></span> TRC20
+                <span className="dot"><img class="icon" src="/images/tb-ic1.png"></span> TRC20
               </span>
             </div>
 
