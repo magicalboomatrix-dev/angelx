@@ -294,7 +294,7 @@ export default function exchangeListPage() {
 
     .amount h1 {
         margin: 5px 0 0;
-        font-size: 32px;
+        font-size: 18px;
         color: #000;
     }
 
