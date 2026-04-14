@@ -282,7 +282,7 @@ export default function exchangeListPage() {
     }
 	
 	
-  .wallet-card {
+  .history-list .wallet-card {
     background: linear-gradient(90deg, #e7f3e7, #e0efe0);
     border-radius: 12px;
     padding: 15px;
@@ -291,18 +291,18 @@ export default function exchangeListPage() {
     align-items: center;
   }
 
-  .wallet-text {
+  .history-list .wallet-text {
     font-size: 14px;
     color: #333;
   }
 
-  .wallet-amount {
+  .history-list .wallet-amount {
     font-size: 26px;
     font-weight: bold;
     margin-top: 5px;
   }
 
-  .wallet-icon {
+  .history-list .wallet-icon {
     width: 50px;
     height: 50px;
     background: linear-gradient(180deg, #6ea8ff, #3f6fd9);
@@ -310,7 +310,7 @@ export default function exchangeListPage() {
     position: relative;
   }
 
-  .wallet-icon::before {
+  .history-list .wallet-icon::before {
     content: "";
     position: absolute;
     width: 30px;
@@ -321,13 +321,13 @@ export default function exchangeListPage() {
     border-radius: 4px;
   }
 
-  .date {
+  .history-list .date {
     margin-top: 15px;
     font-size: 13px;
     color: #777;
   }
 
-  .transaction {
+  .history-list .transaction {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -335,13 +335,13 @@ export default function exchangeListPage() {
     border-bottom: 1px solid #eee;
   }
 
-  .left {
+  .history-list .left {
     display: flex;
     align-items: center;
     gap: 10px;
   }
 
-  .icon {
+  .history-list .icon {
     width: 30px;
     height: 30px;
     border-radius: 50%;
@@ -352,35 +352,35 @@ export default function exchangeListPage() {
     font-size: 14px;
   }
 
-  .title {
+  .history-list .title {
     font-size: 14px;
     font-weight: 600;
   }
 
-  .time {
+  .history-list .time {
     font-size: 12px;
     color: #777;
   }
 
-  .right {
+  .history-list .right {
     text-align: right;
   }
 
-  .amount {
+  .history-list .amount {
     font-size: 14px;
     font-weight: bold;
   }
 
-  .balance {
+  .history-list .balance {
     font-size: 12px;
     color: #777;
   }
 
-  .green {
+  .history-list .green {
     color: #2e7d32;
   }
 
-  .red {
+  .history-list .red {
     color: #999;
   }
       `}</style>
