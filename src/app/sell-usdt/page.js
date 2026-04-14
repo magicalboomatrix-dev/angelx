@@ -343,7 +343,7 @@ export default function AddBank() {
 
 					{/* USDT */}
 					<button
-					  className={`tab active ${activeTab === "USDT" ? "active" : ""}`}
+					  className={`tab ${activeTab === "USDT" ? "active" : ""}`}
 					  onClick={() => handleTabSwitch("USDT")}
 					>
 					  <img src="/images/IMPS-icon.png" alt="USDT" />
