@@ -23,60 +23,60 @@ export default function exchangeDetailPage() {
             <div className="history-list">
               
                   
-<div class="containerinner">
+<div className="containerinner">
     
-    <div class="amount">
+    <div className="amount">
         <p>You will receive</p>
         <h1>₹1020</h1>
     </div>
 
-    <div class="status-line">
-        <div class="status">
-            <div class="circle success">✓</div>
-            <div class="status-label">Submitted</div>
-            <div class="status-time">10 Apr 2026 22:54:27</div>
+    <div className="status-line">
+        <div className="status">
+            <div className="circle success">✓</div>
+            <div className="status-label">Submitted</div>
+            <div className="status-time">10 Apr 2026 22:54:27</div>
         </div>
 
-        <div class="status">
-            <div class="circle success">✓</div>
+        <div className="status">
+            <div className="circle success">✓</div>
         </div>
 
-        <div class="status">
-            <div class="circle failed">✕</div>
-            <div class="status-label">Failed</div>
-            <div class="status-time">11 Apr 2026 11:36:15</div>
+        <div className="status">
+            <div className="circle failed">✕</div>
+            <div className="status-label">Failed</div>
+            <div className="status-time">11 Apr 2026 11:36:15</div>
         </div>
     </div>
 
-    <div class="section">
+    <div className="section">
         <h3>Payee information</h3>
 
-        <div class="row">
-            <div class="label">Account No</div>
-            <div class="value">1775101010267</div>
+        <div className="row">
+            <div className="label">Account No</div>
+            <div className="value">1775101010267</div>
         </div>
 
-        <div class="row">
-            <div class="label">IFSC</div>
-            <div class="value">CNRB0001775</div>
+        <div className="row">
+            <div className="label">IFSC</div>
+            <div className="value">CNRB0001775</div>
         </div>
 
-        <div class="row">
-            <div class="label">Payee Name</div>
-            <div class="value">Manish Jangra</div>
+        <div className="row">
+            <div className="label">Payee Name</div>
+            <div className="value">Manish Jangra</div>
         </div>
     </div>
 
-    <div class="section">
+    <div className="section">
         <h3>Trade information</h3>
 
-        <div class="row">
-            <div class="label">Trade no</div>
-            <div class="value">CD2042654958687490048</div>
+        <div className="row">
+            <div className="label">Trade no</div>
+            <div className="value">CD2042654958687490048</div>
         </div>
 
-        <div class="row">
-            <div class="label">Trade detail</div>
+        <div className="row">
+            <div className="label">Trade detail</div>
             <div className="value df-value">
 								<div className="badge-left">
 								<div className="badge-usdt">₮</div>
@@ -91,9 +91,9 @@ export default function exchangeDetailPage() {
 							 </div>
         </div>
 
-        <div class="row">
-            <div class="label">Remark</div>
-            <div class="value">Transfer failed. Try again after trying to change the transfer information</div>
+        <div className="row">
+            <div className="label">Remark</div>
+            <div className="value">Transfer failed. Try again after trying to change the transfer information</div>
         </div>
     </div>
 
