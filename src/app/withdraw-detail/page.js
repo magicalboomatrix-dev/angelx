@@ -439,7 +439,7 @@ h1.jsx-d9a2491c6fdf1711 {}
 .withdraw-detail-li {}
 
 .withdraw-detail-li .amount {
-    background: #111;
+    background: #2a2a2a;
     width: 93%;
     margin: auto;
     border-radius: 10px;
