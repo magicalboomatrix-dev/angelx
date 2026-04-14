@@ -237,7 +237,10 @@ export default function exchangeListPage() {
     background: #f8f9fa;
         }
 
-        .history-list {}
+        .history-list .contentinfo {
+    background: #fff;
+    padding: 15px;
+}
 
 .history-list .card {
     padding: 10px;
