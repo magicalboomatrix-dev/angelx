@@ -333,30 +333,29 @@ export default function AddBank() {
 					  <img src="/images/CMD-icon.png" alt="PAYX" />
 					  <span>CMD</span>
 
-					  {activeTab === "PAYX" && (
 						<img
 						  src="/images/y-tick.png"
 						  className="y-icon"
 						  alt="selected"
 						/>
-					  )}
+					  
 					</button>
 
 					{/* USDT */}
 					<button
-					  className={`tab ${activeTab === "USDT" ? "active" : ""}`}
+					  className={`tab active ${activeTab === "USDT" ? "active" : ""}`}
 					  onClick={() => handleTabSwitch("USDT")}
 					>
 					  <img src="/images/IMPS-icon.png" alt="USDT" />
 					  <span>IMPS</span>
 
-					  {activeTab === "USDT" && (
+					  
 						<img
 						  src="/images/y-tick.png"
 						  className="y-icon"
 						  alt="selected"
 						/>
-					  )}
+					
 					</button>
 				  </div>
 				</div>
