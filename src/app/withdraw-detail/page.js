@@ -11,7 +11,7 @@ export default function exchangeListPage() {
       <main className="content-wrapper">
         <div className="brdc">
           <div className="back-btn-container">
-            <Link href="/USDT-deposit" className="back-link" style={{position: 'relative',zIndex: '999'}}>
+            <Link href="/withdraw-history" className="back-link" style={{position: 'relative',zIndex: '999'}}>
           <img src="/images/back-btn.png" alt="back" style={{marginLeft: '0'}} />
         </Link>
           </div>
@@ -20,12 +20,86 @@ export default function exchangeListPage() {
 
         <section className="section-1" style={{ background: "#fff" }}>
     
-            <div className="history-list container-inner">
-            <div className="contentinfo">
+            <div className="history-list">
               
-				   
+                  
+<div className="containerinner">
+    
+    <div className="amount">
+        <p>You will receive</p>
+        <h1>₹1020</h1>
+    </div>
+
+    <div className="status-line">
+        <div className="status">
+            <div className="circle success">✓</div>
+            <div className="status-label">Submitted</div>
+            <div className="status-time">10 Apr 2026 22:54:27</div>
+        </div>
+
+        <div className="status">
+            <div className="circle success">✓</div>
+        </div>
+
+        <div className="status">
+            <div className="circle failed">✕</div>
+            <div className="status-label">Failed</div>
+            <div className="status-time">11 Apr 2026 11:36:15</div>
+        </div>
+    </div>
+
+    <div className="section">
+        <h3>Payee information</h3>
+
+        <div className="row">
+            <div className="label">Account No</div>
+            <div className="value">1775101010267</div>
+        </div>
+
+        <div className="row">
+            <div className="label">IFSC</div>
+            <div className="value">CNRB0001775</div>
+        </div>
+
+        <div className="row">
+            <div className="label">Payee Name</div>
+            <div className="value">Manish Jangra</div>
+        </div>
+    </div>
+
+    <div className="section">
+        <h3>Trade information</h3>
+
+        <div className="row">
+            <div className="label">Trade no</div>
+            <div className="value">CD2042654958687490048</div>
+        </div>
+
+        <div className="row">
+            <div className="label">Trade detail</div>
+            <div className="value df-value">
+								<div className="badge-left">
+								<div className="badge-usdt">₮</div>
+								<span className="amount-bold"> 120</span>
+								</div>
+								<div className="badge-mid">
+									<img src="/images/trade-icon.jpg" alt="icon" />
+								</div>
+								<div className="badge-ri">
+									<span>₹</span>1210
+								</div>
+							 </div>
+        </div>
+
+        <div className="row">
+            <div className="label">Remark</div>
+            <div className="value">Transfer failed. Try again after trying to change the transfer information</div>
+        </div>
+    </div>
+
+</div>
+                
              
-            </div>
             </div>
           
         </section>
@@ -128,6 +202,246 @@ export default function exchangeListPage() {
           margin-bottom: 8px;
         }
 
+        .info-list {
+          display: flex;
+          flex-direction: column;
+          gap: 16px;
+        }
+
+        .info-row {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          font-size: 13px;
+        }
+
+        .label {
+          color: #9e9e9e;
+        }
+
+        .value {
+          color: #333;
+          font-weight: 500;
+          display: flex;
+          align-items: center;
+          gap: 8px;
+        }
+
+        .badge-trx {
+          width: 20px;
+          height: 20px;
+          background-color: #ef0027;
+          border-radius: 50%;
+          color: white;
+          font-size: 8px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+
+        .badge-usdt {
+          width: 20px;
+          height: 20px;
+          background-color: #26a17b;
+          border-radius: 50%;
+          color: white;
+          font-size: 10px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+
+        .amount-bold {
+          color: #000;
+          font-weight: 600;
+        }
+
+        .history-list {
+        height: 100vh;
+    background: #f8f9fa;
+        }
+
+        .history-list {}
+
+.history-list .card {
+    padding: 10px;
+}
+
+.history-list .card span.id-text {
+    font-weight: 700;
+    color: #111;
+    font-size: 13px;
+}
+
+.history-list .card span.status-text {
+    font-size: 13px;
+}
+
+.info-bx-gr {
+    background: #eeeef1;
+    padding: 2px 14px;
+    border-radius: 3px;
+    display: flex;
+    flex-direction: column;
+}
+
+.info-bx-gr .info-row {
+    margin: 5px 0;
+}
+
+.info-bx-gr .info-row span.label {
+    font-size: 13px;
+    color: #777777;
+}
+
+.info-bx-gr .info-row  .value {
+    color: #111;
+    font-size: 13px;
+}
+.divider {
+    background-color: #e1e1e1;
+    }
+
+    .amount {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    .amount p {
+        margin: 0;
+        color: #666;
+        font-size: 16px;
+    }
+
+    .amount h1 {
+        margin: 5px 0 0;
+        font-size: 32px;
+        color: #000;
+    }
+
+    .status-line {
+        display: flex;
+        align-items: start;
+        justify-content: space-between;
+        margin: 20px 0;
+        position: relative;
+    }
+
+    .status-line::before {
+        content: "";
+    position: absolute;
+    top: 33px;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: #ddd;
+    z-index: 0;
+    width: 52%;
+    margin: auto;
+    }
+
+    .status {
+        text-align: center;
+        z-index: 1;
+    }
+
+    .circle {
+        width: 26px;
+        height: 26px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: auto;
+        font-size: 14px;
+        color: #fff;
+    }
+
+    .success {
+        background: #28a745;
+    }
+
+    .failed {
+        background: #dc3545;
+    }
+
+    .status-label {
+        margin-top: 8px;
+        font-size: 14px;
+        color: #333;
+    }
+
+    .status-time {
+        font-size: 12px;
+        color: #777;
+    }
+
+    .section {
+        margin-top: 20px;
+    }
+
+    .section h3 {
+        margin-bottom: 10px;
+        font-size: 16px;
+        color: #333;
+        border-bottom: 1px solid #eee;
+        padding-bottom: 8px;
+    }
+
+    .row {
+        display: flex;
+        justify-content: space-between;
+        margin: 10px 0;
+        font-size: 14px;
+    }
+
+    .label {
+        color: #666;
+    }
+
+    .value {
+        color: #000;
+        text-align: right;
+    }
+
+    .remark {
+        margin-top: 10px;
+        font-size: 14px;
+        color: #333;
+    }
+
+    .containerinner {
+    padding-top: 20px;
+    margin-top: 10px;
+}
+
+.containerinner .amount {
+    padding: 10px;
+    background: #fff;
+    margin-bottom: 10px;
+}
+
+.containerinner .amount p {
+    font-weight: 600;
+}
+
+.containerinner .status-line {
+    padding: 20px 30px;
+    background: #fff;
+    margin: 0 0 10px 0;
+}
+
+.containerinner .status {}
+
+.containerinner .status .status-label {
+    font-weight: 700;
+}
+
+.containerinner .section {
+    padding: 20px 14px;
+    background: #fff;
+    margin: 0 0 10px 0;
+}
       `}</style>
     </div>
   );
