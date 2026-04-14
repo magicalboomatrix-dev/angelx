@@ -3489,6 +3489,9 @@ section.table-section.tb-pricerefBx {
     align-items: center;
     justify-content: space-between;
     margin-bottom: 24px;
+    background: #fff;
+    padding: 10px;
+    margin-bottom: 10px;
 }
 
 button.tab {
@@ -3500,6 +3503,7 @@ button.tab {
     font-weight: 700;
     border: 1px solid #e5e5e5;
     position: relative;
+	color: #111;
 }
 
 button.tab img {
