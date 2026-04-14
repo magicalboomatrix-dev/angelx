@@ -462,12 +462,11 @@ h1.jsx-d9a2491c6fdf1711 {}
 }
 
 .withdraw-detail-li img.icon {
-    width: 100%;
+    width: 20px;
 }
 
 .withdraw-detail-li .value {
-    max-width: 20px;
-    width: 100%;
+
     align-items: center;
 }
 
