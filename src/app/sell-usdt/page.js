@@ -419,7 +419,7 @@ export default function AddBank() {
 
                 {/* EXTRA INFO */}
                 <div className="dflex avail">
-                  <p className="title clrgren" style={{ fontSize: "10px", fontWeight: "600" }}>
+                  <p className="title clrgren" style={{ fontSize: "11px", fontWeight: "600" }}>
                     Available($) {balance}{" "}
                     <img src="images/uic.png" className="icon" style={{ maxWidth: 13 }} />
                   </p>
