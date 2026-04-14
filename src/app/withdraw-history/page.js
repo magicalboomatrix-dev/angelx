@@ -330,7 +330,7 @@ const [activeTab, setActiveTab] = useState("USDT");
   padding: 15px;
     background: #fff;
     /* border-radius: 0; */
-    /* margin: 0; */
+    margin-top: 15px; 
     border-bottom-left-radius: 10px;
     border-bottom-right-radius: 10px;
 	display: inline-block;
