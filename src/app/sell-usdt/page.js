@@ -330,7 +330,7 @@ export default function AddBank() {
 					  className={`tab ${activeTab === "PAYX" ? "active" : ""}`}
 					  onClick={() => handleTabSwitch("PAYX")}
 					>
-					  <img src="/images/CMD-icon.jpg" alt="PAYX" />
+					  <img src="/images/CMD-icon.png" alt="PAYX" />
 					  <span>CMD</span>
 
 					  {activeTab === "PAYX" && (
