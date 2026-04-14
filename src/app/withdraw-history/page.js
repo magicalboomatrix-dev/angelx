@@ -22,7 +22,44 @@ export default function exchangeListPage() {
     
             <div className="history-list container-inner">
             <div className="contentinfo">
-              
+              <div className="tabs">
+        <button className="tab">PAYX</button>
+        <button className="tab active">USDT</button>
+      </div>
+
+      {/* Card */}
+      <div className="card">
+        <div className="card-header">
+          <div className="left">
+            <span className="icon">📄</span>
+            <span className="txid">XF20****7184</span>
+          </div>
+          <div className="status">Processing</div>
+        </div>
+
+        <div className="card-body">
+          <div className="row">
+            <span className="label">Network</span>
+            <span className="value network">
+              <span className="dot"></span> TRC20
+            </span>
+          </div>
+
+          <div className="row">
+            <span className="label">Create time</span>
+            <span className="value">13 Apr 2026 23:28:28</span>
+          </div>
+
+          <div className="row">
+            <span className="label">Amount</span>
+            <span className="value amount">
+              10 <span className="usdt">T</span>
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <p className="footer">No more data</p>
 				   
              
             </div>
@@ -228,108 +265,115 @@ export default function exchangeListPage() {
     background-color: #e1e1e1;
     }
 	
-	
-  .wallet-card {
-    background: linear-gradient(90deg, #e7f3e7, #e0efe0);
-    border-radius: 12px;
-    padding: 15px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
+	.tabs {
+  display: flex;
+  background: #e9eaee;
+  border-radius: 20px;
+  padding: 4px;
+  width: fit-content;
+}
 
-  .wallet-text {
-    font-size: 14px;
-    color: #333;
-  }
+.tab {
+  border: none;
+  padding: 8px 18px;
+  border-radius: 20px;
+  background: transparent;
+  cursor: pointer;
+  font-weight: 500;
+  color: #777;
+}
 
-  .wallet-amount {
-    font-size: 26px;
-    font-weight: bold;
-    margin-top: 5px;
-  }
+.tab.active {
+  background: #fff;
+  color: #000;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+}
 
-  .wallet-icon {
-    width: 50px;
-    height: 50px;
-    background: linear-gradient(180deg, #6ea8ff, #3f6fd9);
-    border-radius: 10px;
-    position: relative;
-  }
+/* Card */
+.card {
+  margin-top: 15px;
+  background: #fff;
+  border-radius: 12px;
+  padding: 15px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+}
 
-  .wallet-icon::before {
-    content: "";
-    position: absolute;
-    width: 30px;
-    height: 20px;
-    background: #9be37c;
-    top: -8px;
-    right: -5px;
-    border-radius: 4px;
-  }
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
 
-  .date {
-    margin-top: 15px;
-    font-size: 13px;
-    color: #777;
-  }
+.left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
 
-  .transaction {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 12px 0;
-    border-bottom: 1px solid #eee;
-  }
+.icon {
+  font-size: 16px;
+}
 
-  .left {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
+.txid {
+  font-weight: 600;
+}
 
-  .icon {
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
-    background: #f1f1f1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 14px;
-  }
+.status {
+  color: #2ecc71;
+  font-weight: 500;
+}
 
-  .title {
-    font-size: 14px;
-    font-weight: 600;
-  }
+/* Body */
+.card-body {
+  margin-top: 12px;
+  background: #f7f8fa;
+  border-radius: 8px;
+  padding: 10px;
+}
 
-  .time {
-    font-size: 12px;
-    color: #777;
-  }
+.row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
 
-  .right {
-    text-align: right;
-  }
+.label {
+  color: #888;
+  font-size: 13px;
+}
 
-  .amount {
-    font-size: 14px;
-    font-weight: bold;
-  }
+.value {
+  font-size: 13px;
+  font-weight: 500;
+}
 
-  .balance {
-    font-size: 12px;
-    color: #777;
-  }
+/* Network */
+.network {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
 
-  .green {
-    color: #2e7d32;
-  }
+.dot {
+  width: 8px;
+  height: 8px;
+  background: red;
+  border-radius: 50%;
+}
 
-  .red {
-    color: #999;
-  }
+/* Amount */
+.amount {
+  font-weight: bold;
+}
+
+.usdt {
+  background: #e6f7f1;
+  color: #00a86b;
+  padding: 2px 6px;
+  border-radius: 50%;
+  font-size: 12px;
+  margin-left: 4px;
+}
       `}</style>
     </div>
   );
