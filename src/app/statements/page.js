@@ -1,13 +1,14 @@
 'use client'
-import React from 'react';
-
-//import Image from "next/image";
+import React, { useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import Footer from '../components/footer';
 
 
 export default function DemoPage() {
-  
+  const router = useRouter();
+  useEffect(() => { router.replace('/statement-details'); }, [router]);
+
   return (
     <div>
       <main>

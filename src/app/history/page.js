@@ -25,7 +25,7 @@ export default function DemoPage() {
 
     const fetchHistory = async () => {
       try {
-        const res = await fetch("/api/history", {
+        const res = await fetch("/api/deposit-history", {
           headers: { Authorization: `Bearer ${token}` },
         });
         if (!res.ok) throw new Error("Unauthorized");
@@ -74,11 +74,8 @@ export default function DemoPage() {
               {history.map((tx, index) => {
                 if (!tx) return null;
 
-                const safeId = tx.depositId || String(tx.id || "");
-                const displayId =
-                  safeId.length > 10
-                    ? `${safeId.substring(0, 4)}****${safeId.slice(-4)}`
-                    : safeId || "ID Error";
+                const numericId = String(tx.id || "");
+                const displayId = numericId ? `TRC20****${numericId}` : "ID Error";
 
                 const currentIcon =
                   networkIcons[tx.network] || "/images/default.png";

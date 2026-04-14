@@ -392,48 +392,40 @@ export default function AddBank() {
             </section>
 
 <section className="table-section tb-pricerefBx">
-                <div className="pricerefBx pricerefBx-grbg">
-  <table width="100%">
-              {/* <thead>
-      <tr>
-        <th>Exchanges($)</th>
-        <th>Prices(₹)</th>
-      </tr>
-    </thead> */}
-    <tbody>
-      <tr>
-        <td>&gt;=980.4 and &lt;1960.79</td>
-        <td>
-          102+ <span className="red">0.25</span>
-        </td>
-      </tr>
-      <tr>
-        <td>&gt;=1960.79 and &lt;2941.18</td>
-        <td>
-          102+ <span className="red">0.5</span>
-        </td>
-      </tr>
-      <tr>
-        <td>&gt;=2941.18 and &lt;4901.97</td>
-        <td>
-          102+ <span className="red">1</span>
-        </td>
-      </tr>
-      <tr>
-        <td>&gt;=4901.97</td>
-        <td>
-          102+ <span className="red">1.5</span>
-        </td>
-      </tr>
-{/*<tr>
-        <td colSpan={2}>
-          <a href="#">What is tiered price policy?</a>
-        </td>
-      </tr>*/}
-    </tbody>
-  </table>
-</div>
-</section> 
+  <div className="pricerefBx pricerefBx-grbg" style={{ borderRadius: '10px', overflow: 'hidden', boxShadow: '0 1px 6px rgba(0,0,0,0.08)' }}>
+    <div style={{ background: '#f7f8fa', padding: '10px 14px', borderBottom: '1px solid #e8e8e8', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+      <span style={{ fontSize: '12px', fontWeight: '700', color: '#333' }}>Tiered Price Policy</span>
+      <span style={{ fontSize: '11px', color: '#888' }}>1 USDT = ₹{rate}</span>
+    </div>
+    <table width="100%" style={{ borderCollapse: 'collapse' }}>
+      <thead>
+        <tr style={{ background: '#f0f0f0' }}>
+          <th style={{ padding: '8px 14px', fontSize: '11px', fontWeight: '600', color: '#555', textAlign: 'left', borderBottom: '1px solid #e8e8e8' }}>Amount (USDT)</th>
+          <th style={{ padding: '8px 14px', fontSize: '11px', fontWeight: '600', color: '#555', textAlign: 'right', borderBottom: '1px solid #e8e8e8' }}>Rate (₹)</th>
+        </tr>
+      </thead>
+      <tbody>
+        {[
+          { min: (100000 / rate).toFixed(2), max: (200000 / rate).toFixed(2), bonus: '0.25' },
+          { min: (200000 / rate).toFixed(2), max: (300000 / rate).toFixed(2), bonus: '0.5' },
+          { min: (300000 / rate).toFixed(2), max: (500000 / rate).toFixed(2), bonus: '1' },
+          { min: (500000 / rate).toFixed(2), max: null, bonus: '1.5' },
+        ].map((tier, i) => (
+          <tr key={i} style={{ borderBottom: '1px solid #f0f0f0', background: i % 2 === 0 ? '#fff' : '#fafafa' }}>
+            <td style={{ padding: '10px 14px', fontSize: '12px', color: '#444' }}>
+              {tier.max
+                ? <>&gt;={tier.min} <span style={{ color: '#aaa' }}>&amp;</span> &lt;{tier.max}</>
+                : <>&gt;={tier.min}</>}
+            </td>
+            <td style={{ padding: '10px 14px', fontSize: '12px', color: '#222', fontWeight: '600', textAlign: 'right' }}>
+              {rate}+ <span style={{ color: '#e53935', fontWeight: '700' }}>{tier.bonus}</span>
+            </td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+</section>
 
             {/* FOOTER */}
             <div className="warning inner-space">

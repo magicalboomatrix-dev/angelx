@@ -4,14 +4,71 @@ import Link from "next/link";
 import Footer from "../components/footer";
 import { useRouter } from "next/navigation";
 
+function maskId(referenceId) {
+  if (!referenceId || referenceId.length < 8) return referenceId;
+  return referenceId.slice(0, 4) + "***" + referenceId.slice(-4);
+}
+
+function getNetworkDisplay(network) {
+  if (!network) return { label: "USDT", icon: "/images/uic.png" };
+  const n = network.toUpperCase();
+  if (n === "BANK") return { label: "BANK Transfer", icon: "/images/add-u-icon.png" };
+  if (n.includes("TRC20")) return { label: "TRC20-USDT", icon: "/images/trc20icon.png" };
+  if (n.includes("BEP20") || n.includes("BSC")) return { label: "BEP20-USDT", icon: "/images/bnb.png" };
+  if (n.includes("ERC20")) return { label: "ERC20-USDT", icon: "/images/uic.png" };
+  return { label: network, icon: "/images/uic.png" };
+}
+
+function getStatusClass(status) {
+  if (!status) return "";
+  const s = status.toUpperCase();
+  if (s === "SUCCESS") return "green";
+  if (s === "FAILED" || s === "REJECTED") return "red";
+  if (s === "PENDING") return "orange";
+  return "";
+}
+
 export default function exchangeListPage() {
+  const router = useRouter();
+  const [history, setHistory] = useState([]);
+  const [rate, setRate] = useState(102);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const token = typeof window !== "undefined" ? localStorage.getItem("token") : null;
+    if (!token) { router.replace("/login"); return; }
+
+    async function fetchData() {
+      try {
+        const [histRes, limitsRes] = await Promise.all([
+          fetch("/api/history", { headers: { Authorization: `Bearer ${token}` } }),
+          fetch("/api/limits"),
+        ]);
+
+        if (histRes.status === 401) { router.replace("/login"); return; }
+
+        const histData = histRes.ok ? await histRes.json() : { history: [] };
+        const limitsData = limitsRes.ok ? await limitsRes.json() : {};
+
+        const sellTxns = (histData.history || []).filter((tx) => tx.type === "SELL");
+        setHistory(sellTxns);
+        if (limitsData.rate) setRate(limitsData.rate);
+      } catch (err) {
+        console.error("Failed to fetch exchange history:", err);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    fetchData();
+  }, [router]);
 
   return (
     <div className="app-container page-wrappers "  style={{backgroundColor:'#fff'}}>
       <main className="content-wrapper">
         <div className="brdc">
           <div className="back-btn-container">
-            <Link href="/USDT-deposit" className="back-link" style={{position: 'relative',zIndex: '999'}}>
+            <Link href="/sell-usdt" className="back-link" style={{position: 'relative',zIndex: '999'}}>
           <img src="/images/back-btn.png" alt="back" style={{marginLeft: '0'}} />
         </Link>
           </div>
@@ -19,57 +76,85 @@ export default function exchangeListPage() {
         </div>
 
         <section className="section-1" style={{ background: "#fff" }}>
-    
             <div className="history-list">
-              
-            <Link href="/exchange-detail" className="card-div deposit-card" >
-					  <div className="card">
-					   <div className="card-header">
-						  <div className="header-left">
-							 <div className="icon-wrapper">
-								<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#444" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" className="jsx-ae303611235dc644">
-								   <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" className="jsx-ae303611235dc644"></path>
-								   <polyline points="14 2 14 8 20 8" className="jsx-ae303611235dc644"></polyline>
-								   <line x1="16" y1="13" x2="8" y2="13" className="jsx-ae303611235dc644"></line>
-								   <line x1="16" y1="17" x2="8" y2="17" className="jsx-ae303611235dc644"></line>
-								</svg>
-							 </div>
-							 <span className="id-text">CD84***0088</span>
-						  </div>
-						  <span className="status-text red">Failed</span>
-					   </div>
-					   <div className="divider"></div>
-					   <div className="info-list">
-						  <div className="info-bx-grs">
-							 <div className="info-row">
-								<span className="label">Network</span>
-								<div className="value"><img alt="network" width="20" height="20" className="jsx-ae303611235dc644" src="/images/bnb.png" /><span className="jsx-ae303611235dc644">BEP20-USDT</span></div>
-							 </div>
-							 <div className="info-row info-row-mid">
-							 <span className="label">Trade detail</span>
-							 <div className="value df-value">
-								<div className="badge-left">
-								<div className="badge-usdt">₮</div>
-								<span className="amount-bold"> 120</span>
-								</div>
-								<div className="badge-mid">
-									<img src="/images/trade-icon.jpg" alt="icon" />
-								</div>
-								<div className="badge-ri">
-									<span>₹</span>1210
-								</div>
-							 </div>
-							 </div>
-							 <div className="info-row"><span className="jsx-ae303611235dc644 label">Create time</span><span className="jsx-ae303611235dc644 value">4/13/2026, 3:23:55 PM</span></div>
-						  </div>
-						  
-					   </div>
-					</div>
+
+              {loading && (
+                <div className="empty-state">
+                  <p style={{ color: "#999", fontSize: "14px" }}>Loading...</p>
+                </div>
+              )}
+
+              {!loading && history.length === 0 && (
+                <div className="empty-state">
+                  <p style={{ color: "#999", fontSize: "14px" }}>No exchange history found.</p>
+                </div>
+              )}
+
+              {!loading && history.map((tx) => {
+                const net = getNetworkDisplay(tx.network);
+                const inrAmount = Math.round(tx.amount * rate);
+                const statusClass = getStatusClass(tx.status);
+                const statusLabel = tx.status
+                  ? tx.status.charAt(0).toUpperCase() + tx.status.slice(1).toLowerCase()
+                  : "";
+                const createdAt = tx.createdAt
+                  ? new Date(tx.createdAt).toLocaleString()
+                  : "";
+
+                return (
+                  <Link key={tx.id} href={`/exchange-detail?id=${tx.id}`} className="card-div deposit-card" style={{ textDecoration: 'none' }}>
+                    <div className="card">
+                      <div className="card-header">
+                        <div className="header-left">
+                          <div className="icon-wrapper">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#444" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                              <polyline points="14 2 14 8 20 8"></polyline>
+                              <line x1="16" y1="13" x2="8" y2="13"></line>
+                              <line x1="16" y1="17" x2="8" y2="17"></line>
+                            </svg>
+                          </div>
+                          <span className="id-text">{maskId(tx.referenceId)}</span>
+                        </div>
+                        <span className={`status-text ${statusClass}`}>{statusLabel}</span>
+                      </div>
+                      <div className="divider"></div>
+                      <div className="info-list">
+                        <div className="info-bx-grs">
+                          <div className="info-row">
+                            <span className="label">Network</span>
+                            <div className="value">
+                              <img alt="network" width="20" height="20" src={net.icon} />
+                              <span>{net.label}</span>
+                            </div>
+                          </div>
+                          <div className="info-row info-row-mid">
+                            <span className="label">Trade detail</span>
+                            <div className="value df-value">
+                              <div className="badge-left">
+                                <div className="badge-usdt">₮</div>
+                                <span className="amount-bold"> {tx.amount}</span>
+                              </div>
+                              <div className="badge-mid">
+                                <img src="/images/trade-icon.jpg" alt="icon" />
+                              </div>
+                              <div className="badge-ri">
+                                <span>₹</span>{inrAmount.toLocaleString("en-IN")}
+                              </div>
+                            </div>
+                          </div>
+                          <div className="info-row">
+                            <span className="label">Create time</span>
+                            <span className="value">{createdAt}</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                   </Link>
-                
-             
+                );
+              })}
+
             </div>
-          
         </section>
 
         <Footer />
@@ -269,6 +354,10 @@ export default function exchangeListPage() {
 .divider {
     background-color: #e1e1e1;
     }
+
+.status-text.red { color: #e53935; }
+.status-text.green { color: #43a047; }
+.status-text.orange { color: #fb8c00; }
       `}</style>
     </div>
   );

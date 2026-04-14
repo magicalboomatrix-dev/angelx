@@ -2,9 +2,93 @@
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import Footer from "../components/footer";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
+
+function formatDate(dateStr) {
+  if (!dateStr) return "—";
+  return new Date(dateStr).toLocaleString("en-IN", {
+    day: "2-digit",
+    month: "short",
+    year: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+    second: "2-digit",
+    hour12: false,
+  });
+}
 
 export default function exchangeDetailPage() {
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const txId = searchParams.get("id");
+
+  const [tx, setTx] = useState(null);
+  const [bank, setBank] = useState(null);
+  const [rate, setRate] = useState(102);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const token = typeof window !== "undefined" ? localStorage.getItem("token") : null;
+    if (!token) { router.replace("/login"); return; }
+    if (!txId) { router.replace("/exchange-list"); return; }
+
+    async function fetchData() {
+      try {
+        const [histRes, banksRes, limitsRes] = await Promise.all([
+          fetch("/api/history", { headers: { Authorization: `Bearer ${token}` } }),
+          fetch("/api/bank-card", { headers: { Authorization: `Bearer ${token}` } }),
+          fetch("/api/limits"),
+        ]);
+
+        if (histRes.status === 401 || banksRes.status === 401) {
+          router.replace("/login");
+          return;
+        }
+
+        const histData = histRes.ok ? await histRes.json() : {};
+        const banksData = banksRes.ok ? await banksRes.json() : {};
+        const limitsData = limitsRes.ok ? await limitsRes.json() : {};
+
+        const found = (histData.history || []).find(
+          (t) => String(t.id) === String(txId)
+        );
+        setTx(found || null);
+
+        if (found && found.address) {
+          const matchedBank = (banksData.banks || []).find(
+            (b) => b.accountNo === found.address
+          );
+          setBank(matchedBank || null);
+        }
+
+        if (limitsData.rate) setRate(limitsData.rate);
+      } catch (err) {
+        console.error("Failed to fetch exchange detail:", err);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    fetchData();
+  }, [router, txId]);
+
+  const status = tx?.status?.toUpperCase() || "";
+  const isPending = status === "PENDING";
+  const isSuccess = status === "SUCCESS";
+  const isFailed = status === "FAILED" || status === "REJECTED";
+
+  // Step circles: submitted, processing, final
+  const step1Class = "success";                                      // always submitted
+  const step2Class = isPending ? "pending" : isSuccess ? "success" : "success";
+  const step3Class = isPending ? "pending" : isSuccess ? "success" : "failed";
+
+  const step1Icon = "✓";
+  const step2Icon = isPending ? "…" : "✓";
+  const step3Icon = isPending ? "…" : isSuccess ? "✓" : "✕";
+
+  const finalLabel = isPending ? "Pending" : isSuccess ? "Completed" : (tx?.status ? tx.status.charAt(0).toUpperCase() + tx.status.slice(1).toLowerCase() : "");
+
+  const inrAmount = tx ? Math.round(tx.amount * rate) : 0;
 
   return (
     <div className="app-container page-wrappers exchange-detail-page"  style={{backgroundColor:'#fff'}}>
@@ -21,84 +105,99 @@ export default function exchangeDetailPage() {
         <section className="section-1" style={{ background: "#fff" }}>
     
             <div className="history-list">
-              
-                  
-<div class="containerinner">
+
+              {loading && (
+                <div className="empty-state">
+                  <p style={{ color: "#999", fontSize: "14px" }}>Loading...</p>
+                </div>
+              )}
+
+              {!loading && !tx && (
+                <div className="empty-state">
+                  <p style={{ color: "#999", fontSize: "14px" }}>Transaction not found.</p>
+                </div>
+              )}
+
+              {!loading && tx && (
+<div className="containerinner">
     
-    <div class="amount">
+    <div className="amount">
         <p>You will receive</p>
-        <h1>₹1020</h1>
+        <h1>₹{inrAmount.toLocaleString("en-IN")}</h1>
     </div>
 
-    <div class="status-line">
-        <div class="status">
-            <div class="circle success">✓</div>
-            <div class="status-label">Submitted</div>
-            <div class="status-time">10 Apr 2026 22:54:27</div>
+    <div className="status-line">
+        <div className="status">
+            <div className={`circle ${step1Class}`}>{step1Icon}</div>
+            <div className="status-label">Submitted</div>
+            <div className="status-time">{formatDate(tx.createdAt)}</div>
         </div>
 
-        <div class="status">
-            <div class="circle success">✓</div>
+        <div className="status">
+            <div className={`circle ${step2Class}`}>{step2Icon}</div>
         </div>
 
-        <div class="status">
-            <div class="circle failed">✕</div>
-            <div class="status-label">Failed</div>
-            <div class="status-time">11 Apr 2026 11:36:15</div>
+        <div className="status">
+            <div className={`circle ${step3Class}`}>{step3Icon}</div>
+            <div className="status-label">{finalLabel}</div>
+            <div className="status-time">{tx.reviewedAt ? formatDate(tx.reviewedAt) : ""}</div>
         </div>
     </div>
 
-    <div class="section">
+    {tx.network === "BANK" && (
+    <div className="section">
         <h3>Payee information</h3>
 
-        <div class="row">
-            <div class="label">Account No</div>
-            <div class="value">1775101010267</div>
+        <div className="row">
+            <div className="label">Account No</div>
+            <div className="value">{tx.address || "—"}</div>
         </div>
 
-        <div class="row">
-            <div class="label">IFSC</div>
-            <div class="value">CNRB0001775</div>
+        <div className="row">
+            <div className="label">IFSC</div>
+            <div className="value">{bank?.ifsc || "—"}</div>
         </div>
 
-        <div class="row">
-            <div class="label">Payee Name</div>
-            <div class="value">Manish Jangra</div>
+        <div className="row">
+            <div className="label">Payee Name</div>
+            <div className="value">{bank?.payeeName || "—"}</div>
         </div>
     </div>
+    )}
 
-    <div class="section">
+    <div className="section">
         <h3>Trade information</h3>
 
-        <div class="row">
-            <div class="label">Trade no</div>
-            <div class="value">CD2042654958687490048</div>
+        <div className="row">
+            <div className="label">Trade no</div>
+            <div className="value">{tx.referenceId}</div>
         </div>
 
-        <div class="row">
-            <div class="label">Trade detail</div>
+        <div className="row">
+            <div className="label">Trade detail</div>
             <div className="value df-value">
 								<div className="badge-left">
 								<div className="badge-usdt">₮</div>
-								<span className="amount-bold"> 120</span>
+								<span className="amount-bold"> {tx.amount}</span>
 								</div>
 								<div className="badge-mid">
 									<img src="/images/trade-icon.jpg" alt="icon" />
 								</div>
 								<div className="badge-ri">
-									<span>₹</span>1210
+									<span>₹</span>{inrAmount.toLocaleString("en-IN")}
 								</div>
 							 </div>
         </div>
 
-        <div class="row">
-            <div class="label">Remark</div>
-            <div class="value">Transfer failed. Try again after trying to change the transfer information</div>
+        <div className="row">
+            <div className="label">Remark</div>
+            <div className="value">{tx.reviewNote || tx.description || "—"}</div>
         </div>
     </div>
 
 </div>
-                
+              )}
+
              
             </div>
           
@@ -363,6 +462,10 @@ export default function exchangeDetailPage() {
 
     .failed {
         background: #dc3545;
+    }
+
+    .pending {
+        background: #fb8c00;
     }
 
     .status-label {

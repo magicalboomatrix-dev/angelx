@@ -4,7 +4,67 @@ import Link from "next/link";
 import Footer from "../components/footer";
 import { useRouter } from "next/navigation";
 
+function getTxTitle(tx) {
+  if (tx.type === 'DEPOSIT') return 'Deposit';
+  if (tx.type === 'SELL') return tx.status === 'FAILED' || tx.status === 'REJECTED' ? 'Exchange failed' : 'Exchange';
+  if (tx.type === 'WITHDRAW') return 'Withdrawal';
+  if (tx.type === 'BUY') return 'Buy';
+  return tx.type;
+}
+
+function getTxIcon(tx) {
+  if (tx.type === 'DEPOSIT') return '▣';
+  return '⇄';
+}
+
+function isCredit(tx) {
+  if (tx.type === 'DEPOSIT' && tx.status === 'SUCCESS') return true;
+  if ((tx.type === 'SELL' || tx.type === 'WITHDRAW') && (tx.status === 'FAILED' || tx.status === 'REJECTED')) return true;
+  return false;
+}
+
+function groupByDate(txns) {
+  const groups = {};
+  txns.forEach((tx) => {
+    const d = new Date(tx.createdAt);
+    const key = d.toLocaleDateString('en-IN', { day: 'numeric', month: 'long', year: 'numeric' });
+    if (!groups[key]) groups[key] = [];
+    groups[key].push(tx);
+  });
+  return Object.entries(groups);
+}
+
 export default function exchangeListPage() {
+  const router = useRouter();
+  const [ledger, setLedger] = useState([]);
+  const [wallet, setWallet] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const token = typeof window !== 'undefined' ? localStorage.getItem('token') : null;
+    if (!token) { router.replace('/login'); return; }
+
+    async function fetchData() {
+      try {
+        const [stmtRes, walletRes] = await Promise.all([
+          fetch('/api/statements', { headers: { Authorization: `Bearer ${token}` } }),
+          fetch('/api/wallet', { headers: { Authorization: `Bearer ${token}` } }),
+        ]);
+        if (stmtRes.status === 401 || walletRes.status === 401) { router.replace('/login'); return; }
+        const stmtData = stmtRes.ok ? await stmtRes.json() : {};
+        const walletData = walletRes.ok ? await walletRes.json() : {};
+        setLedger(stmtData.statements || []);
+        setWallet(walletData);
+      } catch (err) {
+        console.error('Failed to fetch statements:', err);
+      } finally {
+        setLoading(false);
+      }
+    }
+    fetchData();
+  }, [router]);
+
+  const grouped = groupByDate(ledger);
 
   return (
     <div className="app-container page-wrappers "  style={{backgroundColor:'#fff'}}>
@@ -21,61 +81,46 @@ export default function exchangeListPage() {
         <section className="section-1" style={{ background: "#fff" }}>
     
             <div className="history-list container-inner">
-              
-				   <div class="wallet-card">
-    <div>
-      <div class="wallet-text">Wallet total amount</div>
-      <div class="wallet-amount">$10</div>
-    </div>
-    <div class="wallet-icon"></div>
-  </div>
 
-  <div class="date">11 April 2026</div>
+              <div className="wallet-card">
+                <div>
+                  <div className="wallet-text">Wallet total amount</div>
+                  <div className="wallet-amount">${loading ? '...' : (wallet?.usdtAvailable ?? 0)}</div>
+                </div>
+                <div className="wallet-icon"></div>
+              </div>
 
-  <div class="transaction">
-    <div class="left">
-      <div class="icon">⇄</div>
-      <div>
-        <div class="title">Exchange failed</div>
-        <div class="time">11:36</div>
-      </div>
-    </div>
-    <div class="right">
-      <div class="amount green">+$10</div>
-      <div class="balance">Balance: $10</div>
-    </div>
-  </div>
+              {loading && <div style={{padding:'20px',textAlign:'center',color:'#999',fontSize:'14px'}}>Loading...</div>}
 
-  <div class="date">10 April 2026</div>
+              {!loading && ledger.length === 0 && (
+                <div style={{padding:'30px',textAlign:'center',color:'#999',fontSize:'14px'}}>No transactions found.</div>
+              )}
 
-  <div class="transaction">
-    <div class="left">
-      <div class="icon">⇄</div>
-      <div>
-        <div class="title">Exchange</div>
-        <div class="time">22:54</div>
-      </div>
-    </div>
-    <div class="right">
-      <div class="amount red">-$10</div>
-      <div class="balance">Balance: $0</div>
-    </div>
-  </div>
+              {!loading && grouped.map(([date, txns]) => (
+                <React.Fragment key={date}>
+                  <div className="date">{date}</div>
+                  {txns.map((tx) => {
+                    const credit = isCredit(tx);
+                    const time = new Date(tx.createdAt).toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit', hour12: false });
+                    return (
+                      <div className="transaction" key={tx.id}>
+                        <div className="left">
+                          <div className="icon">{getTxIcon(tx)}</div>
+                          <div>
+                            <div className="title">{getTxTitle(tx)}</div>
+                            <div className="time">{time}</div>
+                          </div>
+                        </div>
+                        <div className="right">
+                          <div className={`amount ${credit ? 'green' : 'red'}`}>{credit ? '+' : '-'}${tx.amount}</div>
+                          <div className="balance">Status: {tx.status.charAt(0) + tx.status.slice(1).toLowerCase()}</div>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </React.Fragment>
+              ))}
 
-  <div class="transaction">
-    <div class="left">
-      <div class="icon">▣</div>
-      <div>
-        <div class="title">Deposit</div>
-        <div class="time">22:47</div>
-      </div>
-    </div>
-    <div class="right">
-      <div class="amount green">+$10</div>
-      <div class="balance">Balance: $10</div>
-    </div>
-  </div>
-             
             </div>
           
         </section>
