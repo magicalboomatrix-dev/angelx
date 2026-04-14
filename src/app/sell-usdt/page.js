@@ -320,8 +320,7 @@ export default function AddBank() {
 
 
             <section className="section-2 inner-space" style={{marginBottom: '0' }}>
-              <div className="inside">
-				<div className="content-row currency-row">
+				  <div className="content-row currency-row">
 				  <span className="field-label">Rupee</span>
 
 				  <div className="currency-tabs">
@@ -355,6 +354,9 @@ export default function AddBank() {
 				      </button>
 				  </div>
 				</div>
+							  
+              <div className="inside">
+				
 				
                 <div className="btm">
                   <p className="title">Sell USDT</p>
