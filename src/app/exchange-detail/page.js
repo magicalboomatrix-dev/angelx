@@ -315,7 +315,7 @@ export default function exchangeDetailPage() {
 
     .amount h1 {
         margin: 5px 0 0;
-        font-size: 18px;
+        font-size: 32px;
         color: #000;
     }
 
