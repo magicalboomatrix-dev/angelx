@@ -15,55 +15,45 @@ export default function exchangeListPage() {
           <img src="/images/back-btn.png" alt="back" style={{marginLeft: '0'}} />
         </Link>
           </div>
-          <h3 className="header-title">Withdraw Details</h3>
+          <h3 className="header-title">Withdraw Detail</h3>
         </div>
 
         <section className="section-1" style={{ background: "#fff" }}>
     
-            <div className="history-list">
+            <div className="history-list withdraw-detail-li">
               
                   
 <div className="containerinner">
     
     <div className="amount">
         <p>You will receive</p>
-        <h1>₹1020</h1>
+        <h1><span className="">count</span> USDT</h1>
     </div>
 
     <div className="status-line">
         <div className="status">
             <div className="circle success">✓</div>
             <div className="status-label">Submitted</div>
-            <div className="status-time">10 Apr 2026 22:54:27</div>
+            <div className="status-time">12 Apr 2026 22:54:27</div>
         </div>
 
         <div className="status">
-            <div className="circle success">✓</div>
-        </div>
-
-        <div className="status">
-            <div className="circle failed">✕</div>
-            <div className="status-label">Failed</div>
-            <div className="status-time">11 Apr 2026 11:36:15</div>
+            <div className="circle success grey">✓</div>
+            <div className="status-label">Processing</div>
         </div>
     </div>
 
     <div className="section">
-        <h3>Payee information</h3>
+        <h3>Wallet information</h3>
 
         <div className="row">
-            <div className="label">Account No</div>
-            <div className="value">1775101010267</div>
+            <div className="label">Network No</div>
+            <div className="value"><img className="icon" src="/images/tb-ic1.png" />  TRC20-USDT</div>
         </div>
 
         <div className="row">
-            <div className="label">IFSC</div>
-            <div className="value">CNRB0001775</div>
-        </div>
-
-        <div className="row">
-            <div className="label">Payee Name</div>
-            <div className="value">Manish Jangra</div>
+            <div className="label">Wallet address</div>
+            <div className="value">CD2042654958687490048</div>
         </div>
     </div>
 
@@ -74,27 +64,16 @@ export default function exchangeListPage() {
             <div className="label">Trade no</div>
             <div className="value">CD2042654958687490048</div>
         </div>
-
+	    <div className="row">
+            <div className="label">Amount</div>
+            <div className="value">10 USDT</div>
+        </div>
+		
         <div className="row">
-            <div className="label">Trade detail</div>
-            <div className="value df-value">
-								<div className="badge-left">
-								<div className="badge-usdt">₮</div>
-								<span className="amount-bold"> 120</span>
-								</div>
-								<div className="badge-mid">
-									<img src="/images/trade-icon.jpg" alt="icon" />
-								</div>
-								<div className="badge-ri">
-									<span>₹</span>1210
-								</div>
-							 </div>
+            <div className="label">Refund Fee</div>
+            <div className="value">1 USDT</div>
         </div>
 
-        <div className="row">
-            <div className="label">Remark</div>
-            <div className="value">Transfer failed. Try again after trying to change the transfer information</div>
-        </div>
     </div>
 
 </div>
