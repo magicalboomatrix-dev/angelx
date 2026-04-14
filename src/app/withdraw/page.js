@@ -563,7 +563,7 @@ export default function WithdrawUSDT() {
           margin-top: 20px;
           font-weight: 600;
           gap: 4px;
-          max-width: 90%;
+          max-width: 100%;
           margin: 10px auto 10px;
         }
       `}</style>
