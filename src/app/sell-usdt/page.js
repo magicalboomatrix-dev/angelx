@@ -6,7 +6,7 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 
 export default function AddBank() {
-  const [activeTab, setActiveTab] = useState("CMD");
+  const [activeTab, setActiveTab] = useState("IMPS");
 
   const handleTabSwitch = (tab) => {
     setActiveTab(tab);
