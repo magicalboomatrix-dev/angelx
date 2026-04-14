@@ -325,38 +325,34 @@ export default function AddBank() {
 				  <span className="field-label">Rupee</span>
 
 				  <div className="currency-tabs">
-					{/* PAYX */}
 					<button
-					  className={`tab ${activeTab === "PAYX" ? "active" : ""}`}
-					  onClick={() => handleTabSwitch("PAYX")}
-					>
-					  <img src="/images/CMD-icon.png" alt="PAYX" />
-					  <span>CMD</span>
-
-						<img
-						  src="/images/y-tick.png"
-						  className="y-icon"
-						  alt="selected"
-						/>
-					  
-					</button>
-
-					{/* USDT */}
-					<button
-					  className={`tab ${activeTab === "USDT" ? "active" : ""}`}
-					  onClick={() => handleTabSwitch("USDT")}
-					>
-					  <img src="/images/IMPS-icon.png" alt="USDT" />
-					  <span>IMPS</span>
-
-					  
-						<img
-						  src="/images/y-tick.png"
-						  className="y-icon"
-						  alt="selected"
-						/>
-					
-					</button>
+				        className={`tab ${activeTab === "CMD" ? "active" : ""}`}
+				        onClick={() => setActiveTab("CMD")}
+				      >
+				        <img src="/images/CMD-icon.png" alt="CMD" />
+				        <span>CMD</span>
+				
+				        <img
+				          src="/images/y-tick.png"
+				          className="y-icon"
+				          alt="selected"
+				        />
+				      </button>
+				
+				      {/* IMPS */}
+				      <button
+				        className={`tab ${activeTab === "IMPS" ? "active" : ""}`}
+				        onClick={() => setActiveTab("IMPS")}
+				      >
+				        <img src="/images/IMPS-icon.png" alt="IMPS" />
+				        <span>IMPS</span>
+				
+				        <img
+				          src="/images/y-tick.png"
+				          className="y-icon"
+				          alt="selected"
+				        />
+				      </button>
 				  </div>
 				</div>
 				
