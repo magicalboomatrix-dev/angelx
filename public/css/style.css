@@ -3419,7 +3419,9 @@ section.section-3 .price-calc .reload-btn {
     right: 13px;
 }
 
-
+section.section-3 .price-calc .reload-btn img {
+    max-width: 25px;
+}
 
 .pricerefBx.pricerefBx-grbg {
     padding: 10px;
