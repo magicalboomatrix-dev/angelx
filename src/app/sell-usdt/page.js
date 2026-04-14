@@ -498,58 +498,6 @@ export default function AddBank() {
         </div>
       </main>
 
-				<style jsx>{`
-				.content-row {
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
-          margin-bottom: 24px;
-        }
-        .label-bold {
-          font-size: 17px;
-          font-weight: 700;
-          margin: 0;
-        }
-        .add-icon {
-          width: 44px;
-        }
-
-        .field-label {
-          font-size: 14px;
-          color: #393939;
-          margin-bottom: 12px;
-          display: block;
-        }
-
-        .currency-badges {
-          display: flex;
-          gap: 10px;
-        }
-        .badge {
-          display: flex;
-          align-items: center;
-          padding: 6px 12px;
-          border-radius: 4px;
-          font-size: 12px;
-          font-weight: 700;
-          border: 1px solid #e5e5e5;
-        }
-        .badge img {
-          width: 14px;
-          margin-right: 6px;
-        }
-        .badge.active {
-          border-color: #00c087;
-          background-color: #fdd8301c;
-          border: 1px solid #fdd830;
-        }
-        .badge.disabled {
-        }
-
-		.content-row.currency-row {
-          margin-bottom: 20px;
-        }
-				`}</style>
     </div>
   );
 }
