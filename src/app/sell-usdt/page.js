@@ -7,6 +7,11 @@ import { useRouter } from "next/navigation";
 
 export default function AddBank() {
   const [activeTab, setActiveTab] = useState("PAYX");
+
+  const handleTabSwitch = (tab) => {
+    setActiveTab(tab);
+  };
+  
   const router = useRouter();
 
   const [initialBank] = useState(() => {
@@ -317,32 +322,43 @@ export default function AddBank() {
             <section className="section-2 inner-space" style={{marginBottom: '0' }}>
               <div className="inside">
 				<div className="content-row currency-row">
-				  <span className="field-label" style={{ margin: 0 }}>
-					Currency
-				  </span>
+				  <span className="field-label">Currency</span>
+
 				  <div className="currency-tabs">
+					{/* PAYX */}
 					<button
 					  className={`tab ${activeTab === "PAYX" ? "active" : ""}`}
 					  onClick={() => handleTabSwitch("PAYX")}
 					>
 					  <img src="/images/CMD-icon.jpg" alt="PAYX" />
 					  <span>CMD</span>
+
 					  {activeTab === "PAYX" && (
-						<img src="/images/y-tick.png" className="y-icon" alt="selected" />
+						<img
+						  src="/images/y-tick.png"
+						  className="y-icon"
+						  alt="selected"
+						/>
 					  )}
 					</button>
 
+					{/* USDT */}
 					<button
 					  className={`tab ${activeTab === "USDT" ? "active" : ""}`}
 					  onClick={() => handleTabSwitch("USDT")}
 					>
 					  <img src="/images/IMPS-icon.png" alt="USDT" />
 					  <span>IMPS</span>
+
 					  {activeTab === "USDT" && (
-						<img src="/images/y-tick.png" className="y-icon" alt="selected" />
+						<img
+						  src="/images/y-tick.png"
+						  className="y-icon"
+						  alt="selected"
+						/>
 					  )}
 					</button>
-					</div>
+				  </div>
 				</div>
 				
                 <div className="btm">
