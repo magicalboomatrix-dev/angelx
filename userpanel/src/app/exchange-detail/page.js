@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, Suspense } from "react";
 import Link from "next/link";
 import Footer from "../components/footer";
 import { useRouter, useSearchParams } from "next/navigation";
@@ -17,7 +17,15 @@ function formatDate(dateStr) {
   });
 }
 
-export default function exchangeDetailPage() {
+export default function ExchangeDetailPageWrapper(props) {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <ExchangeDetailPage {...props} />
+    </Suspense>
+  );
+}
+
+function ExchangeDetailPage() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const txId = searchParams.get("id");
