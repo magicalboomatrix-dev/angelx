@@ -3,6 +3,8 @@ import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import Footer from "../components/footer";
 import { useRouter } from "next/navigation";
+import { isTokenExpired, refreshToken } from "../utils/auth";
+import { useToast } from "../components/ToastProvider";
 
 function maskRef(ref) {
   if (!ref || ref.length < 8) return ref;
@@ -38,23 +40,43 @@ function getDisplayNetwork(withdrawal) {
 
 export default function WithdrawHistoryPage() {
   const router = useRouter();
+  const { showToast } = useToast();
   const [activeTab, setActiveTab] = useState("USDT");
   const [withdrawals, setWithdrawals] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const token = localStorage.getItem("token");
+    let token = localStorage.getItem("token");
     if (!token) { router.replace("/login"); return; }
 
-    fetch("/api/history", { headers: { Authorization: `Bearer ${token}` } })
-      .then((r) => r.ok ? r.json() : null)
-      .then((data) => {
+    async function checkAndFetch() {
+      try {
+        if (isTokenExpired(token)) {
+          try {
+            token = await refreshToken();
+          } catch {
+            showToast("Session expired. Please login again.", "error");
+            localStorage.removeItem("token");
+            router.replace("/login");
+            return;
+          }
+        }
+        const res = await fetch("/api/history", { headers: { Authorization: `Bearer ${token}` } });
+        if (!res.ok) throw new Error("Unauthorized");
+        const data = await res.json();
         if (data?.history) {
           setWithdrawals(data.history.filter((h) => h.type === 'WITHDRAW'));
         }
-      })
-      .catch(console.error)
-      .finally(() => setLoading(false));
+      } catch (err) {
+        showToast("Session expired. Please login again.", "error");
+        localStorage.removeItem("token");
+        router.replace("/login");
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    checkAndFetch();
   }, [router]);
 
   const filtered = withdrawals.filter((w) => (w.currency || 'USDT') === activeTab);

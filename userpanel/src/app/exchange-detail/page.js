@@ -3,6 +3,8 @@ import React, { useEffect, useState, Suspense } from "react";
 import Link from "next/link";
 import Footer from "../components/footer";
 import { useRouter, useSearchParams } from "next/navigation";
+import { isTokenExpired, refreshToken } from "../utils/auth";
+import { useToast } from "../components/ToastProvider";
 
 function formatDate(dateStr) {
   if (!dateStr) return "—";
@@ -27,6 +29,7 @@ export default function ExchangeDetailPageWrapper(props) {
 
 function ExchangeDetailPage() {
   const router = useRouter();
+  const { showToast } = useToast();
   const searchParams = useSearchParams();
   const txId = searchParams.get("id");
 
@@ -36,12 +39,22 @@ function ExchangeDetailPage() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const token = typeof window !== "undefined" ? localStorage.getItem("token") : null;
+    let token = typeof window !== "undefined" ? localStorage.getItem("token") : null;
     if (!token) { router.replace("/login"); return; }
     if (!txId) { router.replace("/exchange-list"); return; }
 
-    async function fetchData() {
+    async function checkAndFetch() {
       try {
+        if (isTokenExpired(token)) {
+          try {
+            token = await refreshToken();
+          } catch {
+            showToast("Session expired. Please login again.", "error");
+            localStorage.removeItem("token");
+            router.replace("/login");
+            return;
+          }
+        }
         const [histRes, banksRes, limitsRes] = await Promise.all([
           fetch("/api/history", { headers: { Authorization: `Bearer ${token}` } }),
           fetch("/api/bank-card", { headers: { Authorization: `Bearer ${token}` } }),
@@ -49,6 +62,8 @@ function ExchangeDetailPage() {
         ]);
 
         if (histRes.status === 401 || banksRes.status === 401) {
+          showToast("Session expired. Please login again.", "error");
+          localStorage.removeItem("token");
           router.replace("/login");
           return;
         }
@@ -71,13 +86,15 @@ function ExchangeDetailPage() {
 
         if (limitsData.rate) setRate(limitsData.rate);
       } catch (err) {
-        console.error("Failed to fetch exchange detail:", err);
+        showToast("Session expired. Please login again.", "error");
+        localStorage.removeItem("token");
+        router.replace("/login");
       } finally {
         setLoading(false);
       }
     }
 
-    fetchData();
+    checkAndFetch();
   }, [router, txId]);
 
   const status = tx?.status?.toUpperCase() || "";

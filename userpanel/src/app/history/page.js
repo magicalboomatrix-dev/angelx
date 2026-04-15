@@ -1,11 +1,15 @@
 "use client";
+
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import Footer from "../components/footer";
 import { useRouter } from "next/navigation";
+import { isTokenExpired, refreshToken } from "../utils/auth";
+import { useToast } from "../components/ToastProvider";
 
 export default function DemoPage() {
   const router = useRouter();
+  const { showToast } = useToast();
   const [history, setHistory] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -17,14 +21,23 @@ export default function DemoPage() {
   useEffect(() => {
     if (typeof window === "undefined") return;
 
-    const token = localStorage.getItem("token");
+    let token = localStorage.getItem("token");
     if (!token) {
       router.push("/login");
       return;
     }
-
-    const fetchHistory = async () => {
+    const checkAndFetch = async () => {
       try {
+        if (isTokenExpired(token)) {
+          try {
+            token = await refreshToken();
+          } catch {
+            showToast("Session expired. Please login again.", "error");
+            localStorage.removeItem("token");
+            router.push("/login");
+            return;
+          }
+        }
         const res = await fetch("/api/deposit-history", {
           headers: { Authorization: `Bearer ${token}` },
         });
@@ -32,15 +45,14 @@ export default function DemoPage() {
         const data = await res.json();
         setHistory(data.history || []);
       } catch (err) {
-        console.error(err);
+        showToast("Session expired. Please login again.", "error");
         localStorage.removeItem("token");
         router.push("/login");
       } finally {
         setLoading(false);
       }
     };
-
-    fetchHistory();
+    checkAndFetch();
   }, [router]);
 
   const maskRef = (referenceId, fallbackId) => {
@@ -115,10 +127,19 @@ export default function DemoPage() {
                         <span
                           className="status-text"
                           style={{
-                            color: tx.status === "PENDING" ? "#f59e0b" : "#555",
+                            color:
+                              tx.status === "PENDING"
+                                ? "#f59e0b"
+                                : tx.status === "CANCELLED" || tx.status === "REJECTED"
+                                ? "#e74c3c"
+                                : "#555",
                           }}
                         >
-                          {tx.status === "PENDING" ? "Pending" : "Finish"}
+                          {tx.status === "PENDING"
+                            ? "Pending"
+                            : tx.status === "CANCELLED" || tx.status === "REJECTED"
+                            ? "Cancelled"
+                            : "Finish"}
                         </span>
                       </div>
                       <div className="divider"></div>

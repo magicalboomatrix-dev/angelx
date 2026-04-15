@@ -4,18 +4,12 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "postinstall": "prisma generate",
     "dev": "next dev",
-    "build": "prisma generate && next build",
+    "build": "next build",
     "start": "next start",
-    "lint": "next lint",
-    "seed": "prisma db seed"
-  },
-  "prisma": {
-    "seed": "node prisma/seed.js"
+    "lint": "next lint" 
   },
   "dependencies": {
-    "@prisma/client": "^6.15.0",
     "@radix-ui/react-dialog": "^1.1.15",
     "@radix-ui/react-slot": "^1.2.4",
     "bcrypt": "^6.0.0",
@@ -32,7 +26,6 @@
     "next-pwa": "^5.6.0",
     "nodemailer": "^7.0.6",
     "owl.carousel": "^2.3.4",
-    "prisma": "^6.15.0",
     "react": "19.1.0",
     "react-dom": "19.1.0",
     "react-helmet": "^6.1.0",

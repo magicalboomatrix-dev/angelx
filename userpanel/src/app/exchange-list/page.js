@@ -3,6 +3,8 @@ import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import Footer from "../components/footer";
 import { useRouter } from "next/navigation";
+import { isTokenExpired, refreshToken } from "../utils/auth";
+import { useToast } from "../components/ToastProvider";
 
 function maskId(referenceId) {
   if (!referenceId || referenceId.length < 8) return referenceId;
@@ -30,22 +32,38 @@ function getStatusClass(status) {
 
 export default function exchangeListPage() {
   const router = useRouter();
+  const { showToast } = useToast();
   const [history, setHistory] = useState([]);
   const [rate, setRate] = useState(102);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const token = typeof window !== "undefined" ? localStorage.getItem("token") : null;
+    let token = typeof window !== "undefined" ? localStorage.getItem("token") : null;
     if (!token) { router.replace("/login"); return; }
 
-    async function fetchData() {
+    async function checkAndFetch() {
       try {
+        if (isTokenExpired(token)) {
+          try {
+            token = await refreshToken();
+          } catch {
+            showToast("Session expired. Please login again.", "error");
+            localStorage.removeItem("token");
+            router.replace("/login");
+            return;
+          }
+        }
         const [histRes, limitsRes] = await Promise.all([
           fetch("/api/history", { headers: { Authorization: `Bearer ${token}` } }),
           fetch("/api/limits"),
         ]);
 
-        if (histRes.status === 401) { router.replace("/login"); return; }
+        if (histRes.status === 401) {
+          showToast("Session expired. Please login again.", "error");
+          localStorage.removeItem("token");
+          router.replace("/login");
+          return;
+        }
 
         const histData = histRes.ok ? await histRes.json() : { history: [] };
         const limitsData = limitsRes.ok ? await limitsRes.json() : {};
@@ -54,13 +72,15 @@ export default function exchangeListPage() {
         setHistory(sellTxns);
         if (limitsData.rate) setRate(limitsData.rate);
       } catch (err) {
-        console.error("Failed to fetch exchange history:", err);
+        showToast("Session expired. Please login again.", "error");
+        localStorage.removeItem("token");
+        router.replace("/login");
       } finally {
         setLoading(false);
       }
     }
 
-    fetchData();
+    checkAndFetch();
   }, [router]);
 
   return (

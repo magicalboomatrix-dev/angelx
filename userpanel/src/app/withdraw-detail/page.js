@@ -4,6 +4,8 @@ import Link from "next/link";
 import Footer from "../components/footer";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Suspense } from "react";
+import { isTokenExpired, refreshToken } from "../utils/auth";
+import { useToast } from "../components/ToastProvider";
 
 function formatDate(d) {
   if (!d) return '';
@@ -21,39 +23,59 @@ function getDisplayNetwork(detail) {
 
 function WithdrawDetailContent() {
   const router = useRouter();
+  const { showToast } = useToast();
   const searchParams = useSearchParams();
   const [detail, setDetail] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const token = localStorage.getItem("token");
+    let token = localStorage.getItem("token");
     if (!token) { router.replace("/login"); return; }
 
-    // Try to load from sessionStorage (passed from submit)
-    const stored = sessionStorage.getItem("withdraw_detail");
-    if (stored) {
+    async function checkAndFetch() {
+      // Try to load from sessionStorage (passed from submit)
+      const stored = sessionStorage.getItem("withdraw_detail");
+      if (stored) {
+        try {
+          setDetail(JSON.parse(stored));
+          sessionStorage.removeItem("withdraw_detail");
+          setLoading(false);
+          return;
+        } catch {}
+      }
+
+      // Otherwise fetch from API
+      const id = searchParams.get("id");
+      if (!id) { setLoading(false); return; }
+
       try {
-        setDetail(JSON.parse(stored));
-        sessionStorage.removeItem("withdraw_detail");
-        setLoading(false);
-        return;
-      } catch {}
-    }
-
-    // Otherwise fetch from API
-    const id = searchParams.get("id");
-    if (!id) { setLoading(false); return; }
-
-    fetch("/api/history", { headers: { Authorization: `Bearer ${token}` } })
-      .then((r) => r.ok ? r.json() : null)
-      .then((data) => {
+        if (isTokenExpired(token)) {
+          try {
+            token = await refreshToken();
+          } catch {
+            showToast("Session expired. Please login again.", "error");
+            localStorage.removeItem("token");
+            router.replace("/login");
+            return;
+          }
+        }
+        const res = await fetch("/api/history", { headers: { Authorization: `Bearer ${token}` } });
+        if (!res.ok) throw new Error("Unauthorized");
+        const data = await res.json();
         if (data?.history) {
           const match = data.history.find((h) => h.type === 'WITHDRAW' && String(h.id) === String(id));
           if (match) setDetail(match);
         }
-      })
-      .catch(console.error)
-      .finally(() => setLoading(false));
+      } catch (err) {
+        showToast("Session expired. Please login again.", "error");
+        localStorage.removeItem("token");
+        router.replace("/login");
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    checkAndFetch();
   }, [router, searchParams]);
 
   const isPending = detail?.status === 'PENDING';

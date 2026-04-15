@@ -1,4 +1,5 @@
 const jwt = require('jsonwebtoken');
+const { issueRefreshToken } = require('../utils/refreshToken');
 const bcrypt = require('bcryptjs');
 const prisma = require('../config/database');
 const { generateReferralCode } = require('../utils/helpers');
@@ -89,8 +90,8 @@ exports.verifyOtp = async (req, res) => {
     if (DEV_BYPASS && otp === '1234') {
       const user = await prisma.user.findUnique({ where: { phone } });
       if (!user) return res.status(400).json({ error: 'User not found' });
-
-      const token = jwt.sign({ id: user.id, phone: user.phone, role: 'user' }, JWT_SECRET, { expiresIn: '30d' });
+      const token = jwt.sign({ id: user.id, phone: user.phone, role: 'user' }, JWT_SECRET, { expiresIn: '30m' });
+      issueRefreshToken(res, { id: user.id, phone: user.phone, role: 'user' });
       return res.json({ token, redirectTo: '/home' });
     }
 
@@ -118,7 +119,8 @@ exports.verifyOtp = async (req, res) => {
     const user = await prisma.user.findUnique({ where: { phone } });
     if (!user) return res.status(400).json({ error: 'User not found' });
 
-    const token = jwt.sign({ id: user.id, phone: user.phone, role: 'user' }, JWT_SECRET, { expiresIn: '30d' });
+    const token = jwt.sign({ id: user.id, phone: user.phone, role: 'user' }, JWT_SECRET, { expiresIn: '30m' });
+    issueRefreshToken(res, { id: user.id, phone: user.phone, role: 'user' });
     return res.json({ token, redirectTo: '/home' });
   } catch (err) {
     console.error('Verify OTP error:', err);
@@ -195,9 +197,9 @@ exports.adminLogin = async (req, res) => {
     const token = jwt.sign(
       { id: admin.id, email: admin.email, role: 'admin' },
       JWT_SECRET,
-      { expiresIn: '7d' }
+      { expiresIn: '30m' }
     );
-
+    issueRefreshToken(res, { id: admin.id, email: admin.email, role: 'admin' });
     return res.json({ token, admin: { id: admin.id, email: admin.email, name: admin.name } });
   } catch (err) {
     console.error('Admin login error:', err);
