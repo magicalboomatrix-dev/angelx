@@ -56,10 +56,12 @@ export default function DemoPage() {
   }, [router]);
 
   const maskRef = (referenceId, fallbackId) => {
-    if (referenceId && referenceId.length >= 8) {
-      return `${referenceId.slice(0, 4)}****${referenceId.slice(-4)}`;
+    if (referenceId && referenceId.length >= 4) {
+      // Remove any existing TC20 prefix for safety
+      let clean = referenceId.replace(/^TC20/i, "");
+      return `TC20****${clean.slice(-4)}`;
     }
-    return fallbackId ? `DEP****${fallbackId}` : "ID Error";
+    return fallbackId ? `TC20****${fallbackId.slice(-4)}` : "ID Error";
   };
 
   return (

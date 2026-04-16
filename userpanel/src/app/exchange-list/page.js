@@ -10,10 +10,10 @@ import { useToast } from "../components/ToastProvider";
 function formatTxnId(referenceId) {
   if (!referenceId) return "";
   // Remove any existing prefix for safety
-  let clean = referenceId.replace(/^TC20/i, "");
-  // Show as TC20****1234 (last 4 digits)
-  if (clean.length <= 4) return `TC20****${clean}`;
-  return `TC20****${clean.slice(-4)}`;
+  let clean = referenceId.replace(/^CD20/i, "");
+  // Show as CD20****1234 (last 4 digits)
+  if (clean.length <= 4) return `CD20****${clean}`;
+  return `CD20****${clean.slice(-4)}`;
 }
 
 function getNetworkDisplay(tx) {
