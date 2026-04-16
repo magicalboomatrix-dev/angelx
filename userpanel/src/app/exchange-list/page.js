@@ -6,9 +6,14 @@ import { useRouter } from "next/navigation";
 import { isTokenExpired, refreshToken } from "../utils/auth";
 import { useToast } from "../components/ToastProvider";
 
-function maskId(referenceId) {
-  if (!referenceId || referenceId.length < 8) return referenceId;
-  return referenceId.slice(0, 4) + "***" + referenceId.slice(-4);
+
+function formatTxnId(referenceId) {
+  if (!referenceId) return "";
+  // Remove any existing prefix for safety
+  let clean = referenceId.replace(/^TC20/i, "");
+  // Show as TC20****1234 (last 4 digits)
+  if (clean.length <= 4) return `TC20****${clean}`;
+  return `TC20****${clean.slice(-4)}`;
 }
 
 function getNetworkDisplay(tx) {
@@ -134,7 +139,7 @@ export default function exchangeListPage() {
                               <line x1="16" y1="17" x2="8" y2="17"></line>
                             </svg>
                           </div>
-                          <span className="id-text">{maskId(tx.referenceId)}</span>
+                          <span className="id-text">{formatTxnId(tx.referenceId)}</span>
                         </div>
                         <span className={`status-text ${statusClass}`}>{statusLabel}</span>
                       </div>
