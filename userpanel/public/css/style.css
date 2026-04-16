@@ -22,6 +22,10 @@
 }
  */
 
+* {
+	font-family: "Mona Sans", sans-serif;
+}
+
 body {
 	margin: 0;
 	font: 14px "Mona Sans", sans-serif;
@@ -3509,7 +3513,7 @@ button.tab {
 }
 
 button.tab img {
-    width: 14px;
+    width: 16px;
     margin-right: 6px;
 }
 
