@@ -198,9 +198,9 @@ function ExchangeDetailPage() {
             <div className="value">{tx.referenceId}</div>
         </div>
   	    <div className="row">
-        <div className="label">Network</div>
+        {/* <div className="label">Network</div>
         <div className="value">{tx.network === "BANK" ? "BANK Transfer" : tx.network}</div>
-      </div>
+      </div> */}
   	    {tx.paymentMethod && (
   	    <div className="row">
         <div className="label">Payment Method</div>
