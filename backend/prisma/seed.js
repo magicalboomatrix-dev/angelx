@@ -27,6 +27,8 @@ async function main() {
     { key: 'min_withdrawal', value: '50' },
     { key: 'min_sell', value: '10' },
     { key: 'usdt_rate', value: '102' },
+    { key: 'cmd_rate', value: '102' },
+    { key: 'imps_rate', value: '102' },
     { key: 'trc20_wallet_address', value: 'TG25WAjnbAjdqCZrBtrAinU8EsQ6smu47L' },
     { key: 'trc20_qr_url', value: '/images/trc20.png' },
     { key: 'bep20_wallet_address', value: '0xd7d565e4f58d832c07f0bf1d04290dff4104247a' },

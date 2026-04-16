@@ -39,8 +39,15 @@ export default function exchangeListPage() {
   const router = useRouter();
   const { showToast } = useToast();
   const [history, setHistory] = useState([]);
-  const [rate, setRate] = useState(102);
+  const [rates, setRates] = useState({ defaultRate: 102, cmdRate: 102, impsRate: 102 });
   const [loading, setLoading] = useState(true);
+
+  const getTradeRate = (paymentMethod) => {
+    const normalizedMethod = String(paymentMethod || "").toUpperCase();
+    if (normalizedMethod === "CMD") return rates.cmdRate;
+    if (normalizedMethod === "IMPS") return rates.impsRate;
+    return rates.defaultRate;
+  };
 
   useEffect(() => {
     let token = typeof window !== "undefined" ? localStorage.getItem("token") : null;
@@ -75,7 +82,11 @@ export default function exchangeListPage() {
 
         const sellTxns = (histData.history || []).filter((tx) => tx.type === "SELL");
         setHistory(sellTxns);
-        if (limitsData.rate) setRate(limitsData.rate);
+        setRates({
+          defaultRate: limitsData.rate || 102,
+          cmdRate: limitsData.cmdRate || limitsData.rate || 102,
+          impsRate: limitsData.impsRate || limitsData.rate || 102,
+        });
       } catch (err) {
         showToast("Session expired. Please login again.", "error");
         localStorage.removeItem("token");
@@ -117,7 +128,7 @@ export default function exchangeListPage() {
 
               {!loading && history.map((tx) => {
                 const net = getNetworkDisplay(tx);
-                const inrAmount = Math.round(tx.amount * rate);
+                const inrAmount = Math.round(tx.amount * getTradeRate(tx.paymentMethod));
                 const statusClass = getStatusClass(tx.status);
                 const statusLabel = tx.status
                   ? tx.status.charAt(0).toUpperCase() + tx.status.slice(1).toLowerCase()

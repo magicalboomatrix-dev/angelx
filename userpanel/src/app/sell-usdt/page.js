@@ -21,7 +21,7 @@ export default function AddBank() {
   const [successMessage, setSuccessMessage] = useState("");
   const [amount, setAmount] = useState("");
   const [balance, setBalance] = useState(0);
-  const [rate, setRate] = useState(102);
+  const [rates, setRates] = useState({ defaultRate: 102, cmdRate: 102, impsRate: 102 });
   const [withdrawMin, setWithdrawMin] = useState(50);
 
   const selectedBank = banks.find((b) => b.id === selectedBankId);
@@ -40,13 +40,19 @@ export default function AddBank() {
     fetchLimits();
   }, []);
 
+  const rate = activeTab === "CMD" ? rates.cmdRate : rates.impsRate;
+
   const fetchLimits = async () => {
     try {
       const res = await fetch('/api/limits');
       if (res.ok) {
         const data = await res.json();
         setWithdrawMin(data.withdrawMin || 50);
-        setRate(data.rate || 102);
+        setRates({
+          defaultRate: data.rate || 102,
+          cmdRate: data.cmdRate || data.rate || 102,
+          impsRate: data.impsRate || data.rate || 102,
+        });
       }
     } catch (err) {
       console.error('Failed to fetch limits:', err);
@@ -165,6 +171,7 @@ export default function AddBank() {
           id: sellId,
           type: "SELL",
           amount: amt,
+          appliedRate: rate,
           status: "PENDING",
           paymentMethod: activeTab,
           network: "BANK",

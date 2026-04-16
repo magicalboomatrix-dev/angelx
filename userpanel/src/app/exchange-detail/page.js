@@ -35,7 +35,7 @@ function ExchangeDetailPage() {
 
   const [tx, setTx] = useState(null);
   const [bank, setBank] = useState(null);
-  const [rate, setRate] = useState(102);
+  const [rates, setRates] = useState({ defaultRate: 102, cmdRate: 102, impsRate: 102 });
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -120,7 +120,11 @@ function ExchangeDetailPage() {
           );
         }
 
-        if (limitsData.rate) setRate(limitsData.rate);
+        setRates({
+          defaultRate: limitsData.rate || 102,
+          cmdRate: limitsData.cmdRate || limitsData.rate || 102,
+          impsRate: limitsData.impsRate || limitsData.rate || 102,
+        });
       } catch (err) {
         showToast("Session expired. Please login again.", "error");
         localStorage.removeItem("token");
@@ -149,7 +153,14 @@ function ExchangeDetailPage() {
 
   const finalLabel = isPending ? "Pending" : isSuccess ? "Completed" : isFailed ? "Failed" : (tx?.status ? tx.status.charAt(0).toUpperCase() + tx.status.slice(1).toLowerCase() : "");
 
-  const inrAmount = tx ? Math.round(tx.amount * rate) : 0;
+  const activeRate = tx?.appliedRate || (
+    tx?.paymentMethod === "CMD"
+      ? rates.cmdRate
+      : tx?.paymentMethod === "IMPS"
+        ? rates.impsRate
+        : rates.defaultRate
+  );
+  const inrAmount = tx ? Math.round(tx.amount * activeRate) : 0;
 
   return (
     <div className="app-container page-wrappers exchange-detail-page"  style={{backgroundColor:'#fff'}}>
