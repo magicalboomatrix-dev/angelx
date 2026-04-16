@@ -220,7 +220,7 @@ export default function AddBank() {
   return (
     <div>
       <main>
-        <div className="page-wrappers no-empty-page deposit-amount-page add-bank-page">
+        <div className="page-wrappers no-empty-page deposit-amount-page add-bank-page" style={{paddingBottom: '30px',height: 'auto'}}>
           {/* HEADER */}
           <header className="header">
             <div className="brdc">
