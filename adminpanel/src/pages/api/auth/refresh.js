@@ -1,32 +1,21 @@
-import jwt from 'jsonwebtoken';
-
-const JWT_SECRET = process.env.JWT_SECRET;
-const REFRESH_SECRET = process.env.REFRESH_SECRET || JWT_SECRET;
+const API_BASE = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000';
 
 export default async function handler(req, res) {
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
-  const refreshToken = req.cookies['refreshToken'];
-  if (!refreshToken) {
-    return res.status(401).json({ error: 'No refresh token' });
-  }
-
   try {
-    const payload = jwt.verify(refreshToken, REFRESH_SECRET);
-    if (!payload || !payload.id) {
-      throw new Error('Invalid refresh token');
-    }
+    const backendResponse = await fetch(`${API_BASE}/api/auth/refresh`, {
+      method: 'POST',
+      headers: {
+        cookie: req.headers.cookie || '',
+      },
+    });
 
-    const token = jwt.sign(
-      { id: payload.id, phone: payload.phone, email: payload.email, role: payload.role },
-      JWT_SECRET,
-      { expiresIn: '30m' }
-    );
-
-    return res.json({ token });
+    const data = await backendResponse.json();
+    return res.status(backendResponse.status).json(data);
   } catch {
-    return res.status(401).json({ error: 'Invalid or expired refresh token' });
+    return res.status(500).json({ error: 'Failed to refresh token' });
   }
 }

@@ -5,6 +5,7 @@ const prisma = require('../config/database');
 const { generateReferralCode } = require('../utils/helpers');
 
 const JWT_SECRET = process.env.JWT_SECRET;
+const REFRESH_SECRET = process.env.REFRESH_SECRET || JWT_SECRET;
 const TWILIO_SID = process.env.TWILIO_ACCOUNT_SID;
 const TWILIO_AUTH = process.env.TWILIO_AUTH_TOKEN;
 const TWILIO_PHONE = process.env.TWILIO_PHONE_NUMBER;
@@ -23,6 +24,22 @@ if (TWILIO_SID && TWILIO_AUTH) {
 // Generate 4-digit OTP
 function generateOtp() {
   return Math.floor(1000 + Math.random() * 9000).toString();
+}
+
+function readCookieValue(req, name) {
+  const cookieHeader = req.headers.cookie;
+  if (!cookieHeader) {
+    return null;
+  }
+
+  const cookies = cookieHeader.split(';').map((entry) => entry.trim());
+  const matchingCookie = cookies.find((entry) => entry.startsWith(`${name}=`));
+
+  if (!matchingCookie) {
+    return null;
+  }
+
+  return decodeURIComponent(matchingCookie.slice(name.length + 1));
 }
 
 async function findValidReferrer(referralCode, currentUserId) {
@@ -232,6 +249,31 @@ exports.getMe = async (req, res) => {
   } catch (err) {
     console.error('Get me error:', err);
     return res.status(500).json({ error: 'Failed to fetch user' });
+  }
+};
+
+exports.refreshAccessToken = async (req, res) => {
+  try {
+    const refreshToken = readCookieValue(req, 'refreshToken');
+    if (!refreshToken) {
+      return res.status(401).json({ error: 'No refresh token' });
+    }
+
+    const payload = jwt.verify(refreshToken, REFRESH_SECRET);
+    if (!payload || !payload.id) {
+      return res.status(401).json({ error: 'Invalid or expired refresh token' });
+    }
+
+    const token = jwt.sign(
+      { id: payload.id, phone: payload.phone, email: payload.email, role: payload.role },
+      JWT_SECRET,
+      { expiresIn: '30m' }
+    );
+
+    return res.json({ token });
+  } catch (err) {
+    console.error('Refresh token error:', err);
+    return res.status(401).json({ error: 'Invalid or expired refresh token' });
   }
 };
 
