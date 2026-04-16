@@ -777,13 +777,65 @@ exports.adjustUserWallet = async (req, res) => {
 // Referrals
 exports.getReferrals = async (req, res) => {
   try {
-    const referrals = await prisma.referral.findMany({
-      orderBy: { createdAt: 'desc' },
-      include: {
-        referrer: { select: { id: true, phone: true } },
-        referredUser: { select: { id: true, phone: true } },
-      },
-    });
+    const [confirmedReferrals, linkedUsers] = await Promise.all([
+      prisma.referral.findMany({
+        orderBy: { createdAt: 'desc' },
+        include: {
+          referrer: { select: { id: true, phone: true } },
+          referredUser: { select: { id: true, phone: true } },
+        },
+      }),
+      prisma.user.findMany({
+        where: { referredBy: { not: null } },
+        orderBy: { createdAt: 'desc' },
+        select: {
+          id: true,
+          phone: true,
+          referredBy: true,
+          createdAt: true,
+          referralsReceived: {
+            select: { id: true },
+          },
+        },
+      }),
+    ]);
+
+    const referrerCodes = [...new Set(linkedUsers.map((user) => user.referredBy).filter(Boolean))];
+    const referrers = referrerCodes.length
+      ? await prisma.user.findMany({
+        where: { referralCode: { in: referrerCodes } },
+        select: { id: true, phone: true, referralCode: true },
+      })
+      : [];
+
+    const referrerMap = new Map(referrers.map((user) => [user.referralCode, user]));
+
+    const pendingReferrals = linkedUsers
+      .filter((user) => user.referredBy && user.referralsReceived.length === 0)
+      .map((user) => {
+        const referrer = referrerMap.get(user.referredBy);
+        if (!referrer) {
+          return null;
+        }
+
+        return {
+          id: `pending-${user.id}`,
+          status: 'PENDING',
+          rewardAmount: 0,
+          createdAt: user.createdAt,
+          referrer: { id: referrer.id, phone: referrer.phone },
+          referredUser: { id: user.id, phone: user.phone },
+        };
+      })
+      .filter(Boolean);
+
+    const referrals = [
+      ...confirmedReferrals.map((referral) => ({
+        ...referral,
+        status: 'CONFIRMED',
+      })),
+      ...pendingReferrals,
+    ].sort((left, right) => new Date(right.createdAt) - new Date(left.createdAt));
 
     return res.json({ referrals });
   } catch (err) {
