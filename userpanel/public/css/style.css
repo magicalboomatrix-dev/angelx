@@ -1146,6 +1146,7 @@ section.section-2.reffer .bx .arw img {
 
 .page-wrappers.deposit-amount-page header.header {
     padding: 13px;
+	z-index: 99;
 }
 
 .page-wrappers.deposit-amount-page section.section-1 {
