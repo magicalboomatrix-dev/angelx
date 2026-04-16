@@ -62,7 +62,7 @@ exports.createSellRequest = async (req, res) => {
       },
     });
 
-    return res.json({ message: 'Selling request submitted successfully', sell });
+    return res.json({ message: 'Selling request submitted successfully', id: sell.id, sell });
   } catch (err) {
     console.error('Create sell request error:', err);
     return res.status(500).json({ error: 'Failed to submit selling request' });

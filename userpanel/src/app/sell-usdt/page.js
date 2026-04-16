@@ -158,7 +158,10 @@ export default function AddBank() {
 
       const data = await res.json();
 
-      if (res.ok) {
+      if (res.ok && data && data.id) {
+        // Redirect to exchange detail page for the new transaction
+        router.replace(`/exchange-detail?id=${data.id}`);
+      } else if (res.ok) {
         setSuccessMessage("Selling request sent for the confirmation!. please wait....");
         setAmount(""); // reset input
         setMessage("");
