@@ -67,7 +67,7 @@ h1, h2, h3, h4, p {
 }
 .page-wrappers {
     position: relative;
-    max-width: 375px;
+    max-width: 650px;	
     margin: auto;
     background: #fff;
     height: 100vh;
