@@ -1,141 +1,314 @@
 'use client'
 import React, { useEffect, useState } from "react";
-//import Image from "next/image";
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import QRCode from 'qrcode';
 import Footer from '../components/footer';
 
-
 export default function DemoPage() {
+  const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
+  const [inviteCode, setInviteCode] = useState("");
+  const [inviteLink, setInviteLink] = useState("");
+  const [qrCodeDataUrl, setQrCodeDataUrl] = useState("");
+  const [loadingInvite, setLoadingInvite] = useState(true);
+  const [error, setError] = useState("");
+  const [copiedField, setCopiedField] = useState("");
 
-      // Prevent body scroll when popup is open
   useEffect(() => {
     document.body.style.overflow = isOpen ? "hidden" : "auto";
-  }, [isOpen])
-  
+
+    return () => {
+      document.body.style.overflow = "auto";
+    };
+  }, [isOpen]);
+
+  useEffect(() => {
+    if (typeof window === 'undefined') {
+      return;
+    }
+
+    const token = localStorage.getItem('token');
+    if (!token) {
+      router.replace('/login');
+      return;
+    }
+
+    let ignore = false;
+
+    async function loadInviteDetails() {
+      setLoadingInvite(true);
+      setError('');
+
+      try {
+        const response = await fetch('/api/auth/me', {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+
+        if (!response.ok) {
+          throw new Error('Failed to load invite details');
+        }
+
+        const data = await response.json();
+        const referralCode = data?.user?.referralCode?.trim();
+
+        if (!referralCode) {
+          throw new Error('Referral code is not available');
+        }
+
+        const nextInviteLink = `${window.location.origin}/login?ref=${encodeURIComponent(referralCode)}`;
+        const nextQrCode = await QRCode.toDataURL(nextInviteLink, {
+          width: 200,
+          margin: 1,
+          color: {
+            dark: '#111111',
+            light: '#FFFFFF',
+          },
+        });
+
+        if (ignore) {
+          return;
+        }
+
+        setInviteCode(referralCode);
+        setInviteLink(nextInviteLink);
+        setQrCodeDataUrl(nextQrCode);
+      } catch (err) {
+        if (ignore) {
+          return;
+        }
+
+        if (err.message === 'Failed to load invite details') {
+          localStorage.removeItem('token');
+          router.replace('/login');
+          return;
+        }
+
+        setError(err.message || 'Unable to load invite details');
+      } finally {
+        if (!ignore) {
+          setLoadingInvite(false);
+        }
+      }
+    }
+
+    loadInviteDetails();
+
+    return () => {
+      ignore = true;
+    };
+  }, [router]);
+
+  useEffect(() => {
+    if (!copiedField) {
+      return;
+    }
+
+    const timer = window.setTimeout(() => {
+      setCopiedField('');
+    }, 1600);
+
+    return () => window.clearTimeout(timer);
+  }, [copiedField]);
+
+  const handleCopy = async (value, field) => {
+    if (!value) {
+      return;
+    }
+
+    try {
+      await navigator.clipboard.writeText(value);
+      setCopiedField(field);
+      setError('');
+    } catch {
+      setError(`Unable to copy ${field}`);
+    }
+  };
+
+  const inviteReady = Boolean(inviteCode && inviteLink && qrCodeDataUrl);
+
   return (
     <div>
       <main>
-        <div className="page-wrappers empty-page" style={{height: 'auto',paddingBottom: '100px'}}>
+        <div className="page-wrappers empty-page" style={{ height: 'auto', paddingBottom: '100px' }}>
+          <div
+            className="page-wrapperss page-wrapper-ex page-wrapper-login page-wrapper-loginacc form-wrapper"
+            style={{ height: '100%', overflow: 'auto', scrollbarWidth: 'thin', scrollbarColor: 'transparent transparent' }}
+          >
+            <div className="brdc">
+              <div className="back-btn">
+                <Link href="/home">
+                  <img src="/images/back-btn.png" alt="back" />
+                </Link>
+              </div>
+              <h3>Invites</h3>
+            </div>
 
-  <div className="page-wrapperss page-wrapper-ex page-wrapper-login page-wrapper-loginacc form-wrapper" 
-  style={{'height': '100%','overflow': 'auto','scrollbarWidth':'thin', 'scrollbarColor':'transparent transparent'}}>
-    <div className="brdc">
-      <div className="back-btn">
-        <Link href="/home">
-          <img src="/images/back-btn.png" />
-        </Link>
-      </div>
-      <h3>Invites
-      </h3>
-    </div>
+            <section className="section-1s banner-imgn">
+              <div className="informate">
+                <div className="full">
+                  <div className="info">
+                    <h3>Invite friends and make money together</h3>
+                    <p>Each accepted order of your subordinates will get you corresponding rewards</p>
+                  </div>
+                </div>
+              </div>
+              <div className="image">
+                <img src="/images/inv-img.jpg" style={{ width: '100%' }} alt="invite banner" />
+              </div>
+            </section>
 
-    <section className="section-1s banner-imgn">
-      <div className='informate'>
-        <div className="full"><div className="info">
-          <h3>Invite friends and make money together</h3>
-          <p>Each accepted order of your subordinates will get you corresponding rewards</p></div></div>
-      </div>
-      <div className="image">
-        <img src="/images/inv-img.jpg" style={{"width":"100%"}} />
-      </div>
-    </section>
-    <div className="pricerefBx pricerefBx-01">
-      <h4><b>Rules</b></h4>
-      <table width="100%">
-          <thead>
-            <tr>
-                <th>Subordinate</th>
-                <th>Commission</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-                <td>1 Level</td>
-                <td>0.1%</td>
-            </tr>
-            <tr>
-                <td>2 Level</td>
-                <td>0.03%</td>
-            </tr>
-            <tr>
-                <td>3 Level</td>
-                <td>0.02%</td>
-            </tr>
-            <tr>
-                <td>4 Level</td>
-                <td>0.01%</td>
-            </tr>
-            <tr>
-                <td>5 Level</td>
-                <td>0.01%</td>
-            </tr>
-          </tbody>
-      </table>
-    </div>
+            <div className="pricerefBx pricerefBx-01">
+              <h4><b>Rules</b></h4>
+              <table width="100%">
+                <thead>
+                  <tr>
+                    <th>Subordinate</th>
+                    <th>Commission</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>1 Level</td>
+                    <td>0.1%</td>
+                  </tr>
+                  <tr>
+                    <td>2 Level</td>
+                    <td>0.03%</td>
+                  </tr>
+                  <tr>
+                    <td>3 Level</td>
+                    <td>0.02%</td>
+                  </tr>
+                  <tr>
+                    <td>4 Level</td>
+                    <td>0.01%</td>
+                  </tr>
+                  <tr>
+                    <td>5 Level</td>
+                    <td>0.01%</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
 
-    <div className="login-bx" style={{"margin":"5px 0 0 0",padding: 0}}><button className="login-btn open-btn" onClick={() => setIsOpen(true)} style={{width:"100%"}}>Invite Friends</button></div>
+            {error && !isOpen && <p className="invite-error">{error}</p>}
 
-        
-  </div>
+            <div className="login-bx" style={{ margin: '5px 0 0 0', padding: 0 }}>
+              <button
+                className="login-btn open-btn"
+                onClick={() => setIsOpen(true)}
+                style={{ width: '100%' }}
+                disabled={loadingInvite || Boolean(error)}
+                type="button"
+              >
+                {loadingInvite ? 'Preparing Invite...' : 'Invite Friends'}
+              </button>
+            </div>
+          </div>
 
-  
-  <div
-        className={`overlay ${isOpen ? "show" : ""}`}
-        onClick={() => setIsOpen(false)}
-      />
+          <div
+            className={`overlay ${isOpen ? 'show' : ''}`}
+            onClick={() => setIsOpen(false)}
+          />
 
-      <div className={`popup QR-popup ${isOpen ? "show" : ""}`}>
-  
-        <div className="img"><img src="/images/QR-img.jpg" alt="QR-code"  /></div>
-        <p>Please use mobile browser scan QR code to registration</p>
-        
-        <div className="invite-field">
-            <div className="field-bx">
-              <div className="left">Invite code</div>
-              <div className="right">
-                <span className="code-num">dV6OjDX9kpQ8</span> 
-                <div className="icon-img"><img src="/images/copyicon.png" alt="QR-code"  /></div>
+          <div className={`popup QR-popup ${isOpen ? 'show' : ''}`}>
+            <div className="img qr-frame">
+              {inviteReady ? (
+                <img src={qrCodeDataUrl} alt="Referral QR code" />
+              ) : (
+                <div className="qr-placeholder">{loadingInvite ? 'Generating QR...' : 'QR unavailable'}</div>
+              )}
+            </div>
+            <p>Please use a mobile browser to scan this QR code and register with your referral link.</p>
+
+            {error && <p className="invite-error popup-error">{error}</p>}
+
+            <div className="invite-field">
+              <div className="field-bx">
+                <div className="left">Invite code</div>
+                <div className="right">
+                  <span className="code-num">{inviteCode || '--'}</span>
+                  <button
+                    className="copy-btn"
+                    onClick={() => handleCopy(inviteCode, 'code')}
+                    type="button"
+                    disabled={!inviteCode}
+                  >
+                    <img src="/images/copyicon.png" alt="copy code" />
+                  </button>
+                </div>
+              </div>
+
+              <div className="field-bx field-link-box">
+                <div className="left">Invite link</div>
+                <div className="right link-right">
+                  {inviteLink ? (
+                    <a className="code-num field-link" href={inviteLink} target="_blank" rel="noreferrer">
+                      {inviteLink}
+                    </a>
+                  ) : (
+                    <span className="code-num">--</span>
+                  )}
+                  <button
+                    className="copy-btn"
+                    onClick={() => handleCopy(inviteLink, 'link')}
+                    type="button"
+                    disabled={!inviteLink}
+                  >
+                    <img src="/images/copyicon.png" alt="copy link" />
+                  </button>
+                </div>
               </div>
             </div>
 
-            <div className="field-bx">
-              <div className="left">Invite link</div>
-              <div className="right">
-                <span className="code-num">https://pub.ang....DX9kpQ8</span> 
-                <div className="icon-img"><img src="/images/copyicon.png" alt="QR-code"  /></div>
-              </div>
-            </div>
+            {copiedField && (
+              <p className="copy-state">{copiedField === 'code' ? 'Invite code copied' : 'Invite link copied'}</p>
+            )}
 
+            <button className="close-btn" onClick={() => setIsOpen(false)} type="button">
+              <img src="/images/close-icon.png" alt="close" />
+            </button>
+          </div>
         </div>
 
-        <div className="close-btn" onClick={() => setIsOpen(false)}>
-          <img src="/images/close-icon.png" />
-        </div> 
-            
-        </div>
-        
-</div>
-
-<Footer></Footer>
-
-      </main>    
-    <style jsx>{`
+        <Footer></Footer>
+      </main>
+      <style jsx>{`
         .open-btn {
           padding: 3px 20px;
-    background: transparent;
-    color: #111;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    font-weight: normal;
-    background: transparent;
-    border: 0;
+          background: transparent;
+          color: #111;
+          border: none;
+          border-radius: 8px;
+          cursor: pointer;
+          font-weight: normal;
+          border: 0;
+        }
+
+        .open-btn:disabled {
+          opacity: 0.7;
+          cursor: not-allowed;
+        }
+
+        .invite-error {
+          color: #c62828;
+          font-size: 13px;
+          margin: 12px 0 0;
+        }
+
+        .popup-error {
+          margin-top: 0;
         }
 
         .overlay {
-          position: absolute;
-          inset: 0;
+          position: fixed;
+          top: 0;
+          bottom: 0;
+          left: 50%;
+          width: 100%;
+          max-width: 375px;
+          transform: translateX(-50%);
           background: rgba(0, 0, 0, 0.4);
           opacity: 0;
           pointer-events: none;
@@ -151,16 +324,17 @@ export default function DemoPage() {
         }
 
         .popup {
-          position: absolute;
-          left: 0;
-          right: 0;
+          position: fixed;
+          left: 50%;
+          width: 100%;
+          max-width: 375px;
           bottom: 0;
           background: #fff;
           border-top-left-radius: 20px;
           border-top-right-radius: 20px;
           padding: 20px 20px 30px 20px;
           min-height: 250px;
-          transform: translateY(100%);
+          transform: translate(-50%, 100%);
           transition: transform 0.3s ease;
           z-index: 1000;
           box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.1);
@@ -168,20 +342,13 @@ export default function DemoPage() {
         }
 
         .popup.show {
-          transform: translateY(0%);
+          transform: translate(-50%, 0%);
           visibility: visible;
         }
 
-        .handle {
-          width: 40px;
-          height: 5px;
-          background: #ccc;
-          border-radius: 10px;
-          margin: 0 auto 15px;
-        }
         .popup p {
-    margin-bottom: 10px;
-}
+          margin-bottom: 10px;
+        }
 
         .close-btn {
           margin-top: 20px;
@@ -193,116 +360,123 @@ export default function DemoPage() {
           cursor: pointer;
           position: absolute;
           top: -15px;
-          right: 0px;
+          right: 0;
         }
-        .popup h2 {
-            margin-bottom: 9px;
+
+        .page-wrapper.page-wrapper-ex section.section-2 .bx button.open-btn h3 {
+          font-weight: normal;
         }
-        
-button.know-btn {
-    background: #1d1c20;
-    margin-top: 20px;
-    padding: 12px 16px;
-    color: #fff;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    width: 100%;
-    border-radius: 30px;
-    font-size: 14px;
-    font-weight: 600
-}
 
-.page-wrappers.setting-wrapper button.open-btn {
-    margin: 0;
-    display: flex;
-    justify-content: space-between;
-    padding: 0;
-    width: 100%;
-    align-items: center;
-}
+        .popup.QR-popup {
+          padding-top: 40px;
+          text-align: center;
+        }
 
-.page-wrappers.setting-wrapper .popup h2 {
-    font-size: 18px;
-    text-align: center;
-    margin-bottom: 15px;
-    border-bottom: 1px solid #eee;
-    padding-bottom: 11px;
-}
+        .popup.QR-popup p {
+          text-align: left;
+          font-weight: 300;
+          color: #000;
+          font-size: 13px;
+        }
 
-.page-wrappers.setting-wrapper .popup {
-    background: #fff;
-    padding-bottom: 0;
-    min-height: 190px;
-}
+        .qr-frame {
+          width: 200px;
+          height: 200px;
+          margin: 0 auto 14px;
+          border-radius: 18px;
+          overflow: hidden;
+          background: #f5f5f5;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
 
-.page-wrappers.setting-wrapper .popup .handle {
-    display: none;
-}
+        .qr-frame img {
+          width: 100%;
+          height: 100%;
+          display: block;
+        }
 
-.page-wrappers.setting-wrapper .popup .socialLinkso a {
-    display: block;
-    padding: 10px;
-}
+        .qr-placeholder {
+          font-size: 14px;
+          color: #555;
+          padding: 20px;
+        }
 
-.page-wrappers.setting-wrapper .popup .socialLinkso {
-    display: flex;
-    flex-direction: column;
-    gap: 20px 12px;
-}
+        .popup.QR-popup .invite-field {
+          margin: 25px 0 10px;
+        }
 
-.page-wrappers.setting-wrapper .popup .socialLinkso a {
-    display: flex;
-    align-items: center;
-    font-size: 15px;
-    letter-spacing: .2px;
-}
+        .popup.QR-popup .invite-field .field-bx {
+          display: flex;
+          padding: 10px;
+          margin: 12px 0;
+          background: #eeeef1;
+          border-radius: 10px;
+          justify-content: space-between;
+          align-items: flex-start;
+          gap: 12px;
+        }
 
-.page-wrappers.setting-wrapper .popup .socialLinkso a img {
-    margin-right: 12px;
-}
+        .popup.QR-popup .invite-field .field-bx .left {
+          flex: 0 0 74px;
+          text-align: left;
+          font-weight: 600;
+        }
 
-.page-wrapper.page-wrapper-ex section.section-2 .bx button.open-btn h3 {
-    font-weight: normal;
-}
+        .popup.QR-popup .invite-field .field-bx .right {
+          display: flex;
+          gap: 10px;
+          align-items: center;
+          justify-content: flex-end;
+          flex: 1;
+          min-width: 0;
+        }
 
-.popup.QR-popup {
-    padding-top: 40px;
-    text-align: center;
-}
+        .field-link-box .link-right {
+          align-items: center;
+        }
 
-.popup.QR-popup p {
-    text-align: left;
-    font-weight: 300;
-    color: #000;
-    font-size: 13px;
-}
+        .code-num {
+          min-width: 0;
+          word-break: break-all;
+          text-align: right;
+          color: #111;
+          font-size: 13px;
+        }
 
-.popup.QR-popup .invite-field {
-    margin: 25px 0 10px;
-}
+        .field-link {
+          text-decoration: none;
+          display: block;
+          flex: 1;
+          overflow: hidden;
+          white-space: nowrap;
+          text-overflow: ellipsis;
+        }
 
-.popup.QR-popup .invite-field .field-bx {
-    display: flex;
-    align-items: center;
-    padding: 10px;
-    margin: 12px 0;
-    background: #eeeef1;
-    border-radius: 10px;
-    justify-content: space-between;
-    align-items: center;
-}
+        .copy-btn {
+          border: 0;
+          background: transparent;
+          padding: 0;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          cursor: pointer;
+          flex: 0 0 auto;
+        }
 
-.popup.QR-popup .invite-field .field-bx .right {
-    display: flex;
-    gap: 10px;
-    align-items: center;
-}
+        .copy-btn:disabled {
+          cursor: not-allowed;
+          opacity: 0.5;
+        }
 
-.popup.QR-popup .invite-field .field-bx .right .icon-img {
-    display: flex;
-}
-      `}</style>  
+        .copy-state {
+          color: #1b5e20;
+          font-size: 13px;
+          font-weight: 600;
+          margin-bottom: 0;
+        }
+      `}</style>
     </div>
   );
 }

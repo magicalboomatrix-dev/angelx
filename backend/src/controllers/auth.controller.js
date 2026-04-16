@@ -25,9 +25,57 @@ function generateOtp() {
   return Math.floor(1000 + Math.random() * 9000).toString();
 }
 
+async function findValidReferrer(referralCode, currentUserId) {
+  if (!referralCode) {
+    return null;
+  }
+
+  const normalizedReferralCode = String(referralCode).trim();
+  if (!normalizedReferralCode) {
+    return null;
+  }
+
+  const referrer = await prisma.user.findUnique({
+    where: { referralCode: normalizedReferralCode },
+    select: { id: true, referralCode: true },
+  });
+
+  if (!referrer || referrer.id === currentUserId) {
+    return null;
+  }
+
+  return referrer;
+}
+
+async function attachReferralIfEligible(user, referralCode) {
+  if (!user || user.referredBy) {
+    return user;
+  }
+
+  const referrer = await findValidReferrer(referralCode, user.id);
+  if (!referrer) {
+    return user;
+  }
+
+  const [depositCount, withdrawalCount, sellCount] = await prisma.$transaction([
+    prisma.deposit.count({ where: { userId: user.id } }),
+    prisma.withdrawal.count({ where: { userId: user.id } }),
+    prisma.sell.count({ where: { userId: user.id } }),
+  ]);
+
+  if (depositCount || withdrawalCount || sellCount || user.walletBalance > 0) {
+    return user;
+  }
+
+  return prisma.user.update({
+    where: { id: user.id },
+    data: { referredBy: referrer.referralCode },
+  });
+}
+
 exports.sendOtp = async (req, res) => {
   try {
-    const { phone } = req.body;
+    const { phone, referralCode } = req.body;
 
     if (!phone || !/^[6-9]\d{9}$/.test(phone)) {
       return res.status(400).json({ error: 'Please enter a valid 10-digit mobile number' });
@@ -44,9 +92,17 @@ exports.sendOtp = async (req, res) => {
       while (await prisma.user.findUnique({ where: { referralCode } })) {
         referralCode = generateReferralCode();
       }
+
+      const referrer = await findValidReferrer(req.body.referralCode);
       user = await prisma.user.create({
-        data: { phone, referralCode },
+        data: {
+          phone,
+          referralCode,
+          ...(referrer ? { referredBy: referrer.referralCode } : {}),
+        },
       });
+    } else if (referralCode) {
+      user = await attachReferralIfEligible(user, referralCode);
     }
 
     // Mark old OTPs as used
@@ -80,7 +136,7 @@ exports.sendOtp = async (req, res) => {
 
 exports.verifyOtp = async (req, res) => {
   try {
-    const { phone, otp } = req.body;
+    const { phone, otp, referralCode } = req.body;
 
     if (!phone || !otp) {
       return res.status(400).json({ error: 'Phone and OTP required' });
@@ -88,8 +144,9 @@ exports.verifyOtp = async (req, res) => {
 
     // Dev bypass: accept "1234" as valid OTP
     if (DEV_BYPASS && otp === '1234') {
-      const user = await prisma.user.findUnique({ where: { phone } });
+      let user = await prisma.user.findUnique({ where: { phone } });
       if (!user) return res.status(400).json({ error: 'User not found' });
+      user = await attachReferralIfEligible(user, referralCode);
       const token = jwt.sign({ id: user.id, phone: user.phone, role: 'user' }, JWT_SECRET, { expiresIn: '30m' });
       issueRefreshToken(res, { id: user.id, phone: user.phone, role: 'user' });
       return res.json({ token, redirectTo: '/home' });
@@ -116,8 +173,10 @@ exports.verifyOtp = async (req, res) => {
       data: { used: true },
     });
 
-    const user = await prisma.user.findUnique({ where: { phone } });
+    let user = await prisma.user.findUnique({ where: { phone } });
     if (!user) return res.status(400).json({ error: 'User not found' });
+
+    user = await attachReferralIfEligible(user, referralCode);
 
     const token = jwt.sign({ id: user.id, phone: user.phone, role: 'user' }, JWT_SECRET, { expiresIn: '30m' });
     issueRefreshToken(res, { id: user.id, phone: user.phone, role: 'user' });

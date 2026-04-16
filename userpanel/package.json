@@ -7,7 +7,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint" 
+    "lint": "next lint"
   },
   "dependencies": {
     "@radix-ui/react-dialog": "^1.1.15",
@@ -26,6 +26,7 @@
     "next-pwa": "^5.6.0",
     "nodemailer": "^7.0.6",
     "owl.carousel": "^2.3.4",
+    "qrcode": "^1.5.4",
     "react": "19.1.0",
     "react-dom": "19.1.0",
     "react-helmet": "^6.1.0",

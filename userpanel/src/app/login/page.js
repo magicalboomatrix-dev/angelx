@@ -7,9 +7,14 @@ import { useRouter } from 'next/navigation';
 export default function LoginPage() {
   const router = useRouter();
   const [loading, setLoading] = useState(true);
+  const [referralCode, setReferralCode] = useState('');
+  const loginHref = referralCode
+    ? `/login-account?ref=${encodeURIComponent(referralCode)}`
+    : '/login-account';
 
   useEffect(() => {
     if (typeof window === 'undefined') return;
+    setReferralCode(new URLSearchParams(window.location.search).get('ref')?.trim() || '');
     
     const token = localStorage.getItem('token');
 
@@ -59,7 +64,7 @@ export default function LoginPage() {
                 exchange, the more you earn!
               </p>
               <div className="login-bx">
-                <Link href="/login-account" className="login-btn">
+                <Link href={loginHref} className="login-btn">
                   Login
                 </Link>
                 <p className="text">

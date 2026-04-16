@@ -155,7 +155,7 @@ export default function exchangeListPage() {
                           </div> */}
                           {tx.paymentMethod && (
                             <div className="info-row">
-                              <span className="label">Method</span>
+                              <span className="label">Payment Method</span>
                               <span className="value">{tx.paymentMethod}</span>
                             </div>
                           )}

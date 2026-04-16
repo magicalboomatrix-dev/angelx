@@ -13,6 +13,15 @@ export default function LoginAccountPage() {
   const [otp, setOtp] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [referralCode, setReferralCode] = useState("");
+
+  useEffect(() => {
+    if (typeof window === 'undefined') {
+      return;
+    }
+
+    setReferralCode(new URLSearchParams(window.location.search).get("ref")?.trim() || "");
+  }, []);
 
   useEffect(() => {
     if (step !== "otp") return;
@@ -42,7 +51,7 @@ export default function LoginAccountPage() {
       const res = await fetch('/api/auth/send-otp', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ phone: mobile }),
+        body: JSON.stringify({ phone: mobile, referralCode }),
       });
 
       const data = await res.json();
@@ -75,7 +84,7 @@ export default function LoginAccountPage() {
       const res = await fetch('/api/auth/verify-otp', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ phone: mobile, otp }),
+        body: JSON.stringify({ phone: mobile, otp, referralCode }),
       });
 
       const data = await res.json();
@@ -127,6 +136,9 @@ export default function LoginAccountPage() {
                   <h3 className="title">
                     <b>Login Account</b>
                   </h3>
+                    {referralCode && (
+                      <p className="referral-note">Invite code applied: {referralCode}</p>
+                    )}
                     <p className="subtitle">Please enter your mobile number.</p>
 
                     <div className="mobileRow">
@@ -232,6 +244,12 @@ export default function LoginAccountPage() {
           margin: 8px 0 5px;
           font-size: 15px;
           color: #6b7280;
+        }
+        .referral-note {
+          margin: 0 0 8px;
+          color: #111;
+          font-size: 14px;
+          font-weight: 600;
         }
         .error-msg {
           background: #fee2e2;
