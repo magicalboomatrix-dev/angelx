@@ -474,9 +474,9 @@ export default function AddBank() {
               </div>
             </section>
 
-<section className="table-section tb-pricerefBx">
-  <div className="pricerefBx pricerefBx-grbg" style={{ borderRadius: '10px', overflow: 'hidden' }}>
-    <div style={{ background: '#f7f8fa', padding: '10px 14px', borderBottom: '1px solid #e8e8e8', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+{/*<section className="table-section tb-pricerefBx">
+  <div className="pricerefBx pricerefBx-grbg">
+    <div style={{ padding: '10px 14px', borderBottom: '1px solid #e8e8e8', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
       <span>Tiered Price Policy</span>
       <span style={{ fontSize: '11px', color: '#888' }}>1 USDT = ₹{rate}</span>
     </div>
@@ -508,7 +508,7 @@ export default function AddBank() {
       </tbody>
     </table>
   </div>
-</section>
+</section>*/}
 
             {/* FOOTER */}
             <div className="warning inner-space">
