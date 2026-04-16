@@ -402,6 +402,11 @@ export default function exchangeListPage() {
 .status-text.red { color: #e53935; }
 .status-text.green { color: #43a047; }
 .status-text.orange { color: #fb8c00; }
+section.section-1 {
+    overflow: auto;
+    height: 100vh;
+    padding-bottom: 100px;
+}
       `}</style>
     </div>
   );
