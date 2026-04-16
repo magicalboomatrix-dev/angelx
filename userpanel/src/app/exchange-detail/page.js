@@ -45,6 +45,25 @@ function ExchangeDetailPage() {
 
     async function checkAndFetch() {
       try {
+        const stored = sessionStorage.getItem("exchange_detail");
+        if (stored) {
+          try {
+            const parsed = JSON.parse(stored);
+            if (String(parsed?.id) === String(txId)) {
+              setTx(parsed);
+              setBank({
+                accountNo: parsed.accountNo || parsed.address || "",
+                ifsc: parsed.ifsc || "",
+                payeeName: parsed.payeeName || "",
+                bankName: parsed.bankName || "",
+              });
+              sessionStorage.removeItem("exchange_detail");
+              setLoading(false);
+              return;
+            }
+          } catch {}
+        }
+
         if (isTokenExpired(token)) {
           try {
             token = await refreshToken();

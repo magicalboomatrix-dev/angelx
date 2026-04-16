@@ -158,9 +158,29 @@ export default function AddBank() {
 
       const data = await res.json();
 
-      if (res.ok && data && data.id) {
-        // Redirect to exchange detail page for the new transaction
-        router.replace(`/exchange-detail?id=${data.id}`);
+      if (res.ok && (data?.id || data?.sell?.id)) {
+        const sellId = data?.id || data?.sell?.id;
+        const sellReferenceId = data?.sell?.referenceId || "";
+        const exchangeDetail = {
+          id: sellId,
+          type: "SELL",
+          amount: amt,
+          status: "PENDING",
+          paymentMethod: activeTab,
+          network: "BANK",
+          referenceId: sellReferenceId,
+          createdAt: new Date().toISOString(),
+          reviewedAt: null,
+          address: selectedBank?.accountNo || "",
+          accountNo: selectedBank?.accountNo || "",
+          ifsc: selectedBank?.ifsc || "",
+          payeeName: selectedBank?.payeeName || "",
+          bankName: selectedBank?.bankName || "",
+          adminRemark: null,
+        };
+
+        sessionStorage.setItem("exchange_detail", JSON.stringify(exchangeDetail));
+        router.replace(`/exchange-detail?id=${sellId}`);
       } else if (res.ok) {
         setSuccessMessage("Selling request sent for the confirmation!. please wait....");
         setAmount(""); // reset input

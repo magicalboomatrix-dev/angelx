@@ -193,7 +193,7 @@ export default function HomePage() {
                   </Link>
                 </div>
                 <div className="bx">
-                  <Link href="/history">
+                  <Link href="/exchange-list">
                     <div className="image">
                       <h3>
                         <img src="/images/ref-icon2.png" /> Exchange history

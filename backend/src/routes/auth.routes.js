@@ -7,6 +7,7 @@ router.post('/verify-otp', authController.verifyOtp);
 router.post('/refresh', authController.refreshAccessToken);
 router.post('/logout', authController.logout);
 router.get('/me', require('../middleware/auth').authMiddleware, authController.getMe);
+router.get('/referral-rewards', require('../middleware/auth').authMiddleware, authController.getReferralRewards);
 
 // Admin login
 router.post('/admin/login', authController.adminLogin);

@@ -252,6 +252,66 @@ exports.getMe = async (req, res) => {
   }
 };
 
+exports.getReferralRewards = async (req, res) => {
+  try {
+    const userId = req.user.id;
+    const formatDateKey = (date) => {
+      const parts = new Intl.DateTimeFormat('en-CA', {
+        timeZone: 'Asia/Calcutta',
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit',
+      }).formatToParts(date);
+
+      const year = parts.find((part) => part.type === 'year')?.value;
+      const month = parts.find((part) => part.type === 'month')?.value;
+      const day = parts.find((part) => part.type === 'day')?.value;
+
+      return `${year}-${month}-${day}`;
+    };
+
+    const today = new Date();
+    const startDate = new Date(today.getTime() - 29 * 24 * 60 * 60 * 1000);
+
+    const credits = await prisma.walletHistory.findMany({
+      where: {
+        userId,
+        type: 'CREDIT',
+        source: { in: ['REFERRAL', 'REFERRAL_BONUS', 'ADJUSTMENT'] },
+        createdAt: { gte: startDate },
+      },
+      orderBy: { createdAt: 'desc' },
+      select: {
+        amount: true,
+        createdAt: true,
+      },
+    });
+
+    const dailyTotals = new Map();
+    credits.forEach((entry) => {
+      const dateKey = formatDateKey(entry.createdAt);
+      dailyTotals.set(dateKey, (dailyTotals.get(dateKey) || 0) + Number(entry.amount || 0));
+    });
+
+    const rewards = [];
+    for (let index = 0; index < 30; index += 1) {
+      const date = new Date(today.getTime() - index * 24 * 60 * 60 * 1000);
+      const dateKey = formatDateKey(date);
+
+      rewards.push({
+        date: dateKey,
+        amount: Number((dailyTotals.get(dateKey) || 0).toFixed(2)),
+      });
+    }
+
+    res.set('Cache-Control', 'no-store');
+    return res.json({ rewards });
+  } catch (err) {
+    console.error('Get referral rewards error:', err);
+    return res.status(500).json({ error: 'Failed to fetch referral rewards' });
+  }
+};
+
 exports.refreshAccessToken = async (req, res) => {
   try {
     const refreshToken = readCookieValue(req, 'refreshToken');

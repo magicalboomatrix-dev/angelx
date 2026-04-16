@@ -4,7 +4,73 @@ import Link from "next/link";
 import Footer from "../components/footer";
 import { useRouter } from "next/navigation";
 
+function formatDisplayDate(dateValue) {
+  return new Date(dateValue).toLocaleDateString("en-GB", {
+    timeZone: "Asia/Calcutta",
+    day: "2-digit",
+    month: "short",
+    year: "numeric",
+  });
+}
+
+function buildEmptyRewards() {
+  return Array.from({ length: 30 }, (_, index) => {
+    const date = new Date();
+    date.setHours(0, 0, 0, 0);
+    date.setDate(date.getDate() - index);
+
+    return {
+      date: date.toISOString().slice(0, 10),
+      amount: 0,
+    };
+  });
+}
+
 export default function exchangeListPage() {
+  const router = useRouter();
+  const [rewards, setRewards] = useState(buildEmptyRewards);
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+
+    const token = localStorage.getItem("token");
+    if (!token) {
+      router.replace("/login");
+      return;
+    }
+
+    let cancelled = false;
+
+    async function loadRewards() {
+      try {
+        const response = await fetch(`/api/auth/referral-rewards?_=${Date.now()}`, {
+          cache: "no-store",
+          headers: { Authorization: `Bearer ${token}` },
+        });
+
+        if (response.status === 401) {
+          localStorage.removeItem("token");
+          router.replace("/login");
+          return;
+        }
+
+        const data = response.ok ? await response.json() : { rewards: [] };
+        if (!cancelled) {
+          setRewards(Array.isArray(data.rewards) ? data.rewards : []);
+        }
+      } catch {
+        if (!cancelled) {
+          setRewards(buildEmptyRewards());
+        }
+      }
+    }
+
+    loadRewards();
+
+    return () => {
+      cancelled = true;
+    };
+  }, [router]);
 
   return (
     <div className="app-container page-wrappers "  style={{backgroundColor:'#fff'}}>
@@ -26,20 +92,12 @@ export default function exchangeListPage() {
         <div className="reward">Reward <span className="coin"><img src="/images/payx.jpg" /></span></div>
     </div>
 
-    <div className="row"><div>13 Apr 2026</div><div className="amount">0</div></div>
-    <div className="row"><div>12 Apr 2026</div><div className="amount">0</div></div>
-    <div className="row"><div>11 Apr 2026</div><div className="amount">0</div></div>
-    <div className="row"><div>10 Apr 2026</div><div className="amount">0</div></div>
-    <div className="row"><div>09 Apr 2026</div><div className="amount">0</div></div>
-    <div className="row"><div>08 Apr 2026</div><div className="amount">0</div></div>
-    <div className="row"><div>07 Apr 2026</div><div className="amount">0</div></div>
-    <div className="row"><div>06 Apr 2026</div><div className="amount">0</div></div>
-    <div className="row"><div>05 Apr 2026</div><div className="amount">0</div></div>
-    <div className="row"><div>04 Apr 2026</div><div className="amount">0</div></div>
-    <div className="row"><div>03 Apr 2026</div><div className="amount">0</div></div>
-    <div className="row"><div>02 Apr 2026</div><div className="amount">0</div></div>
-    <div className="row"><div>01 Apr 2026</div><div className="amount">0</div></div>
-    <div className="row"><div>31 Mar 2026</div><div className="amount">0</div></div>
+    {rewards.map((reward) => (
+      <div className="row" key={reward.date}>
+        <div>{formatDisplayDate(reward.date)}</div>
+        <div className="amount">{reward.amount}</div>
+      </div>
+    ))}
             
                 
              
