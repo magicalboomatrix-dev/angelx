@@ -69,7 +69,7 @@ export default function DemoPage() {
       <main className="content-wrapper">
         <div className="brdc">
           <div className="back-btn-container">
-            <Link href="/withdraw" className="back-link" style={{position: 'relative',zIndex: '999'}}>
+            <Link href="/USDT-deposit" className="back-link" style={{position: 'relative',zIndex: '999'}}>
           <img src="/images/back-btn.png" alt="back" style={{marginLeft: '0'}} />
         </Link>
           </div>
