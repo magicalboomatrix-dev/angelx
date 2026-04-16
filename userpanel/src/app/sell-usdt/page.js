@@ -342,14 +342,14 @@ export default function AddBank() {
             </section>
 
 			<div className="content-row currency-row">
-				  <span className="field-label">Rupee</span>
+				  <span className="field-label">Payment Method</span>
 
 				  <div className="currency-tabs">
 					<button
 				        className={`tab ${activeTab === "CMD" ? "active" : ""}`}
 				        onClick={() => setActiveTab("CMD")}
 				      >
-				        <img src="/images/CMD-icon.png" alt="CMD" />
+				        <img src="/images/grab-purse-icon1.png" alt="CMD" />
 				        <span>CMD</span>
 				
 				        <img
@@ -364,7 +364,7 @@ export default function AddBank() {
 				        className={`tab ${activeTab === "IMPS" ? "active" : ""}`}
 				        onClick={() => setActiveTab("IMPS")}
 				      >
-				        <img src="/images/IMPS-icon.png" alt="IMPS" />
+				        <img src="/images/pngtree-bank.png" alt="IMPS" />
 				        <span>IMPS</span>
 				
 				        <img
@@ -475,16 +475,16 @@ export default function AddBank() {
             </section>
 
 <section className="table-section tb-pricerefBx">
-  <div className="pricerefBx pricerefBx-grbg" style={{ borderRadius: '10px', overflow: 'hidden', boxShadow: '0 1px 6px rgba(0,0,0,0.08)' }}>
+  <div className="pricerefBx pricerefBx-grbg" style={{ borderRadius: '10px', overflow: 'hidden' }}>
     <div style={{ background: '#f7f8fa', padding: '10px 14px', borderBottom: '1px solid #e8e8e8', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-      <span style={{ fontSize: '12px', fontWeight: '700', color: '#333' }}>Tiered Price Policy</span>
+      <span>Tiered Price Policy</span>
       <span style={{ fontSize: '11px', color: '#888' }}>1 USDT = ₹{rate}</span>
     </div>
     <table width="100%" style={{ borderCollapse: 'collapse' }}>
       <thead>
         <tr style={{ background: '#f0f0f0' }}>
-          <th style={{ padding: '8px 14px', fontSize: '11px', fontWeight: '600', color: '#555', textAlign: 'left', borderBottom: '1px solid #e8e8e8' }}>Amount (USDT)</th>
-          <th style={{ padding: '8px 14px', fontSize: '11px', fontWeight: '600', color: '#555', textAlign: 'right', borderBottom: '1px solid #e8e8e8' }}>Rate (₹)</th>
+          <td>Amount (USDT)</td>
+          <td>Rate (₹)</td>
         </tr>
       </thead>
       <tbody>
@@ -494,13 +494,13 @@ export default function AddBank() {
           { min: (300000 / rate).toFixed(2), max: (500000 / rate).toFixed(2), bonus: '1' },
           { min: (500000 / rate).toFixed(2), max: null, bonus: '1.5' },
         ].map((tier, i) => (
-          <tr key={i} style={{ borderBottom: '1px solid #f0f0f0', background: i % 2 === 0 ? '#fff' : '#fafafa' }}>
-            <td style={{ padding: '10px 14px', fontSize: '12px', color: '#444' }}>
+          <tr key={i}>
+            <td >
               {tier.max
                 ? <>&gt;={tier.min} <span style={{ color: '#aaa' }}>&amp;</span> &lt;{tier.max}</>
                 : <>&gt;={tier.min}</>}
             </td>
-            <td style={{ padding: '10px 14px', fontSize: '12px', color: '#222', fontWeight: '600', textAlign: 'right' }}>
+            <td >
               {rate}+ <span style={{ color: '#e53935', fontWeight: '700' }}>{tier.bonus}</span>
             </td>
           </tr>
