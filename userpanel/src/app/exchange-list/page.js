@@ -100,8 +100,8 @@ export default function exchangeListPage() {
   }, [router]);
 
   return (
-    <div className="app-container page-wrappers"  style={{backgroundColor:'#fff'}}>
-      <main className="content-wrapper">
+    <div className="app-containerss page-wrappers"  style={{backgroundColor:'#fff'}}>
+      <main className="content-wrapperss">
         <div className="brdc">
           <div className="back-btn-container">
             <Link href="/sell-usdt" className="back-link" style={{position: 'relative',zIndex: '999'}}>
@@ -238,7 +238,7 @@ export default function exchangeListPage() {
           flex-direction: column;
           align-items: center;
           gap: 16px;
-          padding: 10px 20px;
+          padding: 10px 20px 5px;
           -webkit-font-smoothing: antialiased;
         }
 
