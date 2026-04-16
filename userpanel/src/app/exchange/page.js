@@ -105,7 +105,9 @@ export default function Exchange() {
             <div className="left">
               <div className="header-left">
             <div className="left-div pic">
-            <img src="/images/user-pic.png"/>
+              {isLoggedIn && user ? (
+                <img src="/images/user-pic.png" alt="User" />
+              ) : <img src="/images/fav.jpeg" alt="User" />}
             </div>
 
             <div className="right-div">
@@ -116,7 +118,7 @@ export default function Exchange() {
               </div>
             ) : (
               <div className="exchange-user-copy">
-                <h1><Link href="/login" style={{color: 'inherit', textDecoration: 'none'}}>Login</Link></h1>
+                <h1>Welcome to AngelX</h1>
               </div>
             )}
             </div>

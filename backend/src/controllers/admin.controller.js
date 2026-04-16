@@ -731,8 +731,10 @@ exports.rejectWithdrawal = async (req, res) => {
 exports.adjustUserWallet = async (req, res) => {
   try {
     const id = parseInt(req.params.id);
+
     const normalizedType = String(req.body.type || '').toUpperCase();
     const remarks = String(req.body.remarks || '').trim();
+    const source = req.body.source ? String(req.body.source).toUpperCase() : 'ADJUSTMENT';
 
     if (!['CREDIT', 'DEBIT'].includes(normalizedType)) {
       return res.status(400).json({ error: 'Type must be CREDIT or DEBIT' });
@@ -747,7 +749,7 @@ exports.adjustUserWallet = async (req, res) => {
         userId: id,
         amount: req.body.amount,
         type: normalizedType,
-        source: 'ADJUSTMENT',
+        source,
         remarks,
         admin: req.admin,
         enforceNonNegative: normalizedType === 'DEBIT',

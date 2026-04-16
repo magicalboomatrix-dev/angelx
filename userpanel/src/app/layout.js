@@ -1,6 +1,8 @@
 import "./globals.css";
 import Script from "next/script";
+
 import LayoutClient from "./LayoutClient";
+import { ToastProvider } from "./components/ToastProvider";
 
 export const metadata = {
   title: "AngelX → USDT selling Platform",
@@ -170,7 +172,9 @@ export default function Layout({ children }) {
       />
       </head>
       <body>
-        <LayoutClient>{children}</LayoutClient>
+        <ToastProvider>
+          <LayoutClient>{children}</LayoutClient>
+        </ToastProvider>
         <Script
           src="https://code.jquery.com/jquery-3.6.0.js"
           strategy="beforeInteractive"

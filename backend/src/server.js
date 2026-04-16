@@ -31,7 +31,7 @@ function getTrustProxySetting(value) {
   return value;
 }
 
-app.set('trust proxy', getTrustProxySetting(process.env.TRUST_PROXY || 'true'));
+app.set('trust proxy', getTrustProxySetting(process.env.TRUST_PROXY || 'false'));
 
 // Security middleware
 app.use(helmet({ contentSecurityPolicy: false }));

@@ -84,7 +84,7 @@ export default function exchangeListPage() {
   }, [router]);
 
   return (
-    <div className="app-container page-wrappers "  style={{backgroundColor:'#fff'}}>
+    <div className="app-container page-wrappers"  style={{backgroundColor:'#fff'}}>
       <main className="content-wrapper">
         <div className="brdc">
           <div className="back-btn-container">
@@ -141,13 +141,13 @@ export default function exchangeListPage() {
                       <div className="divider"></div>
                       <div className="info-list">
                         <div className="info-bx-grs">
-                          <div className="info-row">
+                          {/* <div className="info-row">
                             <span className="label">Network</span>
                             <div className="value">
                               <img alt="network" width="20" height="20" src={net.icon} />
                               <span>{net.label}</span>
                             </div>
-                          </div>
+                          </div> */}
                           {tx.paymentMethod && (
                             <div className="info-row">
                               <span className="label">Method</span>

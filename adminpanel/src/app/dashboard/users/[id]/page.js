@@ -116,6 +116,7 @@ export default function UserDetailPage() {
     type: 'CREDIT',
     amount: '',
     remarks: '',
+    source: 'ADJUSTMENT',
   });
 
   const fetchUser = useCallback(async () => {
@@ -199,6 +200,7 @@ export default function UserDetailPage() {
           type: walletForm.type,
           amount: numericAmount,
           remarks,
+          source: walletForm.source,
         }),
       });
 
@@ -209,7 +211,7 @@ export default function UserDetailPage() {
       }
 
       toast.success(data.message || 'Wallet updated successfully');
-      setWalletForm({ type: 'CREDIT', amount: '', remarks: '' });
+      setWalletForm({ type: 'CREDIT', amount: '', remarks: '', source: 'ADJUSTMENT' });
       setActiveTab('walletHistory');
       await fetchUser();
     } catch (err) {
@@ -323,7 +325,7 @@ export default function UserDetailPage() {
                 <p className="mt-1 text-sm text-gray-500">Apply a credit or debit with a clear admin remark.</p>
               </div>
 
-              <div className="grid gap-4 sm:grid-cols-2">
+              <div className="grid gap-4 sm:grid-cols-3">
                 <label className="space-y-2 text-sm font-medium text-gray-700">
                   <span>Action</span>
                   <select
@@ -333,6 +335,17 @@ export default function UserDetailPage() {
                   >
                     <option value="CREDIT">Credit</option>
                     <option value="DEBIT">Debit</option>
+                  </select>
+                </label>
+                <label className="space-y-2 text-sm font-medium text-gray-700">
+                  <span>Source</span>
+                  <select
+                    value={walletForm.source}
+                    onChange={(event) => setWalletForm((current) => ({ ...current, source: event.target.value }))}
+                    className="w-full rounded-lg border border-gray-300 px-3 py-2.5 text-sm outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100"
+                  >
+                    <option value="ADJUSTMENT">Manual Adjustment</option>
+                    <option value="REFERRAL_BONUS">Referral Bonus</option>
                   </select>
                 </label>
                 <label className="space-y-2 text-sm font-medium text-gray-700">
