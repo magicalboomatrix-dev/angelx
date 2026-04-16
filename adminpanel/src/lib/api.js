@@ -6,6 +6,13 @@ const API_BASE = process.env.NEXT_PUBLIC_API_URL;
 
 export async function apiFetch(path, options = {}, retryOnUnauthorized = true) {
   const token = await ensureAdminSession();
+  if (!token) {
+    clearAdminSession();
+    if (typeof window !== 'undefined') {
+      window.location.href = '/login';
+    }
+    throw new Error('Unauthorized');
+  }
 
   const headers = {
     'Content-Type': 'application/json',
@@ -21,7 +28,7 @@ export async function apiFetch(path, options = {}, retryOnUnauthorized = true) {
     headers,
   });
 
-  if (res.status === 401 && retryOnUnauthorized) {
+  if ((res.status === 401 || res.status === 403) && retryOnUnauthorized) {
     try {
       await refreshAdminToken();
       return apiFetch(path, options, false);
@@ -34,7 +41,7 @@ export async function apiFetch(path, options = {}, retryOnUnauthorized = true) {
     }
   }
 
-  if (res.status === 401) {
+  if (res.status === 401 || res.status === 403) {
     if (typeof window !== 'undefined') {
       clearAdminSession();
       window.location.href = '/login';

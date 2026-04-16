@@ -21,6 +21,11 @@ export function willTokenExpireSoon(token, thresholdMs = DEFAULT_REFRESH_THRESHO
   return isTokenExpired(token, thresholdMs);
 }
 
+export function isAdminToken(token) {
+  const payload = parseJwt(token);
+  return payload?.role === 'admin';
+}
+
 export function clearAdminSession() {
   if (typeof window !== 'undefined') {
     localStorage.removeItem('admin_token');
@@ -40,7 +45,8 @@ export async function refreshAdminToken() {
     }
 
     const data = await res.json();
-    if (!data.token) {
+    if (!data.token || !isAdminToken(data.token)) {
+      clearAdminSession();
       throw new Error('No token in refresh response');
     }
 
@@ -58,6 +64,11 @@ export async function ensureAdminSession({ forceRefresh = false } = {}) {
   }
 
   const currentToken = localStorage.getItem('admin_token');
+  if (currentToken && !isAdminToken(currentToken)) {
+    clearAdminSession();
+    return null;
+  }
+
   if (!forceRefresh && currentToken && !willTokenExpireSoon(currentToken)) {
     return currentToken;
   }
@@ -65,7 +76,7 @@ export async function ensureAdminSession({ forceRefresh = false } = {}) {
   try {
     return await refreshAdminToken();
   } catch {
-    if (currentToken && !isTokenExpired(currentToken)) {
+    if (currentToken && !isTokenExpired(currentToken) && isAdminToken(currentToken)) {
       return currentToken;
     }
 

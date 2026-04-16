@@ -80,7 +80,7 @@ function WithdrawDetailContent() {
 
   const isPending = detail?.status === 'PENDING';
   const isSuccess = detail?.status === 'SUCCESS' || detail?.status === 'APPROVED';
-  const isRejected = detail?.status === 'REJECTED';
+  const isRejected = detail?.status === 'REJECTED' || detail?.status === 'FAILED';
 
   return (
     <div className="app-container page-wrappers" style={{backgroundColor:'#fff'}}>
@@ -104,7 +104,7 @@ function WithdrawDetailContent() {
               <div className="containerinner">
                 <div className="amount">
                   <p>You will receive</p>
-                  <h1><span className="count">{detail.amount} </span> {detail.currency || 'USDT'}</h1>
+                  <h1><span className="count">{detail.amount} </span> USDT</h1>
                 </div>
 
                 <div className="status-line">
@@ -147,7 +147,7 @@ function WithdrawDetailContent() {
                   </div>
                   <div className="row">
                     <div className="label">Amount</div>
-                    <div className="value">{detail.amount} {detail.currency || 'USDT'}</div>
+                    <div className="value">{detail.amount} USDT</div>
                   </div>
                   <div className="row">
                     <div className="label">Refund Fee</div>

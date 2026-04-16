@@ -75,13 +75,30 @@ function ExchangeDetailPage() {
         const found = (histData.history || []).find(
           (t) => String(t.id) === String(txId)
         );
-        setTx(found || null);
+        const normalizedTx = found
+          ? {
+              ...found,
+              address: found.accountNo || found.address,
+              reviewNote: found.adminRemark || found.reviewNote || found.description,
+            }
+          : null;
+        setTx(normalizedTx);
 
         if (found && found.address) {
           const matchedBank = (banksData.banks || []).find(
             (b) => b.accountNo === found.address
           );
-          setBank(matchedBank || null);
+          setBank(
+            found
+              ? {
+                  ...matchedBank,
+                  accountNo: found.accountNo || matchedBank?.accountNo,
+                  ifsc: found.ifsc || matchedBank?.ifsc,
+                  payeeName: found.payeeName || matchedBank?.payeeName,
+                  bankName: found.bankName || matchedBank?.bankName,
+                }
+              : matchedBank || null
+          );
         }
 
         if (limitsData.rate) setRate(limitsData.rate);
@@ -111,7 +128,7 @@ function ExchangeDetailPage() {
   const step2Icon = isPending ? "…" : "✓";
   const step3Icon = isPending ? "…" : isSuccess ? "✓" : "✕";
 
-  const finalLabel = isPending ? "Pending" : isSuccess ? "Completed" : (tx?.status ? tx.status.charAt(0).toUpperCase() + tx.status.slice(1).toLowerCase() : "");
+  const finalLabel = isPending ? "Pending" : isSuccess ? "Completed" : isFailed ? "Failed" : (tx?.status ? tx.status.charAt(0).toUpperCase() + tx.status.slice(1).toLowerCase() : "");
 
   const inrAmount = tx ? Math.round(tx.amount * rate) : 0;
 
@@ -186,6 +203,10 @@ function ExchangeDetailPage() {
         <div className="row">
             <div className="label">Payee Name</div>
             <div className="value">{bank?.payeeName || "—"}</div>
+        </div>
+        <div className="row">
+            <div className="label">Bank Name</div>
+            <div className="value">{bank?.bankName || "—"}</div>
         </div>
     </div>
     )}

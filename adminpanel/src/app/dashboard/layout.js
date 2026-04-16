@@ -94,9 +94,17 @@ export default function DashboardLayout({ children }) {
     };
   }, [authReady]);
 
-  const handleLogout = () => {
+  const handleLogout = async () => {
     clearAdminSession();
-    router.push("/login");
+
+    try {
+      await fetch("/api/auth/logout", {
+        method: "POST",
+        credentials: "include",
+      });
+    } catch {}
+
+    router.replace("/login");
   };
 
   const activeItem = navItems.find(

@@ -277,6 +277,21 @@ exports.refreshAccessToken = async (req, res) => {
   }
 };
 
+exports.logout = async (req, res) => {
+  try {
+    res.clearCookie('refreshToken', {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'lax',
+    });
+
+    return res.json({ success: true });
+  } catch (err) {
+    console.error('Logout error:', err);
+    return res.status(500).json({ error: 'Logout failed' });
+  }
+};
+
 exports.adminLogin = async (req, res) => {
   try {
     const { email, password } = req.body;
