@@ -2885,6 +2885,7 @@ section.section-3 .screenshot-wrapper img.screenshot-img {
 
 section.hm-section-1 .image img {
     width: 100%;
+	height: auto;
 }
 
 section.hm-section-2  .rw .bx {
