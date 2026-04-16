@@ -354,6 +354,8 @@ export default function exchangeListPage() {
         .history-list {
         height: 100vh;
     background: #f8f9fa;
+    overflow: auto;
+    padding-bottom: 100px;
         }
 
         .history-list {}
