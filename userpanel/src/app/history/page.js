@@ -347,6 +347,10 @@ export default function DemoPage() {
         .history-list {
         height: 100vh;
     background: #f8f9fa;
+    height: auto;
+    background: #f8f9fa;
+    overflow: auto;
+    padding-bottom: 100px;
         }
 
         .history-list {}
@@ -388,6 +392,12 @@ export default function DemoPage() {
 }
 .divider {
     background-color: #e1e1e1;
+    }
+
+    section.section-1 {
+    overflow: auto;
+    height: 100vh;
+    padding-bottom: 100px;
     }
       `}</style>
     </div>
