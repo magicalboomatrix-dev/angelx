@@ -79,7 +79,7 @@ export default function USDTDeposit() {
       {/* Removed fixed History nav, keep only original icon/links */}
       <div>
         <main>
-          <div className="page-wrappers no-empty-page" style={{height: '92vh',paddingBottom: '100px'}}>
+          <div className="page-wrappers no-empty-page" style={{height: 'auto',paddingBottom: '100px'}}>
             <header className="header">
               <div className="brdc">
                 <div className="back-btn">
