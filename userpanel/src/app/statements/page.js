@@ -269,6 +269,19 @@ export default function StatementsPage() {
         .history-list .red {
           color: #ef4444;
         }
+        section.section-1 {
+    overflow: auto;
+    padding-bottom: 100px;
+    overflow: auto;
+    height: 100vh;
+    /* padding-bottom: 100px; */
+}
+.history-list {
+    height: auto;
+    background: #f8f9fa;
+    overflow: auto;
+    padding-bottom: 100px;
+}
       `}</style>
     </div>
   );
