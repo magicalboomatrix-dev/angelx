@@ -1330,6 +1330,7 @@ footer.footer.footer-op1 button.button-style {
 .page-wrappers.deposit-amount-page.add-bank-page .section-2 input[type="number"] {
     font-weight: normal;
     padding-left: 0;
+	font-family: "Mona Sans", sans-serif;
 }
 
 .page-wrappers.deposit-amount-page.add-bank-page .warning a.login-btn {
@@ -2613,6 +2614,7 @@ footer.footer.footer-op1 {border: 0;}
 .page-wrappers.deposit-amount-page.add-bank-page .section-2 input[type="number"] {
     font-weight: normal;
     padding-left: 0;
+	font-family: "Mona Sans", sans-serif;
 }
 
 .page-wrappers.deposit-amount-page.add-bank-page .section-2 .title.clrgren {
