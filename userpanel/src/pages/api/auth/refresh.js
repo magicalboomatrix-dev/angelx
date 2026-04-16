@@ -2,6 +2,7 @@
 import jwt from 'jsonwebtoken';
 
 const JWT_SECRET = process.env.JWT_SECRET;
+const REFRESH_SECRET = process.env.REFRESH_SECRET || JWT_SECRET;
 
 export default async function handler(req, res) {
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
@@ -12,7 +13,7 @@ export default async function handler(req, res) {
 
   try {
     // Verify refresh token
-    const payload = jwt.verify(refreshToken, JWT_SECRET);
+    const payload = jwt.verify(refreshToken, REFRESH_SECRET);
     if (!payload || !payload.id) throw new Error('Invalid refresh token');
 
     // Issue new access token (short expiry)

@@ -1,6 +1,7 @@
 'use client';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { ensureAdminSession } from '@/lib/auth';
 
 const API_BASE = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000';
 
@@ -12,8 +13,20 @@ export default function LoginPage() {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    const token = localStorage.getItem('admin_token');
-    if (token) router.replace('/dashboard');
+    let cancelled = false;
+
+    async function bootstrapSession() {
+      const token = await ensureAdminSession();
+      if (!cancelled && token) {
+        router.replace('/dashboard');
+      }
+    }
+
+    bootstrapSession();
+
+    return () => {
+      cancelled = true;
+    };
   }, [router]);
 
   const handleSubmit = async (e) => {

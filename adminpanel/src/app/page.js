@@ -1,17 +1,28 @@
 'use client';
 import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import { ensureAdminSession } from '@/lib/auth';
 
 export default function HomePage() {
   const router = useRouter();
 
   useEffect(() => {
-    const token = localStorage.getItem('admin_token');
-    if (token) {
-      router.replace('/dashboard');
-    } else {
-      router.replace('/login');
+    let cancelled = false;
+
+    async function routeBySession() {
+      const token = await ensureAdminSession();
+      if (cancelled) {
+        return;
+      }
+
+      router.replace(token ? '/dashboard' : '/login');
     }
+
+    routeBySession();
+
+    return () => {
+      cancelled = true;
+    };
   }, [router]);
 
   return (

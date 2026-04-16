@@ -17,6 +17,9 @@ import {
   ShieldCheck,
   BellDot,
 } from "lucide-react";
+import { clearAdminSession, ensureAdminSession } from "@/lib/auth";
+
+const SESSION_SYNC_INTERVAL_MS = 5 * 60 * 1000;
 
 const navItems = [
   { href: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
@@ -34,24 +37,65 @@ export default function DashboardLayout({ children }) {
   const pathname = usePathname();
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [admin, setAdmin] = useState(null);
+  const [authReady, setAuthReady] = useState(false);
 
   useEffect(() => {
-    const token = localStorage.getItem("admin_token");
-    if (!token) {
-      router.replace("/login");
-      return;
+    let cancelled = false;
+
+    async function bootstrapAdminSession() {
+      const token = await ensureAdminSession();
+      if (cancelled) {
+        return;
+      }
+
+      if (!token) {
+        router.replace("/login");
+        return;
+      }
+
+      try {
+        const user = JSON.parse(localStorage.getItem("admin_user") || "{}");
+        setAdmin(user);
+      } catch {
+        setAdmin({});
+      }
+
+      setAuthReady(true);
     }
-    try {
-      const user = JSON.parse(localStorage.getItem("admin_user") || "{}");
-      setAdmin(user);
-    } catch {
-      setAdmin({});
-    }
+
+    bootstrapAdminSession();
+
+    return () => {
+      cancelled = true;
+    };
   }, [router]);
 
+  useEffect(() => {
+    if (!authReady || typeof window === "undefined") {
+      return;
+    }
+
+    const syncSession = () => {
+      ensureAdminSession().catch(() => {});
+    };
+
+    const intervalId = window.setInterval(syncSession, SESSION_SYNC_INTERVAL_MS);
+    const handleVisibilityChange = () => {
+      if (document.visibilityState === "visible") {
+        syncSession();
+      }
+    };
+
+    document.addEventListener("visibilitychange", handleVisibilityChange);
+
+    return () => {
+      window.clearInterval(intervalId);
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
+    };
+  }, [authReady]);
+
   const handleLogout = () => {
-    localStorage.removeItem("admin_token");
-    localStorage.removeItem("admin_user");
+    clearAdminSession();
     router.push("/login");
   };
 
@@ -60,6 +104,14 @@ export default function DashboardLayout({ children }) {
       pathname === item.href ||
       (item.href !== "/dashboard" && pathname?.startsWith(item.href)),
   );
+
+  if (!authReady) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gray-900"></div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen flex overflow-hidden">
@@ -150,8 +202,8 @@ export default function DashboardLayout({ children }) {
         </div>
       </aside>
 
-      <div className="flex-1 flex flex-col min-w-0 lg:ml-[296px]">
-        <header className="fixed top-0 left-0 right-0 z-40 w-full lg:left-[296px] lg:w-[calc(100%-296px)]">
+      <div className="flex-1 flex flex-col min-w-0 lg:ml-74">
+        <header className="fixed top-0 left-0 right-0 z-40 w-full lg:left-74 lg:w-[calc(100%-296px)]">
           <div className="border border-white/60 bg-white/70 px-4 py-3 shadow-[0_18px_40px_rgba(15,23,42,0.08)] backdrop-blur-xl lg:px-6 lg:py-4">
             <div className="flex flex-wrap items-center gap-4">
               <button className="border border-slate-200 bg-white p-2.5 text-slate-700 shadow-sm lg:hidden" onClick={() => setSidebarOpen(true)}>
@@ -176,7 +228,7 @@ export default function DashboardLayout({ children }) {
           </div>
         </header>
 
-        <main className="flex-1 overflow-auto px-4 pb-6 pt-[88px] lg:px-8 lg:pb-8 lg:pt-[104px]">
+        <main className="flex-1 overflow-auto px-4 pb-6 pt-22 lg:px-8 lg:pb-8 lg:pt-26">
           {children}
         </main>
       </div>

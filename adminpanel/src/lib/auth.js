@@ -1,5 +1,4 @@
-// utils/auth.js
-// Utility functions for JWT handling, refresh token, and expiry checks
+'use client';
 
 const DEFAULT_REFRESH_THRESHOLD_MS = 5 * 60 * 1000;
 
@@ -22,43 +21,49 @@ export function willTokenExpireSoon(token, thresholdMs = DEFAULT_REFRESH_THRESHO
   return isTokenExpired(token, thresholdMs);
 }
 
-export function clearStoredToken(storageKey = 'token') {
+export function clearAdminSession() {
   if (typeof window !== 'undefined') {
-    localStorage.removeItem(storageKey);
+    localStorage.removeItem('admin_token');
+    localStorage.removeItem('admin_user');
   }
 }
 
-export async function refreshToken(storageKey = 'token') {
+export async function refreshAdminToken() {
   try {
     const res = await fetch('/api/auth/refresh', {
       method: 'POST',
-      credentials: 'include', // send httpOnly cookie
+      credentials: 'include',
     });
-    if (!res.ok) throw new Error('Failed to refresh token');
-    const data = await res.json();
-    if (data.token) {
-      localStorage.setItem(storageKey, data.token);
-      return data.token;
+
+    if (!res.ok) {
+      throw new Error('Failed to refresh admin token');
     }
-    throw new Error('No token in response');
+
+    const data = await res.json();
+    if (!data.token) {
+      throw new Error('No token in refresh response');
+    }
+
+    localStorage.setItem('admin_token', data.token);
+    return data.token;
   } catch {
-    clearStoredToken(storageKey);
-    throw new Error('Failed to refresh token');
+    clearAdminSession();
+    throw new Error('Failed to refresh admin token');
   }
 }
 
-export async function ensureValidToken({ storageKey = 'token', forceRefresh = false } = {}) {
+export async function ensureAdminSession({ forceRefresh = false } = {}) {
   if (typeof window === 'undefined') {
     return null;
   }
 
-  const currentToken = localStorage.getItem(storageKey);
+  const currentToken = localStorage.getItem('admin_token');
   if (!forceRefresh && currentToken && !willTokenExpireSoon(currentToken)) {
     return currentToken;
   }
 
   try {
-    return await refreshToken(storageKey);
+    return await refreshAdminToken();
   } catch {
     if (currentToken && !isTokenExpired(currentToken)) {
       return currentToken;
