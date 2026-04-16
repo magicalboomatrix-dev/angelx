@@ -18,21 +18,6 @@ const adminRoutes = require('./routes/admin.routes');
 const app = express();
 const PORT = process.env.PORT || 4000;
 
-function getTrustProxySetting(value) {
-  if (value == null || value === '') return 1;
-
-  const normalized = String(value).trim().toLowerCase();
-  if (normalized === 'true') return true;
-  if (normalized === 'false') return false;
-
-  const asNumber = Number(normalized);
-  if (!Number.isNaN(asNumber)) return asNumber;
-
-  return value;
-}
-
-app.set('trust proxy', getTrustProxySetting(process.env.TRUST_PROXY || 'false'));
-
 // Security middleware
 app.use(helmet({ contentSecurityPolicy: false }));
 app.use(cors({
