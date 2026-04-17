@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useRouter } from "next/navigation";
 
 export default function WithdrawUSDT() {
@@ -34,6 +34,46 @@ export default function WithdrawUSDT() {
     else setSelectedWallet(null);
   };
 
+  // Define fetch functions with useCallback before useEffect
+  const fetchWallets = useCallback(async () => {
+    const token = localStorage.getItem("token");
+    try {
+      const res = await fetch("/api/crypto-wallets", {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      const data = await res.json();
+      if (data.wallets && data.wallets.length > 0) {
+        // Add fallback currency if missing
+        const walletsWithCurrency = data.wallets.map(w => ({
+          ...w,
+          currency: w.currency || "USDT" // fallback to USDT if not present
+        }));
+        setWallets(walletsWithCurrency);
+      } else {
+        setWallets([]);
+      }
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setLoading(false);
+    }
+  }, []);
+
+  const fetchBalance = useCallback(async () => {
+    const token = localStorage.getItem("token");
+    try {
+      const res = await fetch("/api/wallet", {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      if (res.ok) {
+        const data = await res.json();
+        setBalance(data.usdtAvailable || 0);
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  }, []);
+
   // When wallets are fetched, ensure selectedWallet is valid and has currency
   useEffect(() => {
     if (!wallets.length) {
@@ -57,53 +97,14 @@ export default function WithdrawUSDT() {
       current = wallets[0];
     }
     setSelectedWallet(current);
-  }, [wallets]);
+  }, [wallets, selectedWallet]);
 
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (!token) router.replace("/login");
     fetchWallets();
     fetchBalance();
-  }, [router]);
-
-  const fetchWallets = async () => {
-    const token = localStorage.getItem("token");
-    try {
-      const res = await fetch("/api/crypto-wallets", {
-        headers: { Authorization: `Bearer ${token}` },
-      });
-      const data = await res.json();
-      if (data.wallets && data.wallets.length > 0) {
-        // Add fallback currency if missing
-        const walletsWithCurrency = data.wallets.map(w => ({
-          ...w,
-          currency: w.currency || "USDT" // fallback to USDT if not present
-        }));
-        setWallets(walletsWithCurrency);
-      } else {
-        setWallets([]);
-      }
-    } catch (err) {
-      console.error(err);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const fetchBalance = async () => {
-    const token = localStorage.getItem("token");
-    try {
-      const res = await fetch("/api/wallet", {
-        headers: { Authorization: `Bearer ${token}` },
-      });
-      if (res.ok) {
-        const data = await res.json();
-        setBalance(data.usdtAvailable || 0);
-      }
-    } catch (err) {
-      console.error(err);
-    }
-  };
+  }, [router, fetchWallets, fetchBalance]);
 
   const handleSubmit = async () => {
     if (!amount || !selectedWallet) return;

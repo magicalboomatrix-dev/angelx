@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import dynamic from "next/dynamic";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -29,6 +29,20 @@ export default function Exchange() {
     document.body.style.overflow = isOpen ? "hidden" : "auto";
   }, [isOpen]);
 
+  // Fetch rate function - defined outside useEffect so it can be reused
+  const fetchRate = useCallback(async () => {
+    try {
+      const res = await fetch("/api/limits");
+      if (res.ok) {
+        const data = await res.json();
+        if (data.rate) setRate(data.rate);
+        if (data.supportLink) setSupportLink(data.supportLink);
+      }
+    } catch (err) {
+      console.error('Failed to fetch rate:', err);
+    }
+  }, []);
+
   // Timer - refetch rate data instead of full page reload
   useEffect(() => {
     let intervalId;
@@ -44,7 +58,7 @@ export default function Exchange() {
     }, 1000);
     
     return () => clearInterval(intervalId);
-  }, [timeLeft]);
+  }, [timeLeft, fetchRate]);
 
   const settings = React.useMemo(() => ({
     dots: false,
@@ -82,21 +96,8 @@ export default function Exchange() {
         .catch(() => {});
     }
 
-    const fetchRate = async () => {
-      try {
-        const res = await fetch("/api/limits");
-        if (res.ok) {
-          const data = await res.json();
-          if (data.rate) setRate(data.rate);
-          if (data.supportLink) setSupportLink(data.supportLink);
-        }
-      } catch (err) {
-        console.error('Failed to fetch rate:', err);
-      }
-    };
-
     fetchRate();
-  }, []);
+  }, [fetchRate]);
 
   
 
@@ -137,9 +138,6 @@ export default function Exchange() {
               )}
             </div>
           </header>
-
-          
-
           <div className="page-wrapper page-wrapper-ex">
 
             

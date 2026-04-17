@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useRouter } from "next/navigation";
 
 export default function AddBank() {
@@ -26,23 +26,8 @@ export default function AddBank() {
 
   const selectedBank = banks.find((b) => b.id === selectedBankId);
 
-  // ✅ Auth guard
-  useEffect(() => {
-    if (typeof window === 'undefined') return;
-    
-    const token = localStorage.getItem("token");
-    if (!token) router.replace("/login");
-  }, [router]);
-
-  useEffect(() => {
-    fetchBanks();
-    fetchBalance();
-    fetchLimits();
-  }, []);
-
-  const rate = activeTab === "CMD" ? rates.cmdRate : rates.impsRate;
-
-  const fetchLimits = async () => {
+  // Define fetch functions with useCallback before useEffect
+  const fetchLimits = useCallback(async () => {
     try {
       const res = await fetch('/api/limits');
       if (res.ok) {
@@ -59,9 +44,9 @@ export default function AddBank() {
     } catch (err) {
       console.error('Failed to fetch limits:', err);
     }
-  };
+  }, []);
 
-  const fetchBanks = async () => {
+  const fetchBanks = useCallback(async () => {
     const token = localStorage.getItem("token");
     if (!token) {
       router.replace("/login");
@@ -95,9 +80,9 @@ export default function AddBank() {
     } finally {
       setLoading(false);
     }
-  };
+  }, [router, selectedBankId]);
 
-  const fetchBalance = async () => {
+  const fetchBalance = useCallback(async () => {
     const token = localStorage.getItem("token");
     if (!token) {
       router.replace("/login");
@@ -121,7 +106,21 @@ export default function AddBank() {
     } catch (err) {
       console.error("Failed to fetch balance:", err);
     }
-  };
+  }, [router]);
+
+  // ✅ Auth guard
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    
+    const token = localStorage.getItem("token");
+    if (!token) router.replace("/login");
+  }, [router]);
+
+  useEffect(() => {
+    fetchBanks();
+    fetchBalance();
+    fetchLimits();
+  }, [fetchBanks, fetchBalance, fetchLimits]);
 
   const handleConfirm = async () => {
     const amt = parseFloat(amount);
