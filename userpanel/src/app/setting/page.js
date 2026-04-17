@@ -30,8 +30,16 @@ export default function SettingPage() {
 
       const router = useRouter();
 
-    const handleLogout = () => {
+    const handleLogout = async () => {
     localStorage.removeItem("token");
+
+    try {
+      await fetch("/api/auth/logout", {
+        method: "POST",
+        credentials: "include",
+      });
+    } catch {}
+
     router.push("/login");
   };
 

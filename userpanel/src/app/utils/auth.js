@@ -53,14 +53,20 @@ export async function ensureValidToken({ storageKey = 'token', forceRefresh = fa
   }
 
   const currentToken = localStorage.getItem(storageKey);
-  if (!forceRefresh && currentToken && !willTokenExpireSoon(currentToken)) {
+
+  // No token in localStorage - user has logged out or not logged in
+  if (!currentToken) {
+    return null;
+  }
+
+  if (!forceRefresh && !willTokenExpireSoon(currentToken)) {
     return currentToken;
   }
 
   try {
     return await refreshToken(storageKey);
   } catch {
-    if (currentToken && !isTokenExpired(currentToken)) {
+    if (!isTokenExpired(currentToken)) {
       return currentToken;
     }
 
