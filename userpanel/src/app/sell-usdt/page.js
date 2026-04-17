@@ -459,7 +459,7 @@ export default function AddBank() {
                 {/* EXTRA INFO */}
                 <div className="dflex avail">
                   <p className="title clrgren" style={{ fontSize: "14px"}}>
-                    Available: {balance}{" "}:00
+                    Available: {balance}{""}.00
                     <img src="images/uic.png" className="icon" style={{ maxWidth: 13 }} />
                   </p>
                   <p style={{ fontSize: "14px" }}>1USDT=₹{rate}</p>
