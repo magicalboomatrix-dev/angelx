@@ -30,13 +30,13 @@ export default function DepositAmount() {
 
   // State for dynamic data from API
   const [qrCodes, setQrCodes] = useState({
-    TRC20: "images/trc20.png",
-    BEP20: "images/bep20.jpg",
+    TRC20: null,
+    BEP20: null,
   });
 
   const [depositAddresses, setDepositAddresses] = useState({
-    TRC20: "TG25WAjnbAjdqCZrBtrAinU8EsQ6smu47L",
-    BEP20: "0xd7d565e4f58d832c07f0bf1d04290dff4104247a",
+    TRC20: null,
+    BEP20: null,
   });
 
   // Fetch deposit info from database
@@ -46,14 +46,14 @@ export default function DepositAmount() {
         const res = await fetch('/api/deposit-info');
         if (res.ok) {
           const data = await res.json();
-          if (data.TRC20 && data.BEP20) {
+          if (data.TRC20 || data.BEP20) {
             setDepositAddresses({
-              TRC20: data.TRC20.address,
-              BEP20: data.BEP20.address,
+              TRC20: data.TRC20?.address || null,
+              BEP20: data.BEP20?.address || null,
             });
             setQrCodes({
-              TRC20: data.TRC20.qrUrl,
-              BEP20: data.BEP20.qrUrl,
+              TRC20: data.TRC20?.qrUrl || null,
+              BEP20: data.BEP20?.qrUrl || null,
             });
           }
         }

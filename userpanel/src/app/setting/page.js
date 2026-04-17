@@ -6,7 +6,7 @@ import Image from "next/image";
 
 export default function SettingPage() {
       const [isOpen, setIsOpen] = useState(false);
-      const [supportLink, setSupportLink] = useState('https://wa.me/+917056254884');
+      const [supportLink, setSupportLink] = useState(null);
 
       // Prevent body scroll when popup is open
   useEffect(() => {
@@ -19,7 +19,7 @@ export default function SettingPage() {
         const res = await fetch('/api/limits');
         if (res.ok) {
           const data = await res.json();
-          setSupportLink(data.supportLink || 'https://wa.me/+917056254884');
+          if (data.supportLink) setSupportLink(data.supportLink);
         }
       } catch (err) {
         console.error('Failed to fetch settings:', err);
@@ -73,16 +73,24 @@ export default function SettingPage() {
             <section className="section-2 reffer">
               <div className="rw">
                 <div className="bx">
-                  <Link href={supportLink}>
-                    <div className="image">
+                  {supportLink ? (
+                    <Link href={supportLink}>
+                      <div className="image">
+                        <h3>
+                          <img src="/images/s-icon1.jpg" /> Customer service
+                        </h3>
+                      </div>
+                      <div className="arw">
+                        <img src="/images/right-arw.png" />
+                      </div>
+                    </Link>
+                  ) : (
+                    <div className="image" style={{ opacity: 0.5 }}>
                       <h3>
                         <img src="/images/s-icon1.jpg" /> Customer service
                       </h3>
                     </div>
-                    <div className="arw">
-                      <img src="/images/right-arw.png" />
-                    </div>
-                  </Link>
+                  )}
                 </div>
                 <div className="bx">
                   <button className="open-btn" onClick={() => setIsOpen(true)}>
@@ -162,14 +170,16 @@ export default function SettingPage() {
         </div>
             
         <div className="socialLinkso">
-            <Link href="https://wa.me/+917056254884" style={{
-  display: 'flex',
-  alignItems: 'center',
-  fontSize: '15px',
-  letterSpacing: '.2px'
-}}>
-              <img src="/images/whatsapp-ic.png" alt="support" width="32" height="32"  style={{marginRight: '12px'}} /> Customer Support
-            </Link>
+            {supportLink && (
+              <Link href={supportLink} style={{
+    display: 'flex',
+    alignItems: 'center',
+    fontSize: '15px',
+    letterSpacing: '.2px'
+  }}>
+                <img src="/images/whatsapp-ic.png" alt="support" width="32" height="32"  style={{marginRight: '12px'}} /> Customer Support
+              </Link>
+            )}
         </div>
 
             

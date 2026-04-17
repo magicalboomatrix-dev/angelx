@@ -53,6 +53,12 @@ export default function LayoutClient({ children }) {
       return;
     }
 
+    // Only run session sync if user has a token (logged in)
+    const hasToken = !!localStorage.getItem("token");
+    if (!hasToken) {
+      return;
+    }
+
     const syncSession = () => {
       ensureValidToken().catch(() => {});
     };

@@ -45,9 +45,11 @@ exports.createDeposit = async (req, res) => {
 
 exports.getDepositHistory = async (req, res) => {
   try {
+    const limit = parseInt(req.query.limit) || 50;
     const deposits = await prisma.deposit.findMany({
       where: { userId: req.user.id },
       orderBy: { createdAt: 'desc' },
+      take: limit,
       select: {
         id: true,
         amount: true,

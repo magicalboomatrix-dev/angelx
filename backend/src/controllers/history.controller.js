@@ -3,20 +3,24 @@ const prisma = require('../config/database');
 exports.getAllHistory = async (req, res) => {
   try {
     const userId = req.user.id;
+    const limit = parseInt(req.query.limit) || 50;
 
-    // Fetch all transaction types
+    // Fetch transaction types with limit
     const [deposits, sells, withdrawals] = await Promise.all([
       prisma.deposit.findMany({
         where: { userId },
         orderBy: { createdAt: 'desc' },
+        take: limit,
       }),
       prisma.sell.findMany({
         where: { userId },
         orderBy: { createdAt: 'desc' },
+        take: limit,
       }),
       prisma.withdrawal.findMany({
         where: { userId },
         orderBy: { createdAt: 'desc' },
+        take: limit,
       }),
     ]);
 
@@ -89,19 +93,23 @@ exports.getAllHistory = async (req, res) => {
 exports.getStatements = async (req, res) => {
   try {
     const userId = req.user.id;
+    const limit = parseInt(req.query.limit) || 100;
 
     const [deposits, sells, withdrawals] = await Promise.all([
       prisma.deposit.findMany({
         where: { userId },
         orderBy: { createdAt: 'desc' },
+        take: limit,
       }),
       prisma.sell.findMany({
         where: { userId },
         orderBy: { createdAt: 'desc' },
+        take: limit,
       }),
       prisma.withdrawal.findMany({
         where: { userId },
         orderBy: { createdAt: 'desc' },
+        take: limit,
       }),
     ]);
 

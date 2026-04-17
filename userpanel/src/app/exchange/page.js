@@ -18,9 +18,9 @@ export default function Exchange() {
   const router = useRouter();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [timeLeft, setTimeLeft] = useState(52);
-  const [rate, setRate] = useState(102);
+  const [rate, setRate] = useState(null);
   const [user, setUser] = useState(null);
-  const [supportLink, setSupportLink] = useState('https://wa.me/+917056254884');
+  const [supportLink, setSupportLink] = useState(null);
 
   const [isOpen, setIsOpen] = useState(false);
 
@@ -29,20 +29,24 @@ export default function Exchange() {
     document.body.style.overflow = isOpen ? "hidden" : "auto";
   }, [isOpen]);
 
-  // Timer
+  // Timer - refetch rate data instead of full page reload
   useEffect(() => {
+    let intervalId;
+    
     if (timeLeft <= 0) {
-      window.location.reload();
+      fetchRate();
+      setTimeLeft(52);
       return;
     }
-    const timer = setInterval(
-      () => setTimeLeft((prev) => prev - 1),
-      1000
-    );
-    return () => clearInterval(timer);
+    
+    intervalId = setInterval(() => {
+      setTimeLeft((prev) => prev - 1);
+    }, 1000);
+    
+    return () => clearInterval(intervalId);
   }, [timeLeft]);
 
-  const settings = {
+  const settings = React.useMemo(() => ({
     dots: false,
     arrows: false,
     autoplay: true,
@@ -50,9 +54,9 @@ export default function Exchange() {
     speed: 800,
     slidesToShow: 1,
     slidesToScroll: 1,
-  };
+  }), []);
 
-  const settings1 = {
+  const settings1 = React.useMemo(() => ({
     vertical: true,
     arrows: false,
     autoplay: true,
@@ -60,7 +64,7 @@ export default function Exchange() {
     speed: 800,
     infinite: true,
     pauseOnHover: false,
-  };
+  }), []);
 
   // Auth + Rate
   useEffect(() => {
@@ -83,13 +87,11 @@ export default function Exchange() {
         const res = await fetch("/api/limits");
         if (res.ok) {
           const data = await res.json();
-          setRate(data.rate || 102);
-          setSupportLink(data.supportLink || 'https://wa.me/+917056254884');
-        } else {
-          setRate(102);
+          if (data.rate) setRate(data.rate);
+          if (data.supportLink) setSupportLink(data.supportLink);
         }
-      } catch {
-        setRate(102);
+      } catch (err) {
+        console.error('Failed to fetch rate:', err);
       }
     };
 
@@ -128,9 +130,11 @@ export default function Exchange() {
               </div>
             </div>
             <div className="right">
-              <a href={supportLink}>
-                <img src="/images/customer-care-icon.png" />
-              </a>
+              {supportLink && (
+                <a href={supportLink}>
+                  <img src="/images/customer-care-icon.png" />
+                </a>
+              )}
             </div>
           </header>
 
@@ -168,7 +172,7 @@ export default function Exchange() {
 
               <div className="price-calc">
               <div className="reload-btn">
-                  <button onClick={() => window.location.reload()}><img src="/images/reaload-btn.png" alt="" /></button>
+                  <button onClick={fetchRate}><img src="/images/reaload-btn.png" alt="" /></button>
               </div>
               
                 <div className="priceref">
@@ -181,11 +185,11 @@ export default function Exchange() {
                 <div className="reff-price">
                   <div className="base-price">
                     <h4>
-                      {rate} <span>Base</span>
+                      {rate ?? '-'} <span>Base</span>
                     </h4>
                   </div>
 
-                  <p className="onepriceex">1 USDT = ₹{rate}</p>
+                  <p className="onepriceex">1 USDT = ₹{rate ?? '-'}</p>
 
                   <div className="pricerefBx">
                     <table width="100%">
@@ -199,25 +203,25 @@ export default function Exchange() {
                         <tr>
                           <td>&gt;=980.4 and &lt;1960.79</td>
                           <td>
-                            {rate} + <span className="red">0.25</span>
+                            {rate ? `${rate} + ` : '-'}<span className="red">0.25</span>
                           </td>
                         </tr>
                         <tr>
                           <td>&gt;=1960.79 and &lt;2941.18</td>
                           <td>
-                            {rate} + <span className="red">0.5</span>
+                            {rate ? `${rate} + ` : '-'}<span className="red">0.5</span>
                           </td>
                         </tr>
                         <tr>
                           <td>&gt;=2941.18 and &lt;4901.97</td>
                           <td>
-                            {rate} + <span className="red">1</span>
+                            {rate ? `${rate} + ` : '-'}<span className="red">1</span>
                           </td>
                         </tr>
                         <tr>
                           <td>&gt;=4901.97</td>
                           <td>
-                            {rate} + <span className="red">1.5</span>
+                            {rate ? `${rate} + ` : '-'}<span className="red">1.5</span>
                           </td>
                         </tr>
                         <tr>

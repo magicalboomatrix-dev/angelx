@@ -21,8 +21,8 @@ export default function AddBank() {
   const [successMessage, setSuccessMessage] = useState("");
   const [amount, setAmount] = useState("");
   const [balance, setBalance] = useState(0);
-  const [rates, setRates] = useState({ defaultRate: 102, cmdRate: 102, impsRate: 102 });
-  const [withdrawMin, setWithdrawMin] = useState(50);
+  const [rates, setRates] = useState({ defaultRate: null, cmdRate: null, impsRate: null });
+  const [withdrawMin, setWithdrawMin] = useState(null);
 
   const selectedBank = banks.find((b) => b.id === selectedBankId);
 
@@ -47,12 +47,14 @@ export default function AddBank() {
       const res = await fetch('/api/limits');
       if (res.ok) {
         const data = await res.json();
-        setWithdrawMin(data.withdrawMin || 50);
-        setRates({
-          defaultRate: data.rate || 102,
-          cmdRate: data.cmdRate || data.rate || 102,
-          impsRate: data.impsRate || data.rate || 102,
-        });
+        if (data.withdrawMin) setWithdrawMin(data.withdrawMin);
+        if (data.rate) {
+          setRates({
+            defaultRate: data.rate,
+            cmdRate: data.cmdRate || data.rate,
+            impsRate: data.impsRate || data.rate,
+          });
+        }
       }
     } catch (err) {
       console.error('Failed to fetch limits:', err);

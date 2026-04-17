@@ -10,7 +10,7 @@ export default function HomePage() {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const [today, setToday] = useState("");
-  const [supportLink, setSupportLink] = useState('https://wa.me/+917056254884');
+  const [supportLink, setSupportLink] = useState(null);
 
   // Helper to mask mobile number
   function maskMobile(mobile) {
@@ -35,7 +35,7 @@ export default function HomePage() {
         const res = await fetch('/api/limits');
         if (res.ok) {
           const data = await res.json();
-          setSupportLink(data.supportLink || 'https://wa.me/+917056254884');
+          if (data.supportLink) setSupportLink(data.supportLink);
         }
       } catch (err) {
         console.error('Failed to fetch settings:', err);
@@ -97,14 +97,16 @@ export default function HomePage() {
             <div className="left"></div>
             <div className="right">
               { /* <img src="images/customer-care.png" /> */ }
-              <a href={supportLink}>
-                <Image
-                src="/images/customer-care-icon1.png"
-                alt="customer"
-                width={24}
-                height={24}
-                priority
-                /></a>
+              {supportLink && (
+                <a href={supportLink}>
+                  <Image
+                  src="/images/customer-care-icon1.png"
+                  alt="customer"
+                  width={24}
+                  height={24}
+                  priority
+                  /></a>
+              )}
 
               <Link className='setting' href="/setting">
                 <Image                

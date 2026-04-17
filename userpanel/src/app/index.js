@@ -11,8 +11,8 @@ import Footer from './components/footer';
 export default function Index() {
   const [loading, setLoading] = useState(true);
   const [mounted, setMounted] = useState(false);
-  const [rate, setRate] = useState(0);
-  const [supportLink, setSupportLink] = useState('https://wa.me/+917056254884');
+  const [rate, setRate] = useState(null);
+  const [supportLink, setSupportLink] = useState(null);
 
   useEffect(() => {
     setMounted(true);
@@ -28,7 +28,7 @@ export default function Index() {
         const res = await fetch('/api/limits');
         if (res.ok) {
           const data = await res.json();
-          setSupportLink(data.supportLink || 'https://wa.me/+917056254884');
+          if (data.supportLink) setSupportLink(data.supportLink);
         }
       } catch (err) {
         console.error('Failed to fetch settings:', err);
@@ -57,14 +57,13 @@ export default function Index() {
   }, [fetchRate]);
 
   const [timeLeft, setTimeLeft] = useState(52);
-  
+
   useEffect(() => {
     if (!mounted) return;
-    
+
     if (timeLeft <= 0) {
-      // window.location.reload(); // Commented out for performance optimization. Consider re-fetching data instead of full page reload.
       fetchRate();
-      setTimeLeft(52); // Reset timer to continue countdown without reloading page
+      setTimeLeft(52);
       return;
     }
 
@@ -72,8 +71,9 @@ export default function Index() {
       setTimeLeft((prev) => prev - 1);
     }, 1000);
 
-    return () => clearInterval(timer); 
-  }, [timeLeft, mounted, fetchRate]);
+    return () => clearInterval(timer);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [timeLeft, mounted]);
 
   const [showAppLink, setShowAppLink] = useState(true);
  
@@ -133,7 +133,8 @@ export default function Index() {
                 </div>
             </div>
             <div className="right">
-            <a href={supportLink}>
+            {supportLink && (
+              <a href={supportLink}>
                 <Image
                 src="/images/customer-care-icon.png"
                 alt="customer"
@@ -141,6 +142,7 @@ export default function Index() {
                 height={24}
                 priority
                 /></a>
+            )}
             </div>
         </header>
 
@@ -250,10 +252,10 @@ export default function Index() {
       <div className="reff-price">
         <div className="base-price">
           <h4>
-            {rate} <span>Base</span>
+            {rate ?? '-'} <span>Base</span>
           </h4>
         </div>
-        <p className="onepriceex">1 USDT = ₹{rate}</p>
+        <p className="onepriceex">1 USDT = ₹{rate ?? '-'}</p>
       </div>
     </div>
   </div>

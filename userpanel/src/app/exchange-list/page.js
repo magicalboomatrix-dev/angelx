@@ -39,7 +39,7 @@ export default function exchangeListPage() {
   const router = useRouter();
   const { showToast } = useToast();
   const [history, setHistory] = useState([]);
-  const [rates, setRates] = useState({ defaultRate: 102, cmdRate: 102, impsRate: 102 });
+  const [rates, setRates] = useState({ defaultRate: null, cmdRate: null, impsRate: null });
   const [loading, setLoading] = useState(true);
 
   const getTradeRate = (paymentMethod) => {
@@ -82,11 +82,13 @@ export default function exchangeListPage() {
 
         const sellTxns = (histData.history || []).filter((tx) => tx.type === "SELL");
         setHistory(sellTxns);
-        setRates({
-          defaultRate: limitsData.rate || 102,
-          cmdRate: limitsData.cmdRate || limitsData.rate || 102,
-          impsRate: limitsData.impsRate || limitsData.rate || 102,
-        });
+        if (limitsData.rate) {
+          setRates({
+            defaultRate: limitsData.rate,
+            cmdRate: limitsData.cmdRate || limitsData.rate,
+            impsRate: limitsData.impsRate || limitsData.rate,
+          });
+        }
       } catch (err) {
         showToast("Session expired. Please login again.", "error");
         localStorage.removeItem("token");
