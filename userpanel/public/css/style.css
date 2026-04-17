@@ -3426,6 +3426,12 @@ section.section-3 .price-calc .reload-btn {
     right: 13px;
 }
 
+section.section-3 .price-calc .reload-btn button {
+    border: 0;
+    background: transparent;
+    outline: none;
+}
+
 section.section-3 .price-calc .reload-btn img {
     max-width: 20px;
 }
