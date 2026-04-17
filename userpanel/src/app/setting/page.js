@@ -49,7 +49,7 @@ export default function SettingPage() {
     <img src="/images/back-btn.png" alt="back"/>
   </Link>
 </div>
-              <b>Setting</b></div>
+              <h3 className="header-title">Setting</h3></div>
               </div>
 
           </header>
