@@ -14,17 +14,6 @@ export default function LoginAccountPage() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [referralCode, setReferralCode] = useState("");
-  
-  const [afterpreloading, setafterpreLoading] = useState(false);
-  
-  const handleNext = async () => {
-    setafterLoading(true);
-
-    // simulate API call
-    setTimeout(() => {
-      setafterLoading(false);
-    }, 2000);
-  };
 
   useEffect(() => {
     if (typeof window === 'undefined') {
@@ -80,8 +69,6 @@ export default function LoginAccountPage() {
     } finally {
       setLoading(false);
     }
-	
-	setafterpreLoading(true);
   };
 
   const handleVerifyOtp = async () => {
@@ -227,17 +214,6 @@ export default function LoginAccountPage() {
                   </>
                 )}
               </div>
-			  
-			  {afterpreloading && (
-				<div style={{ marginTop: "30px", textAlign: "center" }}>
-				  <Image
-					src="/images/login-img.png"
-					alt="Loading..."
-					width={50}
-					height={50}
-				  />
-				</div>
-			  )}
             </section>
           </div>
         </div>
