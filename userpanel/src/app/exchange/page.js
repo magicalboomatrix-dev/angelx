@@ -234,7 +234,7 @@ export default function Exchange() {
                 <div className="login-bx">
                   <Link
                     href={isLoggedIn ? "/sell-usdt" : "/login"}
-                    className="login-btn"
+                    className="login-btn" style={{width:"100%"}}
                   >
                     {isLoggedIn ? "Sell USDT" : "Login for sell USDT"}
                   </Link>
