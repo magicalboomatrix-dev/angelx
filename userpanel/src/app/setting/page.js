@@ -138,7 +138,17 @@ export default function SettingPage() {
       <div className={`popup ${isOpen ? "show" : ""}`}>
         <div className="handle" />
         <h2>Business coorperation</h2>
-        
+        <div className="socialLinkso">
+            <Link href="https://t.me/angelxsuper" style={{
+  display: 'flex',
+  alignItems: 'center',
+  fontSize: '15px',
+  letterSpacing: '.2px'
+}}>
+              <img src="/images/telegram-ic.png" alt="support" width="32" height="32"  style={{marginRight: '12px'}} /> Telegram
+            </Link>
+        </div>
+            
         <div className="socialLinkso">
             <Link href={supportLink} style={{
   display: 'flex',
@@ -149,6 +159,8 @@ export default function SettingPage() {
               <img src="/images/whatsapp-ic.png" alt="support" width="32" height="32"  style={{marginRight: '12px'}} /> Customer Support
             </Link>
         </div>
+
+            
 
         <div className="close-btn" onClick={() => setIsOpen(false)}>
           <img src="/images/close-icon.png" />
