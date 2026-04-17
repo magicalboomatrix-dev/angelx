@@ -10,6 +10,7 @@ export default function HomePage() {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const [today, setToday] = useState("");
+  const [customerServiceLink, setCustomerServiceLink] = useState('https://vm.nebestbox.com/1jgm3swhyv8jv09qrr9q3o7lgp');
 
   // Helper to mask mobile number
   function maskMobile(mobile) {
@@ -24,8 +25,23 @@ export default function HomePage() {
 
   useEffect(() => {
     const now = new Date();
-    const options = { day: "numeric", month: "long" }; 
+    const options = { day: "numeric", month: "long" };
     setToday(now.toLocaleDateString("en-GB", options));
+  }, []);
+
+  useEffect(() => {
+    async function fetchSettings() {
+      try {
+        const res = await fetch('/api/limits');
+        if (res.ok) {
+          const data = await res.json();
+          setCustomerServiceLink(data.customerServiceLink || 'https://vm.nebestbox.com/1jgm3swhyv8jv09qrr9q3o7lgp');
+        }
+      } catch (err) {
+        console.error('Failed to fetch settings:', err);
+      }
+    }
+    fetchSettings();
   }, []);
 
   useEffect(() => {
@@ -81,8 +97,8 @@ export default function HomePage() {
             <div className="left"></div>
             <div className="right">
               { /* <img src="images/customer-care.png" /> */ }
-              <a href="https://vm.nebestbox.com/1jgm3swhyv8jv09qrr9q3o7lgp">
-                <Image                
+              <a href={customerServiceLink}>
+                <Image
                 src="/images/customer-care-icon1.png"
                 alt="customer"
                 width={24}

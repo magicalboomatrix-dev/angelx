@@ -12,13 +12,29 @@ export default function Index() {
   const [loading, setLoading] = useState(true);
   const [mounted, setMounted] = useState(false);
   const [rate, setRate] = useState(0);
-  
+  const [customerServiceLink, setCustomerServiceLink] = useState('https://vm.nebestbox.com/1jgm3swhyv8jv09qrr9q3o7lgp');
+
   useEffect(() => {
     setMounted(true);
     const timer = setTimeout(() => {
       setLoading(false);
     }, 500);
     return () => clearTimeout(timer);
+  }, []);
+
+  useEffect(() => {
+    async function fetchSettings() {
+      try {
+        const res = await fetch('/api/limits');
+        if (res.ok) {
+          const data = await res.json();
+          setCustomerServiceLink(data.customerServiceLink || 'https://vm.nebestbox.com/1jgm3swhyv8jv09qrr9q3o7lgp');
+        }
+      } catch (err) {
+        console.error('Failed to fetch settings:', err);
+      }
+    }
+    fetchSettings();
   }, []);
 
   const fetchRate = useCallback(async () => {
@@ -117,8 +133,8 @@ export default function Index() {
                 </div>
             </div>
             <div className="right">
-            <a href="https://vm.nebestbox.com/1jgm3swhyv8jv09qrr9q3o7lgp">
-                <Image                
+            <a href={customerServiceLink}>
+                <Image
                 src="/images/customer-care-icon.png"
                 alt="customer"
                 width={24}

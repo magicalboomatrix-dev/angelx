@@ -4,14 +4,38 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 
-export default function SettingPage() { 
+export default function SettingPage() {
       const [isOpen, setIsOpen] = useState(false);
+      const [settings, setSettings] = useState({
+        telegramLink: 'https://t.me/angelxsuper',
+        whatsappLink: 'https://wa.me/+917056254884',
+        customerServiceLink: 'https://vm.nebestbox.com/1jgm3swhyv8jv09qrr9q3o7lgp'
+      });
 
       // Prevent body scroll when popup is open
   useEffect(() => {
     document.body.style.overflow = isOpen ? "hidden" : "auto";
   }, [isOpen]);
-      
+
+  useEffect(() => {
+    async function fetchSettings() {
+      try {
+        const res = await fetch('/api/limits');
+        if (res.ok) {
+          const data = await res.json();
+          setSettings({
+            telegramLink: data.telegramLink || 'https://t.me/angelxsuper',
+            whatsappLink: data.whatsappLink || 'https://wa.me/+917056254884',
+            customerServiceLink: data.customerServiceLink || 'https://vm.nebestbox.com/1jgm3swhyv8jv09qrr9q3o7lgp'
+          });
+        }
+      } catch (err) {
+        console.error('Failed to fetch settings:', err);
+      }
+    }
+    fetchSettings();
+  }, []);
+
       const router = useRouter();
 
     const handleLogout = () => {
@@ -46,7 +70,7 @@ export default function SettingPage() {
             <section className="section-2 reffer">
               <div className="rw">
                 <div className="bx">
-                  <Link href="https://vm.nebestbox.com/1jgm3swhyv8jv09qrr9q3o7lgp">
+                  <Link href={settings.customerServiceLink}>
                     <div className="image">
                       <h3>
                         <img src="/images/s-icon1.jpg" /> Customer service
@@ -124,7 +148,7 @@ export default function SettingPage() {
         <h2>Business coorperation</h2>
         
         <div className="socialLinkso">
-            <Link href="https://t.me/angelxsuper" style={{
+            <Link href={settings.telegramLink} style={{
   display: 'flex',
   alignItems: 'center',
   fontSize: '15px',
@@ -132,8 +156,8 @@ export default function SettingPage() {
 }}>
               <img src="/images/telegram-ic.png" alt="telegram"  width="32" height="32" style={{marginRight: '12px'}} /> Telegram
             </Link>
-            
-            <Link href="https://wa.me/+917056254884" style={{
+
+            <Link href={settings.whatsappLink} style={{
   display: 'flex',
   alignItems: 'center',
   fontSize: '15px',

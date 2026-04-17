@@ -93,6 +93,9 @@ export default function SettingsPage() {
     { key: 'bep20_wallet_address', label: 'BEP20 Wallet Address', type: 'text' },
     { key: 'trc20_qr_url', label: 'TRC20 QR Code Image', type: 'text' },
     { key: 'bep20_qr_url', label: 'BEP20 QR Code Image', type: 'text' },
+    { key: 'telegram_link', label: 'Telegram Link', type: 'text' },
+    { key: 'whatsapp_link', label: 'WhatsApp Link', type: 'text' },
+    { key: 'customer_service_link', label: 'Customer Service Link', type: 'text' },
   ];
 
   const sections = [
@@ -120,6 +123,12 @@ export default function SettingsPage() {
       icon: QrCode,
       fields: ['trc20_qr_url', 'bep20_qr_url'],
     },
+    {
+      title: 'Customer Care Links',
+      description: 'Manage social media and customer support links displayed in the user panel.',
+      icon: CreditCard,
+      fields: ['telegram_link', 'whatsapp_link', 'customer_service_link'],
+    },
   ];
 
   const fieldMeta = {
@@ -136,6 +145,9 @@ export default function SettingsPage() {
     bep20_wallet_address: 'Receiving address shown to users selecting the BEP20 network.',
     trc20_qr_url: 'Upload the TRC20 QR image directly. It will be stored in the database.',
     bep20_qr_url: 'Upload the BEP20 QR image directly. It will be stored in the database.',
+    telegram_link: 'Telegram support link displayed in user panel settings.',
+    whatsapp_link: 'WhatsApp support link displayed in user panel settings.',
+    customer_service_link: 'Customer service link displayed in user panel settings.',
   };
 
   const fieldMap = Object.fromEntries(fields.map((field) => [field.key, field]));

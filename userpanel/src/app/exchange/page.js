@@ -20,6 +20,7 @@ export default function Exchange() {
   const [timeLeft, setTimeLeft] = useState(52);
   const [rate, setRate] = useState(102);
   const [user, setUser] = useState(null);
+  const [customerServiceLink, setCustomerServiceLink] = useState('https://vm.nebestbox.com/1jgm3swhyv8jv09qrr9q3o7lgp');
 
   const [isOpen, setIsOpen] = useState(false);
 
@@ -64,7 +65,7 @@ export default function Exchange() {
   // Auth + Rate
   useEffect(() => {
     if (typeof window === 'undefined') return;
-    
+
     const token = localStorage.getItem("token");
     if (token) {
       setIsLoggedIn(true);
@@ -83,6 +84,7 @@ export default function Exchange() {
         if (res.ok) {
           const data = await res.json();
           setRate(data.rate || 102);
+          setCustomerServiceLink(data.customerServiceLink || 'https://vm.nebestbox.com/1jgm3swhyv8jv09qrr9q3o7lgp');
         } else {
           setRate(102);
         }
@@ -126,7 +128,7 @@ export default function Exchange() {
               </div>
             </div>
             <div className="right">
-              <a href="https://vm.nebestbox.com/1jgm3swhyv8jv09qrr9q3o7lgp">
+              <a href={customerServiceLink}>
                 <img src="/images/customer-care-icon.png" />
               </a>
             </div>
