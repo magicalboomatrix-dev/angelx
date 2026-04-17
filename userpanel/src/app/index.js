@@ -12,7 +12,7 @@ export default function Index() {
   const [loading, setLoading] = useState(true);
   const [mounted, setMounted] = useState(false);
   const [rate, setRate] = useState(0);
-  const [customerServiceLink, setCustomerServiceLink] = useState('https://vm.nebestbox.com/1jgm3swhyv8jv09qrr9q3o7lgp');
+  const [supportLink, setSupportLink] = useState('https://wa.me/+917056254884');
 
   useEffect(() => {
     setMounted(true);
@@ -28,7 +28,7 @@ export default function Index() {
         const res = await fetch('/api/limits');
         if (res.ok) {
           const data = await res.json();
-          setCustomerServiceLink(data.customerServiceLink || 'https://vm.nebestbox.com/1jgm3swhyv8jv09qrr9q3o7lgp');
+          setSupportLink(data.supportLink || 'https://wa.me/+917056254884');
         }
       } catch (err) {
         console.error('Failed to fetch settings:', err);
@@ -133,7 +133,7 @@ export default function Index() {
                 </div>
             </div>
             <div className="right">
-            <a href={customerServiceLink}>
+            <a href={supportLink}>
                 <Image
                 src="/images/customer-care-icon.png"
                 alt="customer"

@@ -10,7 +10,7 @@ export default function HomePage() {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const [today, setToday] = useState("");
-  const [customerServiceLink, setCustomerServiceLink] = useState('https://vm.nebestbox.com/1jgm3swhyv8jv09qrr9q3o7lgp');
+  const [supportLink, setSupportLink] = useState('https://wa.me/+917056254884');
 
   // Helper to mask mobile number
   function maskMobile(mobile) {
@@ -35,7 +35,7 @@ export default function HomePage() {
         const res = await fetch('/api/limits');
         if (res.ok) {
           const data = await res.json();
-          setCustomerServiceLink(data.customerServiceLink || 'https://vm.nebestbox.com/1jgm3swhyv8jv09qrr9q3o7lgp');
+          setSupportLink(data.supportLink || 'https://wa.me/+917056254884');
         }
       } catch (err) {
         console.error('Failed to fetch settings:', err);
@@ -97,7 +97,7 @@ export default function HomePage() {
             <div className="left"></div>
             <div className="right">
               { /* <img src="images/customer-care.png" /> */ }
-              <a href={customerServiceLink}>
+              <a href={supportLink}>
                 <Image
                 src="/images/customer-care-icon1.png"
                 alt="customer"

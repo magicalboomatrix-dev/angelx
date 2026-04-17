@@ -35,9 +35,7 @@ async function main() {
     { key: 'trc20_qr_url', value: '/images/trc20.png' },
     { key: 'bep20_wallet_address', value: '0xd7d565e4f58d832c07f0bf1d04290dff4104247a' },
     { key: 'bep20_qr_url', value: '/images/bep20.jpg' },
-    { key: 'telegram_link', value: 'https://t.me/angelxsuper' },
-    { key: 'whatsapp_link', value: 'https://wa.me/+917056254884' },
-    { key: 'customer_service_link', value: 'https://vm.nebestbox.com/1jgm3swhyv8jv09qrr9q3o7lgp' },
+    { key: 'support_link', value: 'https://wa.me/+917056254884' },
   ];
 
   for (const setting of defaultSettings) {

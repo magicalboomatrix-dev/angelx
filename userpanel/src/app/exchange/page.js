@@ -20,7 +20,7 @@ export default function Exchange() {
   const [timeLeft, setTimeLeft] = useState(52);
   const [rate, setRate] = useState(102);
   const [user, setUser] = useState(null);
-  const [customerServiceLink, setCustomerServiceLink] = useState('https://vm.nebestbox.com/1jgm3swhyv8jv09qrr9q3o7lgp');
+  const [supportLink, setSupportLink] = useState('https://wa.me/+917056254884');
 
   const [isOpen, setIsOpen] = useState(false);
 
@@ -84,7 +84,7 @@ export default function Exchange() {
         if (res.ok) {
           const data = await res.json();
           setRate(data.rate || 102);
-          setCustomerServiceLink(data.customerServiceLink || 'https://vm.nebestbox.com/1jgm3swhyv8jv09qrr9q3o7lgp');
+          setSupportLink(data.supportLink || 'https://wa.me/+917056254884');
         } else {
           setRate(102);
         }
@@ -128,7 +128,7 @@ export default function Exchange() {
               </div>
             </div>
             <div className="right">
-              <a href={customerServiceLink}>
+              <a href={supportLink}>
                 <img src="/images/customer-care-icon.png" />
               </a>
             </div>

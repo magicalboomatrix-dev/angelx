@@ -6,11 +6,7 @@ import Image from "next/image";
 
 export default function SettingPage() {
       const [isOpen, setIsOpen] = useState(false);
-      const [settings, setSettings] = useState({
-        telegramLink: 'https://t.me/angelxsuper',
-        whatsappLink: 'https://wa.me/+917056254884',
-        customerServiceLink: 'https://vm.nebestbox.com/1jgm3swhyv8jv09qrr9q3o7lgp'
-      });
+      const [supportLink, setSupportLink] = useState('https://wa.me/+917056254884');
 
       // Prevent body scroll when popup is open
   useEffect(() => {
@@ -23,11 +19,7 @@ export default function SettingPage() {
         const res = await fetch('/api/limits');
         if (res.ok) {
           const data = await res.json();
-          setSettings({
-            telegramLink: data.telegramLink || 'https://t.me/angelxsuper',
-            whatsappLink: data.whatsappLink || 'https://wa.me/+917056254884',
-            customerServiceLink: data.customerServiceLink || 'https://vm.nebestbox.com/1jgm3swhyv8jv09qrr9q3o7lgp'
-          });
+          setSupportLink(data.supportLink || 'https://wa.me/+917056254884');
         }
       } catch (err) {
         console.error('Failed to fetch settings:', err);
@@ -70,7 +62,7 @@ export default function SettingPage() {
             <section className="section-2 reffer">
               <div className="rw">
                 <div className="bx">
-                  <Link href={settings.customerServiceLink}>
+                  <Link href={supportLink}>
                     <div className="image">
                       <h3>
                         <img src="/images/s-icon1.jpg" /> Customer service
@@ -148,22 +140,13 @@ export default function SettingPage() {
         <h2>Business coorperation</h2>
         
         <div className="socialLinkso">
-            <Link href={settings.telegramLink} style={{
+            <Link href={supportLink} style={{
   display: 'flex',
   alignItems: 'center',
   fontSize: '15px',
   letterSpacing: '.2px'
 }}>
-              <img src="/images/telegram-ic.png" alt="telegram"  width="32" height="32" style={{marginRight: '12px'}} /> Telegram
-            </Link>
-
-            <Link href={settings.whatsappLink} style={{
-  display: 'flex',
-  alignItems: 'center',
-  fontSize: '15px',
-  letterSpacing: '.2px'
-}}>
-              <img src="/images/whatsapp-ic.png" alt="whatsapp" width="32" height="32"  style={{marginRight: '12px'}} /> WhatsApp
+              <img src="/images/whatsapp-ic.png" alt="support" width="32" height="32"  style={{marginRight: '12px'}} /> Customer Support
             </Link>
         </div>
 
