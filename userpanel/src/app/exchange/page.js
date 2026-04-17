@@ -168,7 +168,7 @@ export default function Exchange() {
 
               <div className="price-calc">
               <div className="reload-btn">
-                  <img src="/images/reaload-btn.png" alt="" />
+                  <button onClick={() => window.location.reload()}><img src="/images/reaload-btn.png" alt="" /></button>
               </div>
               
                 <div className="priceref">
@@ -234,7 +234,7 @@ export default function Exchange() {
                 <div className="login-bx">
                   <Link
                     href={isLoggedIn ? "/sell-usdt" : "/login"}
-                    className="login-btn"
+                    className="login-btn" style={{width:"100%"}}
                   >
                     {isLoggedIn ? "Sell USDT" : "Login for sell USDT"}
                   </Link>

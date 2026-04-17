@@ -374,7 +374,7 @@ export default function DepositAmount() {
                     src={
                       network === "TRC20"
                         ? "images/tb-ic1.png"
-                        : "images/tb-ic2.png"
+                        : "images/tb-ic2-01.png"
                     }
                     className="icon"
                   />

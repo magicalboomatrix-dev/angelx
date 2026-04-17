@@ -304,6 +304,7 @@ export default function LoginAccountPage() {
           padding: 5px 14px;
           font-size: 16px;
           color: #000;
+          font-weight: 500;
         }
         .otpInput {
           width: 100%;

@@ -629,6 +629,8 @@ section.section-4 .dflex-out .rw {
 
 .page-wrapperss.page-wrapper-loginacc section.section-1 p {
     color: #ababab;
+	margin-top: 6px;
+    margin-bottom: 40px;
 }
 
 .form-bx label.text {
@@ -1663,14 +1665,14 @@ section.section-4 table td:last-child {
     border: 0;
     background: #1d1c20;
     color: #fff;
-    padding: 11px 0px;
+    padding: 9px 0px;
     border-radius: 40px;
     width: 100%;
     margin-bottom: 6px;
     font-weight: 600;
     font-size: 14px;
-	text-decoration: none;
-	display: inline-block;
+    text-decoration: none;
+    display: inline-block;
 }
 
 .page-wrapper-ex .login-bx p.text {
@@ -1884,10 +1886,13 @@ section.section-4 .dflex-out .rw {
     font-weight: 500;
     font-size: 20px;
     color: #333;
-    padding-bottom: 10px;
+    padding-bottom: 0;
     line-height: normal;
+    margin: 0;
 }
-
+.page-wrapperss.page-wrapper-login button.btn {
+    margin-top: 60px;
+}
 .page-wrapperss.page-wrapper-loginacc section.section-1 p {
     color: #ababab;
 }
@@ -2307,6 +2312,7 @@ section.section-2.reffer .bx .arw img {
     justify-content: center;
     border-radius: 10px;
 	overflow: hidden;
+	gap: 4px;
 }
 
 .select-tbs .tb img.y-icon {
@@ -3033,7 +3039,7 @@ button.closeAppLink {
     background: transparent;
 }
 .page-wrapper-login h1.title {
-    font-size: 16px;
+    font-size: 20px;
     font-weight: 500;
     margin: 10px 0;
 }
@@ -3418,6 +3424,12 @@ section.section-3 .price-calc .reload-btn {
     position: absolute;
 	top: 10px;
     right: 13px;
+}
+
+section.section-3 .price-calc .reload-btn button {
+    border: 0;
+    background: transparent;
+    outline: none;
 }
 
 section.section-3 .price-calc .reload-btn img {

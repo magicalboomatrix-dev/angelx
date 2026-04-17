@@ -349,7 +349,7 @@ export default function AddBank() {
 				        className={`tab ${activeTab === "CMD" ? "active" : ""}`}
 				        onClick={() => setActiveTab("CMD")}
 				      >
-				        <img src="/images/grab-purse-icon1.png" alt="CMD" />
+				        <img src="/images/money-icon.png" alt="CMD" />
 				        <span>CMD</span>
 				
 				        <img
@@ -459,7 +459,7 @@ export default function AddBank() {
                 {/* EXTRA INFO */}
                 <div className="dflex avail">
                   <p className="title clrgren" style={{ fontSize: "14px"}}>
-                    Available {balance}{" "}
+                    Available: {balance}{""}.00
                     <img src="images/uic.png" className="icon" style={{ maxWidth: 13 }} />
                   </p>
                   <p style={{ fontSize: "14px" }}>1USDT=₹{rate}</p>

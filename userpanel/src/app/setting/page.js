@@ -49,7 +49,7 @@ export default function SettingPage() {
     <div>
       <main>
         <div className="page-wrappers page-wrapper-ex home-wrapperss setting-wrapper" style={{height: '92vh'}}>  
-          <header className="header setting-header">
+          <header className="header setting-header" style={{paddingTop: '10px'}}>
             <div className="left">
               <div className="d-flex">
               <div className="back-btn">
@@ -57,7 +57,10 @@ export default function SettingPage() {
     <img src="/images/back-btn.png" alt="back"/>
   </Link>
 </div>
-              <b>Setting</b></div>
+              <h3 className="header-title" style={{
+      color: '#333',
+    fontSize: '18px'
+              }}>Setting</h3></div>
               </div>
 
           </header>
@@ -146,9 +149,20 @@ export default function SettingPage() {
       <div className={`popup ${isOpen ? "show" : ""}`}>
         <div className="handle" />
         <h2>Business coorperation</h2>
-        
         <div className="socialLinkso">
-            <Link href={supportLink} style={{
+            <Link href="https://t.me/angelxsuper" style={{
+  display: 'flex',
+  alignItems: 'center',
+  fontSize: '15px',
+  letterSpacing: '.2px',
+  marginBottom: '15px'
+}}>
+              <img src="/images/telegram-ic.png" alt="support" width="32" height="32"  style={{marginRight: '12px'}} /> Telegram
+            </Link>
+        </div>
+            
+        <div className="socialLinkso">
+            <Link href="https://wa.me/+917056254884" style={{
   display: 'flex',
   alignItems: 'center',
   fontSize: '15px',
@@ -157,6 +171,8 @@ export default function SettingPage() {
               <img src="/images/whatsapp-ic.png" alt="support" width="32" height="32"  style={{marginRight: '12px'}} /> Customer Support
             </Link>
         </div>
+
+            
 
         <div className="close-btn" onClick={() => setIsOpen(false)}>
           <img src="/images/close-icon.png" />
