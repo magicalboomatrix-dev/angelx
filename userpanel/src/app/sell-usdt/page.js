@@ -349,7 +349,7 @@ export default function AddBank() {
 				        className={`tab ${activeTab === "CMD" ? "active" : ""}`}
 				        onClick={() => setActiveTab("CMD")}
 				      >
-				        <img src="/images/grab-purse-icon1.png" alt="CMD" />
+				        <img src="/images/money-icon.png" alt="CMD" />
 				        <span>CMD</span>
 				
 				        <img
