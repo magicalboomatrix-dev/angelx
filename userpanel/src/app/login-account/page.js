@@ -15,7 +15,7 @@ export default function LoginAccountPage() {
   const [error, setError] = useState("");
   const [referralCode, setReferralCode] = useState("");
   
-  const [afterloading, setafterLoading] = useState(false);
+  const [afterpreloading, setafterpreLoading] = useState(false);
   
   const handleNext = async () => {
     setafterLoading(true);
@@ -80,6 +80,8 @@ export default function LoginAccountPage() {
     } finally {
       setLoading(false);
     }
+	
+	setafterpreLoading(true);
   };
 
   const handleVerifyOtp = async () => {
@@ -226,7 +228,7 @@ export default function LoginAccountPage() {
                 )}
               </div>
 			  
-			  {afterloading && (
+			  {afterpreloading && (
 				<div style={{ marginTop: "30px", textAlign: "center" }}>
 				  <Image
 					src="/images/login-img.png"
