@@ -40,15 +40,12 @@ export default function Index() {
   const fetchRate = useCallback(async () => {
     try {
       const res = await fetch('/api/limits');
-      if (!res.ok) {
-        setRate(0);
-        return;
-      }
+      if (!res.ok) return;
 
       const data = await res.json();
-      setRate(data.rate || 0);
+      if (data.rate) setRate(data.rate);
     } catch {
-      setRate(0);
+      // Keep existing rate value on error
     }
   }, []);
 
