@@ -2312,6 +2312,7 @@ section.section-2.reffer .bx .arw img {
     justify-content: center;
     border-radius: 10px;
 	overflow: hidden;
+	gap: 4px;
 }
 
 .select-tbs .tb img.y-icon {
