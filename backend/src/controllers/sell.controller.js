@@ -14,14 +14,15 @@ exports.createSellRequest = async (req, res) => {
 
     const parsedAmount = parseFloat(amount);
 
-    // Check minimum sell
-    const minSellSetting = await prisma.systemSetting.findUnique({
-      where: { key: 'min_sell' },
+    // Check minimum sell based on payment method
+    const minSettingKey = normalizedPaymentMethod === 'CMD' ? 'min_cmd' : 'min_imps';
+    const minSetting = await prisma.systemSetting.findUnique({
+      where: { key: minSettingKey },
     });
-    const minSell = minSellSetting ? parseFloat(minSellSetting.value) : 10;
+    const minAmount = minSetting ? parseFloat(minSetting.value) : (normalizedPaymentMethod === 'CMD' ? 500 : 100);
 
-    if (parsedAmount < minSell) {
-      return res.status(400).json({ error: `Minimum sell amount is ${minSell} USDT` });
+    if (parsedAmount < minAmount) {
+      return res.status(400).json({ error: `Minimum ${normalizedPaymentMethod} amount is ${minAmount} USDT` });
     }
 
     // Check balance

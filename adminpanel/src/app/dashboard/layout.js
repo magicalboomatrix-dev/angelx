@@ -180,7 +180,7 @@ export default function DashboardLayout({ children }) {
                     key={item.href}
                     href={item.href}
                     onClick={() => setSidebarOpen(false)}
-                    className={`group flex items-center gap-3 rounded-md px-2 py-2 text-sm font-medium transition-all ${
+                    className={`group flex items-center gap-3 rounded-md px-2 py-2 text-sm font-medium transition-all cursor-pointer pointer-events-auto ${
                       isActive
                         ? "bg-white text-slate-950 shadow-[0_16px_30px_rgba(15,23,42,0.18)]"
                         : "text-slate-200 hover:bg-white/8 hover:text-white"

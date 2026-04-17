@@ -26,6 +26,8 @@ async function main() {
     { key: 'min_deposit', value: '100' },
     { key: 'min_withdrawal', value: '50' },
     { key: 'min_sell', value: '10' },
+    { key: 'min_cmd', value: '500' },
+    { key: 'min_imps', value: '100' },
     { key: 'usdt_rate', value: '102' },
     { key: 'cmd_rate', value: '102' },
     { key: 'imps_rate', value: '102' },

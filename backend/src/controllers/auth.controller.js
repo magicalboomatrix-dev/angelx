@@ -164,7 +164,7 @@ exports.verifyOtp = async (req, res) => {
       let user = await prisma.user.findUnique({ where: { phone } });
       if (!user) return res.status(400).json({ error: 'User not found' });
       user = await attachReferralIfEligible(user, referralCode);
-      const token = jwt.sign({ id: user.id, phone: user.phone, role: 'user' }, JWT_SECRET, { expiresIn: '30m' });
+      const token = jwt.sign({ id: user.id, phone: user.phone, role: 'user' }, JWT_SECRET, { expiresIn: '7d' });
       issueRefreshToken(res, { id: user.id, phone: user.phone, role: 'user' });
       return res.json({ token, redirectTo: '/home' });
     }
@@ -195,7 +195,7 @@ exports.verifyOtp = async (req, res) => {
 
     user = await attachReferralIfEligible(user, referralCode);
 
-    const token = jwt.sign({ id: user.id, phone: user.phone, role: 'user' }, JWT_SECRET, { expiresIn: '30m' });
+    const token = jwt.sign({ id: user.id, phone: user.phone, role: 'user' }, JWT_SECRET, { expiresIn: '7d' });
     issueRefreshToken(res, { id: user.id, phone: user.phone, role: 'user' });
     return res.json({ token, redirectTo: '/home' });
   } catch (err) {
@@ -327,7 +327,7 @@ exports.refreshAccessToken = async (req, res) => {
     const token = jwt.sign(
       { id: payload.id, phone: payload.phone, email: payload.email, role: payload.role },
       JWT_SECRET,
-      { expiresIn: '30m' }
+      { expiresIn: '7d' }
     );
 
     return res.json({ token });
@@ -373,7 +373,7 @@ exports.adminLogin = async (req, res) => {
     const token = jwt.sign(
       { id: admin.id, email: admin.email, role: 'admin' },
       JWT_SECRET,
-      { expiresIn: '30m' }
+      { expiresIn: '7d' }
     );
     issueRefreshToken(res, { id: admin.id, email: admin.email, role: 'admin' });
     return res.json({ token, admin: { id: admin.id, email: admin.email, name: admin.name } });

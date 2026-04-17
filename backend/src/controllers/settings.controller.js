@@ -4,7 +4,7 @@ exports.getLimits = async (req, res) => {
   try {
     const settings = await prisma.systemSetting.findMany({
       where: {
-        key: { in: ['usdt_rate', 'cmd_rate', 'imps_rate', 'min_deposit', 'min_withdrawal', 'min_sell'] },
+        key: { in: ['usdt_rate', 'cmd_rate', 'imps_rate', 'min_deposit', 'min_withdrawal', 'min_sell', 'min_cmd', 'min_imps'] },
       },
     });
 
@@ -18,6 +18,8 @@ exports.getLimits = async (req, res) => {
       depositMin: parseFloat(settingsMap.min_deposit || '100'),
       withdrawMin: parseFloat(settingsMap.min_withdrawal || '50'),
       sellMin: parseFloat(settingsMap.min_sell || '10'),
+      cmdMin: parseFloat(settingsMap.min_cmd || '500'),
+      impsMin: parseFloat(settingsMap.min_imps || '100'),
     });
   } catch (err) {
     console.error('Get limits error:', err);
