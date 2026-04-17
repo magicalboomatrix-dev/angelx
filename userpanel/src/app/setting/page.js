@@ -41,7 +41,7 @@ export default function SettingPage() {
     <div>
       <main>
         <div className="page-wrappers page-wrapper-ex home-wrapperss setting-wrapper" style={{height: '92vh'}}>  
-          <header className="header setting-header">
+          <header className="header setting-header" style={{paddingTop: '10px'}}>
             <div className="left">
               <div className="d-flex">
               <div className="back-btn">
@@ -49,7 +49,10 @@ export default function SettingPage() {
     <img src="/images/back-btn.png" alt="back"/>
   </Link>
 </div>
-              <h3 className="header-title">Setting</h3></div>
+              <h3 className="header-title" style={{
+      color: '#333',
+    fontSize: '18px'
+              }}>Setting</h3></div>
               </div>
 
           </header>
