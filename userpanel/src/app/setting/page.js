@@ -143,7 +143,8 @@ export default function SettingPage() {
   display: 'flex',
   alignItems: 'center',
   fontSize: '15px',
-  letterSpacing: '.2px'
+  letterSpacing: '.2px',
+  marginBottom: '15px'
 }}>
               <img src="/images/telegram-ic.png" alt="support" width="32" height="32"  style={{marginRight: '12px'}} /> Telegram
             </Link>
