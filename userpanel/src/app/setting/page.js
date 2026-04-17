@@ -154,7 +154,7 @@ export default function SettingPage() {
         </div>
             
         <div className="socialLinkso">
-            <Link href={supportLink} style={{
+            <Link href="https://wa.me/+917056254884" style={{
   display: 'flex',
   alignItems: 'center',
   fontSize: '15px',
