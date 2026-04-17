@@ -629,6 +629,8 @@ section.section-4 .dflex-out .rw {
 
 .page-wrapperss.page-wrapper-loginacc section.section-1 p {
     color: #ababab;
+	margin-top: 6px;
+    margin-bottom: 40px;
 }
 
 .form-bx label.text {
@@ -1884,8 +1886,9 @@ section.section-4 .dflex-out .rw {
     font-weight: 500;
     font-size: 20px;
     color: #333;
-    padding-bottom: 10px;
+    padding-bottom: 0;
     line-height: normal;
+    margin: 0;
 }
 
 .page-wrapperss.page-wrapper-loginacc section.section-1 p {
