@@ -246,14 +246,15 @@ exports.getUserById = async (req, res) => {
     const user = await prisma.user.findUnique({
       where: { id },
       include: {
-        deposits: { orderBy: { createdAt: 'desc' } },
-        sells: { orderBy: { createdAt: 'desc' } },
-        withdrawals: { orderBy: { createdAt: 'desc' } },
-        bankCards: { orderBy: { createdAt: 'desc' } },
-        cryptoWallets: { orderBy: { createdAt: 'desc' } },
-        walletHistories: { orderBy: { createdAt: 'desc' } },
+        deposits: { orderBy: { createdAt: 'desc' }, take: 50 },
+        sells: { orderBy: { createdAt: 'desc' }, take: 50 },
+        withdrawals: { orderBy: { createdAt: 'desc' }, take: 50 },
+        bankCards: { orderBy: { createdAt: 'desc' }, take: 10 },
+        cryptoWallets: { orderBy: { createdAt: 'desc' }, take: 10 },
+        walletHistories: { orderBy: { createdAt: 'desc' }, take: 50 },
         referralsGiven: {
           orderBy: { createdAt: 'desc' },
+          take: 50,
           include: {
             referredUser: { select: { phone: true } },
           },

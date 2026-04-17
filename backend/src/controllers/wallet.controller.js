@@ -39,6 +39,7 @@ exports.getCryptoWallets = async (req, res) => {
     const wallets = await prisma.cryptoWallet.findMany({
       where: { userId: req.user.id },
       orderBy: { createdAt: 'desc' },
+      take: 20,
     });
 
     return res.json({ wallets });

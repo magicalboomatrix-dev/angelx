@@ -5,6 +5,7 @@ exports.getBankCards = async (req, res) => {
     const banks = await prisma.bankCard.findMany({
       where: { userId: req.user.id },
       orderBy: { createdAt: 'desc' },
+      take: 20,
     });
 
     return res.json({ banks });

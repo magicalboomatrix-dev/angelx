@@ -4,6 +4,7 @@ const cors = require('cors');
 const helmet = require('helmet');
 const rateLimit = require('express-rate-limit');
 const path = require('path');
+const prisma = require('./config/database');
 
 const authRoutes = require('./routes/auth.routes');
 const { walletRouter, cryptoWalletsRouter } = require('./routes/wallet.routes');
@@ -17,6 +18,9 @@ const adminRoutes = require('./routes/admin.routes');
 
 const app = express();
 const PORT = process.env.PORT || 4000;
+
+// Trust proxy - required for express-rate-limit to work correctly behind reverse proxy
+app.set('trust proxy', 1);
 
 // Security middleware
 app.use(helmet({ contentSecurityPolicy: false }));
@@ -32,6 +36,7 @@ const limiter = rateLimit({
   standardHeaders: true,
   legacyHeaders: false,
   message: { error: 'Too many requests, please try again later.' },
+  validate: { xForwardedForHeader: false }, // Disable X-Forwarded-For validation
 });
 app.use(limiter);
 
@@ -40,6 +45,7 @@ const authLimiter = rateLimit({
   windowMs: 15 * 60 * 1000,
   max: 100,
   message: { error: 'Too many authentication attempts, please try again later.' },
+  validate: { xForwardedForHeader: false }, // Disable X-Forwarded-For validation
 });
 
 // Body parsing
@@ -63,8 +69,14 @@ app.use('/api', settingsRoutes);
 app.use('/api/admin', adminRoutes);
 
 // Health check
-app.get('/api/health', (req, res) => {
-  res.json({ status: 'ok', timestamp: new Date().toISOString() });
+app.get('/api/health', async (req, res) => {
+  try {
+    // Test database connection
+    await prisma.$queryRaw`SELECT 1`;
+    res.json({ status: 'ok', database: 'connected', timestamp: new Date().toISOString() });
+  } catch (error) {
+    res.status(503).json({ status: 'error', database: 'disconnected', timestamp: new Date().toISOString() });
+  }
 });
 
 // Global error handler
