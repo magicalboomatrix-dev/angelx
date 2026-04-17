@@ -5,9 +5,6 @@ import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 
 export default function LoginPage() {
-  
-  const [afterloading, setafterLoading] = useState(false);
-  
   const router = useRouter();
   const [loading, setLoading] = useState(true);
   const [referralCode, setReferralCode] = useState('');
@@ -43,16 +40,6 @@ export default function LoginPage() {
       </div>
     );
   }
-  
-  const handleNext = async () => {
-    setafterLoading(true);
-
-    // simulate API call
-    setTimeout(() => {
-      setafterLoading(false);
-    }, 2000);
-  };
-  
 
   return (
     <div>
@@ -77,27 +64,14 @@ export default function LoginPage() {
                 exchange, the more you earn!
               </p>
               <div className="login-bx">
-                <Link href={loginHref} className="login-btn" onClick={handleNext}>
+                <Link href={loginHref} className="login-btn">
                   Login
                 </Link>
                 <p className="text">
                   First time login will register new account for you
                 </p>
               </div>
-			  
-			  {afterloading && (
-				<div style={{ marginTop: "30px", textAlign: "center" }}>
-				  <Image
-					src="/images/login-img.png"
-					alt="Loading..."
-					width={50}
-					height={50}
-				  />
-				</div>
-			  )}
             </section>
-			
-			
           </div>
         </div>
       </main>
