@@ -168,7 +168,7 @@ export default function Exchange() {
 
               <div className="price-calc">
               <div className="reload-btn">
-                  <Link href="javascript:location.reload()"><img src="/images/reaload-btn.png" alt="" /></Link>
+                  <div onClick={() => router.refresh()}><img src="/images/reaload-btn.png" alt="" /></div>
               </div>
               
                 <div className="priceref">
