@@ -256,7 +256,7 @@ const reloadDataFun = async () => {
       <div className="priceref">
         <p>
           Automatic refresh after{" "}
-          <span className="ref">
+          <span className="ref" style={{color:"orange"}}>
             {timeLeft}s
           </span>
         </p>
