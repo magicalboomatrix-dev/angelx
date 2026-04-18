@@ -193,7 +193,7 @@ export default function Exchange() {
 
                 <div className="reff-price">
                   {refreshKey ? (
-					  <div className="preloader">
+					  <div className="preloader preloaderh">
 					  <Image 
 						src="/images/loading.webp"
 						alt="loader"
