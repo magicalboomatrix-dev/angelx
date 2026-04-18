@@ -3,6 +3,7 @@ import React, { useState, useEffect, useCallback } from "react";
 import dynamic from "next/dynamic";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 
 const Slider = dynamic(
   () => import("react-slick").then((mod) => mod.default),
