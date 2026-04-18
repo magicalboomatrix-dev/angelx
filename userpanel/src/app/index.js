@@ -387,32 +387,7 @@ const reloadDataFun = async () => {
             <h4>$0.0564500</h4>
           </td>
         </tr>
-        <tr>
-          <td>
-            <div className="dflex">
-              <div className="icon">
-                <Image                
-                src="/images/matic.png"
-                alt="Eos"
-                width={35}
-                height={35}
-                priority
-                /> 
-                
-              </div>
-              <div className="info">
-                <h3>Eos</h3>
-                <p>+2.14%</p>
-              </div>
-            </div>
-          </td>
-          <td>
-            <h4>$45,32,78.0</h4>
-          </td>
-          <td>
-            <h4>$0.0445532</h4>
-          </td>
-        </tr>
+        
         <tr>
           <td>
             <div className="dflex">
