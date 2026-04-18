@@ -261,9 +261,7 @@ const reloadDataFun = async () => {
           </span>
         </p>
       </div>
-      <div className="reff-price">
-       	
-		
+      <div className="reff-price">       		
 		{refreshKey ? (
 		  <div className="preloader">
 		  <Image 
@@ -1015,5 +1013,3 @@ const reloadDataFun = async () => {
 
 
 
-
-BELLARI SPONGE IRON PLANT
