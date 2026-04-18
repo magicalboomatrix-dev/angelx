@@ -3561,6 +3561,7 @@ button.tab.active img.y-icon {
     left: 0;
     right: 0;
     top: 66px;
+	height: auto;
 }
 
 
