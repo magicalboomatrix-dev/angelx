@@ -262,9 +262,9 @@ const reloadDataFun = async () => {
         </p>
       </div>
       <div className="reff-price">
-        
+       	
 		
-		{loading ? (
+		{refreshKey ? (
           <div className="preloader">Loading...</div>
         ) : (
           <div className="base-price">
