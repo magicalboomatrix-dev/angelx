@@ -265,15 +265,20 @@ const reloadDataFun = async () => {
        	
 		
 		{refreshKey ? (
-          <div className="preloader">Loading...</div>
-        ) : (
-          <div className="base-price">
-          <h4>
-            {rate ?? '-'} <span>Base</span>
-          </h4>
-        </div>
-        <p className="onepriceex">1 USDT = ₹{rate ?? '-'}</p>
-        )}
+		  <div className="preloader">Loading...</div>
+		) : (
+		  <>
+			<div className="base-price">
+			  <h4>
+				{rate ?? '-'} <span>Base</span>
+			  </h4>
+			</div>
+
+			<p className="onepriceex">
+			  1 USDT = ₹{rate ?? '-'}
+			</p>
+		  </>
+		)}
 			  
       </div>
     </div>
@@ -999,3 +1004,5 @@ const reloadDataFun = async () => {
 
   );
 }
+
+
