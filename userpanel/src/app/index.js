@@ -13,7 +13,8 @@ export default function Index() {
   const [mounted, setMounted] = useState(false);
   const [rate, setRate] = useState(null);
   const [supportLink, setSupportLink] = useState(null);
-
+const [refreshKey, setRefreshKey] = useState(0);
+	
   useEffect(() => {
     setMounted(true);
     const timer = setTimeout(() => {
@@ -238,6 +239,10 @@ export default function Index() {
       <h2>Platform price</h2>
     </div>
     <div className="price-calc">
+		  <div className="reload-btn">
+            <button onClick={() => setRefreshKey(prev => prev + 1)}><img src="/images/reaload-btn.png" alt="" /></button>
+              
+        </div>
       <div className="priceref">
         <p>
           Automatic refresh after{" "}
@@ -246,7 +251,7 @@ export default function Index() {
           </span>
         </p>
       </div>
-      <div className="reff-price">
+      <div className="reff-price" key={refreshKey}>
         <div className="base-price">
           <h4>
             {rate ?? '-'} <span>Base</span>
