@@ -251,7 +251,7 @@ const [refreshKey, setRefreshKey] = useState(0);
           </span>
         </p>
       </div>
-      <div className="reff-price" key={refreshKey}>
+      <div className="reff-price fade" key={refreshKey}>
         <div className="base-price">
           <h4>
             {rate ?? '-'} <span>Base</span>
