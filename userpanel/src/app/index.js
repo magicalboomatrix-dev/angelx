@@ -19,7 +19,7 @@ const [refreshKey, setRefreshKey] = useState(false);
 const [refreshdata, setrefreshData] = useState("Initial Data");	
 const reloadDataFun = async () => {
     setRefreshKey(true);
-    await new Promise(resolve => setTimeout(resolve, 2000));
+    await new Promise(resolve => setTimeout(resolve, 700));
     setrefreshData("Updated Data " + new Date().toLocaleTimeString());
     setRefreshKey(false);
 };
@@ -265,7 +265,15 @@ const reloadDataFun = async () => {
        	
 		
 		{refreshKey ? (
-		  <div className="preloader">Loading...</div>
+		  <div className="preloader">
+		  <Image 
+            src="/images/loading.webp"
+            alt="loader"
+            width={30}
+            height={30}
+            priority
+          />
+		  </div>
 		) : (
 		  <>
 			<div className="base-price">
@@ -1006,3 +1014,6 @@ const reloadDataFun = async () => {
 }
 
 
+
+
+BELLARI SPONGE IRON PLANT
