@@ -3552,6 +3552,16 @@ button.tab.active img.y-icon {
   from { opacity: 0; }
   to { opacity: 1; }
 }
+.preloader {}
+
+.preloader img {
+    max-width: 24px;
+    margin: auto;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 66px;
+}
 
 
 
