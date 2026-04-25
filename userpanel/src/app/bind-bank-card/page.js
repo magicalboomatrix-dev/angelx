@@ -109,15 +109,14 @@ const handleSubmit = async () => {
                 </div>
 
                 <div className="form-rw">
-                  <label className="text" htmlFor="ifsc">IFSC</label>
+                  <label className="text" htmlFor="ifsc">IFSC / SWIFT</label>
                   <div className="pos">
                     <input
                       type="text"
                       id="ifsc"
-                      placeholder="Please enter IFSC"
+                      placeholder="Enter IFSC (India) or SWIFT (International)"
                       value={ifsc}
                       onChange={(e) => setIfsc(e.target.value.toUpperCase())} // auto-uppercase
-                      maxLength={11} // standard IFSC length
                     />
                   </div>
                 </div>

@@ -20,12 +20,15 @@ exports.addBankCard = async (req, res) => {
     const { accountNo, ifsc, payeeName, bankName } = req.body;
 
     if (!accountNo || !ifsc || !payeeName) {
-      return res.status(400).json({ error: 'Account number, IFSC and payee name are required' });
+      return res.status(400).json({ error: 'Account number, IFSC/SWIFT and payee name are required' });
     }
 
-    // Validate IFSC format (basic check)
-    if (!/^[A-Z]{4}0[A-Z0-9]{6}$/.test(ifsc.toUpperCase())) {
-      return res.status(400).json({ error: 'Invalid IFSC code format' });
+    // Validate IFSC (11 chars: AAAA0XXXXXX) or SWIFT/BIC (8 or 11 chars: AAAABBCCXXX)
+    const code = ifsc.toUpperCase();
+    const isIFSC = /^[A-Z]{4}0[A-Z0-9]{6}$/.test(code);
+    const isSWIFT = /^[A-Z]{4}[A-Z]{2}[A-Z0-9]{2}([A-Z0-9]{3})?$/.test(code);
+    if (!isIFSC && !isSWIFT) {
+      return res.status(400).json({ error: 'Invalid IFSC or SWIFT code format' });
     }
 
     const bank = await prisma.bankCard.create({
