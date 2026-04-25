@@ -3,6 +3,7 @@ import React, { useState, useEffect, useCallback } from "react";
 import dynamic from "next/dynamic";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 
 const Slider = dynamic(
   () => import("react-slick").then((mod) => mod.default),
@@ -23,6 +24,15 @@ export default function Exchange() {
   const [supportLink, setSupportLink] = useState(null);
 
   const [isOpen, setIsOpen] = useState(false);
+
+  const [refreshKey, setRefreshKey] = useState(false);
+  const [refreshdata, setrefreshData] = useState("Initial Data");	
+  const reloadDataFun = async () => {
+      setRefreshKey(true);
+      await new Promise(resolve => setTimeout(resolve, 700));
+      setrefreshData("Updated Data " + new Date().toLocaleTimeString());
+      setRefreshKey(false);
+  };
 
   // Prevent body scroll when popup is open
   useEffect(() => {
@@ -170,7 +180,8 @@ export default function Exchange() {
 
               <div className="price-calc">
               <div className="reload-btn">
-                  <button onClick={fetchRate}><img src="/images/reaload-btn.png" alt="" /></button>
+            {/*<button onClick={fetchRate}><img src="/images/reaload-btn.png" alt="" /></button>*/}
+              <button onClick={reloadDataFun}><img src="/images/reaload-btn.png" alt="" /></button>
               </div>
               
                 <div className="priceref">
@@ -181,13 +192,29 @@ export default function Exchange() {
                 </div>
 
                 <div className="reff-price">
-                  <div className="base-price">
-                    <h4>
-                      {rate ?? '-'} <span>Base</span>
-                    </h4>
-                  </div>
+                  {refreshKey ? (
+					  <div className="preloader preloaderh">
+					  <Image 
+						src="/images/loading.webp"
+						alt="loader"
+						width={30}
+						height={30}
+						priority
+					  />
+					  </div>
+					) : (
+					  <>
+						<div className="base-price">
+						  <h4>
+							{rate ?? '-'} <span>Base</span>
+						  </h4>
+						</div>
 
-                  <p className="onepriceex">1 USDT = ₹{rate ?? '-'}</p>
+						<p className="onepriceex">
+						  1 USDT = ₹{rate ?? '-'}
+						</p>
+					  </>
+					)}
 
                   <div className="pricerefBx">
                     <table width="100%">

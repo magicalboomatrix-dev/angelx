@@ -2832,6 +2832,10 @@ section.section-3 .screenshot-wrapper img.screenshot-img {
     background-repeat: no-repeat;
     background-size: cover;
     background-color: #fff;
+	max-width: 95%;
+    margin-left: auto;
+    margin-right: auto;
+	min-height: 150px;
 }
 .screenshot-wrapper .price-calc .priceref {
     text-align: center;
@@ -2879,7 +2883,7 @@ section.section-3 .screenshot-wrapper img.screenshot-img {
 
 .screenshot-wrapper .overlay-box h2 {
     font-size: 20px;
-	padding: 0 13px;
+	padding: 0 10px;
 }
 
 section.hm-section-1 .image img {
@@ -3542,8 +3546,28 @@ button.tab.active img.y-icon {
     display: block;
 }
 
+.fade {
+  animation: fadeIn 0.3s ease;
+}
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+.preloader {}
 
+.preloader img {
+    max-width: 24px;
+    margin: auto;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 66px;
+	height: auto;
+}
 
+.preloader.preloaderh {
+    height: 90px;
+}
 
 
 

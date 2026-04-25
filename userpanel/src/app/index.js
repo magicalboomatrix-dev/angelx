@@ -14,6 +14,17 @@ export default function Index() {
   const [rate, setRate] = useState(null);
   const [supportLink, setSupportLink] = useState(null);
 
+	
+const [refreshKey, setRefreshKey] = useState(false);
+const [refreshdata, setrefreshData] = useState("Initial Data");	
+const reloadDataFun = async () => {
+    setRefreshKey(true);
+    await new Promise(resolve => setTimeout(resolve, 700));
+    setrefreshData("Updated Data " + new Date().toLocaleTimeString());
+    setRefreshKey(false);
+};
+	
+	
   useEffect(() => {
     setMounted(true);
     const timer = setTimeout(() => {
@@ -238,21 +249,43 @@ export default function Index() {
       <h2>Platform price</h2>
     </div>
     <div className="price-calc">
+		  <div className="reload-btn">
+            <button onClick={reloadDataFun}><img src="/images/reaload-btn.png" alt="" /></button>
+              
+        </div>
       <div className="priceref">
         <p>
           Automatic refresh after{" "}
-          <span className="ref">
+          <span className="ref" style={{color:"orange"}}>
             {timeLeft}s
           </span>
         </p>
       </div>
-      <div className="reff-price">
-        <div className="base-price">
-          <h4>
-            {rate ?? '-'} <span>Base</span>
-          </h4>
-        </div>
-        <p className="onepriceex">1 USDT = ₹{rate ?? '-'}</p>
+      <div className="reff-price">       		
+		{refreshKey ? (
+		  <div className="preloader">
+		  <Image 
+            src="/images/loading.webp"
+            alt="loader"
+            width={30}
+            height={30}
+            priority
+          />
+		  </div>
+		) : (
+		  <>
+			<div className="base-price">
+			  <h4>
+				{rate ?? '-'} <span>Base</span>
+			  </h4>
+			</div>
+
+			<p className="onepriceex">
+			  1 USDT = ₹{rate ?? '-'}
+			</p>
+		  </>
+		)}
+			  
       </div>
     </div>
   </div>
@@ -354,32 +387,7 @@ export default function Index() {
             <h4>$0.0564500</h4>
           </td>
         </tr>
-        <tr>
-          <td>
-            <div className="dflex">
-              <div className="icon">
-                <Image                
-                src="/images/matic.png"
-                alt="Eos"
-                width={35}
-                height={35}
-                priority
-                /> 
-                
-              </div>
-              <div className="info">
-                <h3>Eos</h3>
-                <p>+2.14%</p>
-              </div>
-            </div>
-          </td>
-          <td>
-            <h4>$45,32,78.0</h4>
-          </td>
-          <td>
-            <h4>$0.0445532</h4>
-          </td>
-        </tr>
+        
         <tr>
           <td>
             <div className="dflex">
@@ -977,3 +985,6 @@ export default function Index() {
 
   );
 }
+
+
+

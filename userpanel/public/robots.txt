@@ -13,6 +13,11 @@ Disallow: /sell-usdt
 Disallow: /bank
 Disallow: /bind-bank-card
 Disallow: /history
+Disallow: /exchange-list
+Disallow: /exchange-detail
+Disallow: /withdraw-history
+Disallow: /withdraw-detail
+Disallow: /reward-list
 Disallow: /statements
 Disallow: /invite
 

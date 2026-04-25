@@ -23,6 +23,10 @@ export default function AddBank() {
   const [balance, setBalance] = useState(0);
   const [rates, setRates] = useState({ defaultRate: null, cmdRate: null, impsRate: null });
   const [withdrawMin, setWithdrawMin] = useState(null);
+  const rate =
+  activeTab === "CMD"
+    ? (rates.cmdRate ?? rates.defaultRate ?? 0)
+    : (rates.impsRate ?? rates.defaultRate ?? 0);
 
   const selectedBank = banks.find((b) => b.id === selectedBankId);
 
