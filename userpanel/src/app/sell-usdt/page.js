@@ -317,7 +317,7 @@ export default function AddBank() {
                           justifyContent: "space-between",
                         }}
                       >
-                        <span>IFSC</span>
+                        <span>IFSC / SWIFT</span>
                         <span style={{ color: "black" }}>{selectedBank.ifsc}</span>
                       </div>
 

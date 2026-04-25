@@ -225,7 +225,7 @@ export default function BankPage() {
                       <p style={styles.paragraph}>
                         Account No: {bank.accountNo}
                       </p>
-                      <p style={styles.paragraph}>IFSC: {bank.ifsc}</p>
+                      <p style={styles.paragraph}>IFSC / SWIFT: {bank.ifsc}</p>
                       <p style={styles.paragraph}>
                         Payee Name: {bank.payeeName}
                       </p>

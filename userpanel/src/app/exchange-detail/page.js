@@ -228,7 +228,7 @@ function ExchangeDetailPage() {
         </div>
 
         <div className="row">
-            <div className="label">IFSC</div>
+            <div className="label">IFSC / SWIFT</div>
             <div className="value">{bank?.ifsc || "—"}</div>
         </div>
 
