@@ -57,9 +57,8 @@ const handleSubmit = async () => {
         router.push('/bank');
       }, 1500);
     } else {
-      // ❌ Failed: reset form so user can try again
-      setMessageType('error');
-      setMessage(data.message || 'Failed to add bank card.');
+      // ❌ Failed: log error to terminal, don't show to user
+      console.error('Bank card add failed:', data.error || data.message || 'Failed to add bank card.');
       setAccountNo('');
       setIfsc('');
       setPayeeName('');
